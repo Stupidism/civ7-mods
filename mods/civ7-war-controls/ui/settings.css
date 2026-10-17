@@ -1,0 +1,9 @@
+/* Restrict layout rules to our group inside the shared Additional Content tab. */
+.war-controls-matrix { width: auto; min-width: 0; margin-bottom: 0.75rem; }
+.war-controls-grid-row { display: flex; flex-direction: row; align-items: center; min-height: 3rem; padding: 0 0.5rem; }
+.war-controls-feature { width: auto; min-width: 0; flex: 1 1 0px; padding-right: 0.75rem; }
+.war-controls-cell { display: flex; align-items: center; justify-content: center; width: 10rem; flex: 0 0 10rem; }
+.war-controls-column-headings { color: #d8c49f; margin-bottom: 0.25rem; }
+.war-controls-not-applicable { opacity: 0.6; }
+.war-controls-matrix fxs-checkbox,
+#category-table-mods [optionID="war-controls-reset-page"] { pointer-events: auto; }

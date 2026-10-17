@@ -1,0 +1,14 @@
+<Database>
+ <Types>
+  <Row Type="BUILDING_FENHE_CAPITAL_MARKER" Kind="KIND_CONSTRUCTIBLE"/>
+  <Row Type="TRAIT_FENHE_INTERNAL" Kind="KIND_TRAIT"/>
+ </Types>
+ <Traits><Row TraitType="TRAIT_FENHE_INTERNAL" InternalOnly="true"/></Traits>
+ <Constructibles><Row ConstructibleType="BUILDING_FENHE_CAPITAL_MARKER" Name="分合迁都标记" ConstructibleClass="BUILDING" Cost="1" Population="0" RequiresUnlock="true" ExistingDistrictOnly="true" Repairable="false"/></Constructibles>
+ <Buildings><Row ConstructibleType="BUILDING_FENHE_CAPITAL_MARKER" Movable="false" Purchasable="false" Town="true" TraitType="TRAIT_FENHE_INTERNAL"/></Buildings>
+ <Constructible_ValidDistricts>
+  <Row ConstructibleType="BUILDING_FENHE_CAPITAL_MARKER" DistrictType="DISTRICT_CITY_CENTER"/>
+  <Row ConstructibleType="BUILDING_FENHE_CAPITAL_MARKER" DistrictType="DISTRICT_URBAN"/>
+ </Constructible_ValidDistricts>
+ <ConstructibleModifiers><Row ConstructibleType="BUILDING_FENHE_CAPITAL_MARKER" ModifierId="MOD_FENHE_SET_CAPITAL"/></ConstructibleModifiers>
+</Database>

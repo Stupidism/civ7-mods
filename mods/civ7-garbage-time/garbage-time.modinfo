@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="civ7-garbage-time" version="5" xmlns="ModInfo">
+  <Properties>
+    <Name>垃圾时间 · Garbage Time</Name>
+    <Description>主动开启的后期自动化：军队集结休眠、定居点人口与项目、宝藏船返航、传教、科技、市政和资源分配。选项 → 附加内容。</Description>
+    <Version>0.1.4</Version><Authors>Custom Mod</Authors>
+    <AffectsSavedGames>0</AffectsSavedGames><ShowInBrowser>1</ShowInBrowser><EnabledByDefault>1</EnabledByDefault>
+  </Properties>
+  <Dependencies><Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME"/></Dependencies>
+  <ActionCriteria><Criteria id="always"><AlwaysMet/></Criteria></ActionCriteria>
+  <ActionGroups>
+    <ActionGroup id="garbage-game" scope="game" criteria="always"><Properties><LoadOrder>1700</LoadOrder></Properties><Actions>
+      <UpdateText><Item>text/settings.xml</Item></UpdateText>
+      <UIScripts><Item>ui/settings-ui.js</Item><Item>ui/runtime.js</Item><Item>ui/city-panel.js</Item></UIScripts>
+      <ImportFiles><Item>ui/rules.js</Item><Item>ui/storage.js</Item><Item>ui/game-adapter.js</Item><Item>ui/automation.js</Item><Item>ui/resource-automation.js</Item><Item>ui/resource-bridge.js</Item><Item>ui/resource-model.js</Item><Item>ui/garbage-time.css</Item></ImportFiles>
+    </Actions></ActionGroup>
+    <ActionGroup id="garbage-shell" scope="shell" criteria="always"><Properties><LoadOrder>1700</LoadOrder></Properties><Actions>
+      <UpdateText><Item>text/settings.xml</Item></UpdateText>
+      <UIScripts><Item>ui/settings-ui.js</Item></UIScripts>
+      <ImportFiles><Item>ui/rules.js</Item><Item>ui/storage.js</Item></ImportFiles>
+    </Actions></ActionGroup>
+  </ActionGroups>
+</Mod>

@@ -1,0 +1,1 @@
+UPDATE Independents SET CityStateType='MILITARISTIC',TribeType='TRIBE_DEFAULT',BiomeType='BIOME_PLAINS' WHERE IndependentType='INDEPENDENT_FENHE_8';

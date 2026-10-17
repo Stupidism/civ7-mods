@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="civ7-resource-planner" version="1.0.0" xmlns="ModInfo">
+  <Properties>
+    <Name>资源规划 · Resource Planner</Name><Version>1.0.0</Version>
+    <Description>Resource Re-sorts 扩展：分组排序、定居点倾向、幸福度填充与资源分配。</Description>
+    <Authors>Resource Planner; Resource Re-sorts UI by beezany</Authors>
+    <AffectsSavedGames>0</AffectsSavedGames><EnabledByDefault>1</EnabledByDefault>
+  </Properties>
+  <Dependencies><Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME"/><Mod id="bz-re-sorts" title="LOC_MOD_BZ_RE_SORTS_NAME"/></Dependencies>
+  <ActionCriteria><Criteria id="always"><AlwaysMet/></Criteria></ActionCriteria>
+  <ActionGroups><ActionGroup id="resource-planner-ui" scope="game" criteria="always">
+    <Properties><LoadOrder>2000</LoadOrder></Properties>
+    <Actions><ImportFiles>
+      <Item>ui-next/screens/commerce/commerce-screen-resources-tab.js</Item>
+      <Item>ui/rp-planner.js</Item><Item>ui/rp-settings.js</Item><Item>ui/rp-game-adapter.js</Item>
+      <Item>ui/rp-controller.js</Item><Item>ui/rp-ui.js</Item><Item>ui/rp-style.css</Item>
+    </ImportFiles></Actions>
+  </ActionGroup></ActionGroups>
+</Mod>

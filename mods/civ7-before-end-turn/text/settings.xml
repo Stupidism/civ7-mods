@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_OPTIONS_GROUP_SAVE_BEFORE_ACTION"><Text>Save Before End Turn</Text></Row>
+    <Row Tag="LOC_SBE_TURN_ENABLED"><Text>Save before ending the turn</Text></Row>
+    <Row Tag="LOC_SBE_TURN_DESCRIPTION"><Text>Overwrite BeforeEndTurn before submitting your turn. Continue only after saving succeeds. Keeps one fixed local save.</Text></Row>
+    <Row Tag="LOC_SBE_DIPLOMACY_ENABLED"><Text>Save before diplomatic actions</Text></Row>
+    <Row Tag="LOC_SBE_DIPLOMACY_DESCRIPTION"><Text>Overwrite BeforeDiplomacy before declarations of war, alliances, diplomatic projects, responses or peace deals during your active single-player turn. Viewing information does not save. Independent of BeforeEndTurn.</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_SHORT"><Text>Saves</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_TOOLTIP"><Text>Automatic save settings — separate switches for end-turn and diplomatic actions</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_ERROR_TITLE"><Text>Could not save automatic-save settings</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_ERROR_BODY"><Text>The previously saved settings remain active. Check storage access and try again.</Text></Row>
+  </EnglishText>
+  <LocalizedText>
+    <Row Tag="LOC_OPTIONS_GROUP_SAVE_BEFORE_ACTION" Language="zh_Hans_CN"><Text>自动存档 · Save Before End Turn</Text></Row>
+    <Row Tag="LOC_SBE_TURN_ENABLED" Language="zh_Hans_CN"><Text>过回合前自动存档</Text></Row>
+    <Row Tag="LOC_SBE_TURN_DESCRIPTION" Language="zh_Hans_CN"><Text>过回合前覆盖 BeforeEndTurn，确认保存成功后再过回合。只保留一个固定的本地存档。</Text></Row>
+    <Row Tag="LOC_SBE_DIPLOMACY_ENABLED" Language="zh_Hans_CN"><Text>外交行动前自动存档</Text></Row>
+    <Row Tag="LOC_SBE_DIPLOMACY_DESCRIPTION" Language="zh_Hans_CN"><Text>在自己的单人活动回合内，宣战、结盟、发起外交项目、回复提议或提交和平协议前覆盖 BeforeDiplomacy。只查看信息不存档；与过回合前存档互不覆盖。</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_SHORT" Language="zh_Hans_CN"><Text>存档</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_TOOLTIP" Language="zh_Hans_CN"><Text>自动存档设置：分别开关过回合前存档和外交行动前存档</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_ERROR_TITLE" Language="zh_Hans_CN"><Text>自动存档设置保存失败</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_ERROR_BODY" Language="zh_Hans_CN"><Text>原有设置仍在生效，请检查存储权限后重试。</Text></Row>
+  </LocalizedText>
+</Database>

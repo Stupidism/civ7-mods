@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database><LocalizedText>
+  <Row Tag="LOC_OPTIONS_GROUP_GARBAGE_TIME" Language="zh_Hans_CN"><Text>垃圾时间 · 自动化开关</Text></Row>
+  <Row Tag="LOC_OPTIONS_GROUP_GARBAGE_RELIGION" Language="zh_Hans_CN"><Text>垃圾时间 · 传教范围</Text></Row>
+  <Row Tag="LOC_OPTIONS_GROUP_GARBAGE_WEIGHTS" Language="zh_Hans_CN"><Text>垃圾时间 · 定居点全局默认</Text></Row>
+  <Row Tag="LOC_OPTIONS_GROUP_GARBAGE_TIME" Language="en_US"><Text>Garbage Time · Automation</Text></Row>
+  <Row Tag="LOC_OPTIONS_GROUP_GARBAGE_RELIGION" Language="en_US"><Text>Garbage Time · Religion targets</Text></Row>
+  <Row Tag="LOC_OPTIONS_GROUP_GARBAGE_WEIGHTS" Language="en_US"><Text>Garbage Time · Settlement defaults</Text></Row>
+</LocalizedText></Database>

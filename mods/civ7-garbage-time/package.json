@@ -1,0 +1,1 @@
+{"name":"civ7-garbage-time","version":"0.1.4","private":true,"type":"module","scripts":{"test":"node --test tests/*.test.mjs"}}

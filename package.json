@@ -1,0 +1,8 @@
+{
+  "name": "civ7-mods",
+  "private": true,
+  "type": "module",
+  "repository": "https://github.com/Stupidism/civ7-mods.git",
+  "engines": { "node": ">=22" },
+  "scripts": { "test": "node scripts/test.mjs", "check": "node scripts/check.mjs" }
+}

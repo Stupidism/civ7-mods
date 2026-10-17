@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS"><Text>War Controls</Text></Row>
+    <Row Tag="LOC_WC_FEATURE_COLUMN"><Text>Feature</Text></Row>
+    <Row Tag="LOC_WC_COLUMN_MOUSE"><Text>Mouse / Keyboard</Text></Row>
+    <Row Tag="LOC_WC_COLUMN_GAMEPAD"><Text>Controller</Text></Row>
+    <Row Tag="LOC_WC_NOT_APPLICABLE"><Text>Not applicable</Text></Row>
+    <Row Tag="LOC_WC_CATEGORY"><Text>War Controls</Text></Row>
+    <Row Tag="LOC_WC_CATEGORY_DESCRIPTION"><Text>Separate mouse/keyboard and controller settings. All enabled by default. Confirm to apply and save.</Text></Row>
+    <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS_MOUSE"><Text>Mouse / Keyboard</Text></Row>
+    <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS_GAMEPAD"><Text>Controller</Text></Row>
+    <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS_DEFAULTS"><Text>Defaults for this page</Text></Row>
+    <Row Tag="LOC_WC_AUTOATTACK"><Text>Automatically enter attack mode</Text></Row>
+    <Row Tag="LOC_WC_AUTOATTACK_DESCRIPTION"><Text>Selecting a ranged unit with a valid visible target opens attack targeting. Native right-click or controller Cancel still cancels.</Text></Row>
+    <Row Tag="LOC_WC_AUTOJOIN"><Text>Automatically enter join mode</Text></Row>
+    <Row Tag="LOC_WC_AUTOJOIN_DESCRIPTION"><Text>Without a reachable enemy, automatically enter join mode when an eligible friendly commander is on the same or adjacent tile.</Text></Row>
+    <Row Tag="LOC_WC_RIGHTCLICKJOIN"><Text>Right-click to join a commander</Text></Row>
+    <Row Tag="LOC_WC_RIGHTCLICKJOIN_DESCRIPTION"><Text>In the default mode, right-clicking a friendly commander joins it, or blocks an invalid move/swap.</Text></Row>
+    <Row Tag="LOC_WC_AUTOEXIT"><Text>Automatically enter deployment mode</Text></Row>
+    <Row Tag="LOC_WC_AUTOEXIT_DESCRIPTION"><Text>Selecting an individual packed unit opens deployment targeting. Selecting the commander does not unpack the entire army.</Text></Row>
+    <Row Tag="LOC_WC_SINGLEREINFORCEMENT"><Text>Confirm the only reinforcement target</Text></Row>
+    <Row Tag="LOC_WC_SINGLEREINFORCEMENT_DESCRIPTION"><Text>After clicking Reinforce, send directly if exactly one eligible friendly commander exists. Multiple valid targets still require a choice.</Text></Row>
+    <Row Tag="LOC_WC_EMPTYMARKER"><Text>Pink marker for empty commanders</Text></Row>
+    <Row Tag="LOC_WC_EMPTYMARKER_DESCRIPTION"><Text>Show a faint pink tile under friendly commanders with no packed units. Updates when the active input device changes.</Text></Row>
+    <Row Tag="LOC_WC_DEFAULTS_LABEL"><Text>All 11 checkboxes</Text></Row>
+    <Row Tag="LOC_WC_DEFAULTS_DESCRIPTION"><Text>Enable all applicable War Controls options. Use the native Confirm button to save, or Cancel to discard.</Text></Row>
+    <Row Tag="LOC_WC_DEFAULTS_BUTTON"><Text>Reset War Controls</Text></Row>
+    <Row Tag="LOC_WC_SAVE_ERROR_TITLE"><Text>War Controls settings not saved</Text></Row>
+    <Row Tag="LOC_WC_SAVE_ERROR_BODY"><Text>Could not write local mod settings. Your changes have not been saved. Check the settings data and retry; other mods’ data has been preserved.</Text></Row>
+  </EnglishText>
+  <LocalizedText>
+    <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS" Language="zh_Hans_CN"><Text>战争操作</Text></Row>
+    <Row Tag="LOC_WC_FEATURE_COLUMN" Language="zh_Hans_CN"><Text>功能</Text></Row>
+    <Row Tag="LOC_WC_COLUMN_MOUSE" Language="zh_Hans_CN"><Text>鼠标／键盘</Text></Row>
+    <Row Tag="LOC_WC_COLUMN_GAMEPAD" Language="zh_Hans_CN"><Text>手柄</Text></Row>
+    <Row Tag="LOC_WC_NOT_APPLICABLE" Language="zh_Hans_CN"><Text>不适用</Text></Row>
+    <Row Tag="LOC_WC_CATEGORY" Language="zh_Hans_CN"><Text>战争操作</Text></Row>
+    <Row Tag="LOC_WC_CATEGORY_DESCRIPTION" Language="zh_Hans_CN"><Text>鼠标／键盘和手柄分别配置，默认全部开启。确认后生效并保存。</Text></Row>
+    <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS_MOUSE" Language="zh_Hans_CN"><Text>鼠标／键盘</Text></Row>
+    <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS_GAMEPAD" Language="zh_Hans_CN"><Text>手柄</Text></Row>
+    <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS_DEFAULTS" Language="zh_Hans_CN"><Text>本页默认设置</Text></Row>
+    <Row Tag="LOC_WC_AUTOATTACK" Language="zh_Hans_CN"><Text>自动进入攻击模式</Text></Row>
+    <Row Tag="LOC_WC_AUTOATTACK_DESCRIPTION" Language="zh_Hans_CN"><Text>选中单位时，有可攻击的可见敌人就自动进入攻击选格。右键或手柄 B 仍可取消。</Text></Row>
+    <Row Tag="LOC_WC_AUTOJOIN" Language="zh_Hans_CN"><Text>自动进入加入模式</Text></Row>
+    <Row Tag="LOC_WC_AUTOJOIN_DESCRIPTION" Language="zh_Hans_CN"><Text>没有可攻击敌人，且同格或相邻一格有可加入的己方指挥官时，直接进入加入模式。</Text></Row>
+    <Row Tag="LOC_WC_RIGHTCLICKJOIN" Language="zh_Hans_CN"><Text>右键加入指挥官</Text></Row>
+    <Row Tag="LOC_WC_RIGHTCLICKJOIN_DESCRIPTION" Language="zh_Hans_CN"><Text>默认操作状态下，右键友方指挥官格改为加入；无法加入时阻止移动或换位。</Text></Row>
+    <Row Tag="LOC_WC_AUTOEXIT" Language="zh_Hans_CN"><Text>自动进入退出模式</Text></Row>
+    <Row Tag="LOC_WC_AUTOEXIT_DESCRIPTION" Language="zh_Hans_CN"><Text>选中指挥官内已收纳的单个单位后，直接选择退出落点。选中指挥官本人不展开整军。</Text></Row>
+    <Row Tag="LOC_WC_SINGLEREINFORCEMENT" Language="zh_Hans_CN"><Text>自动确认唯一增援目标</Text></Row>
+    <Row Tag="LOC_WC_SINGLEREINFORCEMENT_DESCRIPTION" Language="zh_Hans_CN"><Text>主动点击增援后，仅有一位可接收增援的己方指挥官时直接派遣。多个合法目标仍需选择。</Text></Row>
+    <Row Tag="LOC_WC_EMPTYMARKER" Language="zh_Hans_CN"><Text>空指挥官粉色底座</Text></Row>
+    <Row Tag="LOC_WC_EMPTYMARKER_DESCRIPTION" Language="zh_Hans_CN"><Text>己方指挥官内没有实际收纳单位时，脚下显示淡粉色底座。切换输入设备时按对应组设置刷新。</Text></Row>
+    <Row Tag="LOC_WC_DEFAULTS_LABEL" Language="zh_Hans_CN"><Text>全部 11 项设置</Text></Row>
+    <Row Tag="LOC_WC_DEFAULTS_DESCRIPTION" Language="zh_Hans_CN"><Text>启用战争操作的所有适用设置。点击原生“确认变更”保存，取消则放弃。</Text></Row>
+    <Row Tag="LOC_WC_DEFAULTS_BUTTON" Language="zh_Hans_CN"><Text>恢复战争操作默认</Text></Row>
+    <Row Tag="LOC_WC_SAVE_ERROR_TITLE" Language="zh_Hans_CN"><Text>战争操作设置未保存</Text></Row>
+    <Row Tag="LOC_WC_SAVE_ERROR_BODY" Language="zh_Hans_CN"><Text>本地 Mod 设置数据无法写入，本次修改尚未保存。请检查本地设置后重试；其他 Mod 的存储数据已保留。</Text></Row>
+  </LocalizedText>
+</Database>

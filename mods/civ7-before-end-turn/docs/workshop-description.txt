@@ -1,0 +1,40 @@
+[h1]Save Before End Turn · 过回合前存档[/h1]
+每次结束回合前覆盖 BeforeEndTurn；外交行动前覆盖 BeforeDiplomacy。两个功能可以独立开关，每个功能只保留一个固定存档。
+
+你已经安排好生产、移动好单位，按下“下一回合”后，却遇到 AI 抢奇观、宣战等意外？载入 BeforeEndTurn，即可回到刚才过回合之前，保留这一回合已经完成的操作。
+
+[h2]功能[/h2]
+[list]
+[*]过回合前自动存档：每次覆盖 BeforeEndTurn。
+[*]外交行动前自动存档：宣战、结盟、外交项目、回应与和平交易前覆盖 BeforeDiplomacy；查看信息不会触发。
+[*]两个存档槽互不覆盖，不同单人对局共用这两个槽。
+[*]两个独立开关默认开启，位于“选项 → 附加内容 → 自动存档 · Save Before End Turn”；右上角“存档”可直达设置。
+[*]保存成功后才推进回合或执行外交行动，存档期间会短暂锁定操作。
+[*]存档失败或超时会留在当前回合，可重试。
+[*]支持标准下一回合按钮、快捷键、手柄下一操作和自动结束回合。
+[*]官方快速存档与自动存档继续按原设置工作。
+[/list]
+
+[h2]如何读档[/h2]
+打开“载入游戏 → 本地存档”，选择 BeforeEndTurn 回到过回合前，或选择 BeforeDiplomacy 回到外交行动前。官方快速载入快捷键仍载入官方快速存档。
+
+[h2]安装与兼容[/h2]
+订阅后重启游戏，在模组列表确认启用。可以用于已有单人对局。
+如果安装过手动版，请先退出游戏，把 Mods/civ7-before-end-turn 移到 Mods 目录之外，避免手动版和工坊版同时加载。
+仅限单人游戏；多人、热座和 Autoplay 不执行本模组的保存逻辑。
+外交存档仅在自己的活动回合执行，AI 回合中的外交回应沿用原游戏流程。
+与 Rest Guard 的标准加载顺序配合时，先休息，再保存，再结束回合。
+时代已经结束且游戏禁止普通存档时，保留最近的有效备份并继续时代转换。绕过标准结束回合入口的其他模组需要单独检查兼容性。
+
+[h2]版本与验证[/h2]
+v1.1.0 开发预览版说明草稿。面向 Windows / Steam Civilization VII 1.5.0.44；当前工坊发布版本仍为 v1.0.2。
+70 项自动化检查通过，覆盖独立开关、原生设置确认/取消、外交提交顺序以及本机实际和平交易和地图宣战处理函数。新版设置与外交存档尚待实机验收。
+保留 v1.0.2 的完成通知丢失恢复：等待 5 秒后尝试一次重新覆盖，收到新的开始及成功通知后才执行操作。上一版已实机验证连续覆盖、正常过回合和丢失通知后的恢复；首次通知为何偶尔缺失仍未确定。
+封面是原创功能说明图，不是实机截图。
+图库中的载入界面为真实游戏截图，展示已有的 BeforeEndTurn 本地存档。
+
+[h2]English[/h2]
+Overwrite BeforeEndTurn before ending your turn, and BeforeDiplomacy before diplomatic actions during your active turn. Each feature keeps one fixed local save, with independent default-on switches under Options → Add-ons. The HUD Saves shortcut opens these settings. Viewing diplomacy information does not save.
+The mod waits for successful saving before submitting the action. Find both slots in Load Game → Local. Single-player only; all campaigns share these slots. Normal autosaves and quicksaves retain their behavior. Version 1.1.0 is currently a development preview with 70 passing automated checks; new settings and diplomatic save/load behavior await in-game acceptance.
+
+[url=https://github.com/Stupidism/civ7-before-end-turn]GitHub source and releases[/url]

@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {verifyWorld} from '../tools/native-session.mjs';
+const plan={targetAge:'AGE_EXPLORATION',humanSlot:0,width:84,polities:[{id:'p0',slot:0,major:true,civilization:'MING',leader:'ISABELLA',gold:100},{id:'f1',slot:1,major:false,civilization:'INDEPENDENT',cityStateType:'SCIENTIFIC',gold:20}],settlements:[{plot:86,owner:0},{plot:87,owner:1}]};
+const world={age:'AGE_EXPLORATION',local:0,players:[{slot:0,major:true,human:true,civilization:'MING',leader:'ISABELLA',gold:100,cities:[{x:2,y:1,owner:0,capital:true}]},{slot:1,major:false,human:false,civilization:'INDEPENDENT',level:'CIVILIZATION_LEVEL_CITY_STATE',cityStateType:'SCIENTIFIC',gold:20,cities:[{x:3,y:1,owner:1,capital:true}]}]};
+test('原生世界需要完整城市、国家、控制权与国库',()=>assert.deepEqual(verifyWorld(plan,world),[]));
+test('城邦没有首都不能作为成功介入交付',()=>{const x=structuredClone(world);x.players[1].cities[0].capital=false;assert.match(verifyWorld(plan,x).join(','),/没有唯一首都/);});
+test('仅本地观察者切换不等于人类控制权切换',()=>{const x=structuredClone(world);x.players[0].human=false;assert.match(verifyWorld(plan,x).join(','),/人类玩家/);});
+test('少一座城市或错误城邦类型均拒绝',()=>{const x=structuredClone(world);x.players[1].cities=[];x.players[1].cityStateType='DIPLOMATIC';assert.match(verifyWorld(plan,x).join(','),/定居点数量/);assert.match(verifyWorld(plan,x).join(','),/类别/);});
+test('拒绝原生时代国库上限截断推演积蓄',()=>{const x=structuredClone(world);x.players[0].gold=60;assert.match(verifyWorld(plan,x).join(','),/国库/);});
