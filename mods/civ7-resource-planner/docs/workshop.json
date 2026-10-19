@@ -1,0 +1,89 @@
+{
+  "modId": "civ7-resource-planner",
+  "version": "1.0.0",
+  "publishedFileId": "3822254182",
+  "title": "资源规划 · Resource Planner",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182",
+  "visibility": "public",
+  "tags": [
+    "Mod",
+    "UI"
+  ],
+  "publishedOrUpdatedDate": "2026-10-18",
+  "publicApiMetadataVerified": true,
+  "publicPageVerified": false,
+  "downloadHashesVerified": true,
+  "uploadedFiles": [
+    {
+      "path": "NOTICE.md",
+      "sha256": "b24939908fea4901be6dd214d1572e066dbee029146b88beaa98fcfc2d71c6e5"
+    },
+    {
+      "path": "README.md",
+      "sha256": "9ab77f2cbe4efdfcee1e90a90081d29827a28dfc9996c905187293ace01de662"
+    },
+    {
+      "path": "VALIDATION.md",
+      "sha256": "639c3ced076ed5d6847cc20c5d211d050dd15e55b512e9e7f9c388c86f3f5921"
+    },
+    {
+      "path": "resource-planner.modinfo",
+      "sha256": "af6f39f63486c6c343b6e5937569b6880ef66ce06b8f26c5f3b5dd0fa5f42538"
+    },
+    {
+      "path": "ui/rp-controller.js",
+      "sha256": "87c25d029bf9f3ee494a5bb9d105247768b6d6fd2274eabc9da314beea60ff8e"
+    },
+    {
+      "path": "ui/rp-game-adapter.js",
+      "sha256": "1aa101be983025e0bfd3397c7693191b1f68b7f237a19594d83f18b0ef333d5a"
+    },
+    {
+      "path": "ui/rp-planner.js",
+      "sha256": "8c3e11b422804b913d77d3dd83daa6707b9a6c6b2291fe39e3b18cbf294881bc"
+    },
+    {
+      "path": "ui/rp-settings.js",
+      "sha256": "d71f527d34e439e3367a486223217fb7ba67946f6adf8c3cb966bc410b2f78b0"
+    },
+    {
+      "path": "ui/rp-style.css",
+      "sha256": "f65c5d8a6a033ed17652dfc40f1af583ce5932650f9550654456deaee2b3c32d"
+    },
+    {
+      "path": "ui/rp-ui.js",
+      "sha256": "6827537985ddd828b965ccf144eab4ec1e25ef4fe329c8d50be43f8d10eafcce"
+    },
+    {
+      "path": "ui-next/screens/commerce/commerce-screen-resources-tab.js",
+      "sha256": "4be6f8fdd3af5d077943c66e522ee7ecd35291b817345b8083f3f4f6bd7d1ce4"
+    }
+  ],
+  "preview": {
+    "path": "docs/workshop-preview.png",
+    "sha256": "a7e7b3f4d4124bdc34d5b38db8f3b2c4debe2e2a21e20eed5974e78b453f3c69"
+  },
+  "subscribedOnPublisherAccount": true,
+  "subscribedAndInstalledVerified": true,
+  "validation": {
+    "date": "2026-10-18",
+    "platform": "Apple Silicon macOS / Metal",
+    "gameVersion": "1.5.0 (1311346)",
+    "repositoryTestsPassed": 324,
+    "repositoryTestsSkipped": 0,
+    "nativeMainMenuObserved": true,
+    "nativeInGameAcceptanceComplete": false
+  },
+  "requiredWorkshopItems": [
+    {
+      "publishedFileId": "3507102808",
+      "title": "Resource Re-sorts",
+      "author": "beezany",
+      "dependencyVerified": true
+    }
+  ],
+  "gameInstallSourceVerified": "Steam Workshop",
+  "gameModEnabled": true,
+  "manualCopyBackedUp": true,
+  "dependencyEnabledOnMac": true
+}

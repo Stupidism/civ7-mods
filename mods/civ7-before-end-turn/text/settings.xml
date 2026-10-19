@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   <EnglishText>
-    <Row Tag="LOC_OPTIONS_GROUP_SAVE_BEFORE_ACTION"><Text>Save Before End Turn</Text></Row>
+    <Row Tag="LOC_OPTIONS_GROUP_SAVE_BEFORE_ACTION"><Text>Auto-save Before...</Text></Row>
     <Row Tag="LOC_SBE_TURN_ENABLED"><Text>Save before ending the turn</Text></Row>
     <Row Tag="LOC_SBE_TURN_DESCRIPTION"><Text>Overwrite BeforeEndTurn before submitting your turn. Continue only after saving succeeds. Keeps one fixed local save.</Text></Row>
     <Row Tag="LOC_SBE_DIPLOMACY_ENABLED"><Text>Save before diplomatic actions</Text></Row>
@@ -12,7 +12,7 @@
     <Row Tag="LOC_SBE_SETTINGS_ERROR_BODY"><Text>The previously saved settings remain active. Check storage access and try again.</Text></Row>
   </EnglishText>
   <LocalizedText>
-    <Row Tag="LOC_OPTIONS_GROUP_SAVE_BEFORE_ACTION" Language="zh_Hans_CN"><Text>自动存档 · Save Before End Turn</Text></Row>
+    <Row Tag="LOC_OPTIONS_GROUP_SAVE_BEFORE_ACTION" Language="zh_Hans_CN"><Text>自动存档 · Auto-save Before...</Text></Row>
     <Row Tag="LOC_SBE_TURN_ENABLED" Language="zh_Hans_CN"><Text>过回合前自动存档</Text></Row>
     <Row Tag="LOC_SBE_TURN_DESCRIPTION" Language="zh_Hans_CN"><Text>过回合前覆盖 BeforeEndTurn，确认保存成功后再过回合。只保留一个固定的本地存档。</Text></Row>
     <Row Tag="LOC_SBE_DIPLOMACY_ENABLED" Language="zh_Hans_CN"><Text>外交行动前自动存档</Text></Row>

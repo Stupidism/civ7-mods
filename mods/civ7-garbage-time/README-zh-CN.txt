@@ -57,3 +57,7 @@
 开发
 这是通过原生 UI、原版合法性检查和 sendRequest 调度的 UI Mod；不修改游戏核心文件或数据库规则。
 源码包包括 tests；安装 Node.js 后在项目目录运行 node --test tests/*.test.mjs。
+
+macOS 安装与验证
+Steam 工坊订阅会自动下载。手动安装目录为 ~/Library/Application Support/Civilization VII/Mods/；不要同时加载同 ID 的手动版和工坊版。
+2026-10-18：Apple Silicon Mac / Metal 通过仓库 324 项自动测试，游戏成功加载模组并进入主菜单。Mac 对局内操作尚未完整验证。

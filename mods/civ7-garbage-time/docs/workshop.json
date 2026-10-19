@@ -1,0 +1,100 @@
+{
+  "modId": "civ7-garbage-time",
+  "version": "0.1.4",
+  "publishedFileId": "3822254009",
+  "title": "垃圾时间 · Garbage Time",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3822254009",
+  "visibility": "public",
+  "tags": [
+    "Mod",
+    "UI"
+  ],
+  "publishedOrUpdatedDate": "2026-10-18",
+  "publicApiMetadataVerified": true,
+  "publicPageVerified": false,
+  "downloadHashesVerified": true,
+  "uploadedFiles": [
+    {
+      "path": "NOTICE.md",
+      "sha256": "b24939908fea4901be6dd214d1572e066dbee029146b88beaa98fcfc2d71c6e5"
+    },
+    {
+      "path": "README-zh-CN.txt",
+      "sha256": "0681b58a8b9cb85fcdb1ef2c7a53f22c1d70ecfb6805d4a7708d63b5f5680623"
+    },
+    {
+      "path": "VALIDATION-zh-CN.txt",
+      "sha256": "07e73fbc494399e17119ad1301c430931778233a9f742f15e2591cd2b7650173"
+    },
+    {
+      "path": "garbage-time.modinfo",
+      "sha256": "4b4794dce25aa3486e9a69cdef6341b541c3de887d1f9ab2cd3c8a80ff4b5df6"
+    },
+    {
+      "path": "text/settings.xml",
+      "sha256": "a204f7c1a0514064042304ceb65feb37aa7a10e08a0388a1ea495e5fa762d90a"
+    },
+    {
+      "path": "ui/automation.js",
+      "sha256": "4318ca2fe0a459a30f85d2f0564aad44640226d05f0df671d503fecd81c0f82a"
+    },
+    {
+      "path": "ui/city-panel.js",
+      "sha256": "2f3eba17204bd85d148313afdd00eae83bda21371ab7b07fba7e9ac26c108c15"
+    },
+    {
+      "path": "ui/game-adapter.js",
+      "sha256": "6a5022d3b89d71f3c211cc0fd48fd810d135a671009dbc88b5c8a2405acdd0e4"
+    },
+    {
+      "path": "ui/garbage-time.css",
+      "sha256": "a8537623aea7cb362b4e5774c5bef0fc1853a6a0360b7dd4630f45fbfea299cd"
+    },
+    {
+      "path": "ui/resource-automation.js",
+      "sha256": "09fd01159b865425bfdc1d58ca53c3d1176775c123dc991a476e4654c88627fb"
+    },
+    {
+      "path": "ui/resource-bridge.js",
+      "sha256": "736cc067ff6e2f044e0cff680291626896bd08597af85553ff9270176aaec5fa"
+    },
+    {
+      "path": "ui/resource-model.js",
+      "sha256": "09ea5c798ccc86700af084cad4e39211c2a2773233b65c65ba849990139a51f6"
+    },
+    {
+      "path": "ui/rules.js",
+      "sha256": "cd3811e81451ac3c50f0713e6f57bdb3197241562f29e9f1f747b58124d6e4f5"
+    },
+    {
+      "path": "ui/runtime.js",
+      "sha256": "868c659d0452e06d520aca8c0eb3d28a03be9a6cd1bcabf7ab63e392ccfb05a7"
+    },
+    {
+      "path": "ui/settings-ui.js",
+      "sha256": "f72f04c03b2a3c253af1b56a0c46f8f27c21f5049a7901735db01e235b7fbf01"
+    },
+    {
+      "path": "ui/storage.js",
+      "sha256": "064290339b7b702bd6319ae88c3bc0e63194ac7b65998ed77707445e8a5e537d"
+    }
+  ],
+  "preview": {
+    "path": "docs/workshop-preview.png",
+    "sha256": "6073a8541bb44b8e397272d7a981fbda0bba448836ec2488765e0e360d04f92e"
+  },
+  "subscribedOnPublisherAccount": true,
+  "subscribedAndInstalledVerified": true,
+  "validation": {
+    "date": "2026-10-18",
+    "platform": "Apple Silicon macOS / Metal",
+    "gameVersion": "1.5.0 (1311346)",
+    "repositoryTestsPassed": 324,
+    "repositoryTestsSkipped": 0,
+    "nativeMainMenuObserved": true,
+    "nativeInGameAcceptanceComplete": false
+  },
+  "gameInstallSourceVerified": "Steam Workshop",
+  "gameModEnabled": true,
+  "manualCopyBackedUp": true
+}

@@ -1,0 +1,88 @@
+{
+  "modId": "civ7-war-controls",
+  "version": "0.5.1",
+  "publishedFileId": "3822253543",
+  "title": "战争操作 · War Controls（实验版）",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3822253543",
+  "visibility": "public",
+  "tags": [
+    "Mod",
+    "UI"
+  ],
+  "publishedOrUpdatedDate": "2026-10-18",
+  "publicApiMetadataVerified": true,
+  "publicPageVerified": false,
+  "downloadHashesVerified": true,
+  "uploadedFiles": [
+    {
+      "path": "NOTICE.md",
+      "sha256": "b24939908fea4901be6dd214d1572e066dbee029146b88beaa98fcfc2d71c6e5"
+    },
+    {
+      "path": "README-zh-CN.txt",
+      "sha256": "5150a724da98c3fb6c0e0a91fe5fd2cd60a3c1eacf7dd8c2db36436ae38b55cb"
+    },
+    {
+      "path": "VALIDATION-zh-CN.txt",
+      "sha256": "b9ae744d44473a231ed3bc6a2819467c26bc2895fe762cf5a78c8109f200f44b"
+    },
+    {
+      "path": "text/settings.xml",
+      "sha256": "7b563ccb01f8c96bc25bf23bb61ee4851f2a0708e9d3556fa948b78becce3e76"
+    },
+    {
+      "path": "ui/command-hooks.js",
+      "sha256": "296efc2c6d5ae1457a0498a0e8477abd8c8fc6bd659810bf863922d30a62968b"
+    },
+    {
+      "path": "ui/native-options.js",
+      "sha256": "b7611b1d39787fc1d3c423d2ee4586af4dea54d3ae629d904e609aaf31f70039"
+    },
+    {
+      "path": "ui/selection-assist.js",
+      "sha256": "a9c5c72641526cd89bdc66ee0899b3a53db566bccc1b354fd4b40cc751151b62"
+    },
+    {
+      "path": "ui/settings-layout.js",
+      "sha256": "a9b996e98331f8783c1e4166eb9bc6b6e31646c0f1ce958bc58c85c339a17866"
+    },
+    {
+      "path": "ui/settings-store.js",
+      "sha256": "a972f45e82603c5c922c9dfab291e4de0ece781e1315a33073b27d257ac7bb34"
+    },
+    {
+      "path": "ui/settings-ui.js",
+      "sha256": "8b50ce4758c3fe42480d27fdcffcbdb5c274909583e8f800e55185c719a68885"
+    },
+    {
+      "path": "ui/settings.css",
+      "sha256": "68925b4f7bc1b1013ea6b4c5e1578c7a3af70fbdd20d0fc883db1cf60ff463f3"
+    },
+    {
+      "path": "ui/war-controls.js",
+      "sha256": "b74d512b3cba304c6732bbd52be50814b407bedfa6e3ed4a56bbdb5e18c250e1"
+    },
+    {
+      "path": "war-controls.modinfo",
+      "sha256": "09c24d25816f2b788c183aea1519126813e909de4027c1fcd1d9d21a94fd4929"
+    }
+  ],
+  "preview": {
+    "path": "docs/workshop-preview.png",
+    "sha256": "3f35ef45fb70d47102e9332e7d8b9ebaecdf20756b297601dcaf3af75f6e6e3a"
+  },
+  "subscribedOnPublisherAccount": true,
+  "subscribedAndInstalledVerified": true,
+  "validation": {
+    "date": "2026-10-18",
+    "platform": "Apple Silicon macOS / Metal",
+    "gameVersion": "1.5.0 (1311346)",
+    "repositoryTestsPassed": 324,
+    "repositoryTestsSkipped": 0,
+    "nativeMainMenuObserved": true,
+    "nativeInGameAcceptanceComplete": false
+  },
+  "gameInstallSourceVerified": "Steam Workshop",
+  "gameModEnabled": true,
+  "manualCopyBackedUp": true
+}

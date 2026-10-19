@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Mod id="civ7-before-end-turn" version="4" xmlns="ModInfo">
   <Properties>
-    <Name>Save Before End Turn</Name>
+    <Name>Auto-save Before...</Name>
     <Description>过回合前保存 BeforeEndTurn，外交行动前保存 BeforeDiplomacy，各保留一个固定槽。两个功能可在选项→附加内容中独立开关，右上角“存档”直达设置。仅单人游戏。</Description>
     <Authors>Stupidism</Authors>
     <Version>1.1.0</Version>

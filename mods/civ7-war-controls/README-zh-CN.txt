@@ -41,3 +41,7 @@ settings-store.js 负责两组设置与共享存储隔离；native-options.js �
 基于 Windows Steam《文明 VII》1.5.0 (1311346) / DX12 开发。实际验证范围见随附记录。
 使用原生界面模块。其他同样改写单位选择、右键或单位动作的 Mod，仍可能影响兼容性；不修改原版文件。
 
+
+macOS 安装与验证
+Steam 工坊订阅会自动下载。手动安装目录为 ~/Library/Application Support/Civilization VII/Mods/；不要同时加载同 ID 的手动版和工坊版。
+2026-10-18：Apple Silicon Mac / Metal 通过仓库 324 项自动测试，游戏成功加载模组并进入主菜单。Mac 对局内操作尚未完整验证。

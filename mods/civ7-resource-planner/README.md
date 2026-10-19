@@ -27,7 +27,7 @@
 
 ## 安装和兼容
 
-当前电脑已经安装此版本。依赖原版 `base-standard` 和 `bz-re-sorts`；请保持 **Resource Re-sorts** 启用。
+依赖原版 `base-standard` 和 `bz-re-sorts`；请保持 **Resource Re-sorts** 启用。
 
 手动安装时先退出游戏，将整个 `civ7-resource-planner` 文件夹复制到：
 
@@ -47,4 +47,10 @@
 
 https://steamcommunity.com/sharedfiles/filedetails/?id=3507102808
 
-保留原 Mod 的数据模型、资源交互和原生 Solid UI。本扩展仅派生资源页并新增 `ui/rp-*` 模块。原作者代码及游戏代码的权利仍归其各自权利人；源码现归并于 Stupidism/civ7-mods，未上传工坊。Resource Re-sorts 仍需单独安装，本仓库未为第三方代码另行授予许可证。
+保留原 Mod 的数据模型、资源交互和原生 Solid UI。本扩展仅派生资源页并新增 `ui/rp-*` 模块。原作者代码及游戏代码的权利仍归其各自权利人；源码现归并于 Stupidism/civ7-mods。Resource Re-sorts 仍需单独安装，本仓库未为第三方代码另行授予许可证。
+
+## macOS
+
+Steam 工坊订阅会自动下载。手动安装目录：`~/Library/Application Support/Civilization VII/Mods/`。不要同时加载相同 Mod ID 的手动版和工坊版。
+
+2026-10-18：Apple Silicon Mac / Metal 通过仓库 324 项自动测试，游戏成功加载模组并进入主菜单。Mac 对局内功能尚未完整验证。Resource Re-sorts 仍需单独启用。

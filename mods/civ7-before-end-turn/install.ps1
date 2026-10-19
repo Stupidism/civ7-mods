@@ -18,4 +18,4 @@ foreach ($name in $files) {
   Copy-Item -LiteralPath (Join-Path $PSScriptRoot $name) -Destination $destination -Force
   if ((Get-FileHash -LiteralPath (Join-Path $PSScriptRoot $name)).Hash -ne (Get-FileHash -LiteralPath $destination).Hash) { throw ('Hash mismatch: ' + $name) }
 }
-Write-Output ('Installed and verified Save Before End Turn 1.1.0: ' + $target)
+Write-Output ('Installed and verified Auto-save Before... 1.1.0: ' + $target)

@@ -1,0 +1,24 @@
+[h1]战争操作 · War Controls[/h1]
+减少远程单位与指挥官的重复操作。界面辅助仍遵守原版移动、攻击、加入、退出及增援规则，不增加移动力或攻击次数。
+[h2]六项功能[/h2]
+[list]
+[*]远程单位存在合法的可见攻击目标时，选中后自动进入攻击选格。
+[*]无攻击目标、附近有可加入的己方指挥官时，自动进入加入选格。
+[*]默认操作状态下，右键指挥官优先加入；暂不能加入时阻止误移动或换位。
+[*]选中指挥官内的单个单位，存在合法位置时自动进入退出选格。
+[*]主动点击增援且只有一个合法指挥官时，直接派遣。
+[*]空指挥官脚下显示淡粉色底座，提示“空军队”。
+[/list]
+[h2]设置与取消[/h2]
+选项 → 附加内容 → 战争操作。鼠标／键盘与手柄独立配置，适用开关默认开启。右键加入仅适用于鼠标。点击“确认变更”保存；可逐项关闭。原版右键、Esc、手柄 B 仍可取消选格。
+[h2]版本[/h2]
+0.5.1 实验版。修复手柄加入／退出模式下焦点被单位面板抢走造成的误移动或确认无效。其他改写单位选择、右键或单位动作的模组可能冲突。
+[h2]English[/h2]
+Selection helpers for ranged attacks, commander joining and deployment; right-click join; direct reinforcement when only one commander is eligible; a pink marker for empty armies. Separate mouse/keyboard and controller settings under Options → Add-ons. All actions remain subject to the game's rules. Experimental release.
+
+[h2]安装与兼容[/h2]
+订阅后等待 Steam 下载，重启游戏，在“附加内容”确认启用。可用于已有存档。手动安装过同一模组时，请退出游戏并把手动版移到 Mods 目录之外，避免重复加载。
+基于 Civilization VII 1.5.0 (1311346) 开发。Windows DX12 的详细实机验证记录见源码。2026-10-18 在 Apple Silicon Mac / Metal 上通过仓库 324 项自动测试，并观察到游戏成功加载模组进入主菜单；Mac 对局内功能尚未完整验证。
+封面为原创图标示意，不是游戏截图。
+
+[url=https://github.com/Stupidism/civ7-mods/tree/main/mods/civ7-war-controls]源码与完整说明 / Source and documentation[/url]

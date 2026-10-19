@@ -1,12 +1,18 @@
 # Changelog
 
-## 1.1.0 — 2026-10-15 (development preview)
+## 1.1.0 — 2026-10-18 (public preview)
+
+- Rename the current display title and options group to **Auto-save Before...** to cover both end-turn and diplomatic-action snapshots.
+- Publish the existing 1.1.0 implementation to Workshop item 3815596737, including diplomatic-action saves, independent settings and the HUD shortcut. Keep the mod ID and save-slot names.
+- Update the public description and cover to explain both features. Verify all 8 downloaded runtime files against the upload manifest. 70 automated tests pass without skips; new diplomacy save/load and settings behavior still await full in-game acceptance.
+
+### Development notes — 2026-10-15
 
 - Add a separate `BeforeDiplomacy` overwrite slot before local-turn diplomatic actions: war declarations, alliances, projects/responses and peace-deal submissions. Viewing information does not save.
 - Add independent, default-on end-turn and diplomacy switches in native Options → Add-ons, with Confirm/Cancel and a HUD shortcut. Settings follow the Rest Guard integration and preserve other mods' shared storage.
 - Hold multi-command responses, deal-session cleanup and post-declaration movement until saving succeeds. Preserve explicit retry and cancel on failure, and pass through normally when the game disallows saving.
 - Add a Windows installer that refuses a running game, backs up the previous mod and verifies installed file hashes.
-- 70 automated tests pass, including four toggle combinations and the actual shipped peace-deal/map-war handlers with substituted native APIs. New settings and diplomatic save/load behavior still await in-game acceptance; 1.0.2 remains the currently published version.
+- 70 automated tests pass, including four toggle combinations and the actual shipped peace-deal/map-war handlers with substituted native APIs. New settings and diplomatic save/load behavior still await in-game acceptance; 1.0.2 was the published version at the time of these development notes.
 
 ## 1.0.2 — 2026-10-08
 

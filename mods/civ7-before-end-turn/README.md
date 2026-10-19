@@ -1,10 +1,10 @@
-# Save Before End Turn（过回合前存档）
+# Auto-save Before...（行动前自动存档）
 
-版本：1.1.0（开发预览版，待实机验收）。面向 Windows《文明 VII》单人游戏。
+版本：1.1.0（2026-10-18 工坊公开预览版，新设置与外交存档仍待完整实机验收）。用于 Steam《文明 VII》单人游戏。
 
-[Steam 创意工坊订阅](https://steamcommunity.com/sharedfiles/filedetails/?id=3815596737) · [GitHub 源码](https://github.com/Stupidism/civ7-before-end-turn) · [版本下载](https://github.com/Stupidism/civ7-before-end-turn/releases)
+[Steam 创意工坊订阅](https://steamcommunity.com/sharedfiles/filedetails/?id=3815596737) · [GitHub 源码](https://github.com/Stupidism/civ7-before-end-turn) · [历史版本下载](https://github.com/Stupidism/civ7-before-end-turn/releases)
 
-![功能说明封面，非实机截图](docs/workshop-preview.png)
+![功能说明封面，非实机截图](docs/workshop-preview-autosave-1.1.0.png)
 
 点击“下一回合”时，先把**当前回合已经完成的操作**保存到固定的 `BeforeEndTurn` 存档，再推进回合。如果 AI 在过回合时抢了奇观、宣战，载入这个存档就能回到刚才按下“下一回合”之前。
 
@@ -12,7 +12,7 @@
 
 ## 两个独立开关
 
-打开 **选项 → 附加内容 → 自动存档 · Save Before End Turn**，或点击游戏右上角的 **存档** 直达本组设置。
+打开 **选项 → 附加内容 → 自动存档 · Auto-save Before...**，或点击游戏右上角的 **存档** 直达本组设置。
 
 | 设置 | 固定本地存档 | 默认值 |
 | --- | --- | --- |
@@ -24,7 +24,7 @@
 ## 使用
 
 1. 完全退出游戏后重新启动。
-2. 在主菜单的模组管理中确认 **Save Before End Turn** 已启用。
+2. 在主菜单的模组管理中确认 **Auto-save Before...** 已启用。
 3. 载入已有单人存档，正常操作并点击“下一回合”。存档过程中会短暂显示“正在保存过回合前的进度…”。
 4. 需要反悔时，打开 **载入游戏 → 本地存档**，选择 **BeforeEndTurn**。这是普通本地存档列表中的固定条目。
 
@@ -78,11 +78,12 @@
 - 外交功能接入当前游戏的原生外交操作与交易提交入口；游戏更新或其他模组替换这些入口后需要重新检查。
 - 游戏更新后，如果过回合入口或原生存档接口变化，需要重新适配。
 
-## 验证情况（2026-10-15）
+## 验证情况（2026-10-18 发布复查）
 
 开发依据是本机正式游戏文件：**1.5.0.44 / 1311346**，Steam build **25516395**。
 
-- JavaScript 语法、modinfo XML 和引用文件检查通过。
+- JavaScript 语法、modinfo XML 和引用文件检查通过。工坊 1.1.0 下载包的 8 个运行文件已逐一核对 SHA-256。
+- Apple Silicon Mac / Metal 主菜单已成功加载；当前版本的外交存档与设置在对局内仍待完整验收。
 - **70 项自动化测试通过，0 项跳过**，包括当前本机 Rest Guard 控制器的集成检查。
 - 新增检查覆盖两开关的四种组合、原生选项确认/取消、持久化失败、保留其他 Mod 设置、外交动作批量提交、重试/取消、交易会话保留以及宣战后移动的顺序。
 - 外交集成检查读取本机实际的和平交易处理函数与地图宣战确认函数，使用模拟原生接口执行。已在运行中的游戏核实外交接口可被扩展；**新版设置与外交存档尚未完成实机验收**。
