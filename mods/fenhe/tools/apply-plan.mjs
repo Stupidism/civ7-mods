@@ -4,17 +4,21 @@ import {fileURLToPath} from 'node:url';
 import {spawnSync} from 'node:child_process';
 import {evaluate,waitFor,sleep} from './cdp.mjs';
 import {enterWorld,reloadWorld,verifyWorld} from './native-session.mjs';
+import {resolveRuntimeConfig} from './platform.mjs';
 
 const args=Object.fromEntries(process.argv.slice(2).reduce((a,v,i,all)=>i%2?a:[...a,[v.replace(/^--/,''),all[i+1]]],[]));
 if(!args.plan||!args.default||!args.transition)throw Error('需要 --plan、--default 和 --transition 文件路径');
 const root=path.resolve(fileURLToPath(new URL('../',import.meta.url)));
 const plan=JSON.parse(await fs.readFile(args.plan,'utf8'));
-const installed=path.join(process.env.LOCALAPPDATA,'Firaxis Games',"Sid Meier's Civilization VII",'Mods','civ7-fenhe');
+const runtime=resolveRuntimeConfig();
+const installed=path.join(runtime.mods,'civ7-fenhe');
 const out=path.join(root,'results','interventions',new Date().toISOString().replace(/[:.]/g,'-'));
 await fs.mkdir(out,{recursive:true});
 await fs.copyFile(args.plan,path.join(out,'plan.json'));
 const destination=path.join(out,'Fenhe_Intervention.Civ7Map');
-const result=spawnSync(args.python??'python',[path.join(root,'tools','build-world.py'),'--default',path.resolve(args.default),'--transition',path.resolve(args.transition),'--plan',path.resolve(args.plan),'--out',destination],{encoding:'utf8'});
+const python=args.python??runtime.python;
+const result=spawnSync(python,[path.join(root,'tools','build-world.py'),'--default',path.resolve(args.default),'--transition',path.resolve(args.transition),'--plan',path.resolve(args.plan),'--out',destination],{encoding:'utf8'});
+if(result.error)throw Error('无法启动 Python（'+python+'）：'+result.error.message);
 if(result.status!==0)throw Error(result.stderr||result.stdout);
 console.log('数据库检查',result.stdout.trim());
 await fs.writeFile(path.join(out,'database-check.json'),result.stdout);
@@ -29,8 +33,7 @@ try {
  if(state.ready){
   await evaluate(`Network.saveGame({Location:SaveLocations.LOCAL_STORAGE,LocationCategories:SaveLocationCategories.NORMAL,Type:SaveTypes.SINGLE_PLAYER,ContentType:SaveFileTypes.GAME_STATE,FileName:${JSON.stringify(stamp)},Overwrite:false})`);
   await sleep(2000);
-  const saves=process.env.FENHE_SAVES??path.join(process.env.USERPROFILE,'Documents','My Games',"Sid Meier's Civilization VII",'Saves');
-  const saved=await fs.stat(path.join(saves,'Single',stamp+'.Civ7Save'));
+  const saved=await fs.stat(path.join(runtime.saves,'Single',stamp+'.Civ7Save'));
   if(saved.size<10000)throw Error('接入前备份未完成');
   backupSaved=true;
   await evaluate('engine.call("exitToMainMenu")');

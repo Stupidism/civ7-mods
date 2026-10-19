@@ -4,9 +4,10 @@ import {fileURLToPath} from 'node:url';
 import {spawn} from 'node:child_process';
 import {evaluate,sleep,waitFor} from './cdp.mjs';
 import {makePlan} from './plan.mjs';
+import {resolveRuntimeConfig} from './platform.mjs';
 
 const root=path.resolve(fileURLToPath(new URL('../',import.meta.url)));
-const saves=process.env.FENHE_SAVES??path.join(process.env.USERPROFILE,'Documents','My Games',"Sid Meier's Civilization VII",'Saves');
+const {saves}=resolveRuntimeConfig();
 const exportDir=path.join(saves,'WorldBuilder');
 const outgoingCivs={AGE_EXPLORATION:['CIVILIZATION_MING','CIVILIZATION_ABBASID','CIVILIZATION_SONGHAI','CIVILIZATION_CHOLA','CIVILIZATION_INCA','CIVILIZATION_MAJAPAHIT','CIVILIZATION_NORMAN'],AGE_MODERN:['CIVILIZATION_AMERICA','CIVILIZATION_FRENCH_EMPIRE','CIVILIZATION_MEXICO','CIVILIZATION_PRUSSIA','CIVILIZATION_RUSSIA','CIVILIZATION_SIAM']};
 const consumed=new Set();
