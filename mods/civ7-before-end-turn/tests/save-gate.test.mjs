@@ -253,17 +253,20 @@ test('turn hook preserves receiver, args and distinguishes automatic from manual
   assert.equal(calls.at(-1)[1], 'restored');
 });
 
-test('outer rest wrapper can postpone entry until after the rest finishes', () => {
+test('outer save wrapper saves once before inner rest, blocking new requests until resume', () => {
   const h = harness();
-  class Panel { sendEndTurn() { h.submit(); } }
-  installTurnHook(Panel.prototype, h.gate);
-  const inner = Panel.prototype.sendEndTurn;
   let resume;
-  Panel.prototype.sendEndTurn = function (...args) { resume = () => inner.apply(this, args); };
-  new Panel().sendEndTurn();
-  assert.deepEqual(h.calls, []);
-  resume();
+  class Panel { sendEndTurn() { resume = h.submit; } }
+  Panel.prototype.sendEndTurn.c7rCanRequestTurn = () => !resume;
+  installTurnHook(Panel.prototype, h.gate);
+  const panel = new Panel();
+  panel.sendEndTurn();
   assert.deepEqual(h.calls, ['lock', 'save']);
+  assert.equal(resume, undefined);
   h.complete(); h.flush();
-  assert.equal(h.calls.at(-1), 'turn');
+  assert.equal(typeof resume, 'function');
+  panel.sendEndTurn(); panel.sendEndTurn();
+  assert.deepEqual(h.calls, ['lock', 'save', 'unlock', 'saved']);
+  resume();
+  assert.deepEqual(h.calls, ['lock', 'save', 'unlock', 'saved', 'turn']);
 });

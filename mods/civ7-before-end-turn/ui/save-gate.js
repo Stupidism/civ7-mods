@@ -19,7 +19,7 @@ export class SaveGate {
     if (!context) return submit(); // Multiplayer/observers: leave the base game alone.
     if (!context.active || context.sent) return;
     if (!context.canSave) {
-      this.env.notice('当前阶段游戏不允许普通存档，保留最近的备份并继续操作。');
+      this.env.notice('LOC_SBE_SAVE_UNAVAILABLE');
       return submit(); // E.g. the age has already ended; preserve the preceding turn.
     }
     if (this.failedToken === context.token && this.failedKind === kind && !manual) return;
@@ -42,7 +42,7 @@ export class SaveGate {
     this.env.clearTimer(job.timer);
     job.timer = this.env.setTimer(() => {
       if (this.job !== job) return;
-      this.fail('等待存档完成超时（60 秒）。本次操作尚未执行；可以重试存档，或取消操作。');
+      this.fail('LOC_SBE_SAVE_TIMEOUT');
     }, 60000);
   }
 
@@ -55,9 +55,9 @@ export class SaveGate {
     try {
       // The shipped save screen treats the return value as acceptance, not completion.
       const accepted = this.env.save(job.kind);
-      if (!accepted && this.job === job) this.fail('游戏没有接受存档请求。请检查本地存储后重试。');
+      if (!accepted && this.job === job) this.fail('LOC_SBE_SAVE_REJECTED');
     } catch (error) {
-      if (this.job === job) this.fail(`无法开始存档：${String(error)}`);
+      if (this.job === job) this.fail('LOC_SBE_SAVE_START_FAILED', String(error));
     }
   }
 
@@ -92,7 +92,7 @@ export class SaveGate {
     if (this.job?.phase === 'saving') this.job.requireStart = false;
     // SaveComplete has no guaranteed per-request ID. Never guess when two writes overlap.
     if (this.job?.phase === 'saving' && this.inFlight > 1) {
-      this.fail('检测到同时进行的其他存档。为确保备份正确，已取消本次操作，请等存档结束后再试。');
+      this.fail('LOC_SBE_SAVE_CONFLICT');
     }
   }
 
@@ -114,7 +114,7 @@ export class SaveGate {
     }
     if (job.phase !== 'saving' || job.requireStart || !this.env.matches(result)) return;
     if (!this.env.succeeded(result)) {
-      this.fail(`存档失败（错误码 ${String(result?.result)}）。本次操作尚未执行。`);
+      this.fail('LOC_SBE_SAVE_FAILED', String(result?.result));
       return;
     }
     job.phase = 'saved';
@@ -129,7 +129,7 @@ export class SaveGate {
     }, 0);
   }
 
-  fail(message) {
+  fail(message, ...args) {
     const job = this.job;
     if (!job) return;
     this.failedToken = job.context.token;
@@ -138,7 +138,7 @@ export class SaveGate {
     // Suppress automatic retries until an explicit user action (or another turn).
     this.env.error(message, () => {
       if (!this.disposed && this.isCurrent(job)) this.request(job.submit, true, job.kind);
-    }, job.kind);
+    }, job.kind, ...args);
   }
 
   cancel() {
@@ -163,6 +163,9 @@ export function installTurnHook(prototype, gate) {
   if (typeof original !== 'function') throw new Error('PanelAction.sendEndTurn is unavailable');
   let manualDepth = 0;
   const wrapped = function (...args) {
+    // Rest Guard exposes an eligibility preflight. Do not overwrite the saved
+    // snapshot again while its modal is holding an already-saved turn request.
+    if (original.c7rCanRequestTurn?.() === false) return;
     return gate.request(() => original.apply(this, args), manualDepth > 0);
   };
   prototype.sendEndTurn = wrapped;
