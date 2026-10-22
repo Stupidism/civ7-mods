@@ -1,6 +1,6 @@
 {
   "modId": "civ7-before-end-turn",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "publishedFileId": "3815596737",
   "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3815596737",
   "visibility": "public",
@@ -11,26 +11,26 @@
   "publicPageVerified": false,
   "validation": {
     "gameVersion": "1.5.0 (1311346)",
-    "automatedTestsPassed": 70,
+    "automatedTestsPassed": 79,
     "automatedTestsSkipped": 0,
     "packagedFilesVerified": 8,
     "macMainMenuObserved": true,
     "nativeDiplomacySaveLoadRoundTripVerified": false,
     "nativeNewSettingsAcceptanceComplete": false,
-    "notes": "Automated tests read shipped Mac game handlers with substituted native APIs. Previous 1.0.2 end-turn overwrite and missing-completion recovery have Windows in-game evidence; new diplomacy behavior still awaits full in-game acceptance."
+    "notes": "79 offline tests with installed game handlers and the current local Rest Guard development fixture. 27 English/Chinese localization entries checked. No live game test for 1.1.2."
   },
   "uploadedFiles": [
     {
       "path": "before-end-turn.modinfo",
-      "sha256": "ada3f64ee5f8e5a8db702b63a71925bf5220585a442550ebc2ec9374a2be4402"
+      "sha256": "33ddc452a42e2c56a56f8891b209a3ffa60266ae42b61cf590a9195428bc86ba"
     },
     {
       "path": "text/settings.xml",
-      "sha256": "8c2c15e9288085def00904f6fca27370a882495d1d11e760d1778780f3801735"
+      "sha256": "0604a59689bb0e06041e4044cacf3ed9575641af11ddc399176a2c9820ff8068"
     },
     {
       "path": "ui/before-end-turn.js",
-      "sha256": "7d3f15b3590283625dc4591452090090fe59ef8b9157dc4c11bb6552cdfbe780"
+      "sha256": "d006159faeb00fdf541852cfa001e4747c8f45dc1ac6a8d49395ec4a6ff36b91"
     },
     {
       "path": "ui/diplomacy-hook.js",
@@ -38,7 +38,7 @@
     },
     {
       "path": "ui/save-gate.js",
-      "sha256": "e8af78a6bb6247e12082a05129d48a678a63f6be253f2aa43c3c1bee59ff5882"
+      "sha256": "19c91e2ed0fa8460b968ab59739ae609273c3e5b3ca074b57fb02866e4fb112a"
     },
     {
       "path": "ui/save-options.js",
@@ -63,12 +63,12 @@
       "steamUrl": "https://images.steamusercontent.com/ugc/15615035971547493083/475D5088A6D7A546174BF6589D16A4ACA7A376CF/"
     }
   ],
-  "publishedOrUpdatedDate": "2026-10-18",
+  "publishedOrUpdatedDate": "2026-10-22",
   "downloadHashesVerified": true,
   "preview": {
     "path": "docs/workshop-preview-autosave-1.1.0.png",
     "sha256": "8cd8195e6be912a10ffddf9527483e0c0ca7d0ab99390f480bf27c5c48c001df"
   },
-  "updateScope": "Release 1.1.0 public preview with separate BeforeEndTurn and BeforeDiplomacy saves, independent settings and HUD shortcut. Workshop ID preserved.",
+  "updateScope": "1.1.2: Follow the game language for progress, errors, retry/cancel buttons and mod description. English and Simplified Chinese. Includes save-before-rest ordering from 1.1.1. 79 offline tests pass; no live game validation. 补齐英文支持，尊重游戏语言设置。",
   "previousGitHubRelease": "https://github.com/Stupidism/civ7-before-end-turn/releases/tag/v1.0.2"
 }

@@ -47,7 +47,7 @@ function install() {
     overlay.setAttribute('role', 'status');
     overlay.style.cssText = 'position:fixed;left:0;top:0;width:100%;height:100%;z-index:10000;background-color:rgba(0,0,0,0.22);display:flex;align-items:center;justify-content:center;pointer-events:auto;';
     const card = document.createElement('div');
-    card.textContent = kind === 'diplomacy' ? '正在保存外交行动前的进度…' : '正在保存过回合前的进度…';
+    card.textContent = Locale.compose(kind === 'diplomacy' ? 'LOC_SBE_BUSY_DIPLOMACY' : 'LOC_SBE_BUSY_TURN');
     card.className = 'font-body';
     card.style.cssText = 'padding:24px 36px;background-color:rgba(20,27,35,0.96);border:1px solid #c0aa75;color:#f4e6c6;font-size:22px;';
     overlay.appendChild(card);
@@ -75,7 +75,7 @@ function install() {
     setTimer: (fn, ms) => setTimeout(fn, ms),
     clearTimer: id => { if (id !== null) clearTimeout(id); },
     showBusy,
-    notice,
+    notice: key => notice(Locale.compose(key)),
     save: kind => Network.saveGame({
       Location: SaveLocations.LOCAL_STORAGE,
       LocationCategories: SaveLocationCategories.NORMAL,
@@ -97,26 +97,27 @@ function install() {
     },
     saved: (state, kind) => console.warn(`${PREFIX} Saved ${fileName(kind)} at turn ${state.turn}; submitting ${kind}.`),
     recovering: (state, kind) => console.warn(`${PREFIX} Save completion missing for ${kind} at turn ${state.turn}; native serializer accepted one recovery write. Waiting for fresh completion.`),
-    error: (message, retry, kind) => {
+    error: (key, retry, kind, ...args) => {
+      const message = Locale.compose(key, ...args);
       console.error(`${PREFIX} ${message}`);
       errorOpen = true;
       const done = () => { errorOpen = false; dialogId = null; };
       try {
         dialogId = DialogBoxManager.createDialog_MultiOption({
-          title: kind === 'diplomacy' ? '外交行动前存档未完成' : '过回合前存档未完成',
-          body: `${message}[N][N]没有确认备份成功，因此未执行${kind === 'diplomacy' ? '外交行动' : '过回合'}。原存档是否仍可用需在载入界面检查。`,
+          title: kind === 'diplomacy' ? 'LOC_SBE_ERROR_TITLE_DIPLOMACY' : 'LOC_SBE_ERROR_TITLE_TURN',
+          body: `${message}[N][N]${Locale.compose(kind === 'diplomacy' ? 'LOC_SBE_ERROR_BODY_DIPLOMACY' : 'LOC_SBE_ERROR_BODY_TURN')}`,
           canClose: false,
           options: [
-            { label: '重试存档', actions: ['accept'], callback: () => {
+            { label: 'LOC_SBE_RETRY', actions: ['accept'], callback: () => {
               done();
               setTimeout(retry, 0);
             } },
-            { label: kind === 'diplomacy' ? '取消外交行动' : '留在本回合', actions: ['cancel', 'keyboard-escape'], callback: done }
+            { label: kind === 'diplomacy' ? 'LOC_SBE_CANCEL_DIPLOMACY' : 'LOC_SBE_CANCEL_TURN', actions: ['cancel', 'keyboard-escape'], callback: done }
           ]
         });
       } catch (error) {
         done();
-        notice(`${message} 可以重新选择刚才的操作。`);
+        notice(`${message} ${Locale.compose('LOC_SBE_RESELECT')}`);
         console.error(`${PREFIX} Could not open error dialog: ${error}`);
       }
     }
@@ -136,7 +137,7 @@ function install() {
       setTimer: (fn, ms) => setTimeout(fn, ms), clearTimer: id => { if (id !== null) clearTimeout(id); }
     });
   } catch (error) {
-    notice('外交自动存档接口不可用；过回合前存档仍可使用。');
+    notice(Locale.compose('LOC_SBE_DIPLOMACY_UNAVAILABLE'));
     console.error(`${PREFIX} Diplomacy hooks unavailable: ${error}`);
   }
   const saveStarted = () => gate.onSaveStart();

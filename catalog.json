@@ -3,7 +3,7 @@
   "mods": [
     {
       "id": "civ7-before-end-turn",
-      "version": "1.1.0",
+      "version": "1.1.2",
       "manifest": "mods/civ7-before-end-turn/before-end-turn.modinfo",
       "dependencies": [
         "base-standard"
