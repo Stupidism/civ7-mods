@@ -5,7 +5,7 @@
 | Mod | 已发布版本 | 记录 |
 |---|---|---|
 | 更好的手柄支持 | B 站中文图文、Reddit 英文帖 | [文案与回执](civ7-better-controller-support/README.md) |
-| 行动前自动存档 | Reddit 英文帖 | [文案与回执](civ7-auto-save-before/README.md) |
+| 行动前自动存档 | B 站中文图文、Reddit 英文帖 | [文案与回执](civ7-auto-save-before/README.md) |
 
 按本次整理已有回执筛选：待审核不算已发布。未发布稿、待审核稿、批量预览和补拍清单留在本地 `work/mod-editorial/`，不纳入本 PR。后续确认公开发布后再增加对应平台版本。
 

@@ -19,6 +19,29 @@
         "assets/03-settings.png"
       ],
       "sha256": "3c988e056723adbafab8804db6e5c4e88004363618e2253ebd4b409b4ac58152"
+    },
+    {
+      "platform": "bilibili",
+      "title": "《文明7拯救计划》｜行动前自动存档",
+      "status": "published",
+      "submittedAtLocal": "2026-10-24T10:05:00+08:00",
+      "account": "司徒比特",
+      "uid": "7247306",
+      "url": "https://www.bilibili.com/opus/1262587816596996152",
+      "imageCount": 3,
+      "verifiedSignal": "公开专栏页面显示作者司徒比特、完整正文、三张配图及 cv53583072，无待审核提示",
+      "recordedAt": "2026-10-24T02:09:06.345Z",
+      "opusId": "1262587816596996152",
+      "articleId": "cv53583072",
+      "publishedAtLocal": "2026-10-24T10:05:00+08:00",
+      "verifiedAt": "2026-10-24T06:12:11.624734+00:00",
+      "file": "article-zh.md",
+      "images": [
+        "assets/01-saving-before-end-turn.png",
+        "assets/02-save-list.png",
+        "assets/03-settings.png"
+      ],
+      "sha256": "8983caa57df7ceaf5022d24a9c3a66212795feacb8c885ee63f9ca2fe1e5dc30"
     }
   ]
 }
