@@ -13,4 +13,3 @@ export function comparisonFixture(options) {
   };
   return { expected, actual, parsed };
 }
-

@@ -189,4 +189,3 @@ test('missing seed values cannot be misreported as verified zeroes', async () =>
   assert(result.skipped.some(message => message.includes('没有采用')));
   assert.equal(result.applied.length, 0);
 });
-

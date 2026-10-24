@@ -12,7 +12,7 @@ export function bindDialogNavigation(root, { focus, statuses, directions, activa
     if (event.detail?.status !== statuses.FINISH) return;
     const items = controls();
     if (!items.length) return;
-    const index = items.indexOf(focus.currentFocus()?.closest?.('fxs-textbox, fxs-button')); 
+    const index = items.indexOf(focus.currentFocus()?.closest?.('fxs-textbox, fxs-button'));
     const target = items[index < 0 ? 0 : (index + step + items.length) % items.length];
     focus.setFocus(target); target.scrollIntoView?.({ block: 'nearest' });
   }
