@@ -10,7 +10,6 @@
 | `civ7-no-more-turn` 不再来一回合 | 回合、时间、空闲和夜间限制；休息时创建独立存档及限定清理自己的旧存档。中英文、原生字体、输入拦截和恢复范围都有独立回归。测试其他 Mod 时需显式暂停全部限制，结束恢复原状态。 | `ui/rest-model.js`、`rest-session.js`、`rest-runtime.js`、`rest-save.js`、`rest-retention.js`、`tests/locale-fixture.js`、`tests/font-render.test.js` |
 | `civ7-auto-save-before` 行动前存档 | 结束回合、外交行动前分别写 `BeforeEndTurn` / `BeforeDiplomacy` 固定槽；确认保存成功后才继续。与 Rest Guard 挂钩顺序影响“先保存，再休息”。该产品的固定槽行为不替代开发时全 Saves 备份。 | `ui/save-gate.js`、`before-end-turn.js`、`diplomacy-hook.js`、`text/settings.xml`、`tests/save-gate.test.mjs` |
 | `civ7-better-controller-support` 更好的手柄支持 | 轮盘直接打开地图工具、列表焦点与滚动、B 返回地图；已吸收旧 Controller Bridge 的 Mac 输入和菜单摇杆适配。可选 Map Trix / Detailed Map Tacks，缺失入口应隐藏；新版本有离线浏览器回归，不能沿用旧版本反馈声称全部实机通过。 | `README.md`、`VALIDATION.md`、`ui/`、`tests/browser.test.mjs`、`tests/controller-integration.test.mjs` |
-| `civ7-mac-controller-support-fix` Mac 手柄修复 | 历史独立版：地图光标/镜头、左右摇杆方向、菜单 HOLD→UPDATE。合并版存在时要避免重复挂钩；不能擅自取消旧版订阅或改文件。 | `tests/native-pipeline.test.mjs`、`menu-navigation.test.mjs`、`options.test.mjs` |
 | `civ7-your-great-map-my-next-game` 你的神图很好，现在是我的了 | 从当前对局、普通存档或截图复用开局设置的实验项目。纯文字和离线解析已有实现；任意存档读取、图片/OCR、随 Mod 自动运行组件仍有产品级缺口。旧辅助程序成功不证明仅订阅即可用；仓库总索引可能未收录。 | `README.md`、`tests/`、`docs/validation-*`、根 `docs/research/civ7-save-import-ecosystem-2026-10-21.md` |
 | `fenhe` 分合 | 国家分裂/融合模拟与新时代世界接入；玩法和兼容 UI 两模块、外部桥接/构建工具。已验证某个世界不等于全地图/时代验收；个人导出地图不分发。 | `mods/fenhe/README.md`（仓库相对路径）、`tools/`、`tests/platform.test.mjs`、历史实机记录 |
 | `civ7-autosave-limit-150` 自动存档上限 | 仅扩大原生数量滑块到 150，继续使用原生确认/取消；不强制修改用户实际保留值。 | `README.md`、清单及设置挂钩 |

@@ -1,11 +1,10 @@
 # Civilization VII Mods
 
-Stupidism 的文明7 Mod 开发合集。收录当前 10 个 Mod 项目，包含当前源码、测试、安装说明和各项目的验证记录。
+Stupidism 的文明7 Mod 开发合集。收录当前 9 个 Mod 项目，包含当前源码、测试、安装说明和各项目的验证记录。
 
 | 项目 | 当前源码版本 | 功能与状态 |
 | --- | --- | --- |
 | [更好的手柄支持 · Better Controller Support](mods/civ7-better-controller-support/) | 0.2.1 | 轮盘一次确认打开地图工具，B 直接回地图；内置 Mac 输入兼容，76 项离线回归 |
-| [Mac 手柄支持修复 · Mac Controller Support Fix](mods/civ7-mac-controller-support-fix/) | 0.1.5 | 补充菜单摇杆兼容；RB 轮盘，方向独立设置；中英文界面，附加内容设置，调试栏默认隐藏 |
 | [No More Turn（不再来一回合）](mods/civ7-no-more-turn/) | 1.8.5 | 界面跟随游戏语言（中英文）；休息存档默认保留10个，独立夜间限制；已发布，新增功能待实机验收 |
 | [行动前自动存档 · Auto-save Before...](mods/civ7-auto-save-before/) | 1.1.1 | 回合前和外交行动前分别覆盖固定存档；新增先保存再休息，工坊仍为1.1.0 |
 | [微操大师常凯申](mods/civ7-micromanagement-master-chiang-kai-shek/README-zh-CN.txt) | 0.6.0 | 连续部署、原地齐射与增援切换；集中火力临时加成已实测，其他新增功能见验证记录 |
@@ -26,7 +25,6 @@ Stupidism 的文明7 Mod 开发合集。收录当前 10 个 Mod 项目，包含�
 | 模组 | 工坊版本 | 订阅 |
 | --- | --- | --- |
 | 更好的手柄支持 · Better Controller Support | 0.2.1 | [Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=3825193325) |
-| Mac 手柄支持修复 · Mac Controller Support Fix | 0.1.5 | [Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=3825119575) |
 | Auto-save Before... | 1.1.0（两个独立存档槽，公开预览版） | [Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=3815596737) |
 | 战争操作 · War Controls | 0.5.1（实验版） | [Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=3822253543) |
 | 垃圾时间 · Garbage Time | 0.1.4 | [Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=3822254009) |
@@ -62,7 +60,7 @@ npm run check
 npm test
 ```
 
-测试按 9 个包含自动测试的项目分别运行。回合前存档中读取原版游戏源码的集成检查，在没有本机游戏时会跳过；可用 `CIV7_GAME_DIR` 指定游戏根目录。自动测试不替代实机测试，历史证据的版本与范围以各项目验证文档为准。
+测试按 8 个包含自动测试的项目分别运行。回合前存档中读取原版游戏源码的集成检查，在没有本机游戏时会跳过；可用 `CIV7_GAME_DIR` 指定游戏根目录。自动测试不替代实机测试，历史证据的版本与范围以各项目验证文档为准。
 
 分合的模拟、桥接与构建源码完整保留；个人存档、导出的世界地图、实机数据快照、运行日志和生成的回放不上传。接入器会从使用者自己的游戏导出并生成所需地图。详见 [分合说明](mods/fenhe/README.md)。
 

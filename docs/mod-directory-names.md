@@ -8,7 +8,6 @@
 | 行动前自动存档 · Auto-save Before… | `mods/civ7-auto-save-before` | `civ7-before-end-turn` |
 | 微操大师常凯申 · Micromanagement Master Chiang Kai-shek | `mods/civ7-micromanagement-master-chiang-kai-shek` | `civ7-war-controls` |
 | 更好的手柄支持 · Better Controller Support | `mods/civ7-better-controller-support` | `civ7-map-tools-gamepad` |
-| Mac 手柄支持修复 · Mac Controller Support Fix | `mods/civ7-mac-controller-support-fix` | `civ7-controller-bridge` |
 | 你的神图很好，现在是我的了 · Your Great Map, My Next Game | `mods/civ7-your-great-map-my-next-game` | `civ7-play-again` |
 | 自动存档上限 150 · Autosave Limit 150 | `mods/civ7-autosave-limit-150` | `civ7-autosave-limit` |
 | 垃圾时间 · Garbage Time | `mods/civ7-garbage-time` | 不变 |

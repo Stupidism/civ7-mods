@@ -81,18 +81,6 @@
       "dependencies": [
         "base-standard"
       ]
-    },
-    {
-      "id": "civ7-controller-bridge",
-      "version": "0.1.5",
-      "manifest": "mods/civ7-mac-controller-support-fix/controller-bridge.modinfo",
-      "dependencies": [
-        "base-standard"
-      ],
-      "name": {
-        "zh_Hans_CN": "Mac 手柄支持修复",
-        "en_US": "Mac Controller Support Fix"
-      }
     }
   ]
 }
