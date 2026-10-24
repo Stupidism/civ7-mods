@@ -1,0 +1,39 @@
+{
+  "modDirectory": "civ7-better-controller-support",
+  "publications": [
+    {
+      "platform": "bilibili",
+      "status": "published",
+      "url": "https://www.bilibili.com/opus/1262385145689669638",
+      "verifiedAt": "2026-10-23T13:01:15.796Z",
+      "file": "article-zh.md",
+      "imageCount": 7,
+      "images": [
+        "assets/01-map-tools-wheel.png",
+        "assets/02-list-scroll.png",
+        "assets/03-map-tack-icons.png",
+        "assets/04-mac-map-input.png",
+        "assets/05-r3-center.png",
+        "assets/06-controller-settings.png",
+        "assets/07-menu-stick.png"
+      ],
+      "publishedSourceSha256": "f7dcd76a2b590b84980a1813f590ddfc65499fe4d3cf45297568e244e5ad7ff9",
+      "archiveAdaptation": "Added article title and replaced hosted image URLs with matching local assets; body unchanged.",
+      "sha256": "6786d5a7d3bdc0df0c989c241a2c92a49aa447f1910195c2210229be9426acc1"
+    },
+    {
+      "platform": "reddit",
+      "status": "published",
+      "url": "https://www.reddit.com/r/CivVII/comments/1xdenjj/i_made_a_controller_support_mod_for_civ_vii_map/",
+      "verifiedAt": "2026-10-23T13:53:30.201Z",
+      "file": "reddit-en.md",
+      "imageCount": 3,
+      "images": [
+        "assets/01-map-tools-wheel.png",
+        "assets/02-list-scroll.png",
+        "assets/03-map-tack-icons.png"
+      ],
+      "sha256": "d8646855e22b516fe48865b570e34b6d93a8a064c15207e8a8daa41d1952bb57"
+    }
+  ]
+}

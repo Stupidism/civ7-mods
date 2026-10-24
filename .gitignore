@@ -20,3 +20,6 @@ mods/fenhe/data/*.json
 
 # Unfinished local assistant prototype; not part of the mod collection.
 /apps/civ7-assistant/
+
+# Editorial drafts stay local; archive only verified publications.
+/docs/editorial/

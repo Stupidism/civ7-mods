@@ -1,0 +1,24 @@
+{
+  "modDirectory": "civ7-auto-save-before",
+  "publications": [
+    {
+      "platform": "reddit",
+      "title": "I made a Civ VII mod to save before ending a turn or confirming diplomacy",
+      "status": "published",
+      "url": "https://www.reddit.com/r/CivVII/comments/1xdwlhz/i_made_a_civ_vii_mod_to_save_before_ending_a_turn/",
+      "postId": "1xdwlhz",
+      "account": "PhysicalPackage4275",
+      "community": "r/CivVII",
+      "imageCount": 3,
+      "verifiedSignal": "Post detail page shows title, author, full text and three processed images",
+      "recordedAt": "2026-10-24T02:09:06.345Z",
+      "file": "reddit-en.md",
+      "images": [
+        "assets/01-saving-before-end-turn.png",
+        "assets/02-save-list.png",
+        "assets/03-settings.png"
+      ],
+      "sha256": "3c988e056723adbafab8804db6e5c4e88004363618e2253ebd4b409b4ac58152"
+    }
+  ]
+}
