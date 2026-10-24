@@ -10,7 +10,7 @@
   "limits_zh": "当前为 1.0.0 本地版本，目标游戏版本 1.5.0，未发现工坊发布回执。扩展上限不等于自动生成 150 份存档，也不会找回已经被轮换的文件；存档间隔不变。更多存档会占用更多磁盘空间，保留数量和现有存档目录备份是两件事。",
   "limits_en": "This local 1.0.0 version targets game 1.5.0; no Workshop release receipt was found. A higher limit does not instantly create 150 saves or recover files already rotated away, and the autosave interval is unchanged. More retained saves use more disk space. Retention is not a substitute for backing up the save directory.",
   "sources": [
-    "mods/civ7-autosave-limit/README.md"
+    "mods/civ7-autosave-limit-150/README.md"
   ],
   "sections": [
     {

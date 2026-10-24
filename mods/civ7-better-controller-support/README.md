@@ -1,5 +1,7 @@
 # 更好的手柄支持 · Better Controller Support
 
+源码目录：`civ7-better-controller-support`。Mod ID 和手动安装目录继续使用 `civ7-map-tools-gamepad`，保持已安装版本及设置兼容。
+
 版本 0.2.1。独立的《文明 VII》界面模组，为 Windows 和 macOS 的左下角地图工具增加手柄入口与焦点导航，现已内置 Mac Controller Support Fix 0.1.5 的地图输入和菜单摇杆兼容功能，不再需要单独安装旧模组。
 
 ## 怎么用

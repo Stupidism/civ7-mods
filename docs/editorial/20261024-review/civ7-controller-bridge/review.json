@@ -10,8 +10,8 @@
   "limits_zh": "独立工坊版本为 0.1.5。已有实体 Xbox 手柄反馈来自较早的 0.1.3；0.1.5 菜单输入更新有离线验证，仍需补齐实机复测。范围以普通地图状态为主，不保证城市操作等所有上下文，也不能修复系统根本识别不到手柄的问题。安装环境按项目说明配置 Steam Input；不同手柄型号仍需反馈。",
   "limits_en": "The standalone Workshop release is 0.1.5. Physical Xbox controller feedback comes from the earlier 0.1.3 version; the 0.1.5 menu-input update has offline coverage but still needs in-game retesting. This mainly targets the ordinary map context, not every city or selection mode, and cannot fix a controller the operating system does not recognize. Follow the project’s Steam Input setup notes; other controller models still need feedback.",
   "sources": [
-    "mods/civ7-controller-bridge/README.md",
-    "mods/civ7-controller-bridge/docs/workshop.json"
+    "mods/civ7-mac-controller-support-fix/README.md",
+    "mods/civ7-mac-controller-support-fix/docs/workshop.json"
   ],
   "sections": [
     {

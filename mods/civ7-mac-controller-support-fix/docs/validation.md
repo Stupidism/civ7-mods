@@ -76,7 +76,7 @@ Steam 构建 ID：`25516395`；读取 `appmanifest_1295660.acf`，没有启动 S
 
 ```sh
 "$HOME/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node" \
-  --test mods/civ7-controller-bridge/tests/*.test.mjs
+  --test mods/civ7-mac-controller-support-fix/tests/*.test.mjs
 ```
 
 结果：**42 tests / 42 pass / 0 fail / 0 skipped**。

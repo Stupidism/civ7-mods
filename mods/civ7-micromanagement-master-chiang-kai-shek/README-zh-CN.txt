@@ -1,5 +1,7 @@
 微操大师常凯申 / Micromanagement Master Chiang Kai-shek 0.6.0（实验版）
 
+源码目录：`civ7-micromanagement-master-chiang-kai-shek`。Mod ID 和手动安装目录继续使用 `civ7-war-controls`，保持已安装版本及设置兼容。
+
 语言：简体中文保持原有支持，新增完整英文。名称、设置、战斗面板及提示跟随游戏语言，不提供模组语言开关。内部 Mod 标识不变，保留已有设置。
 
 0.6.0 开发稿（2026-10-22）

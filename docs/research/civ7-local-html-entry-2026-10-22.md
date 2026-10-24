@@ -31,6 +31,6 @@
 - 将自有解析器、样式和界面打包进同一个 HTML；避免 `file://` 下外部 ES module 导入、fetch 邻近文件等浏览器来源限制。[本地文件来源](https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Same-origin_policy)
 - 不需要联网，不需要上传原始存档。OCR 若加入，需另外评估内置依赖和模型体积，不能从存档读取成功推断 OCR 已可用。
 - 复制操作保留普通可选文本作为基础路径，不依赖自动剪贴板访问或额外剪贴板授权。
-- 浏览器能力细节见同日 `civ7-local-html-browser-2026-10-22.md`；现有解析核心位于 `mods/civ7-play-again/ui/save-reader.js` 与 `save-configuration.js`。
+- 浏览器能力细节见同日 `civ7-local-html-browser-2026-10-22.md`；现有解析核心位于 `mods/civ7-your-great-map-my-next-game/ui/save-reader.js` 与 `save-configuration.js`。
 
 本轮交付的是可行性调查，未安装/运行辅助工具，未将候选页面作为已完成产品。

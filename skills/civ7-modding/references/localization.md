@@ -18,4 +18,4 @@
 3. 以中英文分别运行实际 UI/控制器路径，包括完成、无可用操作、锁定、失败、超时、取消及恢复失败。确认英文没有遗留中文文案或裸 `LOC_*`，参数已替换；用户城市名本身可以含中文。
 4. 语言切换不改设置命名空间、资源标识、分配结果或输入行为。必要时用独立浏览器和原生字体检查布局，明确这不是游戏实机验收。
 
-参考：`mods/civ7-war-controls/text/settings.xml`、`tests/localization.test.mjs`；`mods/civ7-rest-guard/tests/locale-fixture.js`、`font-render.test.js`；`mods/civ7-before-end-turn/before-end-turn.modinfo` 的 shell/game 文本加载。
+参考：`mods/civ7-micromanagement-master-chiang-kai-shek/text/settings.xml`、`tests/localization.test.mjs`；`mods/civ7-no-more-turn/tests/locale-fixture.js`、`font-render.test.js`；`mods/civ7-auto-save-before/before-end-turn.modinfo` 的 shell/game 文本加载。

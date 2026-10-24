@@ -10,10 +10,10 @@
   "limits_zh": "这是战术操作辅助，不会替你自动决定战争。0.6.0 集火及连续操作尚未作为当前工坊正式功能确认；新集火限单人、合法远程攻击，不覆盖近战、空军或所有第三方战斗触发。已有 Mac 实机记录只证明部分战斗和指挥官行动力流程，不能代表全部组合。",
   "limits_en": "This is tactical input assistance, not an AI deciding your wars. The 0.6.0 volley and selection workflows are not confirmed as part of the current Workshop release. The new volley system targets legal ranged attacks in single-player, not melee, aircraft or every third-party combat trigger. Existing Mac checks verify particular combat and commander-movement cases, not every combination.",
   "sources": [
-    "mods/civ7-war-controls/README-zh-CN.txt",
-    "mods/civ7-war-controls/VALIDATION-zh-CN.txt",
-    "mods/civ7-war-controls/docs/workshop.json",
-    "mods/civ7-war-controls/docs/temporary-bonus-live-20261022.txt"
+    "mods/civ7-micromanagement-master-chiang-kai-shek/README-zh-CN.txt",
+    "mods/civ7-micromanagement-master-chiang-kai-shek/VALIDATION-zh-CN.txt",
+    "mods/civ7-micromanagement-master-chiang-kai-shek/docs/workshop.json",
+    "mods/civ7-micromanagement-master-chiang-kai-shek/docs/temporary-bonus-live-20261022.txt"
   ],
   "sections": [
     {

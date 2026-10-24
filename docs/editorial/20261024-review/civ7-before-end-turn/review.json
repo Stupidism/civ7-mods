@@ -10,9 +10,9 @@
   "limits_zh": "适用于单人游戏。两个名字各对应一个固定存档，下一次同类操作会覆盖，也会跨单人对局共用。想长期保留的节点，记得另存一份。\n\n本文三张图来自 macOS 上的 1.1.1，展示回合前保存、存档列表和配置页；工坊版本为 1.1.2。本次没有重新验收完整的外交保存与读档往返。",
   "limits_en": "For single-player. Each fixed checkpoint is shared across campaigns on the same computer and overwritten by the next matching action; keep separate saves for anything you want to retain. These three screenshots show the installed macOS 1.1.1 interface and a turn-end save; Workshop is on 1.1.2. A complete diplomatic save/load round trip was not retested for this article.",
   "sources": [
-    "mods/civ7-before-end-turn/README.md",
-    "mods/civ7-before-end-turn/docs/workshop.json",
-    "mods/civ7-before-end-turn/ui/save-gate.js"
+    "mods/civ7-auto-save-before/README.md",
+    "mods/civ7-auto-save-before/docs/workshop.json",
+    "mods/civ7-auto-save-before/ui/save-gate.js"
   ],
   "sections": [
     {

@@ -1,5 +1,7 @@
 # Better Controller Support
 
+Source directory: `civ7-better-controller-support`. The Mod ID and manual installation folder remain `civ7-map-tools-gamepad` for compatibility.
+
 Version 0.2.1. Controller access to Civilization VII minimap tools on Windows/macOS, now including the map-input and menu-stick compatibility from Mac Controller Support Fix 0.1.5. The old mod is no longer required.
 
 ## Map tools

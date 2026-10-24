@@ -11,7 +11,7 @@ import { installDiplomacyHooks } from '../ui/diplomacy-hook.js';
 
 const gameRoot = process.env.CIV7_GAME_DIR || "D:/Program Files (x86)/Steam/steamapps/common/Sid Meier's Civilization VII";
 const panelPath = join(gameRoot, 'Base/modules/base-standard/ui/action/panel-action.js');
-const restRoot = process.env.CIV7_REST_GUARD_DIR || fileURLToPath(new URL('../../civ7-rest-guard/', import.meta.url));
+const restRoot = process.env.CIV7_REST_GUARD_DIR || fileURLToPath(new URL('../../civ7-no-more-turn/', import.meta.url));
 const skip = !existsSync(panelPath);
 const withoutImports = text => text.replace(/^import .*;\r?$/gm, '');
 const modSource = withoutImports(readFileSync(new URL('../ui/before-end-turn.js', import.meta.url), 'utf8'));

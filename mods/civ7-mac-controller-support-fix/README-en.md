@@ -1,5 +1,7 @@
 # Mac Controller Support Fix · Mac 手柄支持修复
 
+Source directory: `civ7-mac-controller-support-fix`. The Mod ID and manual installation folder remain `civ7-controller-bridge` for compatibility.
+
 [简体中文](README.md) · Version 0.1.5
 
 A Civilization VII compatibility mod for Mac players whose Xbox controller works in menus but stops working on the world map. The left stick moves the plot cursor and can make the camera follow it; the right stick pans the camera. Each stick has a separate direction setting. RB (right bumper) opens the world-map radial menu. Version 0.1.5 adds compatibility for HOLD analog navigation in the main menu and radial panels.

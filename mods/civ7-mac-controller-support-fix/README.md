@@ -1,5 +1,7 @@
 # Mac 手柄支持修复 · Mac Controller Support Fix
 
+源码目录：`civ7-mac-controller-support-fix`。Mod ID 和手动安装目录继续使用 `civ7-controller-bridge`，保持已安装版本及设置兼容。
+
 [English](README-en.md) · 版本 0.1.5
 
 修复 Mac 上 Xbox 手柄能操作《文明 VII》菜单，却无法操作世界地图的问题。左摇杆控制地图光标，并可带动镜头跟随；右摇杆平移镜头。左右摇杆方向可以分别设置。保留 RB（右肩键）轮盘操作，0.1.5 补充主菜单及轮盘对摇杆 HOLD 连续输入的兼容。

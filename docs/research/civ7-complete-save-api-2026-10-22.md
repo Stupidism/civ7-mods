@@ -90,7 +90,7 @@ Coherent 的 XHR API 文档明确列出 `responseType`、`response`、`responseA
 
 **主线程追加实测已完成二进制正对照。** 同一个 `fs://game/core/ui/component-support.js` 设置 `responseType="arraybuffer"` 后得到真正的 ArrayBuffer，54,398 字节，SHA-256 为 `e0cb9938e9bace5b08659199bffa56ef225b1198214f0d02c1b566a4109ca056`，与磁盘原件一致。官方当前文档中的 `responseArrayBuffer()` 在这个构建中不存在；原型有内部 `_responseArrayBuffer` 名称，但没有试调内部方法。结果记录于 `save-api-result.json`。因此这里可正式确认“已挂载资源二进制读取通过”，不能据此宣传“存档字节读取通过”。
 
-还有必须保留的已知事故边界：`mods/civ7-play-again/docs/validation-2026-10-18.md:84–90` 记载早前在进行中的对局发起 `file://` 存档副本请求后，游戏的 `cohtml::resource 1` 线程发生空指针崩溃，时机吻合、未重复确认因果。该路径本轮没有重试，之后也不能把“只读”当作安全理由再次试探。
+还有必须保留的已知事故边界：`mods/civ7-your-great-map-my-next-game/docs/validation-2026-10-18.md:84–90` 记载早前在进行中的对局发起 `file://` 存档副本请求后，游戏的 `cohtml::resource 1` 线程发生空指针崩溃，时机吻合、未重复确认因果。该路径本轮没有重试，之后也不能把“只读”当作安全理由再次试探。
 
 ## 3. 当前对局的 Configuration 与原始开局快照
 

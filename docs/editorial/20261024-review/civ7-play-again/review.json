@@ -10,8 +10,8 @@
   "limits_zh": "当前 0.3.6-dev 的重点是文本配置导入，尚无工坊发行。新界面和流程以离线验证为主；较早辅助工具的实机成功不能算作当前 Mod 已验收。直接读取任意存档、截图 OCR 和无损复刻整局仍未完成。DLC、其他 Mod、解锁进度及游戏生成差异都可能影响结果。",
   "limits_en": "The current 0.3.6-dev priority is text configuration import, with no Workshop release. The new UI and flow are mainly verified offline; successful in-game runs of an older helper do not validate this implementation. Arbitrary save-file reading, screenshot OCR and lossless campaign reproduction are not complete. DLC, other mods, unlocks and game generation can affect the result.",
   "sources": [
-    "mods/civ7-play-again/README.md",
-    "mods/civ7-play-again/package.json"
+    "mods/civ7-your-great-map-my-next-game/README.md",
+    "mods/civ7-your-great-map-my-next-game/package.json"
   ],
   "sections": [
     {

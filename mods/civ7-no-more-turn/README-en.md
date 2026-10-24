@@ -1,5 +1,7 @@
 # No More Turn（不再来一回合）
 
+Source directory: `civ7-no-more-turn`. The Mod ID and manual installation folder remain `civ7-rest-guard` for compatibility.
+
 Version 1.8.5 · Civilization VII · Single-player only
 
 No More Turn adds configurable breaks and a night-time play restriction. The interface follows the game's text language: English and Simplified Chinese are provided, with English as the base translation. The mod name retains its bilingual format.
