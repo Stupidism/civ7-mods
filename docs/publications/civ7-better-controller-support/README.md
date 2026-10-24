@@ -5,6 +5,8 @@
 - [bilibili 文案](article-zh.md) · [已发布页面](https://www.bilibili.com/opus/1262385145689669638)
 - [reddit 文案](reddit-en.md) · [已发布页面](https://www.reddit.com/r/CivVII/comments/1xdenjj/i_made_a_controller_support_mod_for_civ_vii_map/)
 
+- [CivFanatics 英文文案](article-en.md) · [已发布页面](https://forums.civfanatics.com/threads/better-controller-support-for-civilization-vii.705221/)
+
 ## 已发布配图
 
 ![01-map-tools-wheel](assets/01-map-tools-wheel.png)

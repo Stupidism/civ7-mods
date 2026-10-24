@@ -34,6 +34,40 @@
         "assets/03-map-tack-icons.png"
       ],
       "sha256": "d8646855e22b516fe48865b570e34b6d93a8a064c15207e8a8daa41d1952bb57"
+    },
+    {
+      "platform": "civfanatics",
+      "status": "published",
+      "url": "https://forums.civfanatics.com/threads/better-controller-support-for-civilization-vii.705221/",
+      "threadId": "705221",
+      "postId": "17002564",
+      "author": "Stupidism",
+      "postedAt": "2026-10-23T21:45:30+0800",
+      "verifiedAt": "2026-10-24T06:13:35.283848+00:00",
+      "verifiedSignal": "帖子显示完整正文及配图，原待审核提示已消失；Released Mods 板块。",
+      "file": "article-en.md",
+      "imageCount": 7,
+      "images": [
+        "assets/01-map-tools-wheel.png",
+        "assets/02-list-scroll.png",
+        "assets/03-map-tack-icons.png",
+        "assets/04-mac-map-input.png",
+        "assets/05-r3-center.png",
+        "assets/06-controller-settings.png",
+        "assets/07-menu-stick.png"
+      ],
+      "attachmentUrls": [
+        "https://forums.civfanatics.com/attachments/01-map-tools-wheel-png.784995/",
+        "https://forums.civfanatics.com/attachments/02-list-scroll-png.784996/",
+        "https://forums.civfanatics.com/attachments/03-map-tack-icons-png.784997/",
+        "https://forums.civfanatics.com/attachments/04-mac-map-input-png.784998/",
+        "https://forums.civfanatics.com/attachments/05-r3-center-png.784999/",
+        "https://forums.civfanatics.com/attachments/06-controller-settings-png.785000/",
+        "https://forums.civfanatics.com/attachments/07-menu-stick-png.785001/"
+      ],
+      "sha256": "8488095f064a1b1e7ad6a3753857dd3c0e85d6b4d43c0b9a1d39f10a0a45e7c4",
+      "publishedSourceSha256": "5917cdea40a8c4aeaea64e0aa66832ba3d1e8275d3252047786e5a502522c9bc",
+      "archiveAdaptation": "Replaced absolute local image paths with matching archived assets; body unchanged."
     }
   ]
 }
