@@ -1,4 +1,4 @@
-export const FEATURE_KEYS = Object.freeze(['autoAttack', 'autoJoin', 'rightClickJoin', 'autoExit', 'singleReinforcement', 'emptyMarker']);
+export const FEATURE_KEYS = Object.freeze(['autoAttack', 'autoJoin', 'rightClickJoin', 'autoExit', 'singleReinforcement', 'emptyMarker', 'keepCommanderFocus', 'nextDeployable', 'nextRanged', 'focusPreview', 'focusExclude', 'reinforcementCycle']);
 export const PROFILES = Object.freeze(['mouse', 'gamepad']);
 export const isFeatureApplicable = (profile, key) => !(profile === 'gamepad' && key === 'rightClickJoin');
 const SHARED_KEY = 'modSettings';

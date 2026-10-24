@@ -8,6 +8,10 @@
 [/list]
 每个功能只有一个固定存档槽，反复覆盖最新一次操作前的状态。两个槽互不覆盖，但同一台电脑上的不同单人对局共用这两个槽位；需要长期保留时请另存手动档。
 
+[h2]外交提议被拒绝，也想有一次重新考虑的机会[/h2]
+向 AI 提出合作，本来想改善关系，却可能被拒绝，甚至让关系变差。外交行动还牵涉影响力：具体是否消耗、退还，以及怎样影响关系，取决于行动类型和结果，不能把“被拒绝”一概当成既白花影响力又降低友好度。例如当前游戏的科研合作、文化交流等合作项目设置了拒绝后退还发起方影响力，但拒绝仍可能恶化关系。
+BeforeDiplomacy 会保留受保护外交行动提交前的状态。结果不符合预期时，载入它，就能回到提出行动之前，重新考虑对象、时机或是否要提出这项行动，而不必重做整个回合。
+
 [h2]设置[/h2]
 选项 → 附加内容 → 自动存档 · Auto-save Before...，或点击游戏右上角“存档”直达设置。
 “过回合前自动存档”和“外交行动前自动存档”默认开启，可分别关闭。点击“确认”保存，点击“取消”放弃修改。关闭开关不会删除已有存档。
@@ -22,25 +26,26 @@
 
 [h2]保存过程与失败处理[/h2]
 保存过程中会短暂锁住输入，收到游戏的成功通知后再推进回合或提交外交行动。一项外交确认包含多个原生命令时，只保存一次，再按原顺序执行。
-保存失败或等待超时会暂停本次操作，可以重试，或取消外交行动／留在本回合。保留 1.0.2 的完成通知缺失恢复处理。
+保存失败或等待超时会暂停本次操作，可以重试，或取消外交行动／留在本回合。
 例外：当前阶段若游戏禁止普通存档（例如时代转换），会提示、保留最近有效备份，并沿用游戏流程继续操作；这时不会产生新的备份。
 
 [h2]安装与兼容[/h2]
 订阅后等待 Steam 更新并重启游戏，在“附加内容”确认启用。可用于已有单人对局。
 手动安装过同一模组时，请先退出游戏，把 Mods/civ7-before-end-turn 移到 Mods 目录之外，避免重复加载。
 仅用于单人游戏本地玩家的活动回合；多人、热座、Autoplay 以及 AI 回合中的外交回应不执行本模组的保存逻辑。
-与 Rest Guard 的标准加载顺序配合时，先休息，再保存，再结束回合。其他模组若绕过或替换标准结束回合／外交提交入口，需要单独验证兼容性。
+与 Rest Guard 的标准加载顺序配合时，先保存，再休息，再结束回合。其他模组若绕过或替换标准结束回合／外交提交入口，需要单独验证兼容性。
 
-[h2]1.1.0 公开预览版 · 验证范围[/h2]
-适配依据：Steam Civilization VII 1.5.0 (1311346)。
-70 项本模组自动测试通过，0 项跳过：覆盖两开关的四种组合、设置确认／取消及持久化、外交命令顺序、重试／取消，并读取本机实际和平交易与地图宣战处理函数进行模拟集成检查。
-Apple Silicon Mac / Metal 已完成启动与主菜单加载检查。[b]新版设置和外交存档的游戏内保存／读档仍未完整验收[/b]；请先在可回退的测试对局中核对。上一版过回合保存与完成通知缺失恢复有 Windows 实机验证记录。
-封面是功能示意，不是实机截图。图库中的载入界面展示已有 BeforeEndTurn 存档，不代表外交存档已完成实机验收。
+[h2]语言与验证范围[/h2]
+当前工坊版本 1.1.2。界面跟随游戏语言设置，支持英文与简体中文。适配依据：Steam Civilization VII 1.5.0 (1311346)。79 项本模组离线自动测试通过，0 项跳过；外交保存／读档完整往返仍待游戏内验收。封面是功能示意，不是实机截图。
 
 [h2]English[/h2]
 Save before ending your turn (BeforeEndTurn) and before diplomatic actions during your active turn (BeforeDiplomacy). The two independent switches are enabled by default under Options → Add-ons; the HUD Saves shortcut opens these settings. Merely viewing diplomacy does not save.
+[b]A second chance before a diplomatic proposal[/b]
+You may offer cooperation hoping to improve relations, only for the AI to reject it and make relations worse. Diplomatic actions also involve Influence; costs, refunds and relationship effects depend on the action and outcome. Rejection does not universally mean losing both Influence and goodwill: current Research Collaboration and Cultural Exchange data, for example, refunds the proposer's Influence on rejection, while rejection can still worsen relations.
+BeforeDiplomacy lets you load back to before the protected action was submitted and reconsider whom to approach, when to act, or whether to make the proposal, without replaying the whole turn.
+
 Each feature overwrites one fixed local slot. All single-player campaigns on the same computer share these slots. Load either from Load Game → Local. Normal autosaves and quicksaves keep their existing behavior.
 The mod waits for successful saving before continuing. Failed saves allow retry or cancel. If the game currently forbids normal saving, it keeps the previous backup and lets the action proceed with a notice. Single-player local turns only.
-Version 1.1.0 is a public preview with 70 passing automated tests. New settings and diplomatic save/load behavior still await complete in-game validation, including on macOS.
+Version 1.1.2 follows your game language, with English and Simplified Chinese UI. 79 offline automated tests pass; a complete diplomatic save/load round trip still awaits in-game validation.
 
 [url=https://github.com/Stupidism/civ7-mods/tree/main/mods/civ7-before-end-turn]Source and full documentation[/url]

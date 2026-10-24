@@ -4,18 +4,19 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
 import { SaveGate, installTurnHook } from '../ui/save-gate.js';
 import { installDiplomacyHooks } from '../ui/diplomacy-hook.js';
 
 const gameRoot = process.env.CIV7_GAME_DIR || "D:/Program Files (x86)/Steam/steamapps/common/Sid Meier's Civilization VII";
 const panelPath = join(gameRoot, 'Base/modules/base-standard/ui/action/panel-action.js');
-const restRoot = join(process.env.LOCALAPPDATA || '', "Firaxis Games/Sid Meier's Civilization VII/Mods/civ7-rest-guard");
+const restRoot = process.env.CIV7_REST_GUARD_DIR || fileURLToPath(new URL('../../civ7-rest-guard/', import.meta.url));
 const skip = !existsSync(panelPath);
 const withoutImports = text => text.replace(/^import .*;\r?$/gm, '');
 const modSource = withoutImports(readFileSync(new URL('../ui/before-end-turn.js', import.meta.url), 'utf8'));
 
-function harness() {
+function harness({ withRest = false } = {}) {
   const calls = [], listeners = new Map(), timers = new Map(), domListeners = new Map();
   let timerId = 0, sent = false, now = 0;
   const config = { gameSeed: 31337, isAnyMultiplayer: false };
@@ -26,6 +27,7 @@ function harness() {
   }
   const context = vm.createContext({
     SaveGate, installTurnHook, installDiplomacyHooks,
+    Locale: { compose: (key, ...args) => [key, ...args].join(' ') },
     settingsStore: { data: { config: { turnEnabled: true, diplomacyEnabled: true } } },
     installSettingsLauncher: () => () => {},
     DiplomacyManager: { closeCurrentDiplomacyDialog() {}, closeCurrentDiplomacyDeal() {}, closeCurrentDiplomacyProject() {}, startWarFromMap() {} },
@@ -73,18 +75,20 @@ function harness() {
   context.Network.saveGame = params => { calls.push(['save', params]); emit('StartSaveRequest'); return true; };
   const gameCode = withoutImports(readFileSync(panelPath, 'utf8')).replace('export { PanelAction };', 'globalThis.PanelAction = PanelAction;');
   vm.runInContext(gameCode, context, { filename: panelPath });
+  const evaluate = source => vm.runInContext(`(function () { ${source}\n})();`, context);
+  const getRest = withRest ? installRest(context, evaluate) : () => null;
   vm.runInContext(`(function () { ${modSource}\n})();`, context);
   const panel = Object.create(context.PanelAction.prototype);
   panel.canUnreadyTurn = () => false;
   panel.canEndTurn = () => true;
   panel.setEndTurnWaiting = () => calls.push(['waiting']);
   return {
-    context, panel, config, calls, emit,
+    context, panel, config, calls, emit, getRest,
     complete: () => emit('SaveComplete', { options: 65, result: 0 }),
     flush(ms = 0) { for (const [id, timer] of [...timers]) if (timer.ms === ms) { timers.delete(id); timer.fn(); } },
     nextTurn() { sent = false; context.Game.turn++; },
     advanceTime(ms) { now += ms; },
-    evaluate: source => vm.runInContext(`(function () { ${source}\n})();`, context),
+    evaluate,
     dispose: () => context.__civ7BeforeEndTurnV1.destroy()
   };
 }
@@ -184,44 +188,147 @@ test('captured missing completion: fresh overwrite finishes before actual turn s
   h.dispose();
 });
 
-test('installed Rest Guard completes its rest before saving, with no second rest at native submit', {
-  skip: skip || !existsSync(join(restRoot, 'ui/rest-guard.js'))
-}, () => {
-  const h = harness();
+function installRest(context, evaluate) {
+  // UI-only dependencies are inert; retain the real turn/save/rest controllers.
+  Object.assign(context, {
+    getRadialMenus: () => [], registerRadialMenu() {}, registerRadialMenuItem() {}, NavigationType: { FOCUS: 'focus' },
+    FocusManager: { get: () => ({ currentFocus: () => null, setFocus() {} }) },
+    InputNavigationAction: { UP: 1, DOWN: 2, LEFT: 3, RIGHT: 4, PREVIOUS: 5, NEXT: 6 },
+  });
   const read = name => withoutImports(readFileSync(join(restRoot, 'ui', name), 'utf8')).replace(/^export /gm, '');
-  const defaults = h.evaluate(`${read('defaults.js')}\nreturn DEFAULTS;`);
-  h.context.DEFAULTS = defaults;
-  Object.assign(h.context, h.evaluate(`${read('rest-model.js')}\nreturn { RestGate, normalizeConfig, scheduleAt, nextRestTurn, STAGE_LENGTH };`));
-  const hasRuntime = existsSync(join(restRoot, 'ui/rest-runtime.js'));
-  if (hasRuntime) {
-    h.context.RestSession = h.evaluate(`${read('rest-session.js')}\nreturn RestSession;`);
-    h.context.UIGameLoadingState = { GameStarted: 9 };
-    h.context.UI.getGameLoadingState = () => 9;
-    Object.assign(h.context, h.evaluate(`${read('rest-runtime.js')}\nreturn { session, checkpoint, installLoadingHooks };`));
-    h.context.Game.turn = 5;
-  }
-  h.context.RestStore = h.evaluate(`${read('rest-store.js')}\nreturn RestStore;`);
+  context.DEFAULTS = evaluate(`${read('defaults.js')}\nreturn DEFAULTS;`);
+  Object.assign(context, evaluate(`${read('rest-model.js')}\nreturn { RestGate, normalizeConfig, scheduleAt, STAGE_LENGTH, nightWindow };`));
+  context.RestSession = evaluate(`${read('rest-session.js')}\nreturn RestSession;`);
+  context.activityActive = evaluate(`${read('rest-activity.js')}\nreturn activityActive;`);
+  context.UIGameLoadingState = { GameStarted: 9 };
+  context.UI.getGameLoadingState = () => 9;
+  Object.assign(context, evaluate(`${read('rest-runtime.js')}\nreturn { session, checkpoint, installLoadingHooks };`));
+  context.Game.turn = 5;
+  // Four real end actions in this live session; loading turn 5 alone is not due.
+  for (const turn of [1, 2, 3, 4]) context.session.requestTurn({
+    turn, context: 'prior', token: `prior:${turn}`,
+  }, context.normalizeConfig({ nightEnabled: false }), context.Date.now());
+  Object.assign(context, evaluate(`${read('rest-retention.js')}\nreturn { createRestRetention };`));
+  Object.assign(context, evaluate(`${read('rest-save.js')}\nreturn { createRestSaver, newRestSave };`));
+  context.RestStore = evaluate(`${read('rest-store.js')}\nreturn RestStore;`);
   // Current Rest Guard shares its store with the settings UI. The settings UI
   // itself is outside this test; exercise the real controller and store.
-  h.context.settingsStore = new h.context.RestStore();
-  h.context.subscribeSettings = () => () => {};
-  h.context.isSettingsOpen = () => false;
-  h.context.openSettings = () => {};
-  h.context.RestView = class {
+  context.restSettingsStore = new context.RestStore();
+  context.restSettingsStore.data.config.nightEnabled = false;
+  context.subscribeSettings = () => () => {};
+  context.isSettingsOpen = () => false;
+  context.openSettings = () => {};
+  context.RestView = class {
     constructor(callbacks) { this.callbacks = callbacks; this.root = { style: {} }; }
     close() { this.mode = null; } showRest() { this.mode = 'rest'; }
-    updateRest() {} updateLauncher() {} destroy() {} setVisible() {}
+    showIdleRest() { this.mode = 'idle'; } updateIdleRest() {}
+    showNight() { this.mode = 'night'; }
+    updateSaveStatus() {} updateRest() {} updateLauncher() {} destroy() {} setVisible() {}
   };
-  const getRest = h.evaluate(`${read('rest-guard.js')}\nreturn () => controller;`);
-  h.panel.onActionButton(); // The installed Rest Guard's first scheduled break.
-  assert.equal(getRest().view.mode, 'rest');
+  return evaluate(`const settingsStore = globalThis.restSettingsStore;\n${read('rest-guard.js')}\nreturn () => controller;`);
+}
+
+test('manifest loads the save wrapper after Rest Guard so saving precedes turn rest', () => {
+  const order = (file, id) => Number(readFileSync(file, 'utf8').match(new RegExp(`<ActionGroup id="${id}"[^>]*>[\\s\\S]*?<LoadOrder>(\\d+)</LoadOrder>`))[1]);
+  assert.ok(order(new URL('../before-end-turn.modinfo', import.meta.url), 'before-end-turn-game') >
+    order(join(restRoot, 'rest-guard.modinfo'), 'rest-guard-game'));
+});
+
+for (const method of ['onActionButton', 'onNextActionHotkey', 'onActionNextAction', 'onEngineInput', 'sendEndTurn']) {
+  test(`${method} with Rest Guard: save succeeds, then rest, then exactly one turn submission`, { skip }, () => {
+    const h = harness({ withRest: true });
+    h.panel[method]({ detail: { status: 2, name: 'force-end-turn' }, preventDefault() {}, stopPropagation() {} });
+    assert.equal(h.calls.filter(x => x[0] === 'save' && x[1].FileName === 'BeforeEndTurn').length, 1);
+    assert.notEqual(h.getRest().view.mode, 'rest');
+    assert.equal(h.calls.some(x => ['turn', 'waiting', 'deselect'].includes(x[0])), false);
+    h.complete(); // Wait for the deferred completion, not just the native event.
+    assert.notEqual(h.getRest().view.mode, 'rest');
+    h.flush();
+    assert.equal(h.getRest().view.mode, 'rest');
+    assert.equal(h.context.session.pending.reason, 'turn');
+    const restSave = h.calls.filter(x => x[0] === 'save' && x[1].FileName.startsWith('RestGuard_'));
+    assert.equal(restSave.length, 1, 'a separate rest snapshot follows the pre-turn save');
+    assert.equal(restSave[0][1].Overwrite, false);
+    h.complete();
+    assert.equal(h.context.session.restSave.status, 'saved');
+    for (let i = 0; i < 3; i++) h.panel.sendEndTurn();
+    h.getRest().view.callbacks.resume(); // Too early: cannot release the turn.
+    assert.equal(h.calls.filter(x => x[0] === 'save' && x[1].FileName === 'BeforeEndTurn').length, 1);
+    assert.equal(h.calls.some(x => ['turn', 'waiting', 'deselect'].includes(x[0])), false);
+    h.advanceTime(300001);
+    h.getRest().view.callbacks.resume();
+    h.getRest().view.callbacks.resume();
+    assert.equal(h.calls.filter(x => x[0] === 'save' && x[1].FileName === 'BeforeEndTurn').length, 1);
+    assert.equal(h.calls.filter(x => x[0] === 'turn').length, 1);
+    assert.equal(h.getRest().view.mode, null);
+    h.dispose();
+  });
+}
+
+test('failed save does not start turn rest; retry must save successfully first', { skip }, () => {
+  const h = harness({ withRest: true });
+  h.panel.onActionButton();
+  h.emit('SaveComplete', { options: 65, result: 42 }); h.flush();
+  assert.equal(h.context.session.pending, null);
+  assert.equal(h.context.session.turnCount, 4, 'failed save must not count the requested turn');
+  assert.equal(h.calls.some(x => x[0] === 'turn'), false);
+  h.calls.find(x => x[0] === 'dialog')[1].options[0].callback(); h.flush();
+  assert.equal(h.calls.filter(x => x[0] === 'save' && x[1].FileName === 'BeforeEndTurn').length, 2);
+  assert.equal(h.context.session.pending, null);
+  h.complete(); h.flush();
+  assert.equal(h.getRest().view.mode, 'rest');
+  h.advanceTime(300001); h.getRest().resume();
+  assert.equal(h.calls.filter(x => x[0] === 'turn').length, 1);
+  h.dispose();
+});
+
+test('pending turn save defers a time break until after successful completion', { skip }, () => {
+  const h = harness({ withRest: true });
+  h.context.Game.turn = 4;
+  h.context.restSettingsStore.data.config.playMinutes = 1;
+  h.panel.onActionButton();
+  h.advanceTime(60001);
+  h.getRest().tick(); h.getRest().activity();
+  assert.equal(h.context.session.pending, null);
+  assert.equal(h.context.session.isIdleBreak, false);
+  h.complete(); h.flush();
+  assert.equal(h.context.session.pending.reason, 'time');
+  assert.equal(h.calls.some(x => x[0] === 'turn'), false);
+  h.advanceTime(300001); h.getRest().resume();
+  assert.equal(h.calls.filter(x => x[0] === 'save' && x[1].FileName === 'BeforeEndTurn').length, 1);
+  assert.equal(h.calls.filter(x => x[0] === 'turn').length, 1);
+  h.dispose();
+});
+
+test('voluntary rest and settings block autosaves; disabling turn saves still allows turn rest', { skip }, () => {
+  const h = harness({ withRest: true });
+  h.context.isSettingsOpen = () => true;
+  h.panel.sendEndTurn();
   assert.equal(h.calls.some(x => x[0] === 'save'), false);
-  h.advanceTime(300001);
-  getRest().view.callbacks.resume();
-  assert.equal(h.calls.filter(x => x[0] === 'save').length, 1);
+  h.context.isSettingsOpen = () => false;
+  h.advanceTime(60000); h.getRest().tick();
+  assert.equal(h.getRest().view.mode, 'idle');
+  h.panel.sendEndTurn();
+  assert.equal(h.calls.some(x => x[0] === 'save' && x[1].FileName === 'BeforeEndTurn'), false);
+  h.complete();
+  h.getRest().resume();
+  h.context.settingsStore.data.config.turnEnabled = false;
+  h.panel.onActionButton();
+  assert.equal(h.calls.some(x => x[0] === 'save' && x[1].FileName === 'BeforeEndTurn'), false);
+  assert.equal(h.getRest().view.mode, 'rest');
+  h.advanceTime(300001); h.getRest().resume();
+  assert.equal(h.calls.filter(x => x[0] === 'turn').length, 1);
+  h.dispose();
+});
+
+test('disabling rest preserves save-before-turn behavior', { skip }, () => {
+  const h = harness({ withRest: true });
+  Object.assign(h.context.restSettingsStore.data.config, { turnEnabled: false, timeEnabled: false });
+  h.panel.onActionButton();
+  assert.equal(h.calls.filter(x => x[0] === 'save' && x[1].FileName === 'BeforeEndTurn').length, 1);
   assert.equal(h.calls.some(x => x[0] === 'turn'), false);
   h.complete(); h.flush();
   assert.equal(h.calls.filter(x => x[0] === 'turn').length, 1);
-  assert.equal(getRest().view.mode, null);
+  assert.notEqual(h.getRest().view.mode, 'rest');
   h.dispose();
 });

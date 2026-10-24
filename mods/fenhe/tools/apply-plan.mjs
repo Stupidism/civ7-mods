@@ -1,10 +1,9 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {spawnSync} from 'node:child_process';
 import {evaluate,waitFor,sleep} from './cdp.mjs';
 import {enterWorld,reloadWorld,verifyWorld} from './native-session.mjs';
-import {resolveRuntimeConfig} from './platform.mjs';
+import {resolveRuntimeConfig,runPython} from './platform.mjs';
 
 const args=Object.fromEntries(process.argv.slice(2).reduce((a,v,i,all)=>i%2?a:[...a,[v.replace(/^--/,''),all[i+1]]],[]));
 if(!args.plan||!args.default||!args.transition)throw Error('需要 --plan、--default 和 --transition 文件路径');
@@ -17,7 +16,7 @@ await fs.mkdir(out,{recursive:true});
 await fs.copyFile(args.plan,path.join(out,'plan.json'));
 const destination=path.join(out,'Fenhe_Intervention.Civ7Map');
 const python=args.python??runtime.python;
-const result=spawnSync(python,[path.join(root,'tools','build-world.py'),'--default',path.resolve(args.default),'--transition',path.resolve(args.transition),'--plan',path.resolve(args.plan),'--out',destination],{encoding:'utf8'});
+const result=runPython([path.join(root,'tools','build-world.py'),'--default',path.resolve(args.default),'--transition',path.resolve(args.transition),'--plan',path.resolve(args.plan),'--out',destination],{command:python,explicit:!!(args.python||process.env.FENHE_PYTHON)});
 if(result.error)throw Error('无法启动 Python（'+python+'）：'+result.error.message);
 if(result.status!==0)throw Error(result.stderr||result.stdout);
 console.log('数据库检查',result.stdout.trim());

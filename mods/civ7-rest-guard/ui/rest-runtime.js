@@ -73,9 +73,9 @@ export function installLoadingHooks() {
         beginLoading();
         try {
           const result = original.apply(Network, args);
-          if (result === false) { session.finishLoading(Date.now()); cancelTransfer(); }
+          if (result === false) { session.finishLoading(Date.now(), false); cancelTransfer(); }
           return result;
-        } catch (error) { session.finishLoading(Date.now()); cancelTransfer(); throw error; }
+        } catch (error) { session.finishLoading(Date.now(), false); cancelTransfer(); throw error; }
       };
       wrapped.c7rLoadingHook = true;
       Network[name] = wrapped;
@@ -87,7 +87,7 @@ export function installLoadingHooks() {
   if (!call.c7rExitHook) {
     const wrappedCall = function (name, ...args) {
       if (name === 'exitToMainMenu') {
-        session.finishLoading(Date.now()); destination = 'shell'; checkpoint();
+        session.finishLoading(Date.now(), false); destination = 'shell'; checkpoint();
       } else if (name === 'exitToDesktop') cancelTransfer();
       return call.call(this, name, ...args);
     };
@@ -110,7 +110,7 @@ export function installLoadingHooks() {
   engine.on('LoadComplete', result => {
     if (typeof SerializerResult !== 'undefined' && result?.result !== undefined &&
         result.result !== SerializerResult.RESULT_OK) {
-      session.finishLoading(Date.now()); cancelTransfer();
+      session.finishLoading(Date.now(), false); cancelTransfer();
     }
   });
   window.addEventListener('unload', checkpoint);

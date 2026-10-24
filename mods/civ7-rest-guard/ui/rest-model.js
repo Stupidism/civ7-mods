@@ -13,6 +13,10 @@ export function normalizeConfig(value = {}) {
   return {
     turnEnabled: typeof value.turnEnabled === 'boolean' ? value.turnEnabled : DEFAULTS.turnEnabled,
     timeEnabled: typeof value.timeEnabled === 'boolean' ? value.timeEnabled : DEFAULTS.timeEnabled,
+    saveKeepCount: numberInRange(value.saveKeepCount, DEFAULTS.saveKeepCount, 1, 100, true),
+    nightEnabled: typeof value.nightEnabled === 'boolean' ? value.nightEnabled : DEFAULTS.nightEnabled,
+    nightStart: numberInRange(value.nightStart, DEFAULTS.nightStart, 0, 1439, true),
+    nightEnd: numberInRange(value.nightEnd, DEFAULTS.nightEnd, 0, 1439, true),
     playMinutes: numberInRange(value.playMinutes, DEFAULTS.playMinutes, 1, 240),
     restMinutes: numberInRange(value.restMinutes, DEFAULTS.restMinutes, 0.1, 120),
     intervals: DEFAULTS.intervals.map((fallback, i) =>
@@ -20,43 +24,18 @@ export function normalizeConfig(value = {}) {
   };
 }
 
-// Game.turn is the displayed turn being ended. Zero is the starting baseline,
-// not a completed turn: end turns 1..20 use stage 0, 21..40 use stage 1, etc.
-// Each finite stage starts a fresh cadence; the final stage continues after 80.
+// The displayed game turn selects the difficulty stage only. RestSession
+// counts end-turn actions; no absolute-turn cadence or modulo calculation.
 export function scheduleAt(turn, config) {
   const t = Math.max(0, Math.floor(Number(turn) || 0));
   const stage = Math.min(4, Math.floor(Math.max(0, t - 1) / STAGE_LENGTH));
-  const start = stage * STAGE_LENGTH;
-  const interval = config.intervals[stage];
-  const position = t - start;
-  return { turn: t, stage, start, interval, due: position > 0 && position % interval === 0 };
-}
-
-export function nextRestTurn(turn, config) {
-  let t = Math.max(1, Math.floor(Number(turn) || 0));
-  // At most four finite stage boundaries, then one final-stage interval.
-  for (let i = 0; i < 5; i++) {
-    const rule = scheduleAt(t, config);
-    const candidate = t + (rule.interval - (t - rule.start) % rule.interval) % rule.interval;
-    const end = (rule.stage + 1) * STAGE_LENGTH;
-    if (rule.stage === 4 || candidate <= end) return candidate;
-    t = end + 1;
-  }
-  return t;
+  return { turn: t, stage, interval: config.intervals[stage] };
 }
 
 export class RestGate {
   constructor() {
     // Current in-memory lock only; never count turns or persist runtime state.
     this.state = { paidToken: null, pending: null };
-  }
-
-  attempt(token, turn, config, now) {
-    // An existing rest must finish even if config or the current turn changes.
-    if (this.state.pending) return false;
-    if (this.state.paidToken === token || !scheduleAt(turn, config).due) return true;
-    this.begin(token, turn, 'turn', config, now);
-    return false;
   }
 
   begin(token, turn, reason, config, now) {
@@ -89,4 +68,25 @@ export class RestGate {
 export function formatTime(milliseconds) {
   const seconds = Math.ceil(Math.max(0, milliseconds) / 1000);
   return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+}
+
+
+export function clockTime(minutes) {
+  return `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+}
+
+// Local calendar arithmetic handles overnight windows and DST transitions.
+// Equal start/end means an empty window, not an accidental all-day lock.
+export function nightWindow(config, now) {
+  if (!config.nightEnabled || config.nightStart === config.nightEnd) return { active: false };
+  const date = new Date(now);
+  const minute = date.getHours() * 60 + date.getMinutes();
+  const { nightStart: start, nightEnd: end } = config;
+  const overnight = start > end;
+  const active = overnight ? minute >= start || minute < end : minute >= start && minute < end;
+  if (!active) return { active: false };
+  const until = new Date(now);
+  if (overnight && minute >= start) until.setDate(until.getDate() + 1);
+  until.setHours(Math.floor(end / 60), end % 60, 0, 0);
+  return { active: true, endsAt: until.getTime() };
 }

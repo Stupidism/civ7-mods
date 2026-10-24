@@ -1,4 +1,4 @@
-import { normalizeConfig } from './rest-model.js';
+import { normalizeConfig, clockTime } from './rest-model.js';
 
 export const REST_OPTIONS_CATEGORY = 'mods';
 export const REST_OPTIONS_GROUP = 'rest_guard';
@@ -40,19 +40,20 @@ export function installRestOptions({ options, optionType, categories, store, app
   }
   function register() {
     entries = [];
-    function add(id, label, description, read, write, values) {
+    function add(id, label, description, read, write, values, labelValue = String, enabledBy = null) {
       const choices = values ? [...new Set([...values, read(draft)])].sort((a, b) => a - b) : null;
       const entry = {
         id: `rest-guard-${id}`, category: REST_OPTIONS_CATEGORY, group: REST_OPTIONS_GROUP,
         type: choices ? optionType.Dropdown : optionType.Switch,
         label: `LOC_RG_${label}`, description: `LOC_RG_${description}`,
-        ...(choices ? { dropdownItems: choices.map(value => ({ label: String(value) })) } : {}),
+        ...(choices ? { dropdownItems: choices.map(value => ({ label: labelValue(value) })) } : {}),
         initListener(info) {
+          info.isHidden = enabledBy !== null && !draft[enabledBy];
           if (choices) info.selectedItemIndex = choices.indexOf(read(draft));
           else info.currentValue = read(draft);
         },
         updateListener(info, value) {
-          if (!active) return;
+          if (!active || (enabledBy !== null && !draft[enabledBy])) return;
           if (choices) {
             if (!Number.isInteger(value) || value < 0 || value >= choices.length) return;
             write(draft, choices[value]);
@@ -61,21 +62,38 @@ export function installRestOptions({ options, optionType, categories, store, app
             write(draft, value);
           }
           entry.initListener(info);
+          if (!choices) {
+            // Native forceRender hides the complete row, preserving the value
+            // and letting the native scroll area observe the changed height.
+            for (const dependent of entries) {
+              const wasHidden = dependent.isHidden;
+              dependent.initListener?.(dependent);
+              if (dependent.isHidden !== wasHidden) dependent.forceRender?.();
+            }
+          }
         },
       };
       options.addOption(entry);
       entries.push(entry);
     }
+    // Keep each switch immediately before its own controls. Duration and save
+    // retention are shared by multiple triggers, so they form a final section.
     add('turn-enabled', 'TURN_ENABLED', 'TURN_DESCRIPTION', c => c.turnEnabled, (c, v) => { c.turnEnabled = v; });
-    add('time-enabled', 'TIME_ENABLED', 'TIME_DESCRIPTION', c => c.timeEnabled, (c, v) => { c.timeEnabled = v; });
-    add('play-minutes', 'PLAY_MINUTES', 'TIME_DESCRIPTION', c => c.playMinutes, (c, v) => { c.playMinutes = v; },
-      Array.from({ length: 240 }, (_, i) => i + 1));
-    add('rest-minutes', 'REST_MINUTES', 'REST_DESCRIPTION', c => c.restMinutes, (c, v) => { c.restMinutes = v; },
-      [0.1, ...Array.from({ length: 240 }, (_, i) => (i + 1) / 2)]);
     for (let i = 0; i < 5; i++) {
       add(`interval-${i}`, `STAGE_${i}`, 'TURN_DESCRIPTION', c => c.intervals[i], (c, v) => { c.intervals[i] = v; },
-        Array.from({ length: 100 }, (_, index) => index + 1));
+        Array.from({ length: 100 }, (_, index) => index + 1), String, 'turnEnabled');
     }
+    add('time-enabled', 'TIME_ENABLED', 'TIME_DESCRIPTION', c => c.timeEnabled, (c, v) => { c.timeEnabled = v; });
+    add('play-minutes', 'PLAY_MINUTES', 'TIME_DESCRIPTION', c => c.playMinutes, (c, v) => { c.playMinutes = v; },
+      Array.from({ length: 240 }, (_, i) => i + 1), String, 'timeEnabled');
+    add('night-enabled', 'NIGHT_ENABLED', 'NIGHT_DESCRIPTION', c => c.nightEnabled, (c, v) => { c.nightEnabled = v; });
+    const times = Array.from({ length: 96 }, (_, i) => i * 15);
+    add('night-start', 'NIGHT_START', 'NIGHT_DESCRIPTION', c => c.nightStart, (c, v) => { c.nightStart = v; }, times, clockTime, 'nightEnabled');
+    add('night-end', 'NIGHT_END', 'NIGHT_DESCRIPTION', c => c.nightEnd, (c, v) => { c.nightEnd = v; }, times, clockTime, 'nightEnabled');
+    add('rest-minutes', 'REST_MINUTES', 'REST_DESCRIPTION', c => c.restMinutes, (c, v) => { c.restMinutes = v; },
+      [0.1, ...Array.from({ length: 240 }, (_, i) => (i + 1) / 2)]);
+    add('save-keep-count', 'SAVE_KEEP_COUNT', 'SAVE_KEEP_DESCRIPTION', c => c.saveKeepCount, (c, v) => { c.saveKeepCount = v; },
+      Array.from({ length: 100 }, (_, i) => i + 1));
     const reset = {
       id: 'rest-guard-reset', category: REST_OPTIONS_CATEGORY, group: REST_OPTIONS_GROUP,
       type: optionType.Editor, label: 'LOC_RG_RESET_LABEL', description: 'LOC_RG_RESET_DESCRIPTION',
@@ -147,4 +165,30 @@ export function openRestOptions({ context, document, afterLayout, focus }) {
       }
     });
   });
+}
+
+// Keep the single native mod heading. Decorative, unfocusable rules separate
+// sections without introducing extra native groups or ornamental headers.
+export function installRestOptionDividers(categoryPrototype, document) {
+  const starts = new Set(['rest-guard-time-enabled', 'rest-guard-night-enabled',
+    'rest-guard-rest-minutes', 'rest-guard-reset']);
+  const previous = categoryPrototype.appendOption;
+  let active = true;
+  function appendOption(option, ...args) {
+    const result = previous.call(this, option, ...args);
+    if (active && option.category === REST_OPTIONS_CATEGORY && option.group === REST_OPTIONS_GROUP && starts.has(option.id)) {
+      const rule = document.createElement('div');
+      rule.setAttribute('data-c7r-options-divider', option.id);
+      rule.setAttribute('aria-hidden', 'true');
+      rule.style.cssText = 'height:1px;min-height:1px;flex-shrink:0;background-color:rgba(189,165,118,0.28);margin:0.75rem 0 0.65rem;pointer-events:none;';
+      result.optionRow.parentElement.insertBefore(rule, result.optionRow);
+    }
+    return result;
+  }
+  categoryPrototype.appendOption = appendOption;
+  return () => {
+    active = false;
+    if (categoryPrototype.appendOption === appendOption) categoryPrototype.appendOption = previous;
+    document.querySelectorAll('[data-c7r-options-divider]').forEach(rule => rule.remove());
+  };
 }

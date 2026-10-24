@@ -1,6 +1,6 @@
 # Auto-save Before...（行动前自动存档）
 
-版本：1.1.0（2026-10-18 工坊公开预览版，新设置与外交存档仍待完整实机验收）。用于 Steam《文明 VII》单人游戏。
+当前源码版本：1.1.1（2026-10-20，先保存再强制休息；工坊公开预览版仍为 1.1.0）。用于 Steam《文明 VII》单人游戏。
 
 [Steam 创意工坊订阅](https://steamcommunity.com/sharedfiles/filedetails/?id=3815596737) · [GitHub 源码](https://github.com/Stupidism/civ7-before-end-turn) · [历史版本下载](https://github.com/Stupidism/civ7-before-end-turn/releases)
 
@@ -8,7 +8,23 @@
 
 点击“下一回合”时，先把**当前回合已经完成的操作**保存到固定的 `BeforeEndTurn` 存档，再推进回合。如果 AI 在过回合时抢了奇观、宣战，载入这个存档就能回到刚才按下“下一回合”之前。
 
+搭配 Rest Guard 1.5.1 时：**保存成功 → 强制休息 → 点击继续 → 推进回合**。休息面板出现时，本次 `BeforeEndTurn` 已保存；保存失败则留在当前回合，重试成功后才进入回合休息。休息期间重复的过回合请求不会覆盖备份。
+
 1.1.0 新增外交行动前保存：确认宣战、结盟、外交项目或和平交易等操作时，先覆盖 `BeforeDiplomacy`，保存成功后再执行操作。查看外交界面和查看信息不会触发保存。
+
+## 界面语言
+
+界面跟随游戏语言设置：简体中文显示中文，英文显示英文，其他语言使用游戏的英文回退。设置项、右上角入口、保存中提示、失败原因、重试/取消按钮及模组介绍均使用游戏原生本地化文本。固定存档名 `BeforeEndTurn` 和 `BeforeDiplomacy` 保持不变。
+
+2026-10-22：补全中英文提示，79 项离线自动测试全部通过、0 跳过；未进行实机测试。
+
+## 外交被拒绝后，回到提议前重新考虑
+
+向 AI 提出合作，本来想改善关系，却可能被拒绝，甚至让关系变差。外交行动还牵涉影响力，但具体消耗、退还与关系后果取决于行动类型和结果。当前游戏中，科研合作、文化交流等合作项目设置了拒绝后退还发起方影响力，因此不能笼统地说所有拒绝都会让你既损失影响力又降低友好度。
+
+`BeforeDiplomacy` 保留受保护外交行动提交前的状态。结果不符合预期时，载入它即可回到提议前，重新考虑对象、时机或是否提出这项行动，不必重做整个回合。它不会改变 AI 的判断，也不保证重新提交会被接受。
+
+**English — Reconsider a proposal before committing.** An AI may reject an offer of cooperation and relations may worsen. Influence costs, refunds and relationship effects depend on the action and outcome; current Research Collaboration and Cultural Exchange data refunds the proposer's Influence on rejection. Load `BeforeDiplomacy` to return to before the protected action and reconsider the target, timing or proposal without replaying the whole turn. The mod does not change the AI's decision or guarantee acceptance.
 
 ## 两个独立开关
 
@@ -73,12 +89,18 @@
 - 仅在本地玩家活动回合的单人游戏中执行。多人、热座和 Autoplay 直接沿用游戏流程。
 - 外交覆盖标准界面的宣战、议和、结盟/解盟、外交项目及回应、首次会面回应和和平交易的提出/接受/拒绝。AI 回合中的回应不执行本模组的保存逻辑。
 - 当时代已经结束、游戏的 `ContextManager.canSaveGame()` 禁止普通存档时，会提示并保留最近一次有效的 `BeforeEndTurn`，然后允许继续时代转换。触发时代结束之前的那个正常回合已经按相同规则保存。
-- 本机“休息一下 · Rest Guard”的加载顺序是 2000，本模组为 1500，因此先完成休息，再保存，再推进回合。已用该模组当前安装版本的控制器代码做模拟集成检查。
+- Rest Guard 的加载顺序是 2000，本模组游戏作用域为 3000；存档包装器在外层，保存成功后才进入休息。Rest Guard 1.5.1 提供请求检查，休息和设置界面期间不重复保存；写盘期间新到期的时间休息延后到保存结束。
 - 其他模组若绕过标准 `PanelAction.sendEndTurn`、直接调用原生结束回合接口，可能绕过本模组。直接替换整个行动面板的模组也需要单独验证。
 - 外交功能接入当前游戏的原生外交操作与交易提交入口；游戏更新或其他模组替换这些入口后需要重新检查。
 - 游戏更新后，如果过回合入口或原生存档接口变化，需要重新适配。
 
-## 验证情况（2026-10-18 发布复查）
+## 1.1.1 验证情况（2026-10-20）
+
+79 项本模组自动测试和 69 项 Rest Guard 测试全部通过，0 跳过。联动测试读取本机实际的行动面板代码，以模拟保存事件验证鼠标、快捷键、手柄和自动过回合入口均先保存，再休息，最后只提交一次回合；同时覆盖保存失败重试、休息期间重复请求、写盘期间计时到期，以及分别关闭保存或休息的情况。
+
+本次为离线检查，没有启动、重启、加载或推进游戏，没有改写游戏存档。新顺序尚待游戏内验收；工坊发布内容保持 1.1.0。
+
+## 历史验证情况（2026-10-18 发布复查）
 
 开发依据是本机正式游戏文件：**1.5.0.44 / 1311346**，Steam build **25516395**。
 

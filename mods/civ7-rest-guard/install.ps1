@@ -1,7 +1,7 @@
 param([string]$ModsPath = (Join-Path $env:LOCALAPPDATA "Firaxis Games\Sid Meier's Civilization VII\Mods"))
 $ErrorActionPreference = 'Stop'
 if (Get-Process -Name 'Civ7_Win64_DX12_FinalRelease','Civ7_Win64_Vulkan_FinalRelease' -ErrorAction SilentlyContinue) {
-    throw 'Please close Civilization VII before installing Rest Guard.'
+    throw 'Please close Civilization VII before installing No More Turn.'
 }
 $sourceRoot = $PSScriptRoot
 $targetRoot = [IO.Path]::GetFullPath((Join-Path $ModsPath 'civ7-rest-guard'))
@@ -32,4 +32,4 @@ foreach ($file in $sourceFiles) {
     }
 }
 Write-Output "Installed and verified: $targetRoot"
-Write-Output 'Enable Rest Guard in the game Add-ons / Mods menu, then load a single-player game.'
+Write-Output 'Enable No More Turn in the game Add-ons / Mods menu, then load a single-player game.'

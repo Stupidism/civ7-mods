@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.1 — 2026-10-20 (local development)
+
+- With Rest Guard 1.5.1, confirm the BeforeEndTurn save before opening the forced turn break. Continue submits the already-saved turn once, without another write.
+- Load the save wrapper after Rest Guard and check its request eligibility before saving. Repeated end-turn attempts during rest or settings do not overwrite the snapshot.
+- 79 autosave tests and 69 Rest Guard tests pass, including save failure/retry, all standard turn inputs, and a time threshold crossed during saving. These are offline tests with the game's action panel and a mocked native bridge; live acceptance and Workshop publication remain pending.
+
 ## 1.1.0 — 2026-10-18 (public preview)
 
 - Rename the current display title and options group to **Auto-save Before...** to cover both end-turn and diplomatic-action snapshots.

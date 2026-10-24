@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="civ7-rest-guard" version="7" xmlns="ModInfo">
+<Mod id="civ7-rest-guard" version="18" xmlns="ModInfo">
   <Properties>
-    <Name>休息一下 · Rest Guard</Name>
-    <Description>按回合或连续游戏时间强制休息，可独立开启。默认每20回合换档（5/4/3/2/1），连续游戏25分钟休息5分钟；无操作5分钟视为休息。任意休息后共同重置。右上角图标显示剩余回合与时间。仅单人游戏。</Description>
+    <Name>No More Turn（不再来一回合）</Name>
+    <Description>LOC_RG_MOD_DESCRIPTION</Description>
     <Authors>Custom Mod</Authors>
-    <Version>1.4.0</Version>
+    <Version>1.8.5</Version>
     <Package>Mod</Package>
     <AffectsSavedGames>0</AffectsSavedGames>
   </Properties>
@@ -20,6 +20,9 @@
           <Item>ui/defaults.js</Item>
           <Item>ui/rest-model.js</Item>
           <Item>ui/rest-session.js</Item>
+          <Item>ui/rest-activity.js</Item>
+          <Item>ui/rest-save.js</Item>
+          <Item>ui/rest-retention.js</Item>
           <Item>ui/rest-runtime.js</Item>
           <Item>ui/rest-store.js</Item>
           <Item>ui/rest-options.js</Item>
@@ -38,6 +41,9 @@
           <Item>ui/defaults.js</Item>
           <Item>ui/rest-model.js</Item>
           <Item>ui/rest-session.js</Item>
+          <Item>ui/rest-activity.js</Item>
+          <Item>ui/rest-save.js</Item>
+          <Item>ui/rest-retention.js</Item>
           <Item>ui/rest-runtime.js</Item>
           <Item>ui/rest-store.js</Item>
           <Item>ui/rest-options.js</Item>

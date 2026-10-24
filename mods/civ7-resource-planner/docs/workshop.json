@@ -1,6 +1,6 @@
 {
   "modId": "civ7-resource-planner",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publishedFileId": "3822254182",
   "title": "资源规划 · Resource Planner",
   "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182",
@@ -9,54 +9,85 @@
     "Mod",
     "UI"
   ],
-  "publishedOrUpdatedDate": "2026-10-18",
+  "publishedOrUpdatedDate": "2026-10-23",
   "publicApiMetadataVerified": true,
-  "publicPageVerified": false,
+  "publicPageVerified": true,
   "downloadHashesVerified": true,
   "uploadedFiles": [
     {
-      "path": "NOTICE.md",
-      "sha256": "b24939908fea4901be6dd214d1572e066dbee029146b88beaa98fcfc2d71c6e5"
+      "path": "VALIDATION.md",
+      "size": 5772,
+      "sha256": "2085d9a97535aa135a6e6ae978770a7a75631e3928c8c7d2620d74d50b3030d8"
     },
     {
       "path": "README.md",
-      "sha256": "9ab77f2cbe4efdfcee1e90a90081d29827a28dfc9996c905187293ace01de662"
-    },
-    {
-      "path": "VALIDATION.md",
-      "sha256": "639c3ced076ed5d6847cc20c5d211d050dd15e55b512e9e7f9c388c86f3f5921"
+      "size": 7452,
+      "sha256": "44b70685a0fdc58c9eddf536da3727187add085d1007e8d27b24cfb85531d3d8"
     },
     {
       "path": "resource-planner.modinfo",
-      "sha256": "af6f39f63486c6c343b6e5937569b6880ef66ce06b8f26c5f3b5dd0fa5f42538"
+      "size": 1540,
+      "sha256": "7c4b8a7b4921d79694dc5dbc0ded022ae043201085b84cf216d91de054253081"
     },
     {
-      "path": "ui/rp-controller.js",
-      "sha256": "87c25d029bf9f3ee494a5bb9d105247768b6d6fd2274eabc9da314beea60ff8e"
+      "path": "NOTICE.md",
+      "size": 1010,
+      "sha256": "b24939908fea4901be6dd214d1572e066dbee029146b88beaa98fcfc2d71c6e5"
     },
     {
-      "path": "ui/rp-game-adapter.js",
-      "sha256": "1aa101be983025e0bfd3397c7693191b1f68b7f237a19594d83f18b0ef333d5a"
+      "path": "README-en.md",
+      "size": 5471,
+      "sha256": "8e77bf4c975f3eea2a811aea757044c5a5b318ead4154bbe6add65037cc327e2"
     },
     {
       "path": "ui/rp-planner.js",
-      "sha256": "8c3e11b422804b913d77d3dd83daa6707b9a6c6b2291fe39e3b18cbf294881bc"
+      "size": 11865,
+      "sha256": "65330d02ab4bb7d0533c4fccff4f9748a64ea0a99b679ef2d6db2ed2944ae90c"
+    },
+    {
+      "path": "ui/rp-l10n.js",
+      "size": 403,
+      "sha256": "7c3892006adb281b5c542ac978bcbd49f02a3caa552297f7ea07602838be9e86"
     },
     {
       "path": "ui/rp-settings.js",
-      "sha256": "d71f527d34e439e3367a486223217fb7ba67946f6adf8c3cb966bc410b2f78b0"
+      "size": 652,
+      "sha256": "d314193d81599e424553c2d2b98537faf1df6e90f005ca9a7de2e504a97d6c50"
     },
     {
-      "path": "ui/rp-style.css",
-      "sha256": "f65c5d8a6a033ed17652dfc40f1af583ce5932650f9550654456deaee2b3c32d"
+      "path": "ui/rp-game-adapter.js",
+      "size": 9322,
+      "sha256": "08f9be43a964bd2862cef37fe47e05c29d45ad55f85f1be8fdc5734f49cfe00f"
     },
     {
       "path": "ui/rp-ui.js",
-      "sha256": "6827537985ddd828b965ccf144eab4ec1e25ef4fe329c8d50be43f8d10eafcce"
+      "size": 6233,
+      "sha256": "47de1c48d9989ea738a16c1df4c2308b89cfd7da89eac671ad1d6b77f45550a9"
+    },
+    {
+      "path": "ui/rp-style.css",
+      "size": 1218,
+      "sha256": "f65c5d8a6a033ed17652dfc40f1af583ce5932650f9550654456deaee2b3c32d"
+    },
+    {
+      "path": "ui/rp-controller.js",
+      "size": 6317,
+      "sha256": "88f5736dd10915989ca68f262a03cf3723f2755d4467081be9a50b7f895fbbdd"
     },
     {
       "path": "ui-next/screens/commerce/commerce-screen-resources-tab.js",
-      "sha256": "4be6f8fdd3af5d077943c66e522ee7ecd35291b817345b8083f3f4f6bd7d1ce4"
+      "size": 82114,
+      "sha256": "7e4f2fc9f77a76681b80ef61a92a6d160e8efed947eba3c725235db6c6ee461d"
+    },
+    {
+      "path": "ui-next/screens/commerce/commerce-screen-model.js",
+      "size": 119803,
+      "sha256": "9140aecf7f9d967fe88e9fb64d1a2994e9988bd1cc9b4b5f28ebb18861fab24f"
+    },
+    {
+      "path": "text/resource-planner.xml",
+      "size": 8895,
+      "sha256": "a897e9c9b8004b63f48be65c8dc422c6f3bb85777f18b53ba938ea7cdd8c2580"
     }
   ],
   "preview": {
@@ -66,13 +97,23 @@
   "subscribedOnPublisherAccount": true,
   "subscribedAndInstalledVerified": true,
   "validation": {
-    "date": "2026-10-18",
+    "date": "2026-10-23",
     "platform": "Apple Silicon macOS / Metal",
     "gameVersion": "1.5.0 (1311346)",
-    "repositoryTestsPassed": 324,
-    "repositoryTestsSkipped": 0,
+    "moduleTestsPassed": 41,
+    "moduleTestsSkipped": 0,
     "nativeMainMenuObserved": true,
-    "nativeInGameAcceptanceComplete": false
+    "nativeInGameAcceptanceComplete": true,
+    "scope": [
+      "English and Simplified Chinese UI",
+      "mouse pickup/place/cancel",
+      "explicit sorting and reopen recalculation",
+      "stable order during assignment",
+      "happiness filling",
+      "preference allocation"
+    ],
+    "physicalControllerVerified": false,
+    "multiplayerVerified": false
   },
   "requiredWorkshopItems": [
     {
@@ -85,5 +126,27 @@
   "gameInstallSourceVerified": "Steam Workshop",
   "gameModEnabled": true,
   "manualCopyBackedUp": true,
-  "dependencyEnabledOnMac": true
+  "dependencyEnabledOnMac": true,
+  "screenshots": [
+    {
+      "url": "https://images.steamusercontent.com/ugc/9847815557342887530/029F956027E476933EBC576E17A573C85917F73D/",
+      "name": "01-chinese-overview.jpg",
+      "type": 0
+    },
+    {
+      "url": "https://images.steamusercontent.com/ugc/9337508081255934498/CC216256B7CF798F489C3CCD7EF13F87120C5809/",
+      "name": "03-english-overview.jpg",
+      "type": 0
+    },
+    {
+      "url": "https://images.steamusercontent.com/ugc/16286773918481336526/A8F48AD325F334686B847322C1B981F9EA550C40/",
+      "name": "05-english-selection.jpg",
+      "type": 0
+    }
+  ],
+  "commentReply": {
+    "requester": "fka-gargamel",
+    "status": "pending_web_login",
+    "request": "Can the mod be translated to English?"
+  }
 }

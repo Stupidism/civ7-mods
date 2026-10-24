@@ -122,3 +122,15 @@ test('explicit directories and Python override platform defaults',async()=>{
  assert.deepEqual(resolveRuntimeConfig({platform:'linux',home:'/home/player',env}),{saves:env.FENHE_SAVES,mods:env.FENHE_MODS,python:env.FENHE_PYTHON});
  assert.throws(()=>resolveRuntimeConfig({platform:'linux',home:'/home/player',env:{}}),/FENHE_SAVES.*FENHE_MODS/);
 });
+
+test('Mac retries a native Python when PATH points at an incompatible Intel executable',async()=>{
+ const {runPython}=await import('../tools/platform.mjs');const calls=[];
+ const result=runPython(['build-world.py'],{platform:'darwin',command:'python3',run:(command,args)=>{calls.push([command,args]);return calls.length===1?{error:Object.assign(new Error('Bad CPU type'),{errno:-86})}:{status:0,stdout:'ok'};}});
+ assert.equal(result.status,0);assert.deepEqual(calls,[['python3',['build-world.py']],['/usr/bin/python3',['build-world.py']]]);
+});
+test('explicit Python and script errors are never silently retried',async()=>{
+ const {runPython}=await import('../tools/platform.mjs');
+ for(const explicit of [false,true]){let calls=0;const expected=explicit?{error:{errno:-86}}:{status:1,stderr:'invalid world'};
+  assert.equal(runPython(['build-world.py'],{platform:'darwin',command:'python3',explicit,run:()=>{calls++;return expected;}}),expected);assert.equal(calls,1);
+ }
+});

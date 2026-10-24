@@ -1,4 +1,4 @@
-.c7r-root { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2147483000; font-family: "BodyFont-SC", "BodyFont", sans-serif; color: #e5d9bc; }
+.c7r-root { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; color: #e5d9bc; }
 .c7r-button { pointer-events: auto; cursor: pointer; flex-shrink: 0; }
 .c7r-button[disabled="true"] { cursor: default; }
 panel-system-bar .c7r-launcher { position: relative; display: flex; flex-shrink: 0; align-items: center; justify-content: center; height: 1.666666667rem; margin: 0 0.65rem 0 0; padding: 0; color: inherit; border: 0; background-color: transparent; white-space: nowrap; }
@@ -19,5 +19,10 @@ panel-system-bar .c7r-launcher { position: relative; display: flex; flex-shrink:
 .c7r-track { width: 100%; height: 0.22rem; background-color: #343a45; margin-bottom: 1rem; }
 .c7r-progress { height: 100%; width: 0; background-color: #bda576; }
 .c7r-tip { font-size: 1.1rem; text-align: center; margin: 0.7rem 0 1.4rem; }
-.c7r-continue { min-height: 2.8rem; }
+.c7r-actions { display: flex; align-items: stretch; }
+.c7r-continue { min-height: 2.8rem; flex-grow: 1; }
+.c7r-quit { min-height: 2.8rem; min-width: 8rem; margin-left: 0.65rem; }
 .c7r-footnote { color: #aaa99f; font-size: 0.85rem; line-height: 1.5; margin: 0.75rem 0 0; }
+.c7r-save-status { color: #d8c394; }
+
+.c7r-button[data-c7r-focused="true"] { outline: 0.12rem solid #ead39b; outline-offset: 0.1rem; }

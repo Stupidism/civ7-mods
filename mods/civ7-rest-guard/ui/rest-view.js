@@ -1,5 +1,8 @@
-import { formatTime } from './rest-model.js';
-import { IDLE_HINT_MS } from './rest-session.js';
+import { formatTime, clockTime } from './rest-model.js';
+import { IDLE_HINT_MS, IDLE_REST_MS } from './rest-session.js';
+
+// Resolve through the game's active text language, never the OS/browser locale.
+const t = (key, ...args) => Locale.compose(`LOC_RG_${key}`, ...args);
 
 function element(tag, className, text) {
   const node = document.createElement(tag);
@@ -14,9 +17,10 @@ export class RestView {
     this.actions = new Map();
     this.sequence = 0;
     this.mode = null;
-    this.root = element('div', 'c7r-root');
+    // Native font-body follows the display locale and includes CJK glyph fonts.
+    this.root = element('div', 'c7r-root font-body');
     this.visible = true;
-    this.launcher = this.button('休息设置', () => this.callbacks.openSettings(), 'c7r-launcher font-title-base', 'fxs-activatable');
+    this.launcher = this.button(t('OPEN_SETTINGS'), () => this.callbacks.openSettings(), 'c7r-launcher font-title-base', 'fxs-activatable');
     this.launcher.textContent = '';
     this.launcherNumbers = element('div', 'c7r-launcher-numbers');
     const metric = iconClass => {
@@ -31,7 +35,7 @@ export class RestView {
     this.separator = element('div', 'c7r-or', '/');
     this.launcherNumbers.appendChild(this.separator);
     this.timeMetric = metric('c7r-time-icon');
-    this.offLabel = element('div', 'c7r-off-label', '已关闭');
+    this.offLabel = element('div', 'c7r-off-label', t('OFF'));
     this.launcherNumbers.appendChild(this.offLabel);
     this.idleHint = element('div', 'c7r-idle-hint');
     this.launcher.appendChild(this.launcherNumbers);
@@ -60,7 +64,10 @@ export class RestView {
 
   button(label, onActivate, className = '', tag = 'fxs-button') {
     const button = element(tag, `c7r-button ${className}`);
-    if (tag === 'fxs-button') button.setAttribute('caption', label);
+    if (tag === 'fxs-button') {
+      button.setAttribute('caption', label);
+      button.setAttribute('action-key', 'inline-accept');
+    }
     const id = String(++this.sequence);
     button.setAttribute('data-c7r-action', id);
     button.setAttribute('tabindex', '0');
@@ -83,8 +90,52 @@ export class RestView {
     this.actions.get(button.getAttribute('data-c7r-action'))?.();
   }
 
+  focusAction(button) {
+    if (!button || button.getAttribute('disabled') === 'true') return;
+    this.focusedAction?.removeAttribute?.('data-c7r-focused');
+    this.focusedAction = button;
+    button.setAttribute('data-c7r-focused', 'true');
+    this.callbacks.setFocus?.(button);
+  }
+
+  ensureFocus() {
+    if (!this.modal || this.callbacks.hasDialog?.()) return;
+    const available = [this.continueButton, this.quitButton].filter(b => b && this.modal.contains(b) && b.getAttribute('disabled') !== 'true');
+    const current = this.callbacks.currentFocus?.()?.closest?.('[data-c7r-action]');
+    if (available.includes(current)) {
+      if (this.focusedAction !== current) this.focusAction(current);
+      return;
+    }
+    this.focusAction(available.includes(this.focusedAction) ? this.focusedAction : available[0]);
+  }
+
+  navigate(step) {
+    if (this.callbacks.hasDialog?.()) return;
+    const buttons = [this.continueButton, this.quitButton].filter(b => b && this.modal?.contains(b) && b.getAttribute('disabled') !== 'true');
+    if (!buttons.length) return;
+    const current = this.callbacks.currentFocus?.() ?? this.focusedAction;
+    const index = buttons.indexOf(current);
+    this.focusAction(buttons[index < 0 ? 0 : (index + step + buttons.length) % buttons.length]);
+  }
+
+  activateFocused() {
+    if (this.callbacks.hasDialog?.()) return;
+    this.ensureFocus();
+    this.activate(this.focusedAction);
+  }
+
   open(mode) {
     this.close();
+    // Use the game's popup stack instead of a body-level overlay above every
+    // screen. Existing ordinary panels stay below us; native dialogs stay above.
+    const popups = document.querySelector?.('.fxs-popups');
+    if (popups) {
+      const dialog = document.querySelector('screen-dialog-box');
+      if (dialog?.parentElement === popups) popups.insertBefore(this.root, dialog);
+      else popups.appendChild(this.root);
+    }
+    this.previousFocus = this.callbacks.currentFocus?.();
+    this.focusedAction = null;
     this.mode = mode;
     this.modal = element('div', 'c7r-overlay');
     this.modal.setAttribute('role', 'dialog');
@@ -105,6 +156,9 @@ export class RestView {
         this.actions.delete(node.getAttribute('data-c7r-action')));
       this.modal.remove();
     }
+    if (this.previousFocus?.isConnected && !this.callbacks.hasDialog?.()) this.callbacks.setFocus?.(this.previousFocus);
+    this.previousFocus = null;
+    this.focusedAction = null;
     this.modal = null;
     this.mode = null;
     this.mountLauncher();
@@ -119,24 +173,86 @@ export class RestView {
 
   showRest(pending) {
     if (this.mode === 'rest') return;
-    this.open('rest');
-    this.modal.setAttribute('aria-label', '强制休息倒计时');
-    this.title('强制休息');
-    const reason = pending.reason === 'time' ? '连续游戏时间已到' : `第 ${pending.turn} 回合结束`;
-    this.card.appendChild(element('p', 'c7r-subtitle', `${reason} · 休息 ${pending.durationMs / 60000} 分钟`));
-    this.timer = element('div', 'c7r-timer', formatTime(pending.durationMs));
+    const reason = pending.reason === 'time' ? t('TIME_DUE') : t('TURN_DUE', pending.turn);
+    this.showBreak('rest', t('FORCED_TITLE'), t('BREAK_SUBTITLE', reason, pending.durationMs / 60000),
+      t('FORCED_NOTE'));
+    this.updateRest(pending.durationMs, pending.durationMs);
+  }
+
+  showNight(night, config, now) {
+    if (this.mode !== 'night') {
+      this.showBreak('night', t('NIGHT_TITLE'), t('NIGHT_SUBTITLE'),
+        t('NIGHT_NOTE'));
+    }
+    const seconds = Math.ceil(Math.max(0, night.endsAt - now) / 1000);
+    this.timer.textContent = `${String(Math.floor(seconds / 3600)).padStart(2, '0')}:${formatTime((seconds % 3600) * 1000)}`;
+    this.progress.style.width = `${Math.min(100, Math.max(0, (now - night.startedAt) / Math.max(1, night.endsAt - night.startedAt) * 100))}%`;
+    this.message.textContent = t('NIGHT_MESSAGE', clockTime(config.nightStart), clockTime(config.nightEnd));
+    this.continueButton.setAttribute('disabled', 'true');
+    this.continueButton.setAttribute('caption', t('NIGHT_WAIT'));
+    this.continueButton.setAttribute('aria-label', t('NIGHT_WAIT'));
+    this.modal.setAttribute('aria-label', t('NIGHT_TIMER'));
+    this.ensureFocus();
+  }
+
+  showIdleRest() {
+    if (this.mode === 'idle') return;
+    this.showBreak('idle', t('IDLE_TITLE'), t('IDLE_SUBTITLE'),
+      t('IDLE_NOTE'));
+    this.updateIdleRest(0, false);
+  }
+
+  showBreak(mode, title, subtitle, footnote) {
+    this.open(mode);
+    this.modal.setAttribute('aria-label', mode === 'idle' ? t('IDLE_TIMER') : t('FORCED_TIMER'));
+    this.title(title);
+    this.card.appendChild(element('p', 'c7r-subtitle', subtitle));
+    this.timer = element('div', 'c7r-timer');
     this.timer.setAttribute('role', 'timer');
     this.card.appendChild(this.timer);
     const track = element('div', 'c7r-track');
     this.progress = element('div', 'c7r-progress');
     track.appendChild(this.progress);
     this.card.appendChild(track);
-    this.message = element('p', 'c7r-tip', '起身走一走，喝口水，看看远处。');
+    this.message = element('p', 'c7r-tip', t('BREAK_TIP'));
     this.card.appendChild(this.message);
-    this.continueButton = this.button('休息中，请稍候', () => this.callbacks.resume(), 'c7r-primary c7r-continue');
-    this.continueButton.setAttribute('disabled', 'true');
-    this.card.appendChild(this.continueButton);
-    this.card.appendChild(element('p', 'c7r-footnote', '倒计时结束前无法关闭。切换到其他窗口，休息计时仍会继续。'));
+    const actions = element('div', 'c7r-actions');
+    this.continueButton = this.button(t('BREAK_WAIT'), () => this.callbacks.resume(), 'c7r-primary c7r-continue');
+    this.quitButton = this.button(t('EXIT_GAME'), () => this.callbacks.quit(), 'c7r-quit');
+    actions.appendChild(this.continueButton);
+    actions.appendChild(this.quitButton);
+    this.card.appendChild(actions);
+    this.card.appendChild(element('p', 'c7r-footnote', footnote));
+    this.saveStatus = element('p', 'c7r-footnote c7r-save-status');
+    this.saveStatus.setAttribute('role', 'status');
+    this.card.appendChild(this.saveStatus);
+  }
+
+  updateSaveStatus(state) {
+    if (!this.saveStatus) return;
+    const labels = {
+      waiting: t('SAVE_WAITING'),
+      saving: t('SAVE_SAVING'),
+      saved: t('SAVE_SAVED'),
+      failed: t('SAVE_FAILED'),
+      unavailable: t('SAVE_UNAVAILABLE'),
+      unconfirmed: t('SAVE_UNCONFIRMED'),
+    };
+    this.saveStatus.textContent = state ? (labels[state.status] ?? labels.unconfirmed) : '';
+    if (state?.status === 'saved' && state.cleanup === 'failed') this.saveStatus.textContent += t('CLEANUP_FAILED');
+    this.saveStatus.setAttribute('data-tooltip-content', state?.fileName ?? '');
+  }
+
+  updateIdleRest(elapsed, rested) {
+    if (this.mode !== 'idle') return;
+    this.timer.textContent = formatTime(elapsed);
+    this.progress.style.width = `${Math.min(100, Math.max(0, elapsed / IDLE_REST_MS * 100))}%`;
+    this.continueButton.setAttribute('disabled', 'false');
+    this.continueButton.setAttribute('caption', t('CONTINUE'));
+    this.continueButton.setAttribute('aria-label', t('CONTINUE'));
+    this.message.textContent = rested ? t('IDLE_COMPLETE') :
+      t('IDLE_TIP');
+    this.ensureFocus();
   }
 
   updateRest(remaining, duration) {
@@ -145,33 +261,38 @@ export class RestView {
     this.progress.style.width = `${Math.min(100, Math.max(0, (1 - remaining / duration) * 100))}%`;
     const ready = remaining <= 0;
     this.continueButton.setAttribute('disabled', String(!ready));
-    this.continueButton.setAttribute('caption', ready ? '休息完成，继续' : '休息中，请稍候');
-    this.message.textContent = ready ? '休息结束。继续后，回合与时间间隔一同重新计算。' : '起身走一走，喝口水，看看远处。';
+    this.continueButton.setAttribute('caption', ready ? t('BREAK_CONTINUE') : t('BREAK_WAIT'));
+    this.continueButton.setAttribute('aria-label', ready ? t('BREAK_CONTINUE') : t('BREAK_WAIT'));
+    this.message.textContent = ready ? t('BREAK_COMPLETE') : t('BREAK_TIP');
+    this.ensureFocus();
   }
 
   updateLauncher(current, config, error, session, now) {
     this.mountLauncher();
-    const turns = Math.max(0, session.targetTurn(current, config) - current.turn);
+    const turns = session.turnsRemaining(current, config);
     const remaining = Math.max(0, config.playMinutes * 60000 - session.elapsed(now));
     this.turnMetric.row.style.display = config.turnEnabled ? '' : 'none';
     this.timeMetric.row.style.display = config.timeEnabled ? '' : 'none';
     this.separator.style.display = config.turnEnabled && config.timeEnabled ? '' : 'none';
-    this.offLabel.style.display = config.turnEnabled || config.timeEnabled ? 'none' : '';
+    this.offLabel.style.display = config.turnEnabled || config.timeEnabled || config.nightEnabled ? 'none' : '';
     this.turnMetric.value.textContent = String(turns);
     this.timeMetric.value.textContent = formatTime(remaining);
     const idle = config.timeEnabled ? session.idle(now) : 0;
     // Idle text replaces the metrics in the same single row, above the leader HUD.
     this.launcherNumbers.style.display = idle >= IDLE_HINT_MS ? 'none' : '';
     this.idleHint.style.display = idle >= IDLE_HINT_MS ? '' : 'none';
-    this.idleHint.textContent = `已休息 ${Math.floor(idle / 60000)} 分 ${Math.floor(idle / 1000) % 60} 秒`;
+    this.idleHint.textContent = t('IDLE_ELAPSED', Math.floor(idle / 60000), Math.floor(idle / 1000) % 60);
     const secondsRemaining = Math.ceil(remaining / 1000);
-    const until = [config.turnEnabled ? `${turns} 回合` : '',
-      config.timeEnabled ? `${Math.floor(secondsRemaining / 60)} 分 ${secondsRemaining % 60} 秒` : ''].filter(Boolean);
-    let tooltip = until.length ? `还有 ${until.join(' 或 ')}强制休息 ${config.restMinutes} 分钟。` : '按回合休息和按时间休息均已关闭。';
-    if (config.turnEnabled && turns === 0) tooltip += '本回合结束时触发。';
-    if (idle >= IDLE_HINT_MS) tooltip += this.idleHint.textContent + (session.idleRested ? '；已完成一次休息。' : '；满5分钟算休息一次。');
-    tooltip += '点击打开选项 → 附加内容 → 休息一下。';
-    if (error) tooltip += '设置保存异常。';
+    const until = [config.turnEnabled ? t('TURNS_LEFT', turns) : '',
+      config.timeEnabled ? t('TIME_LEFT', Math.floor(secondsRemaining / 60), secondsRemaining % 60) : ''].filter(Boolean);
+    let tooltip = until.length ? t('UNTIL_BREAK', until.join(t('OR')), config.restMinutes) : t('TIMERS_OFF');
+    if (config.nightEnabled) tooltip += t('NIGHT_HUD', clockTime(config.nightStart), clockTime(config.nightEnd));
+    if (!config.turnEnabled && !config.timeEnabled && config.nightEnabled) { this.offLabel.style.display = ''; this.offLabel.textContent = t('NIGHT_ONLY'); }
+    else this.offLabel.textContent = t('OFF');
+    if (config.turnEnabled && turns <= 1) tooltip += t('TURN_END_HINT');
+    if (idle >= IDLE_HINT_MS) tooltip += this.idleHint.textContent + (session.idleRested ? t('IDLE_DONE_HINT') : t('IDLE_SHORT_HINT'));
+    tooltip += t('SETTINGS_HINT');
+    if (error) tooltip += t('SETTINGS_ERROR_HINT');
     this.launcher.setAttribute('data-tooltip-content', tooltip);
     this.launcher.setAttribute('aria-label', tooltip);
   }

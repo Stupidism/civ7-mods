@@ -33,7 +33,7 @@ function harness(config = {}, extra = {}) {
 test('all settings share the Add-ons category and preserve other mods', () => {
   const h = harness();
   assert.equal(h.categories.mods, h.existingCategory);
-  assert.equal(h.options.data.size, 11);
+  assert.equal(h.options.data.size, 15);
   assert.equal(h.entry('interval-4').category, 'mods');
   assert.equal(h.entry('interval-4').group, 'rest_guard');
   assert.equal(h.entry('rest-minutes').dropdownItems[h.entry('rest-minutes').selectedItemIndex].label, '5');
@@ -54,7 +54,7 @@ test('cancel and reopening restore saved values without writes or timer resets',
   assert.equal(h.entry('time-enabled').currentValue, true);
   assert.equal(h.entry('play-minutes').dropdownItems[h.entry('play-minutes').selectedItemIndex].label, '25');
   h.options.init();
-  assert.equal(h.options.data.size, 11);
+  assert.equal(h.options.data.size, 15);
   assert.equal(h.calls.writes, 0); assert.equal(h.calls.applies, 0);
 });
 
@@ -100,7 +100,7 @@ test('pending rest cannot be bypassed by native settings or reset', () => {
 test('reinitialization and disposal preserve subsequent native option wrappers', () => {
   const h = harness();
   h.options.data.clear(); h.options.init();
-  assert.equal(h.options.data.size, 10);
+  assert.equal(h.options.data.size, 14);
   const previous = h.options.commitOptions;
   const outer = function (...args) { return previous.apply(this, args); };
   h.options.commitOptions = outer;
@@ -137,4 +137,64 @@ test('HUD shortcut selects Add-ons by category, focuses its section and reuses o
     assert.equal(attributes['selected-slot'], 'mods');
     assert.equal(focused, first); assert.deepEqual(positions, [0.5]);
   }
+});
+
+test('retention and night controls save/cancel independently with readable time choices', () => {
+  const h = harness();
+  assert.equal(h.entry('night-enabled').currentValue, true);
+  for (const [name, expected] of [['night-start', '22:00'], ['night-end', '07:00'], ['save-keep-count', '10']]) {
+    const entry = h.entry(name);
+    assert.equal(entry.dropdownItems[entry.selectedItemIndex].label, expected);
+  }
+  h.change('save-keep-count', 20); h.change('night-start', '23:15'); h.change('night-end', '06:45');
+  h.change('night-enabled', false); h.options.restore();
+  assert.equal(h.store.data.config.saveKeepCount, 10); assert.equal(h.store.data.config.nightEnabled, true);
+  h.change('save-keep-count', 5); h.change('night-start', '23:15'); h.change('night-end', '06:45');
+  h.change('night-enabled', false); h.options.commitOptions();
+  const config = h.saved()['civ7-rest-guard'].config;
+  assert.equal(config.saveKeepCount, 5); assert.equal(config.nightStart, 1395); assert.equal(config.nightEnd, 405);
+  assert.equal(config.nightEnabled, false); assert.equal(config.turnEnabled, true); assert.equal(config.timeEnabled, true);
+});
+
+
+test('switch drafts hide only their children, retain values, and cancel restores visibility', () => {
+  const h = harness({ intervals: [13, 8, 6, 4, 2], playMinutes: 37, nightStart: 1380 });
+  const sections = { 'turn-enabled': ['interval-0', 'interval-1', 'interval-2', 'interval-3', 'interval-4'],
+    'time-enabled': ['play-minutes'], 'night-enabled': ['night-start', 'night-end'] };
+  const renders = [];
+  for (const [id, entry] of h.options.data) entry.forceRender = () => renders.push(id);
+  for (const [toggle, children] of Object.entries(sections)) {
+    renders.length = 0;
+    h.change(toggle, false);
+    assert.deepEqual(renders, children.map(id => `rest-guard-${id}`));
+    for (const child of children) assert.equal(h.entry(child).isHidden, true);
+    assert.equal(h.entry(toggle).isHidden, false);
+    for (const shared of ['rest-minutes', 'save-keep-count']) assert.equal(h.entry(shared).isHidden, false);
+  }
+  assert.equal(h.calls.writes, 0, 'hiding must not commit the draft');
+  const previous = h.entry('interval-0').selectedItemIndex;
+  h.change('interval-0', 99);
+  assert.equal(h.entry('interval-0').selectedItemIndex, previous, 'hidden controls ignore late input');
+  h.change('rest-minutes', 7); h.change('save-keep-count', 20);
+  assert.equal(h.entry('rest-minutes').dropdownItems[h.entry('rest-minutes').selectedItemIndex].label, '7');
+  h.options.restore();
+  for (const children of Object.values(sections)) for (const child of children) assert.equal(h.entry(child).isHidden, false);
+  assert.equal(h.entry('interval-0').dropdownItems[h.entry('interval-0').selectedItemIndex].label, '13');
+  assert.equal(h.entry('play-minutes').dropdownItems[h.entry('play-minutes').selectedItemIndex].label, '37');
+  assert.equal(h.calls.writes, 0);
+});
+
+test('saved disabled switches hide on reopen; enabling restores values and reset reveals defaults', () => {
+  const h = harness({ nightEnabled: false, nightStart: 1380, timeEnabled: false, playMinutes: 37 });
+  assert.equal(h.entry('night-start').isHidden, true); assert.equal(h.entry('play-minutes').isHidden, true);
+  h.change('night-enabled', true); h.change('time-enabled', true);
+  assert.equal(h.entry('night-start').dropdownItems[h.entry('night-start').selectedItemIndex].label, '23:00');
+  assert.equal(h.entry('play-minutes').dropdownItems[h.entry('play-minutes').selectedItemIndex].label, '37');
+  h.change('night-enabled', false); h.options.commitOptions(); h.options.init();
+  assert.equal(h.entry('night-start').isHidden, true); assert.equal(h.entry('night-end').isHidden, true);
+  assert.equal(h.entry('play-minutes').isHidden, false);
+  h.entry('reset').activateListener();
+  assert.equal(h.entry('night-start').isHidden, false);
+  assert.equal(h.entry('night-start').dropdownItems[h.entry('night-start').selectedItemIndex].label, '22:00');
+  h.options.restore(); assert.equal(h.entry('night-start').isHidden, true);
 });

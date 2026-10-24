@@ -37,7 +37,7 @@ function install() {
   };
   engine.on('BeforeUnload', dispose);
   window.addEventListener('unload', dispose);
-  globalThis[SLOT] = { version: '0.5.1', dispose };
-  console.warn('[War Controls] Additional Content settings 0.5.1 loaded.');
+  globalThis[SLOT] = { version: '0.6.0', dispose };
+  console.warn('[War Controls] Additional Content settings 0.6.0 loaded.');
 }
 engine.whenReady.then(install).catch(error => console.error('[War Controls] Options install failed: ' + String(error)));

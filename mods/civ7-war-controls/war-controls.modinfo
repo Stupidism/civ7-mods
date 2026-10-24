@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="civ7-war-controls" version="6" xmlns="ModInfo">
+<Mod id="civ7-war-controls" version="7" xmlns="ModInfo">
   <Properties>
-    <Name>战争操作优化 · War Controls（实验版）</Name>
-    <Description>0.5.1：修复手柄加入、退出时的误移动与确认无效。六项功能在选项“附加内容”中用两列原生复选框分别配置鼠标与手柄。</Description>
-    <Version>0.5.1</Version>
+    <Name>LOC_WC_MOD_NAME</Name>
+    <Description>LOC_WC_MOD_DESCRIPTION</Description>
+    <Version>0.6.0</Version>
     <Authors>Custom Mod</Authors>
     <AffectsSavedGames>0</AffectsSavedGames>
     <ShowInBrowser>1</ShowInBrowser>
@@ -15,9 +15,10 @@
     <ActionGroup id="war-controls-game" scope="game" criteria="always">
       <Properties><LoadOrder>1600</LoadOrder></Properties>
       <Actions>
+        <UpdateDatabase><Item>data/focus-bonus.xml</Item><Item>data/focus-bonus-effects.xml</Item><Item>data/focus-cost.xml</Item><Item>data/focus-cost-effects.xml</Item></UpdateDatabase>
         <UpdateText><Item>text/settings.xml</Item></UpdateText>
         <UIScripts><Item>ui/settings-ui.js</Item><Item>ui/war-controls.js</Item></UIScripts>
-        <ImportFiles><Item>ui/selection-assist.js</Item><Item>ui/command-hooks.js</Item><Item>ui/settings-store.js</Item><Item>ui/native-options.js</Item><Item>ui/settings-layout.js</Item><Item>ui/settings.css</Item></ImportFiles>
+        <ImportFiles><Item>ui/focus-bonus.js</Item><Item>ui/focus-cost.js</Item><Item>ui/tactical-controls.js</Item><Item>ui/selection-assist.js</Item><Item>ui/command-hooks.js</Item><Item>ui/settings-store.js</Item><Item>ui/native-options.js</Item><Item>ui/settings-layout.js</Item><Item>ui/settings.css</Item></ImportFiles>
       </Actions>
     </ActionGroup>
     <ActionGroup id="war-controls-shell" scope="shell" criteria="always">

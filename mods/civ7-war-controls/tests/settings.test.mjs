@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import {createSettingsStore, normalizeConfig, FEATURE_KEYS, PROFILES, isFeatureApplicable} from '../ui/settings-store.js';
 import {fixture, ADD, REMOVE, ATTACK, REINFORCE} from './game-fixture.mjs';
 
-test('all twelve defaults are enabled and profile objects are independent',()=>{
+test('all feature defaults are enabled and profile objects are independent',()=>{
   const config=normalizeConfig();
-  assert.equal(PROFILES.flatMap(p=>Object.values(config[p])).filter(Boolean).length,12);
+  assert.equal(PROFILES.flatMap(p=>Object.values(config[p])).filter(Boolean).length,FEATURE_KEYS.length*PROFILES.length);
   config.mouse.autoExit=false;assert.equal(config.gamepad.autoExit,true);
 });
 test('invalid values use defaults; explicit false and other profile survive',()=>{
@@ -40,6 +40,7 @@ async function scenario(key,profile,value){
   }
   if(key==='autoJoin'||key==='rightClickJoin')f.state.commands.set(ADD,{Success:true,Plots:[1]});
   if(key==='singleReinforcement')f.state.operations.set(REINFORCE,{Success:true,Plots:[1]});
+  if(key==='rightClickJoin'){f.state.atPlot.set(1,[f.state.commander.id,{owner:0,id:8,type:26}]);f.state.units.set(8,{...f.state.unit,id:{owner:0,id:8,type:26}});}
   const run=()=>{
     f.state.mode='INTERFACEMODE_UNIT_SELECTED';f.state.modes=[];f.state.requests=[];f.state.moves=[];
     if(key==='rightClickJoin'){f.world.actionMouseRightButton({X:1,Y:0});return f.state.requests.length===1;}
@@ -49,7 +50,7 @@ async function scenario(key,profile,value){
   };
   return {f,run};
 }
-for(const profile of PROFILES)for(const key of FEATURE_KEYS.filter(k=>isFeatureApplicable(profile,k)))test(`${profile} ${key}: disabled locally, independent in other profile`,async()=>{
+for(const profile of PROFILES)for(const key of FEATURE_KEYS.filter(k=>['autoAttack','autoJoin','rightClickJoin','autoExit','singleReinforcement','emptyMarker'].includes(k)&&isFeatureApplicable(profile,k)))test(`${profile} ${key}: disabled locally, independent in other profile`,async()=>{
   const {f,run}=await scenario(key,profile,false);
   assert.equal(run(),false);f.device(profile!=='gamepad');assert.equal(run(),isFeatureApplicable(profile==='mouse'?'gamepad':'mouse',key));
 });

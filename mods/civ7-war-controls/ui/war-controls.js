@@ -3,9 +3,13 @@ import { ComponentID } from '/core/ui/utilities/utilities-component-id.js';
 import ViewManager from '/core/ui/views/view-manager.js';
 import UnitSelection from '/base-standard/ui/unit-selection/unit-selection.js';
 import '/base-standard/ui/unit-actions/unit-actions.js';
+import '/base-standard/ui/army-panel/army-panel.js';
+import CommanderInteract from '/base-standard/ui/commander-interact/model-commander-interact.js';
 import { UnitActionHandlers } from '/base-standard/ui/unit-interact/unit-action-handlers.js';
 import WorldInput from '/base-standard/ui/world-input/world-input.js';
 import { OVERLAY_PRIORITY } from '/base-standard/ui/utilities/utilities-overlay.js';
+import { installTacticalControls } from './tactical-controls.js';
+import PlotCursor from '/core/ui/input/plot-cursor.js';
 import { createSelectionAssist } from './selection-assist.js';
 import { installCommandHooks, installAutoTargetFocus } from './command-hooks.js';
 import ActionHandler from '/core/ui/input/action-handler.js';
@@ -31,12 +35,13 @@ function install() {
   let noticeTimer = null;
   let notice = null;
   let autoTarget = null;
+  let tactics = null;
   const removeFocusHook = installAutoTargetFocus({
     panelPrototype: Controls.getDefinition('unit-actions')?.createInstance?.prototype,
-    preserveWorldFocus: id => autoTarget !== null && activeProfile() === 'gamepad' &&
+    preserveWorldFocus: id => activeProfile() === 'gamepad' && (tactics?.preserveWorldFocus(id) || (autoTarget !== null &&
       !isSettingsOpen() && ViewManager.isWorldInputAllowed &&
       InterfaceMode.getCurrent() === autoTarget.mode &&
-      ComponentID.isMatch(id, autoTarget.id) && ComponentID.isMatch(id, UI.Player.getHeadSelectedUnit())
+      ComponentID.isMatch(id, autoTarget.id) && ComponentID.isMatch(id, UI.Player.getHeadSelectedUnit())))
   });
   const markerGroup = WorldUI.createOverlayGroup('WarControlsEmptyCommanders', OVERLAY_PRIORITY.PLOT_HIGHLIGHT);
   const command = (id, type, args = {}) => Game.UnitCommands.canStart(id, type, args, false);
@@ -122,12 +127,17 @@ function install() {
     if (noticeTimer !== null) clearTimeout(noticeTimer);
     noticeTimer = setTimeout(() => { notice.style.display = 'none'; noticeTimer = null; }, 3200);
   }
+  const ownedCommanders = () => (Players.get(GameContext.localPlayerID)?.Units?.getUnitIds() ?? [])
+    .map(localUnit).filter(unit => unit?.isCommanderUnit);
+  const military = unit => !!unit && !unit.isCommanderUnit && unit.Combat?.isCombat === true &&
+    GameInfo.Units.lookup(unit.type)?.CoreClass !== 'CORE_CLASS_RECON';
   function tryJoin(id, args) {
     if (activeProfile() !== 'mouse' || !enabled('rightClickJoin') || isSettingsOpen() || !ViewManager.isWorldInputAllowed || !args) return false;
     const unit = localUnit(id);
     if (!unit || unit.isCommanderUnit || !onMap(unit) || !ComponentID.isMatch(id, UI.Player.getHeadSelectedUnit())) return false;
     if (!['INTERFACEMODE_UNIT_SELECTED', 'INTERFACEMODE_DEFAULT'].includes(InterfaceMode.getCurrent())) return false;
     if (ownedCommandersAt({ x: args.X, y: args.Y }).length === 0) return false;
+    if (!MapUnits.getUnits(args.X, args.Y).some(other => !ComponentID.isMatch(other, id) && military(localUnit(other)))) return false;
     // Failure on a commander tile must never fall through to Move/swap.
     try {
       const request = { X: args.X, Y: args.Y };
@@ -138,10 +148,10 @@ function install() {
       if (available.Success && available.Plots?.includes(targetPlot) && command(id, ADD, request).Success) {
         Game.UnitCommands.sendRequest(id, ADD, request);
         InterfaceMode.switchToDefault();
-      } else showNotice('暂时无法加入该指挥官；已阻止移动或交换位置。');
+      } else showNotice(Locale.compose('LOC_WC_JOIN_UNAVAILABLE'));
     } catch (error) {
       console.error('[War Controls] Join failed: ' + String(error));
-      showNotice('加入指挥官失败；已阻止移动或交换位置。');
+      showNotice(Locale.compose('LOC_WC_JOIN_FAILED'));
     }
     return true;
   }
@@ -149,6 +159,7 @@ function install() {
     if (!enabled('singleReinforcement') || isSettingsOpen() || !context?.UnitID || !ViewManager.isWorldInputAllowed) return false;
     const unit = localUnit(context.UnitID);
     if (!unit || !ComponentID.isMatch(unit.id, UI.Player.getHeadSelectedUnit())) return false;
+    if (ownedCommanders().length !== 1) return false;
     const result = operation(unit.id, REINFORCE);
     if (!result.Success) return false;
     const candidates = new Map();
@@ -165,6 +176,19 @@ function install() {
     return true;
   }
   const removeHooks = installCommandHooks({ worldInput: WorldInput, handlers: UnitActionHandlers, tryJoin, tryReinforce });
+  try { tactics = installTacticalControls({
+    InterfaceMode, ComponentID, ViewManager, UnitSelection, UnitActionHandlers, PlotCursor,
+    Game, Units, Armies, Players, GameContext, GameplayMap, MapUnits, GameInfo, GlobalParameters, Online, Configuration, UI, Camera, Locale, InputActionStatuses, OperationPlotModifiers,
+    WorldUI, PlacementMode, OVERLAY_PRIORITY, Controls, CommanderInteract, window, document, engine,
+    setTimeout, clearTimeout, enabled, localUnit, onMap, isPacked, military, ownedCommanders,
+    isEnemyPlot, isSettingsOpen, showNotice
+  }); } catch (error) {
+    removeHooks();
+    removeFocusHook();
+    markerGroup.destroy();
+    assist.dispose();
+    throw error;
+  }
   function refreshMarkers() {
     markerFrame = null;
     if (disposed) return;
@@ -203,6 +227,7 @@ function install() {
   const onSettingsApplied = () => {
     const result = store.load();
     if (result.error) { console.error('[War Controls] Settings refresh failed: ' + String(result.error)); return; }
+    tactics.cancel();
     config = result.config;
     autoTarget = null;
     assist.cancelPending();
@@ -214,6 +239,7 @@ function install() {
     assist.dispose();
     autoTarget = null;
     removeFocusHook();
+    tactics.dispose();
     removeHooks();
     if (markerFrame !== null) window.cancelAnimationFrame(markerFrame);
     if (noticeTimer !== null) clearTimeout(noticeTimer);
@@ -239,8 +265,8 @@ function install() {
   window.addEventListener('active-device-type-changed', onDeviceChanged);
   window.addEventListener('war-controls-settings-applied', onSettingsApplied);
   window.addEventListener('unload', dispose);
-  globalThis[SLOT] = { version: '0.5.1', get config() { return normalizeConfig(config); }, get activeProfile() { return activeProfile(); }, dispose };
+  globalThis[SLOT] = { version: '0.6.0', get config() { return normalizeConfig(config); }, get activeProfile() { return activeProfile(); }, dispose };
   scheduleMarkers();
-  console.warn('[War Controls] 0.5.1 loaded.');
+  console.warn('[War Controls] 0.6.0 loaded.');
 }
 engine.whenReady.then(install).catch(error => console.error('[War Controls] Install failed: ' + String(error)));

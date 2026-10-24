@@ -1,0 +1,89 @@
+{
+  "publishedFileId": "3815557333",
+  "version": "1.8.1",
+  "publishedAt": "2026-10-22T02:21:03+00:00",
+  "descriptionSha256": "ddcd578f1db318d055e4ddacd0075ca72f873a344a9301eeb873582b099dd8af",
+  "files": {
+    "README-en.md": {
+      "size": 3522,
+      "sha256": "529f4b0ffcf6725880d4444a3abb162ff7fc6d94ee97885444e8673f1d06816d"
+    },
+    "README-zh-CN.txt": {
+      "size": 10530,
+      "sha256": "9f31e88f9ac641568752036942c9c068f07eb9f3abc1db3ea169ede7bd787254"
+    },
+    "README.md": {
+      "size": 13047,
+      "sha256": "ea8639f78b1d9e9ce14315ecc3233454d5398e6ab93b2e2ff6ed25f17b95f876"
+    },
+    "VALIDATION.txt": {
+      "size": 17575,
+      "sha256": "25f5ebe8000dd8d43f7d167085e6f02cc24c7379128ad0ba3e97ac0ef24eeef0"
+    },
+    "package.json": {
+      "size": 436,
+      "sha256": "b35546aa562a12b539e5cb91d11b00042eb079f1917faa6fdb89c7edbebb850c"
+    },
+    "rest-guard.modinfo": {
+      "size": 2086,
+      "sha256": "c71dd5627a62dd5192e3d62c672fd2aa25c5938c246ef233392709594b7aa86c"
+    },
+    "text/settings.xml": {
+      "size": 16996,
+      "sha256": "28fd2b38706b25c068e368685d330a382f1992ddb9a7515b6ef0d2d1b4117998"
+    },
+    "ui/defaults.js": {
+      "size": 351,
+      "sha256": "99d47c2cb19afc44d5cf1876b5ab79d3a54469764e7d7f49ed80690fa7d51add"
+    },
+    "ui/rest-guard.css": {
+      "size": 2368,
+      "sha256": "311d552d0e6c9bd1b6b961ae8283ffcf37ba9e1f089c9b6cd41ed34af586e5d9"
+    },
+    "ui/rest-guard.js": {
+      "size": 12713,
+      "sha256": "be39ae6e14dbbbf1890e5fa75460cb383e841703a8db9dda92f15f81a2e3d8ee"
+    },
+    "ui/rest-model.js": {
+      "size": 3860,
+      "sha256": "665711331a367dca47273ea1186702bc3d187f31eb4251d7cc492a860026db37"
+    },
+    "ui/rest-options.js": {
+      "size": 7376,
+      "sha256": "591d65af170aab3407fa10a7bad54a0780763541d8cd2e8e719468f667802688"
+    },
+    "ui/rest-retention.js": {
+      "size": 5997,
+      "sha256": "b2fda1f6638fe7fc42515c2886e7a56638a2bf50424ad019e4685e9efc2f5ebf"
+    },
+    "ui/rest-runtime.js": {
+      "size": 4740,
+      "sha256": "06320b5d20244a0817740ac70ccad7474ed9d62418df7cb61b415eb17f111aee"
+    },
+    "ui/rest-save.js": {
+      "size": 4490,
+      "sha256": "3795fce94cab07f7ea1e5dd05489d636a5b0fe464ff093e5cddde1c33c44c3fa"
+    },
+    "ui/rest-session.js": {
+      "size": 8840,
+      "sha256": "83a84e011828c43998b259b9dd75b0185b9142c713e60572de5890f2f4878a08"
+    },
+    "ui/rest-settings.js": {
+      "size": 2034,
+      "sha256": "a537dd8418ea7159322d0dbb6ecfadc25cf0a80c6876901bb77483c9ffefbe25"
+    },
+    "ui/rest-shell.js": {
+      "size": 694,
+      "sha256": "9abe77770e1ca70768e1f8b46d5c0a329d07f851b0a0b45f1156b1e98060a2c4"
+    },
+    "ui/rest-store.js": {
+      "size": 1476,
+      "sha256": "03877a63057775a663eb98e477517f1b6b51a964c8a10ea988568aedff802281"
+    },
+    "ui/rest-view.js": {
+      "size": 11987,
+      "sha256": "f2e3d93fd73dafa7b62cd53f2d2f4952212ceddcc43833def7f90123f8db2cad"
+    }
+  },
+  "downloadHashesVerified": true
+}

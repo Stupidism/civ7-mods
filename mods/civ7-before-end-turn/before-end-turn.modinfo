@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="civ7-before-end-turn" version="4" xmlns="ModInfo">
+<Mod id="civ7-before-end-turn" version="5" xmlns="ModInfo">
   <Properties>
     <Name>Auto-save Before...</Name>
-    <Description>过回合前保存 BeforeEndTurn，外交行动前保存 BeforeDiplomacy，各保留一个固定槽。两个功能可在选项→附加内容中独立开关，右上角“存档”直达设置。仅单人游戏。</Description>
+    <Description>LOC_SBE_MOD_DESCRIPTION</Description>
     <Authors>Stupidism</Authors>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <Package>Mod</Package>
     <AffectsSavedGames>0</AffectsSavedGames>
     <ShowInBrowser>1</ShowInBrowser>
@@ -14,8 +14,9 @@
   <ActionCriteria><Criteria id="always"><AlwaysMet /></Criteria></ActionCriteria>
   <ActionGroups>
     <ActionGroup id="before-end-turn-game" scope="game" criteria="always">
-      <!-- Before Rest Guard (2000), so its outer wrapper finishes the rest first. -->
-      <Properties><LoadOrder>1500</LoadOrder></Properties>
+      <!-- After Rest Guard (2000): the outer save wrapper completes the backup
+           before the inner rest guard pauses the pending end-turn action. -->
+      <Properties><LoadOrder>3000</LoadOrder></Properties>
       <Actions>
         <UpdateText><Item>text/settings.xml</Item></UpdateText>
         <UIScripts><Item>ui/before-end-turn.js</Item></UIScripts>

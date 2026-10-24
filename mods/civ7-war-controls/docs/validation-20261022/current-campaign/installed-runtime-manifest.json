@@ -1,0 +1,75 @@
+{
+  "installedPath": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3822253543",
+  "files": [
+    {
+      "path": "war-controls.modinfo",
+      "size": 1850,
+      "sha256": "ad6155e0f2ff910d752cbb5eeb526d84135f57e3c6b588e7609eb5c0ca38e1a5"
+    },
+    {
+      "path": "ui/tactical-controls.js",
+      "size": 22420,
+      "sha256": "e7563a5c3f5799479f57febe231368031ca36fe9d3be5540c11ae70cc2275fe5"
+    },
+    {
+      "path": "ui/focus-bonus.js",
+      "size": 4597,
+      "sha256": "66a20f7818bf438e4d9e08a70bf73dc013681187a9ac37d1e6edfef76d5ffee5"
+    },
+    {
+      "path": "ui/command-hooks.js",
+      "size": 2612,
+      "sha256": "296efc2c6d5ae1457a0498a0e8477abd8c8fc6bd659810bf863922d30a62968b"
+    },
+    {
+      "path": "ui/native-options.js",
+      "size": 4405,
+      "sha256": "b7611b1d39787fc1d3c423d2ee4586af4dea54d3ae629d904e609aaf31f70039"
+    },
+    {
+      "path": "ui/war-controls.js",
+      "size": 14528,
+      "sha256": "7fee170da95bbc8b5ce43a32dcc87ebff976a4e0c325c4a2351699545e094805"
+    },
+    {
+      "path": "ui/settings.css",
+      "size": 727,
+      "sha256": "68925b4f7bc1b1013ea6b4c5e1578c7a3af70fbdd20d0fc883db1cf60ff463f3"
+    },
+    {
+      "path": "ui/settings-store.js",
+      "size": 1844,
+      "sha256": "7182403c8e1ed9cfb02bc59f34e436323daaf9b9e815764ba33b0e61be671e50"
+    },
+    {
+      "path": "ui/selection-assist.js",
+      "size": 1661,
+      "sha256": "a9c5c72641526cd89bdc66ee0899b3a53db566bccc1b354fd4b40cc751151b62"
+    },
+    {
+      "path": "ui/settings-layout.js",
+      "size": 3450,
+      "sha256": "a9b996e98331f8783c1e4166eb9bc6b6e31646c0f1ce958bc58c85c339a17866"
+    },
+    {
+      "path": "ui/settings-ui.js",
+      "size": 1958,
+      "sha256": "133891b422705ebb4e281a0737ea0aa250a67d14daefb8693e410af8b0a6bdc8"
+    },
+    {
+      "path": "data/focus-bonus-effects.xml",
+      "size": 7056,
+      "sha256": "c12b7db8bebc817ca21b2ec6221039862b3a66fc67dab47e2610b14db309178a"
+    },
+    {
+      "path": "data/focus-bonus.xml",
+      "size": 3039,
+      "sha256": "0af0e534bc29c5800fe4da3d0d4392621d5ce7c17c3400994042a0064d4ae344"
+    },
+    {
+      "path": "text/settings.xml",
+      "size": 17108,
+      "sha256": "5487bb49e14479eb5a463ba8753caf06cc1ff758a527cd2be33e85420f0b47f3"
+    }
+  ]
+}

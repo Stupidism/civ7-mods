@@ -1,0 +1,99 @@
+{
+  "publishedFileId": "3815557333",
+  "version": "1.8.2",
+  "publishedAt": "2026-10-22T13:30:13+00:00",
+  "descriptionSha256": "733a865086d2df0c7f2018d27d06519273f9b038217d6a3932c3ec0f1cba3e6b",
+  "files": {
+    "README-en.md": {
+      "size": 3728,
+      "sha256": "3e04286435b75ce239b6717c6978188eb7ee90edc9b339c016e7335591e329cd"
+    },
+    "README-zh-CN.txt": {
+      "size": 10664,
+      "sha256": "49b9bbacfb823b2a6501a8b776e2e172fbd3136e8dea13c99f501c4055904193"
+    },
+    "README.md": {
+      "size": 13260,
+      "sha256": "ce25d32031b2dce33e00b19a80dec2f2edc542956ac424093211234baa18aa66"
+    },
+    "VALIDATION.txt": {
+      "size": 18860,
+      "sha256": "3a9b103afc94ffa16aef08d098b4f4e7c11a5f5232d3dc240062add9fcdbf9a6"
+    },
+    "package.json": {
+      "size": 436,
+      "sha256": "afc1f3ba3349432142892d3504fe6b1b83fa2115a2ce3fd92b6b80be7fa1a07b"
+    },
+    "rest-guard.modinfo": {
+      "size": 2086,
+      "sha256": "bfea314c58b7a84268cf994462930dd1371c2cd0a1d98f508b17697d0600b0d3"
+    },
+    "text/settings.xml": {
+      "size": 16996,
+      "sha256": "28fd2b38706b25c068e368685d330a382f1992ddb9a7515b6ef0d2d1b4117998"
+    },
+    "ui/defaults.js": {
+      "size": 351,
+      "sha256": "99d47c2cb19afc44d5cf1876b5ab79d3a54469764e7d7f49ed80690fa7d51add"
+    },
+    "ui/rest-guard.css": {
+      "size": 2331,
+      "sha256": "c6e571bf612a440b8062e2555fb77a92e46b17f95d0ab5387f2b5f38829c9fba"
+    },
+    "ui/rest-guard.js": {
+      "size": 12713,
+      "sha256": "be39ae6e14dbbbf1890e5fa75460cb383e841703a8db9dda92f15f81a2e3d8ee"
+    },
+    "ui/rest-model.js": {
+      "size": 3860,
+      "sha256": "665711331a367dca47273ea1186702bc3d187f31eb4251d7cc492a860026db37"
+    },
+    "ui/rest-options.js": {
+      "size": 7376,
+      "sha256": "591d65af170aab3407fa10a7bad54a0780763541d8cd2e8e719468f667802688"
+    },
+    "ui/rest-retention.js": {
+      "size": 5997,
+      "sha256": "b2fda1f6638fe7fc42515c2886e7a56638a2bf50424ad019e4685e9efc2f5ebf"
+    },
+    "ui/rest-runtime.js": {
+      "size": 4740,
+      "sha256": "06320b5d20244a0817740ac70ccad7474ed9d62418df7cb61b415eb17f111aee"
+    },
+    "ui/rest-save.js": {
+      "size": 4490,
+      "sha256": "3795fce94cab07f7ea1e5dd05489d636a5b0fe464ff093e5cddde1c33c44c3fa"
+    },
+    "ui/rest-session.js": {
+      "size": 8840,
+      "sha256": "83a84e011828c43998b259b9dd75b0185b9142c713e60572de5890f2f4878a08"
+    },
+    "ui/rest-settings.js": {
+      "size": 2034,
+      "sha256": "a537dd8418ea7159322d0dbb6ecfadc25cf0a80c6876901bb77483c9ffefbe25"
+    },
+    "ui/rest-shell.js": {
+      "size": 694,
+      "sha256": "9abe77770e1ca70768e1f8b46d5c0a329d07f851b0a0b45f1156b1e98060a2c4"
+    },
+    "ui/rest-store.js": {
+      "size": 1476,
+      "sha256": "03877a63057775a663eb98e477517f1b6b51a964c8a10ea988568aedff802281"
+    },
+    "ui/rest-view.js": {
+      "size": 12078,
+      "sha256": "39a96dd0f97bef8518e4fe073c0f2087cf59ee47cfad56a9ee4e7005dc37459d"
+    }
+  },
+  "downloadHashesVerified": true,
+  "fontRegression": {
+    "before": "Chinese paragraph incorrectly selected BodyFont, sans-serif",
+    "after": "Native font-body stack selected by game locale; browser confirmed actual Noto Sans SC glyph rendering",
+    "test": "tests/font-render.test.js",
+    "requiredEnvironment": [
+      "CIV7_GAME_DIR",
+      "CIV7_PLAYWRIGHT_MODULE",
+      "CIV7_CHROMIUM_PATH"
+    ]
+  }
+}
