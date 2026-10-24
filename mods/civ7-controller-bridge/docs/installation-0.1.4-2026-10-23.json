@@ -1,0 +1,69 @@
+{
+  "version": "0.1.4",
+  "installedAt": "2026-10-23T09:52:50.504732+00:00",
+  "workshopId": "3825119575",
+  "installationPath": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3825119575",
+  "source": "Steam Workshop",
+  "verifiedFiles": {
+    "README.md": {
+      "size": 4526,
+      "sha256": "05b3974ed654e1eb78fe0144d1f5b44d459b25a59453f67275e21d879f4f508a"
+    },
+    "controller-bridge.modinfo": {
+      "size": 1681,
+      "sha256": "d5fe58f7a20f6fa4334ebf0b0fa779c1daf865dd81aa44bcac7a91e6c2f63397"
+    },
+    "README-en.md": {
+      "size": 4654,
+      "sha256": "4ba17b90952b91451e90148ef9511f37639f4b5ec2e56bd69a28c982fcd3ebb6"
+    },
+    "ui/bridge-runtime.js": {
+      "size": 10783,
+      "sha256": "bfe2e2b2d215630a6de461b14c86b4ee4a965ca0bb9eae8d8bc5ccd4314568de"
+    },
+    "ui/bridge-options.js": {
+      "size": 3154,
+      "sha256": "8bfbcc340e169aab0f8a7b29f966b459ee0a0e92d846511b259a35461cd23951"
+    },
+    "ui/bridge-store.js": {
+      "size": 1095,
+      "sha256": "e964df6da930e1de1f5712f18bdc4fc697f29f76b788e76e7bab27c243c607ab"
+    },
+    "ui/controller-bridge.js": {
+      "size": 6997,
+      "sha256": "cf80309edb7113985466fc9856c114e9fbe1029aa0e11bcacf3ba5801cc2f7e1"
+    },
+    "ui/bridge-settings.js": {
+      "size": 1151,
+      "sha256": "fd963a02ed4f908c9effdd3a3d82d6b2c1bf634606aeb8cee8fa80d87e50a671"
+    },
+    "text/settings.xml": {
+      "size": 5684,
+      "sha256": "02977954891a149f2ad742ecb00c13a48516613340eeee4faa6a782152de3802"
+    }
+  },
+  "hashesVerified": true,
+  "subscribed": true,
+  "manualDuplicate": false,
+  "previousModBackup": "/Users/sunmer/Documents/Civ7-Mod-Backups/controller-bridge-20261023T095007Z-39483e9a/previous-workshop-0.1.3",
+  "previousModBackupVerified": true,
+  "offlineTests": {
+    "passed": 58,
+    "failed": 0,
+    "skipped": 0
+  },
+  "liveTestPerformed": false,
+  "gameProcessDetected": true,
+  "gameUIOrCDPUsed": false,
+  "realSavesReadOrChanged": false,
+  "restGuardChanged": false,
+  "requiresGameRestart": true,
+  "radialManualTest": "opening reported working; left-stick navigation reported failing",
+  "userManualFeedback": {
+    "date": "2026-10-23",
+    "quote": "在进游戏之后的rb轮盘打开的情况下，左摇杆也没用，只有右摇杆有用",
+    "RBOpensRadial": true,
+    "leftStickMenuNavigation": "failed",
+    "agentOperatedGame": false
+  }
+}

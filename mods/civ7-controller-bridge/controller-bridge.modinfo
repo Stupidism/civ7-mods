@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="civ7-controller-bridge" version="6" xmlns="ModInfo">
+  <Properties>
+    <Name>Mac 手柄支持修复 · Mac Controller Support Fix</Name>
+    <Description>LOC_CB_MOD_DESCRIPTION</Description>
+    <Authors>Stupidism</Authors>
+    <Version>0.1.5</Version>
+    <Package>Mod</Package>
+    <AffectsSavedGames>0</AffectsSavedGames>
+    <ShowInBrowser>1</ShowInBrowser>
+    <EnabledByDefault>1</EnabledByDefault>
+  </Properties>
+  <Dependencies><Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME" /></Dependencies>
+  <ActionCriteria><Criteria id="always"><AlwaysMet /></Criteria></ActionCriteria>
+  <ActionGroups>
+    <ActionGroup id="controller-bridge-game" scope="game" criteria="always">
+      <Properties><LoadOrder>4000</LoadOrder></Properties>
+      <Actions>
+        <UpdateText><Item>text/settings.xml</Item></UpdateText>
+        <UIScripts><Item>ui/controller-bridge.js</Item></UIScripts>
+        <ImportFiles>
+          <Item>ui/bridge-runtime.js</Item>
+          <Item>ui/bridge-store.js</Item>
+          <Item>ui/bridge-options.js</Item>
+          <Item>ui/bridge-settings.js</Item>
+          <Item>ui/menu-navigation.js</Item>
+          <Item>ui/menu-navigation-adapter.js</Item>
+        </ImportFiles>
+      </Actions>
+    </ActionGroup>
+    <ActionGroup id="controller-bridge-shell" scope="shell" criteria="always">
+      <Properties><LoadOrder>4000</LoadOrder></Properties>
+      <Actions>
+        <UpdateText><Item>text/settings.xml</Item></UpdateText>
+        <UIScripts><Item>ui/bridge-settings.js</Item></UIScripts>
+        <ImportFiles>
+          <Item>ui/bridge-store.js</Item>
+          <Item>ui/bridge-options.js</Item>
+          <Item>ui/menu-navigation.js</Item>
+          <Item>ui/menu-navigation-adapter.js</Item>
+        </ImportFiles>
+      </Actions>
+    </ActionGroup>
+  </ActionGroups>
+</Mod>

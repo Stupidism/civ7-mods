@@ -1,0 +1,78 @@
+{
+  "version": "0.1.1",
+  "installedAt": "2026-10-23T07:38:34.159033+00:00",
+  "destination": "/Users/sunmer/Library/Application Support/Civilization VII/Mods/civ7-controller-bridge",
+  "previousVersionBackup": "/Users/sunmer/Documents/Civ7-Mod-Backups/controller-bridge-20261023T073834Z-73749301/previous-0.1.0",
+  "previousFilesVerified": {
+    "README.md": {
+      "size": 6626,
+      "sha256": "efab327b984bf5fc6504ba8800231f991ee64dcd35814429620646439a103a71"
+    },
+    "controller-bridge.modinfo": {
+      "size": 1149,
+      "sha256": "5d873b08412aa3840c705901c809b7910edb9d1b97c93e91168bfe2023834efa"
+    },
+    "docs/validation.md": {
+      "size": 3734,
+      "sha256": "193e573ed154d2bf31da69905c0825a2707d559cf36ce091d19963ebdffe614f"
+    },
+    "ui/bridge-runtime.js": {
+      "size": 9808,
+      "sha256": "e27dc34963e84b14ddc51f3203ad828e7383bc615ee52d2645a2a468248c47d4"
+    },
+    "ui/controller-bridge.js": {
+      "size": 6351,
+      "sha256": "ac867a1241c7e3ddbffd01dc235f96736c297253cc053a8fe7d9575bceda859a"
+    }
+  },
+  "filesVerified": {
+    "controller-bridge.modinfo": {
+      "size": 1656,
+      "sha256": "62ab5ce9cf110ea4a2b1947d8b086e8c25b4202e04a5c5363f094fa8b6e68ba5"
+    },
+    "ui/controller-bridge.js": {
+      "size": 6552,
+      "sha256": "82c0f423e43244ad0a5a80da427ff478cd1d3164ac63fef3c954367c6f336532"
+    },
+    "ui/bridge-runtime.js": {
+      "size": 9808,
+      "sha256": "e27dc34963e84b14ddc51f3203ad828e7383bc615ee52d2645a2a468248c47d4"
+    },
+    "ui/bridge-store.js": {
+      "size": 1075,
+      "sha256": "cc4dfaa23028df2c3668466a89e79f8a099ffa03bedc0ad36027e1dd1e3ae38e"
+    },
+    "ui/bridge-options.js": {
+      "size": 3122,
+      "sha256": "da9a83fceb841fbf98ac5f206edbe157c9c01b5983f15740303d11fb6bb5a629"
+    },
+    "ui/bridge-settings.js": {
+      "size": 1151,
+      "sha256": "fd963a02ed4f908c9effdd3a3d82d6b2c1bf634606aeb8cee8fa80d87e50a671"
+    },
+    "text/settings.xml": {
+      "size": 4415,
+      "sha256": "56d06bf677ebf81124040ac07f76f4f7943c7e046a6035538c60a91b2870e9ab"
+    },
+    "README.md": {
+      "size": 7740,
+      "sha256": "a0c02588adf77cf02dcb0cef97b4803f91a9bbc1beec582e4547e97974e8f3b6"
+    },
+    "docs/validation.md": {
+      "size": 4947,
+      "sha256": "5fa30573d0fb4db43ca863e7e1fe4ea47a74a3e8ce7c67ef01ed005519fa6c84"
+    }
+  },
+  "mapInputRuntimeUnchanged": true,
+  "gameRunningAtInstallation": true,
+  "gameInteraction": false,
+  "savesReadOrModified": false,
+  "restGuardChanged": false,
+  "savesBackup": "Not performed: file installation only; no live test, launch, load or game interaction.",
+  "validation": {
+    "offlineTestsPassed": 50,
+    "offlineTestsSkipped": 0,
+    "fontComparison": "work/civ7-controller-20261023/font-result.json",
+    "gameTested": false
+  }
+}

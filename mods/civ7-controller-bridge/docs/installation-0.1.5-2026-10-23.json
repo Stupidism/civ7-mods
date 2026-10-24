@@ -1,0 +1,71 @@
+{
+  "version": "0.1.5",
+  "installedAt": "2026-10-23T10:20:26.938579+00:00",
+  "workshopId": "3825119575",
+  "installationPath": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3825119575",
+  "source": "Steam Workshop",
+  "verifiedFiles": {
+    "README.md": {
+      "size": 5160,
+      "sha256": "74474db8d2bccc9ceb015e264e247b05c0562054145ce87dfffc99162214ab5a"
+    },
+    "controller-bridge.modinfo": {
+      "size": 1877,
+      "sha256": "cdbaae5c674f84658feaa41c5a7029a5df76818fa36ce474f3cb636142093705"
+    },
+    "README-en.md": {
+      "size": 5295,
+      "sha256": "c4bcac3a96e91449f7d45d547df42663544f98bdf985a632a68df460a02861ca"
+    },
+    "ui/bridge-runtime.js": {
+      "size": 10783,
+      "sha256": "bfe2e2b2d215630a6de461b14c86b4ee4a965ca0bb9eae8d8bc5ccd4314568de"
+    },
+    "ui/bridge-options.js": {
+      "size": 3154,
+      "sha256": "8bfbcc340e169aab0f8a7b29f966b459ee0a0e92d846511b259a35461cd23951"
+    },
+    "ui/bridge-store.js": {
+      "size": 1095,
+      "sha256": "e964df6da930e1de1f5712f18bdc4fc697f29f76b788e76e7bab27c243c607ab"
+    },
+    "ui/controller-bridge.js": {
+      "size": 6997,
+      "sha256": "41a479f86034a0e3cb1ebbb4e580dab41d09429c40cac95f861594d10232cdf2"
+    },
+    "ui/menu-navigation.js": {
+      "size": 2439,
+      "sha256": "441f12b47eacd2bc2675d9cd627055ab4b8903de6f328366e06469e477c9876c"
+    },
+    "ui/menu-navigation-adapter.js": {
+      "size": 2285,
+      "sha256": "8d790bc308b3d5b80bc175010d9be6d4916045d1a55d54a4cc2e0da1ddf55a52"
+    },
+    "ui/bridge-settings.js": {
+      "size": 1288,
+      "sha256": "cb987f1ca86b3102251b0fcce9e19fd7ed988f664569a75df3ef842c911d2336"
+    },
+    "text/settings.xml": {
+      "size": 5879,
+      "sha256": "6ce5a9517baf55471c8b5a69a8be361c08a901bc068eac505c319eada21006c9"
+    }
+  },
+  "hashesVerified": true,
+  "subscribed": true,
+  "manualDuplicate": false,
+  "previousModBackup": "/Users/sunmer/Documents/Civ7-Mod-Backups/controller-bridge-20261023T101705Z-422c93d5/previous-workshop-0.1.4",
+  "previousModBackupVerified": true,
+  "offlineTests": {
+    "passed": 64,
+    "failed": 0,
+    "skipped": 0
+  },
+  "liveTestPerformed": false,
+  "gameProcessDetected": true,
+  "gameUIOrCDPUsed": false,
+  "realSavesReadOrChanged": false,
+  "restGuardChanged": false,
+  "requiresGameRestart": true,
+  "menuManualTest": "pending user",
+  "rawFailureTraceCaptured": false
+}

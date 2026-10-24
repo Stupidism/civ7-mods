@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs>
+  <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#152c35"/><stop offset="1" stop-color="#08181e"/></linearGradient>
+  <linearGradient id="pad" x2="0" y2="1"><stop stop-color="#29464d"/><stop offset="1" stop-color="#142b32"/></linearGradient>
+  <pattern id="hex" width="104" height="180" patternUnits="userSpaceOnUse"><path d="M52 0 104 30V90L52 120 0 90V30Z M0 90V150L52 180 104 150V90" fill="none" stroke="#79cfbd" stroke-opacity=".08" stroke-width="2"/></pattern>
+</defs>
+<rect width="1024" height="1024" fill="url(#bg)"/><rect x="420" width="604" height="1024" fill="url(#hex)"/>
+<path d="M64 72H120" stroke="#8be0c3" stroke-width="5"/>
+<g font-family="PingFang SC, Helvetica Neue, sans-serif">
+<text x="142" y="79" fill="#9aafaF" font-size="22" letter-spacing="3">CIVILIZATION VII · MOD</text>
+<text x="64" y="206" fill="#f4efdf" font-size="91" font-weight="650">Mac 手柄</text>
+<text x="64" y="315" fill="#f4efdf" font-size="91" font-weight="650">支持修复</text>
+<text x="70" y="373" fill="#8be0c3" font-size="28" font-weight="550" letter-spacing="2">MAC CONTROLLER SUPPORT FIX</text>
+<g transform="translate(0,28)">
+<path d="M370 449Q329 445 305 485L236 659Q212 728 265 749Q299 763 334 727L396 663H636L699 727Q736 766 772 743Q811 719 789 655L721 484Q704 447 661 449Z" fill="url(#pad)" stroke="#8be0c3" stroke-width="6"/>
+<path d="M395 446Q399 419 425 419H472 M560 419H612Q638 419 642 446" stroke="#8be0c3" fill="none" stroke-width="6" stroke-linecap="round"/>
+<circle cx="367" cy="539" r="43" fill="#0f242b" stroke="#8be0c3" stroke-width="5"/>
+<circle cx="367" cy="539" r="25" fill="#8be0c3"/>
+<circle cx="582" cy="618" r="35" fill="#0f242b" stroke="#718e92" stroke-width="5"/>
+<circle cx="582" cy="618" r="20" fill="#718e92"/>
+<path d="M415 586V607H394V627H415V648H435V627H456V607H435V586Z" fill="#9bb4b4"/>
+<g fill="#9bb4b4"><circle cx="671" cy="509" r="13"/><circle cx="701" cy="539" r="13"/><circle cx="641" cy="539" r="13"/><circle cx="671" cy="569" r="13"/></g>
+<circle cx="486" cy="539" r="7" fill="#718e92"/><circle cx="538" cy="539" r="7" fill="#718e92"/>
+<g stroke="#8be0c3" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M218 500V612 M202 516L218 500 234 516 M202 596L218 612 234 596"/></g>
+</g>
+<rect x="64" y="856" width="132" height="42" rx="21" fill="#8be0c3"/>
+<text x="130" y="885" text-anchor="middle" fill="#10262c" font-size="22" font-weight="650">macOS</text>
+<text x="218" y="886" fill="#f4efdf" font-size="28">地图光标 · 镜头控制</text>
+<text x="66" y="947" fill="#90a7ac" font-size="22" letter-spacing="1">WORLD-MAP CONTROLS · EN / 简体中文</text>
+</g>
+</svg>

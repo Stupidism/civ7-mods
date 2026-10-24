@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_OPTIONS_GROUP_BETTER_CONTROLLER_SUPPORT"><Text>Better Controller Support</Text></Row>
+    <Row Tag="LOC_BCS_CB_MOD_DESCRIPTION"><Text>Fix controller input on Mac when menus work but the world map does not. Includes separate left- and right-stick direction settings. Configure in Options → Add-ons → Better Controller Support. Debug bar hidden by default.</Text></Row>
+    <Row Tag="LOC_BCS_CB_ENABLED"><Text>Enable controller compatibility</Text></Row>
+    <Row Tag="LOC_BCS_CB_ENABLED_DESCRIPTION"><Text>Bridge controller input on the world map and normalize held analog navigation in menus. Enabled by default on Mac; off on Windows. Turning this off restores native input; hiding the debug bar does not turn this off.</Text></Row>
+    <Row Tag="LOC_BCS_CB_INVERT"><Text>Invert right-stick up/down</Text></Row>
+    <Row Tag="LOC_BCS_CB_INVERT_DESCRIPTION"><Text>Reverse vertical camera movement from the right stick. Change this if the camera moves in the opposite direction.</Text></Row>
+    <Row Tag="LOC_BCS_CB_DEBUG"><Text>Show debug bar</Text></Row>
+    <Row Tag="LOC_BCS_CB_DEBUG_DESCRIPTION"><Text>Show status, input event counts and quick switches at the top of the map. Hidden by default; enable only when troubleshooting. Also records a limited number of menu stick samples in UI.log.</Text></Row>
+    <Row Tag="LOC_BCS_CB_TOGGLE_ON"><Text>Controller bridge: on</Text></Row>
+    <Row Tag="LOC_BCS_CB_TOGGLE_OFF"><Text>Controller bridge: off</Text></Row>
+    <Row Tag="LOC_BCS_CB_INVERT_ON"><Text>Right-stick vertical movement is inverted. Click to change.</Text></Row>
+    <Row Tag="LOC_BCS_CB_INVERT_OFF"><Text>Right-stick vertical movement is not inverted. Click to change.</Text></Row>
+    <Row Tag="LOC_BCS_CB_ACTIVE"><Text>Map bridge active</Text></Row>
+    <Row Tag="LOC_BCS_CB_WAITING"><Text>Waiting for map / controller</Text></Row>
+    <Row Tag="LOC_BCS_CB_NATIVE"><Text>Native input</Text></Row>
+    <Row Tag="LOC_BCS_CB_FAULT"><Text>Interface error; bridge disabled</Text></Row>
+    <Row Tag="LOC_BCS_CB_COUNTS"><Text>Left {1} Right {2} D-pad {3}</Text></Row>
+    <Row Tag="LOC_BCS_CB_SAVE_ERROR_TITLE"><Text>Could not save controller settings</Text></Row>
+    <Row Tag="LOC_BCS_CB_SAVE_ERROR_BODY"><Text>Your previous settings remain active. Check storage access and try again.</Text></Row>
+    <Row Tag="LOC_BCS_CB_LEFT_INVERT"><Text>Invert left-stick up/down</Text></Row>
+    <Row Tag="LOC_BCS_CB_LEFT_INVERT_DESCRIPTION"><Text>Reverse vertical map cursor movement and its camera-follow from the left stick. Off by default. If movement feels reversed, toggle this setting and confirm. Does not change menus, the D-pad or the right stick.</Text></Row>
+    <Row Tag="LOC_BCS_CB_LEFT_INVERT_ON"><Text>Left up/down: inverted</Text></Row>
+    <Row Tag="LOC_BCS_CB_LEFT_INVERT_OFF"><Text>Left up/down: normal</Text></Row>
+  </EnglishText>
+  <LocalizedText>
+    <Row Tag="LOC_OPTIONS_GROUP_BETTER_CONTROLLER_SUPPORT" Language="zh_Hans_CN"><Text>更好的手柄支持</Text></Row>
+    <Row Tag="LOC_BCS_CB_MOD_DESCRIPTION" Language="zh_Hans_CN"><Text>修复 Mac 上手柄能操作菜单、却无法操作地图的问题，可分别调整左右摇杆上下方向。可在“选项 → 附加内容 → 更好的手柄支持”调整，调试栏默认隐藏。</Text></Row>
+    <Row Tag="LOC_BCS_CB_ENABLED" Language="zh_Hans_CN"><Text>启用手柄兼容</Text></Row>
+    <Row Tag="LOC_BCS_CB_ENABLED_DESCRIPTION" Language="zh_Hans_CN"><Text>兼容手柄的地图输入及菜单摇杆连续输入。Mac 默认开启，Windows 默认关闭。关闭后恢复游戏原来的输入方式；隐藏调试栏不会关闭此功能。</Text></Row>
+    <Row Tag="LOC_BCS_CB_INVERT" Language="zh_Hans_CN"><Text>翻转右摇杆上下</Text></Row>
+    <Row Tag="LOC_BCS_CB_INVERT_DESCRIPTION" Language="zh_Hans_CN"><Text>翻转右摇杆控制镜头的上下方向。仅在方向与预期相反时调整。</Text></Row>
+    <Row Tag="LOC_BCS_CB_DEBUG" Language="zh_Hans_CN"><Text>显示调试栏</Text></Row>
+    <Row Tag="LOC_BCS_CB_DEBUG_DESCRIPTION" Language="zh_Hans_CN"><Text>在地图顶部显示状态、输入事件计数及快捷开关。默认隐藏，需要排查问题时再开启；开启后也会在 UI.log 记录少量菜单摇杆输入。</Text></Row>
+    <Row Tag="LOC_BCS_CB_TOGGLE_ON" Language="zh_Hans_CN"><Text>手柄兼容：开</Text></Row>
+    <Row Tag="LOC_BCS_CB_TOGGLE_OFF" Language="zh_Hans_CN"><Text>手柄兼容：关</Text></Row>
+    <Row Tag="LOC_BCS_CB_INVERT_ON" Language="zh_Hans_CN"><Text>当前已翻转右摇杆上下，点击切换。</Text></Row>
+    <Row Tag="LOC_BCS_CB_INVERT_OFF" Language="zh_Hans_CN"><Text>当前未翻转右摇杆上下，点击切换。</Text></Row>
+    <Row Tag="LOC_BCS_CB_ACTIVE" Language="zh_Hans_CN"><Text>地图接管中</Text></Row>
+    <Row Tag="LOC_BCS_CB_WAITING" Language="zh_Hans_CN"><Text>等待地图／手柄</Text></Row>
+    <Row Tag="LOC_BCS_CB_NATIVE" Language="zh_Hans_CN"><Text>原生模式</Text></Row>
+    <Row Tag="LOC_BCS_CB_FAULT" Language="zh_Hans_CN"><Text>接口异常，已停用</Text></Row>
+    <Row Tag="LOC_BCS_CB_COUNTS" Language="zh_Hans_CN"><Text>左 {1} 右 {2} 十字 {3}</Text></Row>
+    <Row Tag="LOC_BCS_CB_SAVE_ERROR_TITLE" Language="zh_Hans_CN"><Text>手柄设置保存失败</Text></Row>
+    <Row Tag="LOC_BCS_CB_SAVE_ERROR_BODY" Language="zh_Hans_CN"><Text>原有设置仍在生效，请检查存储权限后重试。</Text></Row>
+    <Row Tag="LOC_BCS_CB_LEFT_INVERT" Language="zh_Hans_CN"><Text>翻转左摇杆上下</Text></Row>
+    <Row Tag="LOC_BCS_CB_LEFT_INVERT_DESCRIPTION" Language="zh_Hans_CN"><Text>翻转左摇杆控制地图光标及镜头跟随的上下方向，默认关闭。如果方向与预期相反，切换此项并确认；不影响菜单、十字键和右摇杆。</Text></Row>
+    <Row Tag="LOC_BCS_CB_LEFT_INVERT_ON" Language="zh_Hans_CN"><Text>左摇杆上下：已翻转</Text></Row>
+    <Row Tag="LOC_BCS_CB_LEFT_INVERT_OFF" Language="zh_Hans_CN"><Text>左摇杆上下：未翻转</Text></Row>
+  </LocalizedText>
+</Database>
