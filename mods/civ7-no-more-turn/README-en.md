@@ -2,7 +2,7 @@
 
 Source directory: `civ7-no-more-turn`. The Mod ID and manual installation folder remain `civ7-rest-guard` for compatibility.
 
-Version 1.8.5 · Civilization VII · Single-player only
+Version 1.8.6 · Civilization VII · Single-player only
 
 No More Turn adds configurable breaks and a night-time play restriction. The interface follows the game's text language: English and Simplified Chinese are provided, with English as the base translation. The mod name retains its bilingual format.
 
@@ -14,11 +14,13 @@ Version 1.8.4 groups each switch with its related settings: turn intervals, play
 
 Version 1.8.5 immediately hides dependent controls when their switch is off. Enabling the switch restores them with their previous values. Shared break duration, save retention and reset remain visible. Visibility follows the draft; Confirm saves it and Cancel restores the saved settings.
 
+Version 1.8.6: default turn intervals now use the reverse Fibonacci sequence 13/8/5/3/2. Existing settings are preserved; new configurations and Reset use the new defaults.
+
 ## Defaults and settings
 
 Open **Options → Additional Content → No More Turn（不再来一回合）**. Confirm Changes saves your settings; Cancel Changes discards them. Turn-based breaks, time-based breaks, and night-time restrictions have independent switches.
 
-- **Turn-based breaks:** count completed end-turn requests in memory for the current session. The game turn selects intervals of 5/4/3/2/1 across turns 1–20/21–40/41–60/61–80/81+. Each interval can be set to 1–100. Loading preserves the counter without adding turns; exiting the game clears it.
+- **Turn-based breaks:** count completed end-turn requests in memory for the current session. The game turn selects intervals of 13/8/5/3/2 across turns 1–20/21–40/41–60/61–80/81+. Each interval can be set to 1–100. Loading preserves the counter without adding turns; exiting the game clears it.
 - **Time-based breaks:** play for 25 minutes, then rest for 5 minutes. Play duration can be set to 1–240 minutes; break duration to 0.1–120 minutes. Loading counts toward play time.
 - **Voluntary breaks:** after one minute without input, the break panel appears and pauses the play timer. Continue Game is always available. Five idle minutes complete a break and reset both counters; continuing early keeps your progress toward the next break.
 - **Night-time restriction:** enabled by default from 22:00 to 07:00, using your computer's local time. Start and end times can be changed in 15-minute steps. Overnight and same-day windows work; equal times mean no restriction. You can exit during the restriction and change settings from the main menu. Reaching the end time never automatically submits a turn.

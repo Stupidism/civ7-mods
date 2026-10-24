@@ -74,7 +74,7 @@ export async function fixture(initialConfig, { nativeArmyPanelSource } = {}) {
     GameInfo:{NarrativeTags:{lookup:name=>({$index:name.startsWith('NARRATIVE_TAG_WC_COST_')?100+['READY','UNIT','TYPE','ACTIVE'].indexOf(name.replace('NARRATIVE_TAG_WC_COST_','')):['READY','1','2','4','8','16','32','64'].indexOf(name.replace('NARRATIVE_TAG_WC_FOCUS_',''))})},Units:{lookup:type=>state.definitions.get(type)}}, Locale:{compose:(key,...args)=>(translations[state.language === 'zh_Hans_CN' ? 'LocalizedText' : 'EnglishText'][key] ?? key).replace(/\{(\d+)\}/g,(_,n)=>String(args[Number(n)-1]))}, InputActionStatuses:{FINISH:2}, OperationPlotModifiers:{NONE:0},
     Camera:{lookAtPlot:p=>state.cameras.push(p)}, PlotCursor:{plotCursorCoords:null},
     ComponentID:{isValid:x=>x!=null&&x.owner!==-1&&x.id!==-1,toString:x=>`${x.owner};${x.id};${x.type}`,isMatch:match},
-    InterfaceMode:{addHandler:(n,h)=>nativeModes.set(n,h),getInterfaceModeHandler:n=>nativeModes.get(n),getCurrent:()=>state.mode,switchToDefault:()=>{state.mode='INTERFACEMODE_DEFAULT';windowListeners.get('interface-mode-changed')?.forEach(f=>f({}));}},
+    InterfaceMode:{addHandler:(n,h)=>nativeModes.set(n,h),getInterfaceModeHandler:n=>nativeModes.get(n),getCurrent:()=>state.mode,switchTo:(name)=>{state.mode=name;windowListeners.get('interface-mode-changed')?.forEach(f=>f({}));},switchToDefault:()=>{state.mode='INTERFACEMODE_DEFAULT';windowListeners.get('interface-mode-changed')?.forEach(f=>f({}));}},
     ViewManager:{get isWorldInputAllowed(){return state.allowed;},isUnitSelectingAllowed:true},
     UnitSelection:{onRaise:{on:f=>raised.add(f),off:f=>raised.delete(f)},onLower:{on(){},off(){}}},
     UnitActionHandlers:handlers, WorldInput:world, OVERLAY_PRIORITY:{PLOT_HIGHLIGHT:4},

@@ -1,60 +1,63 @@
 [h1]更好的手柄支持 · Better Controller Support[/h1]
-用手柄访问《文明 VII》左下角的地图工具。0.2.1 已合并 Mac 手柄支持修复，安装一个模组即可使用两套功能。
+用手柄访问地图工具、切换同格重叠单位、打开被单位挡住的定居点。内置 Mac 地图输入与菜单摇杆兼容。
 
-[h2]主要功能[/h2]
+[h2]同格单位与定居点（0.3.0）[/h2]
 [list]
-[*]原生轮盘新增“地图工具”分类，图标与左下角工具按钮一致。
-[*]方向键或左摇杆切换按钮和列表，A 确认，B 返回。
-[*]金色焦点高亮，长列表自动滚动，跳过隐藏和禁用项。
-[*]地图钉选择器支持图标导航，选中后交还原模组的地图放置流程。
-[*]内置 Mac 地图输入修复：左摇杆选地块，右摇杆移镜头，RB 开轮盘，R3 把选中地块移到镜头正中。
-[*]左右摇杆上下方向独立设置，菜单摇杆持续输入兼容，调试栏默认隐藏。
-[*]暂停菜单、对话框、焦点锁和休息限制优先。
+[*][b]LB / RB 切换同格单位[/b]：光标格内有两个或更多己方单位时，LB 上一个、RB 下一个，循环选择，不跳到其他地块。包含探索者、移民、商人、休眠和已耗尽行动力的单位；不包含敌方或已收纳离开地图的单位。未选中单位时也能直接切入。
+[*][b]X 直接打开定居点[/b]：光标格上有城市或城镇时，无论是否已选中单位，按 X 打开对应界面。自己的定居点打开管理界面，其他文明和独立势力沿用原版外交与接触限制。普通乡村地块不算定居点所在格。
+[*]没有对应目标时，按键保留原功能。菜单内 LB/RB 仍切换分类；移动、攻击选格和弹窗优先。重叠格上的 RB 用于切换单位；需要开轮盘时，可取消单位并把光标移到无重叠单位的格子。
 [/list]
+这些同格快捷操作不需要 Map Trix，也不依赖 Mac 输入兼容开关。按键说明使用 Xbox 布局，其他手柄按游戏显示的对应按键操作。
 
-[h2]操作方式（Xbox 布局）[/h2]
-1. 普通地图按 RB 打开轮盘。
-2. LB / RB 切换到“地图工具”，左摇杆选中工具，按一次 A 直接打开对应界面。
-3. 方向键或左摇杆导航，A 确认；B 关闭工具并直接返回地图。
-其他手柄按游戏显示的对应按键操作。滤镜面板保留原生控件；轮盘仍遵守游戏的教程和当前视图限制。
+[h2]地图工具[/h2]
+普通地图 RB 打开原生轮盘，LB/RB 切换到“地图工具”，左摇杆选择工具，按一次 A 直接打开对应界面。方向键或左摇杆导航，A 确认，B 关闭工具并直接回地图，无需经过左下角按钮区。
+
+轮盘图标与左下角工具按钮相同。金色边框标出焦点，长列表自动滚动，跳过隐藏或禁用项。滤镜面板保留原生控件；地图钉选择后交还原模组放置流程。本模组没有新增地图钉删除快捷键。
 
 [h2]兼容与可选模组[/h2]
 [list]
-[*]原版滤镜：无需其他模组。
-[*]城市、单位、奇观：[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507072814]Map Trix[/url]。
+[*]原版滤镜、同格单位切换和定居点快捷打开：无需其他模组。
+[*]城市、单位、奇观[b]列表[/b]：[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507072814]Map Trix[/url]。
 [*]地图钉：[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507297712]Detailed Map Tacks[/url]。
-[*]Mac Controller Support Fix 0.1.5 的功能已内置，不再需要单独安装。
 [/list]
-可选模组未启用时，对应入口隐藏。不附带 Map Trix、Detailed Map Tacks 或游戏图片，也不提供系统手柄驱动。适用于 Windows / macOS 的游戏界面；其他修改相同输入链的模组可能需要适配。
+缺少可选模组时，对应地图工具入口隐藏。不附带或改写第三方模组，不提供系统手柄驱动。适用于 Windows/macOS；其他改写相同输入链的模组可能需要适配。
 
-[h2]地图兼容与旧版迁移[/h2]
-Mac 默认开启输入兼容；Windows 默认使用原生地图输入。地图工具不受此开关影响。旧版保存过的四项设置直接继承，优先于默认值。
-“选项 → 附加内容 → 更好的手柄支持”可调整兼容开关、左右方向和调试栏，确认保存、取消放弃。方向设置仅在兼容开启时生效。
-兼容开启时，LT/RT 每次缩放一级；普通地图方向键移光标，选中单位后保留按钮导航。A/B 原生确认取消，X 轮盘或单位移动，Y 原生下一行动（可能结束回合）。
-[b]已装旧 Mac 模组：停用旧模组后重启。[/b]同时启用时会由旧模组负责输入和设置，合并版只提供地图工具，避免重复处理；停用旧版重启后才由合并版接管。不会自动取消旧订阅。
+[h2]Mac 地图输入与设置[/h2]
+Mac Controller Support Fix 0.1.5 的功能已内置。Mac 默认开启输入兼容，Windows 默认沿用原生地图输入；地图工具与同格快捷操作不受此开关影响，旧设置优先于默认值。
+
+兼容开启时：左摇杆选地块，右摇杆移镜头，R3 把选中地块移到镜头正中；LT/RT 每次缩放一级。A/B 沿用原生确认取消。X 优先打开当前格定居点；无定居点时，普通地图打开轮盘，单位已选中时进入移动。Y 是原生下一行动，可能结束回合。菜单摇杆持续输入兼容，左右摇杆上下方向可独立设置，调试栏默认隐藏。
+
+设置入口：选项 → 附加内容 → 更好的手柄支持。确认保存，取消放弃。暂停菜单、对话框、焦点锁和休息限制优先。
+[b]已装旧 Mac 模组：建议停用旧模组后重启。[/b]同时启用时，旧模组负责输入兼容和设置，本模组提供地图工具及同格快捷操作；不会自动取消旧订阅。
 
 [h2]安装与验证[/h2]
-订阅后等待下载，重启游戏，在“附加内容”启用“更好的手柄支持”。手动版和工坊版只保留一份，内部 ID 为 civ7-map-tools-gamepad。已有对局可以启用或停用，模组不新增游戏规则；使用原工具操作仍会正常影响对局。
+订阅后等待 Steam 下载，重启游戏，在“附加内容”启用。手动版和工坊版只保留一份，内部 ID 为 civ7-map-tools-gamepad。模组不新增游戏规则，使用原工具仍会执行正常游戏操作。
 
-版本 0.2.1。76 项离线逻辑、原生源码模拟和独立浏览器回归通过。此前 0.2.0 取图期间用户确认 Mac 地图输入、R3 和轮盘摇杆可响应；本次一次确认直达的改动未实机测试。设置保存与重启持久化存在待调查疑点，尚未验收。并非所有系统、手柄和多人场景都已验收；地图钉的完整放置、预览及删除仍由原模组负责。本模组没有新增地图钉删除快捷键。
+[b]版本 0.3.0：88 项离线检查通过；新增同格快捷操作尚未实机验证。[/b]此前 0.2.0 用户确认过 Mac 地图输入、R3 和轮盘摇杆响应，不代表本版新功能已经验收。设置保存与重启持久化仍有待调查疑点。Windows、全部手柄型号、多人及完整地图钉放置/删除链路尚未验收。
 
 [h1]English[/h1]
-Bring the minimap tools within reach of your controller. Better Controller Support adds a [b]Map Tools[/b] category to Civilization VII's native radial menu, using the same icons as the original minimap buttons.
+Controller access to map tools, stacked units and settlements, with integrated Mac input compatibility.
 
-[h2]Controls[/h2]
-Open the radial menu with RB, switch to Map Tools with LB/RB, select a tool with the left stick and press A once to open it directly. Navigate with the D-pad or left stick, press A to activate, and B to close the tool and return directly to the map.
+[h2]Stacked units and settlements (0.3.0)[/h2]
+[list]
+[*][b]LB/RB cycle units on the highlighted plot[/b] when two or more of your units share it. LB selects the previous, RB the next, wrapping within that plot. Includes explorers, settlers, merchants, sleeping and exhausted units. Excludes foreign and packed/off-map units. Works before selecting a unit too.
+[*][b]X opens the settlement on that plot[/b], before or after selecting a unit. Your cities/towns open management; foreign and independent settlements retain native diplomacy/contact rules. Remote rural tiles do not count as settlement tiles.
+[*]Without a matching target, original button functions remain. Menu tabs, move/attack targeting and dialogs retain control. RB cycles units over a stack; to open the radial menu, deselect and move the cursor to a plot without stacked units.
+[/list]
+Xbox layout shown. These plot shortcuts work independently of the Mac compatibility switch and need no other mod.
 
-Gold outlines identify focus. Long lists scroll to the selected row and skip hidden or disabled entries. The lens panel retains its native controls. Map-tack icons support directional navigation; placement returns to the original mod. Dialogs, pause screens and focus locks take priority.
+[h2]Map Tools[/h2]
+Open the native radial menu with RB, switch to Map Tools with LB/RB, select with the left stick and press A once to open the tool. D-pad/left stick navigate; A activates and B closes directly to the map. Icons match the minimap buttons. Gold focus outlines, scrolling lists and hidden/disabled-item skipping keep navigation clear.
 
-[h2]Optional integrations[/h2]
-Base-game lenses work on their own. Cities, units and wonders require [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507072814]Map Trix[/url]. Map tacks require [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507297712]Detailed Map Tacks[/url]. Missing tools are hidden. Neither mod is bundled or modified.
+Base lenses retain native controls. City, unit and wonder [b]lists[/b] require [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507072814]Map Trix[/url]. Map tacks require [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507297712]Detailed Map Tacks[/url]. Missing tools are hidden. Placement/removal remains the original mod's responsibility; no new tack-deletion shortcut. Third-party files are not bundled or modified.
 
-[h2]Integrated map and menu compatibility[/h2]
-Mac Controller Support Fix 0.1.5 is now included. Compatibility defaults on for Mac and off for Windows; Map Tools works independently. Existing saved preferences are retained.
-Left stick moves the plot cursor, right stick pans, R3 centers the selected plot on the camera, RB opens the radial menu on the normal map, LT/RT zoom one step per press. Unit/menu navigation stays native. A/B stay native; X invokes radial/unit movement; Y is native next action and can end the turn. Held menu analog input is normalized for native menus.
-Options → Add-ons → Better Controller Support has compatibility, independent left/right vertical inversion and an optional debug bar. Confirm saves; Cancel discards. Debug defaults off.
-Disable the old Mac Controller Support Fix and restart to use the integrated implementation. If both remain enabled, the old mod handles input/settings and this mod supplies Map Tools, preventing duplicate handlers. No automatic unsubscription. No external controller drivers included.
+[h2]Mac compatibility and settings[/h2]
+Includes Mac Controller Support Fix 0.1.5. Compatibility defaults on for Mac and off for Windows; saved preferences take priority. Left stick moves the plot cursor, right stick pans, R3 centers the selected plot on the camera, LT/RT zoom one step. X prioritizes a settlement; otherwise it opens the radial menu or unit movement. Y invokes native next action and may end the turn. Held menu analog input is normalized for native menus.
 
-Subscribe, let Steam download the files, restart and enable Better Controller Support in Additional Content. Keep only one copy of civ7-map-tools-gamepad. Version 0.2.1 passes 76 offline checks, including single-confirm radial opening and return-to-map behavior. During 0.2.0 capture the user confirmed Mac map inputs, R3 and radial stick response; the new direct-opening flow has not been live-tested. Settings storage/persistence needs further investigation. Broader device coverage, multiplayer and complete map-tack placement/removal remain unverified. No new map-tack deletion shortcut is added.
+Options → Add-ons → Better Controller Support offers compatibility, separate vertical inversion for each stick and an optional debug bar. Confirm saves; Cancel discards. Pause screens, dialogs, focus locks and rest restrictions take priority. Disable the old Mac fix and restart to use the integrated implementation. If both are enabled, the old fix handles compatibility/settings and this mod adds map tools and plot shortcuts. No automatic unsubscription or external controller driver.
+
+[h2]Install and verification[/h2]
+Subscribe, wait for Steam to download, restart and enable in Additional Content. Keep one copy of civ7-map-tools-gamepad.
+[b]0.3.0 passes 88 offline checks. New plot shortcuts have not been live-tested.[/b] Earlier 0.2.0 Mac input/R3/radial feedback does not validate this release. Settings persistence needs further investigation; Windows, broad controller coverage, multiplayer and complete map-tack placement/removal remain unverified. Other mods changing the same input pipeline may need adaptation.
 
 Community mod, not affiliated with Firaxis, 2K, Valve, Apple or Microsoft. Cover illustration generated with AI.

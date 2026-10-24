@@ -4,7 +4,7 @@
 
 为《文明 VII》单人游戏加入按回合、按时间休息及夜间禁玩。三项功能独立开关，休息时自动存档，默认保留最近10个休息存档。
 
-**当前开发版本：1.8.5 · Windows / Steam 1.5.0 接口 · 新版界面及联动待实机验证**
+**当前版本：1.8.6 · Windows / Steam 1.5.0 接口 · 新版界面及联动待实机验证**
 
 [Steam 创意工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3815557333) · [下载发布版](https://github.com/Stupidism/civ7-rest-guard/releases) · [完整使用说明](README-zh-CN.txt) · [验证记录](VALIDATION.txt)
 
@@ -14,6 +14,8 @@
 
 界面跟随游戏内的文字语言设置，提供英文和简体中文，其他语言使用原生英文回退。休息弹窗、按钮、存档状态、工具栏和设置说明全部使用游戏翻译系统，不读取操作系统或浏览器语言。名称保留“No More Turn（不再来一回合）”。[English guide](README-en.md)。
 
+1.8.6 调整：默认回合间隔改为反向斐波那契数列 **13、8、5、3、2**。已有设置保持原值；新配置或恢复本 Mod 默认值时使用新间隔。
+
 ## 默认规则
 
 ### 按回合休息
@@ -22,15 +24,15 @@
 
 | 当前回合 | 默认休息间隔 |
 | --- | --- |
-| 1–20 | 每 5 回合 |
-| 21–40 | 每 4 回合 |
-| 41–60 | 每 3 回合 |
-| 61–80 | 每 2 回合 |
-| 81 及以后 | 每回合 |
+| 1–20 | 每 13 回合 |
+| 21–40 | 每 8 回合 |
+| 41–60 | 每 5 回合 |
+| 61–80 | 每 3 回合 |
+| 81 及以后 | 每 2 回合 |
 
 游戏当前回合只用于选择上表的间隔档位；每档间隔可以调整为 1–100 回合。跨档保留已有累计，按新间隔判断。关闭回合功能时暂停累计。
 
-例如刚启动后读入第 10 回合存档，初始计数为 0，结束第 10–14 回合共 5 次时才触发休息。已经累计 2 次后读入其他存档，计数仍为 2。
+例如刚启动后读入第 1 回合存档，初始计数为 0，结束第 1–13 回合共 13 次时才触发休息。已经累计 2 次后读入其他存档，计数仍为 2。
 
 ### 按时间休息
 
@@ -155,7 +157,7 @@ npm test
 
 ## English summary
 
-A single-player Civilization VII mod with independent turn-based and time-based break triggers. Defaults are one break every 5/4/3/2/1 turns across fixed 20-turn stages, or after 25 minutes of continuous play, followed by a 5-minute rest. End-turn actions are counted in memory for the current session; the game turn only selects the interval stage. Loading never adds turns or resets accumulated progress. Duplicate requests count once. One idle minute opens a voluntary break panel with an elapsed timer and an always available Continue Game button. The play timer pauses during this break; resuming early preserves previous progress. Five idle minutes reset both counters. In-game loading time is included; exiting the game clears both session counters.
+A single-player Civilization VII mod with independent turn-based and time-based break triggers. Defaults are one break every 13/8/5/3/2 turns across fixed 20-turn stages, or after 25 minutes of continuous play, followed by a 5-minute rest. End-turn actions are counted in memory for the current session; the game turn only selects the interval stage. Loading never adds turns or resets accumulated progress. Duplicate requests count once. One idle minute opens a voluntary break panel with an elapsed timer and an always available Continue Game button. The play timer pauses during this break; resuming early preserves previous progress. Five idle minutes reset both counters. In-game loading time is included; exiting the game clears both session counters.
 
 Each break creates a separate local normal save named RestGuard_Idle/Time/Turn plus turn number, timestamp and a unique suffix. Overwrite is disabled; the newest 10 rest snapshots are kept by default (configurable from 1 to 100). Only older local RestGuard files are pruned after a successful save; other saves remain untouched. The panel reports save status without blocking voluntary Continue or Exit.
 

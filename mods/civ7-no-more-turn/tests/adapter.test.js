@@ -17,7 +17,7 @@ function harness({ turn = 5, multiplayer = false, readonlyNative = false, storag
   for (let i = 0; i < playedTurns; i++) {
     const previous = turn - playedTurns + i;
     session.requestTurn({ turn: previous, context: 'game:123:player:0:age:age1',
-      token: `game:123:player:0:age:age1:turn:${previous}` }, normalizeConfig({ nightEnabled }), startTime);
+      token: `game:123:player:0:age:age1:turn:${previous}` }, normalizeConfig({ nightEnabled, intervals: [5, 4, 3, 2, 1] }), startTime);
   }
   const timers = [];
   const events = new Map();
@@ -109,6 +109,8 @@ function harness({ turn = 5, multiplayer = false, readonlyNative = false, storag
     Date: class extends Date { static now() { return clock.now; } },
   };
   const saveSource = fs.readFileSync(new URL('../ui/rest-save.js', import.meta.url), 'utf8').replace(/^export /gm, '');
+  // Fixed short intervals keep interaction scenarios independent of product defaults.
+  sandbox.settingsStore.data.config.intervals = [5, 4, 3, 2, 1];
   sandbox.settingsStore.data.config.nightEnabled = nightEnabled;
   const retentionSource = fs.readFileSync(new URL('../ui/rest-retention.js', import.meta.url), 'utf8').replace(/^export /gm, '');
   vm.runInNewContext(retentionSource + '\n' + saveSource + '\n' + source, sandbox);
@@ -323,7 +325,7 @@ test('idle overlay appears after one minute and survives motion, navigation and 
   h.input('mousebutton-left', 'continue');
   assert.equal(h.view().mode, null);
   assert.equal(h.calls.submits, 0);
-  assert.equal(h.session.turnsRemaining({ turn: 4, context: 'game:123:player:0:age:age1' }, normalizeConfig()), 5);
+  assert.equal(h.session.turnsRemaining({ turn: 4, context: 'game:123:player:0:age:age1' }, normalizeConfig({ intervals: [5, 4, 3, 2, 1] })), 5);
 });
 
 test('idle continue supports keyboard, controller and DOM Enter without passing input to the game', () => {

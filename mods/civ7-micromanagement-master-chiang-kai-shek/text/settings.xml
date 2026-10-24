@@ -39,7 +39,7 @@
     <Row Tag="LOC_WC_FOCUSEXCLUDE"><Text>Exclude stationary volley participants</Text></Row>
     <Row Tag="LOC_WC_FOCUSEXCLUDE_DESCRIPTION"><Text>Requires participant preview. All ranged units in command range start selected. Click a friendly unit to remove or restore its gold frame. Hover an enemy to preview eligible attackers, then click it to fire.</Text></Row>
     <Row Tag="LOC_WC_REINFORCEMENTCYCLE"><Text>Cycle reinforcement commanders</Text></Row>
-    <Row Tag="LOC_WC_REINFORCEMENTCYCLE_DESCRIPTION"><Text>Preview the closest owned commander. Cycle with LB/RB, Up/Down, wheel or panel buttons. Ineligible commanders remain visible but cannot be confirmed.</Text></Row>
+    <Row Tag="LOC_WC_REINFORCEMENTCYCLE_DESCRIPTION"><Text>Start with the closest commander eligible for reinforcement. Cycle with LB/RB, Up/Down, wheel or panel buttons. Cancel to return to your selected military unit. Ineligible commanders cannot be confirmed.</Text></Row>
     <Row Tag="LOC_WC_UNIT_FALLBACK"><Text>Unit {1}</Text></Row>
     <Row Tag="LOC_WC_VOLLEY_COUNT"><Text>Stationary volley: {1} eligible units</Text></Row>
     <Row Tag="LOC_WC_VOLLEY_BONUS_NOTE"><Text>Keep focused-fire strength bonuses. Fire without moving, starting with the farthest unit.</Text></Row>
@@ -108,7 +108,7 @@
     <Row Tag="LOC_WC_FOCUSEXCLUDE" Language="zh_Hans_CN"><Text>原地火力手动排除单位</Text></Row>
     <Row Tag="LOC_WC_FOCUSEXCLUDE_DESCRIPTION" Language="zh_Hans_CN"><Text>需要开启参与者高亮。默认选中指挥范围内的远程单位；直接点击友军取消或恢复选择，取消后金框消失。悬停敌人查看可参与攻击者，点击敌人开火。</Text></Row>
     <Row Tag="LOC_WC_REINFORCEMENTCYCLE" Language="zh_Hans_CN"><Text>增援指挥官快速切换</Text></Row>
-    <Row Tag="LOC_WC_REINFORCEMENTCYCLE_DESCRIPTION" Language="zh_Hans_CN"><Text>默认预览最近的己方指挥官；LB／RB、键盘上下、滚轮或面板按钮切换。不可增援的指挥官仍显示但不能确认。</Text></Row>
+    <Row Tag="LOC_WC_REINFORCEMENTCYCLE_DESCRIPTION" Language="zh_Hans_CN"><Text>默认预览最近的可增援指挥官；LB／RB、键盘上下、滚轮或面板按钮切换。取消后回到原军事单位。不可增援者不能确认。</Text></Row>
     <Row Tag="LOC_WC_UNIT_FALLBACK" Language="zh_Hans_CN"><Text>单位 {1}</Text></Row>
     <Row Tag="LOC_WC_VOLLEY_COUNT" Language="zh_Hans_CN"><Text>原地齐射：{1} 个单位可参与</Text></Row>
     <Row Tag="LOC_WC_VOLLEY_BONUS_NOTE" Language="zh_Hans_CN"><Text>保留集中火力战斗力加成，原地射击，远处单位优先。</Text></Row>

@@ -14,7 +14,8 @@ if out.is_relative_to(root.parents[1]):
 out.mkdir(parents=True, exist_ok=True)
 files = [root / 'map-tools-gamepad.modinfo', root / 'README.md', root / 'README-en.md', root / 'VALIDATION.md']
 files += sorted((root / 'ui').glob('*')) + sorted((root / 'text').glob('*.xml'))
-archive = out / 'better-controller-support-0.2.1.zip'
+version = json.loads((root / 'package.json').read_text())['version']
+archive = out / f'better-controller-support-{version}.zip'
 manifest = {str(p.relative_to(root)): {'size': p.stat().st_size, 'sha256': sha256(p.read_bytes()).hexdigest()} for p in files}
 with zipfile.ZipFile(archive, 'x', zipfile.ZIP_DEFLATED) as bundle:
     for path in files:
@@ -24,6 +25,6 @@ with zipfile.ZipFile(archive) as bundle:
     for name, info in manifest.items():
         data = bundle.read(f'{root.name}/{name}')
         assert len(data) == info['size'] and sha256(data).hexdigest() == info['sha256']
-evidence = {'version': '0.2.1', 'createdAt': stamp, 'archive': str(archive), 'archiveSha256': sha256(archive.read_bytes()).hexdigest(), 'files': manifest}
+evidence = {'version': version, 'createdAt': stamp, 'archive': str(archive), 'archiveSha256': sha256(archive.read_bytes()).hexdigest(), 'files': manifest}
 (out / 'manifest.json').write_text(json.dumps(evidence, ensure_ascii=False, indent=2) + '\n')
 print(json.dumps({'archive': str(archive), 'manifest': str(out / 'manifest.json'), 'files': len(files), 'verified': True}))

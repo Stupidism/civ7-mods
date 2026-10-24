@@ -45,7 +45,7 @@ test('normal gameplay checkpoints write no runtime records', () => {
   const h = harness(memory(), 0, 'game', 9);
   const current = { context: 'a', token: 'a:4', turn: 4 };
   for (let t = 0; t < 60000; t += 250) {
-    h.session.activity(current, normalizeConfig({ nightEnabled: false }), t);
+    h.session.activity(current, normalizeConfig({ nightEnabled: false, intervals: [5, 4, 3, 2, 1] }), t);
     h.checkpoint();
   }
   assert.equal(h.storage.data.size, 0);
@@ -54,7 +54,7 @@ test('normal gameplay checkpoints write no runtime records', () => {
 test('return to main menu resumes; a fresh startup discards interrupted game handoff', () => {
   const storage = memory();
   const game = harness(storage, 0, 'game', 9);
-  game.session.requestTurn({ context: 'a', turn: 10, token: 'a:10' }, normalizeConfig({ nightEnabled: false }), 0);
+  game.session.requestTurn({ context: 'a', turn: 10, token: 'a:10' }, normalizeConfig({ nightEnabled: false, intervals: [5, 4, 3, 2, 1] }), 0);
   game.clock.now = 120000;
   assert.equal(game.engine.call('exitToMainMenu', 'unchanged'), 'unchanged');
   const menu = harness(storage, 120001);
@@ -93,9 +93,9 @@ test('pending break and accumulated turns survive a load without resetting durat
   const first = harness(memory(), 0, 'game', 9);
   const current = { context: 'a', token: 'a:4', turn: 4 };
   first.session.reset(current, 0);
-  for (const turn of [5, 6, 7, 8]) first.session.requestTurn({ ...current, turn, token: `a:${turn}` }, normalizeConfig({ nightEnabled: false }), 0);
+  for (const turn of [5, 6, 7, 8]) first.session.requestTurn({ ...current, turn, token: `a:${turn}` }, normalizeConfig({ nightEnabled: false, intervals: [5, 4, 3, 2, 1] }), 0);
   const later = { ...current, turn: 9, token: 'a:9' };
-  first.session.requestTurn(later, normalizeConfig({ nightEnabled: false }), 60000);
+  first.session.requestTurn(later, normalizeConfig({ nightEnabled: false, intervals: [5, 4, 3, 2, 1] }), 60000);
   first.clock.now = 60000;
   first.network.loadGame();
   const second = harness(first.storage, 120000, 'game', 9);
@@ -107,20 +107,20 @@ test('pending break and accumulated turns survive a load without resetting durat
 test('a failed asynchronous load preserves elapsed time and turn deduplication', () => {
   const h = harness();
   const current = { context: 'a', token: 'a:10', turn: 10 };
-  h.session.requestTurn(current, normalizeConfig({ nightEnabled: false }), 0);
+  h.session.requestTurn(current, normalizeConfig({ nightEnabled: false, intervals: [5, 4, 3, 2, 1] }), 0);
   h.network.loadGame();
   h.clock.now = 120000;
   h.events.get('LoadComplete')({ result: 1 });
   assert.equal(h.session.loading, false);
   assert.equal(h.session.elapsed(120000), 120000);
-  h.session.requestTurn(current, normalizeConfig({ nightEnabled: false }), 120000);
+  h.session.requestTurn(current, normalizeConfig({ nightEnabled: false, intervals: [5, 4, 3, 2, 1] }), 120000);
   assert.equal(h.session.turnCount, 1);
   assert.equal(h.storage.data.size, 0);
 });
 
 test('loading uses one top-level storage key and preserves saved switches and other mods', () => {
   const storage = memory();
-  const settings = { 'civ7-rest-guard': { version: 3, config: { ...normalizeConfig({ nightEnabled: false }), timeEnabled: false } }, otherMod: { enabled: false } };
+  const settings = { 'civ7-rest-guard': { version: 3, config: { ...normalizeConfig({ nightEnabled: false, intervals: [5, 4, 3, 2, 1] }), timeEnabled: false } }, otherMod: { enabled: false } };
   storage.setItem('modSettings', JSON.stringify(settings));
   const first = harness(storage);
   first.network.loadGame();
@@ -134,7 +134,7 @@ test('loading uses one top-level storage key and preserves saved switches and ot
 
 test('load handoff retains the live counter without adding destination turns', () => {
   const first = harness(memory(), 0, 'game', 9);
-  const config = normalizeConfig({ nightEnabled: false });
+  const config = normalizeConfig({ nightEnabled: false, intervals: [5, 4, 3, 2, 1] });
   for (const turn of [10, 11]) first.session.requestTurn({ context: 'a', turn, token: `a:${turn}` }, config, 0);
   first.network.loadGame();
   const second = harness(first.storage, 1000, 'game', 9);

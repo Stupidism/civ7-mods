@@ -1,3 +1,17 @@
+# 0.3.0 plot shortcuts — 2026-10-24 — offline validation
+
+User explicitly requested no live tests while playing. This work is source-only: no game launch, UI/CDP connection, installation, Steam upload, Saves access, Rest Guard change or game-lock request.
+
+LB/RB cycle only multiple local on-map units on the highlighted plot, with a stable ID order and both directions wrapping. Includes civilians, sleeping and exhausted units. X opens that plot's settlement both before and after unit selection, via the installed game's original `WorldInput.handleSelectedPlotCity`; foreign/independent settlements retain diplomacy/contact rules. Ordinary rural districts do not become city shortcuts. Without a matching target the existing button meaning remains. Move/attack targeting, menus, dialogs, non-controller input and focus/input guards remain outside the shortcuts' scope.
+
+The independent shortcut layer loads after the compatibility bridge, translates a claimed button to a private action through the native ActionHandler/ContextManager pipeline, and selects only after the existing input handlers permit it. Original binding/accept filters are also checked. It rechecks the plot, selected-unit identity, player, turn, mode, target and availability at release and again at delivery. It never sends movement, combat, trade, founding or end-turn requests. Held presses activate once; native FINISH-only streams are supported. Disposal unregisters its handler and preserves later wrappers.
+
+88 offline tests passed with zero skips: the prior 76 checks plus 12 plot-shortcut scenarios. Tests read the installed native dispatcher, ComponentID implementation and world/city selection code in isolated Node VMs and use a detached Chromium fixture for existing UI regressions. New scenarios cover native World/Unit and bridged Shell bindings; all four unit types; foreign/off-map/missing/duplicate units; native city and diplomacy calls; original fallbacks; paired and FINISH-only input; scope changes; native guards and source filters; target disappearance during routing; and hook cleanup. Engine selection calls are recorded by fixtures: this is not a live game or physical-controller result.
+
+Pending: live macOS/Windows confirmation, physical controller feedback, and coexistence with other mods that replace these native input hooks. The Workshop publication result is recorded separately in docs/release-0.3.0.json. Publication does not include a forced local download or installation while the user is playing. Historical 0.2.0 physical feedback below does not validate 0.3.0.
+
+---
+
 # 0.2.1 direct map-tool opening — 2026-10-23
 
 Radial A now closes the wheel and invokes the existing tool button's semantic activation on the next frame, without focusing the minimap toolbar or requiring a second A. B closes the tool through its owner and clears focus back to the map; newer popups retain priority. Native icons and other radial entries are unchanged.

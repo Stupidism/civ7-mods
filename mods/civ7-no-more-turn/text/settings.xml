@@ -6,7 +6,7 @@
     <Row Tag="LOC_RG_TIME_ENABLED"><Text>Time-based breaks</Text></Row>
     <Row Tag="LOC_RG_PLAY_MINUTES"><Text>Continuous play (minutes)</Text></Row>
     <Row Tag="LOC_RG_REST_MINUTES"><Text>Break duration (minutes)</Text></Row>
-    <Row Tag="LOC_RG_TURN_DESCRIPTION"><Text>Counts end-turn actions in memory for this session. Loading preserves the count without adding turns; exiting clears it. The game turn selects a fixed 20-turn stage, with default intervals of 5/4/3/2/1.</Text></Row>
+    <Row Tag="LOC_RG_TURN_DESCRIPTION"><Text>Counts end-turn actions in memory for this session. Loading preserves the count without adding turns; exiting clears it. The game turn selects a fixed 20-turn stage, with default intervals of 13/8/5/3/2.</Text></Row>
     <Row Tag="LOC_RG_TIME_DESCRIPTION"><Text>Default: play 25 minutes, then rest 5 minutes. After 1 idle minute a voluntary break panel pauses the play timer; Continue Game is always available. Five idle minutes reset both counters. Loading counts as play; exiting the game clears the timer.</Text></Row>
     <Row Tag="LOC_RG_REST_DESCRIPTION"><Text>Triggers can be enabled independently. Completing any forced or idle break resets both counters. Each break creates a separate RestGuard save without overwriting older files.</Text></Row>
     <Row Tag="LOC_RG_RESET_LABEL"><Text>Reset No More Turn settings</Text></Row>
@@ -79,7 +79,7 @@
     <Row Tag="LOC_RG_TIME_ENABLED" Language="zh_Hans_CN"><Text>按时间休息</Text></Row>
     <Row Tag="LOC_RG_PLAY_MINUTES" Language="zh_Hans_CN"><Text>连续游戏时长（分钟）</Text></Row>
     <Row Tag="LOC_RG_REST_MINUTES" Language="zh_Hans_CN"><Text>每次休息时长（分钟）</Text></Row>
-    <Row Tag="LOC_RG_TURN_DESCRIPTION" Language="zh_Hans_CN"><Text>在本次会话内累计结束回合次数，读档保留累计但不增加计数，退出游戏后清零。游戏当前回合只用于选择档位，每20回合一档，默认间隔5／4／3／2／1回合。</Text></Row>
+    <Row Tag="LOC_RG_TURN_DESCRIPTION" Language="zh_Hans_CN"><Text>在本次会话内累计结束回合次数，读档保留累计但不增加计数，退出游戏后清零。游戏当前回合只用于选择档位，每20回合一档，默认间隔13／8／5／3／2回合。</Text></Row>
     <Row Tag="LOC_RG_TIME_DESCRIPTION" Language="zh_Hans_CN"><Text>默认连续游戏25分钟休息5分钟。无操作1分钟显示主动休息面板并暂停游戏计时，随时可继续；满5分钟共同重置两项间隔。读档计入游戏时间，完整退出游戏后计时清零。</Text></Row>
     <Row Tag="LOC_RG_REST_DESCRIPTION" Language="zh_Hans_CN"><Text>两个功能独立开关，可同时开启。任意一次强制休息或空闲休息完成后，回合与时间间隔共同重置。休息开始时另存独立RestGuard文件，不覆盖旧存档。</Text></Row>
     <Row Tag="LOC_RG_RESET_LABEL" Language="zh_Hans_CN"><Text>恢复本模块默认设置</Text></Row>
@@ -144,6 +144,6 @@
     <Row Tag="LOC_RG_IDLE_SHORT_HINT" Language="zh_Hans_CN"><Text>；满5分钟算休息一次。</Text></Row>
     <Row Tag="LOC_RG_SETTINGS_HINT" Language="zh_Hans_CN"><Text>点击打开选项 → 附加内容 → No More Turn（不再来一回合）。</Text></Row>
     <Row Tag="LOC_RG_SETTINGS_ERROR_HINT" Language="zh_Hans_CN"><Text>设置保存异常。</Text></Row>
-    <Row Tag="LOC_RG_MOD_DESCRIPTION" Language="zh_Hans_CN"><Text>在本次会话内累计结束回合或连续游戏时间，达到间隔后强制休息；读档不增加回合计数，可独立开启。默认每20回合换档（5/4/3/2/1），连续游戏25分钟休息5分钟；无操作1分钟显示主动休息面板，随时可继续，满5分钟共同重置两项间隔。每次进入休息另存独立RestGuard文件，默认保留最近10个，数量可调整；默认22:00至07:00禁止游戏，可独立关闭或调整时段。右上角图标显示剩余回合与时间。仅单人游戏。</Text></Row>
+    <Row Tag="LOC_RG_MOD_DESCRIPTION" Language="zh_Hans_CN"><Text>在本次会话内累计结束回合或连续游戏时间，达到间隔后强制休息；读档不增加回合计数，可独立开启。默认每20回合换档（13/8/5/3/2），连续游戏25分钟休息5分钟；无操作1分钟显示主动休息面板，随时可继续，满5分钟共同重置两项间隔。每次进入休息另存独立RestGuard文件，默认保留最近10个，数量可调整；默认22:00至07:00禁止游戏，可独立关闭或调整时段。右上角图标显示剩余回合与时间。仅单人游戏。</Text></Row>
   </LocalizedText>
 </Database>

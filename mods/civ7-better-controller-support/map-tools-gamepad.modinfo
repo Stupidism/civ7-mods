@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod xmlns="ModInfo" id="civ7-map-tools-gamepad" version="4">
+<Mod xmlns="ModInfo" id="civ7-map-tools-gamepad" version="5">
   <Properties>
     <Name>LOC_MTG_MOD_NAME</Name>
     <Description>LOC_MTG_DESCRIPTION</Description>
     <Authors>Stupidism</Authors>
-    <Version>0.2.1</Version>
+    <Version>0.3.0</Version>
     <Package>Mod</Package>
     <AffectsSavedGames>0</AffectsSavedGames>
     <ShowInBrowser>1</ShowInBrowser>
@@ -52,6 +52,7 @@
         <UIScripts>
           <Item>ui/map-tools-gamepad.js</Item>
           <Item>ui/controller-bridge.js</Item>
+          <Item>ui/plot-shortcuts.js</Item>
         </UIScripts>
         <ImportFiles>
           <Item>ui/bridge-store.js</Item>
@@ -61,6 +62,8 @@
           <Item>ui/menu-navigation-adapter.js</Item>
           <Item>ui/bridge-settings.js</Item>
           <Item>ui/bridge-runtime.js</Item>
+          <Item>ui/plot-shortcuts-runtime.js</Item>
+          <Item>ui/plot-shortcuts-adapter.js</Item>
           <Item>ui/map-tools-runtime.js</Item>
           <Item>ui/navigation.js</Item>
           <Item>ui/radial-icons.js</Item>

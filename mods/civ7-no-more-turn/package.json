@@ -1,6 +1,6 @@
 {
   "name": "civ7-rest-guard",
-  "version": "1.8.5",
+  "version": "1.8.6",
   "private": true,
   "type": "module",
   "description": "Civilization VII single-player mod with turn-based and time-based rest timers.",

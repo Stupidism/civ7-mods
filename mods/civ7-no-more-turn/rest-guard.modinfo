@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="civ7-rest-guard" version="18" xmlns="ModInfo">
+<Mod id="civ7-rest-guard" version="19" xmlns="ModInfo">
   <Properties>
     <Name>No More Turn（不再来一回合）</Name>
     <Description>LOC_RG_MOD_DESCRIPTION</Description>
     <Authors>Custom Mod</Authors>
-    <Version>1.8.5</Version>
+    <Version>1.8.6</Version>
     <Package>Mod</Package>
     <AffectsSavedGames>0</AffectsSavedGames>
   </Properties>
@@ -53,4 +53,3 @@
     </ActionGroup>
   </ActionGroups>
 </Mod>
-

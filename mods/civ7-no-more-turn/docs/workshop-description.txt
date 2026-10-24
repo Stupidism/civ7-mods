@@ -1,41 +1,52 @@
-[h1]No More Turn（不再来一回合） — 1.8.5[/h1]
-Renamed from Rest Guard in 1.8.3; existing subscriptions and settings carry over.
-1.8.2 fixes Chinese text appearing as boxes by using the game’s language-aware font style.
+[h1]No More Turn（不再来一回合） — 1.8.6[/h1]
+A stopping point for "one more turn". Configurable breaks for Civilization VII single-player. English and Simplified Chinese follow the game's text language.
 
-Configurable breaks for Civilization VII single-player. The interface follows the game's text language: English and Simplified Chinese. The mod name remains bilingual.
+[h2]1. Timed breaks: a reverse Pomodoro[/h2]
+Late-game turns can take a while. Set a real stopping point: by default, play for 25 minutes and take a five-minute break. A timed break can begin during a turn; resume when the countdown finishes.
 
-[h2]Breaks and settings[/h2]
-1.8.5: Turning a switch off hides its related controls immediately. Turning it back on restores their values. Shared break duration, save retention and reset stay available. Confirm saves changes; Cancel discards them.
-1.8.4: Each switch is followed by its related settings. Subtle thin dividers separate sections; shared break duration and save retention appear afterward.
-Open Options → Additional Content → No More Turn（不再来一回合）. Confirm Changes saves your settings. Turn, time, and night restrictions have independent switches.
-[list]
-[*]Turn breaks count end-turn actions in memory. Loading preserves the count without adding turns; exiting clears it. Default intervals are 5/4/3/2/1 across 20-turn stages, adjustable to 1–100.
-[*]Timed breaks: play 25 minutes, then rest 5 minutes by default. Both durations are adjustable.
-[*]Voluntary breaks: after one idle minute, show a break panel with an always-available Continue Game button. Five idle minutes complete a break and reset both counters; continuing early preserves your progress.
-[*]Night restriction: enabled by default from 22:00 to 07:00 local computer time. Disable it independently or adjust either time in 15-minute steps. Equal times mean no restriction. Settings remain accessible from the main menu.
-[*]Exit Game and Esc remain available during breaks. The native exit confirmation appears above the break panel. Unlocking after a night restriction never automatically ends a turn.
-[/list]
+[h2]2. Turn-based breaks[/h2]
+Early turns and late turns take different amounts of time. Version 1.8.6 uses reverse Fibonacci defaults: 13 / 8 / 5 / 3 / 2 end-turn actions for turns 1–20 / 21–40 / 41–60 / 61–80 / 81 onward. Existing settings are preserved; use Reset to apply the new defaults. Each interval is adjustable from 1 to 100.
+The counter stays in memory: loading does not add turns or reset the count; exiting clears it. Completing a full break resets both time and turn counters.
 
-[h2]Break saves[/h2]
-Each break attempts a separate local normal save named RestGuard_Idle/Time/Turn/Night plus the turn, timestamp, and unique suffix. These do not overwrite default autosaves.
-Keep the newest 10 by default, adjustable to 1–100. After a new save is confirmed, older RestGuard saves are removed. The limit covers all break types and campaigns. Other manual saves, autosaves, quicksaves, cloud saves, and other mods' saves are untouched. Failed cleanup stops safely and can try again after the next successful break save. Wait for the panel to confirm saving before exiting.
+[h2]3. Voluntary breaks[/h2]
+After one idle minute, a voluntary-break panel shows the time already spent away. Continue Game is always available. Five continuous idle minutes complete a break; resuming early keeps your previous play progress.
 
-[h2]Installation and validation[/h2]
-Subscribe, wait for Steam to download, restart, and enable No More Turn in Additional Content. Avoid duplicate manual and Workshop copies. Single-player only; no dependency on another break or save mod. Compatible with the before-turn save hook in Auto-save Before....
-1.8.5 passed 209 offline checks, including English/Chinese text, night-time boundaries, retention, and before-turn save integration. This release was not tested in a running game.
+[h2]4. Restricted hours: early to bed, early to rise[/h2]
+The night restriction is enabled by default from 22:00 to 07:00 in your computer's local time. Adjust the schedule in 15-minute steps or disable it independently. Equal start and end times mean no restriction. Exit Game and Esc remain available, and the native exit confirmation appears above the break panel. The end of the restricted period never automatically advances a turn.
+
+[h2]5. Autosave before a break[/h2]
+Each break attempts a separate local checkpoint named RestGuard_Idle/Time/Turn/Night with the turn, timestamp and unique suffix. Check the panel's save status before exiting.
+Keep the newest 10 break saves by default, adjustable from 1 to 100. Older break saves are removed only after a new save succeeds. The limit spans campaigns. Normal autosaves, quicksaves, other manual saves, cloud saves and other mods' saves are not part of that cleanup. Keep separate saves for important milestones.
+
+[h2]Setup and scope[/h2]
+Subscribe, wait for Steam to finish downloading, restart the game, and enable No More Turn in Additional Content. Avoid duplicate manual and Workshop copies. Options → Add-ons → No More Turn contains the settings. Turn, time and night restrictions have independent switches. Turning one off hides its related controls; shared settings remain available. Confirm saves changes, Cancel discards them.
+Single-player only. No dependency on another break/save mod. Compatible with Auto-save Before...'s before-turn save hook. The restriction applies inside the game, not to the computer.
+1.8.6 passed 78 offline checks against the actual release package. No live game test was run for this defaults-only update. The 1.8.5 break scenarios were captured on Mac 1.5.0 Metal; this does not establish other-platform or physical-controller coverage.
 
 [h2]中文说明[/h2]
-1.8.5：关闭开关立即隐藏相关选项，重新开启保留原值；共用休息时长、存档数量和恢复默认不受影响。确认后保存，取消可恢复。
-1.8.4：各开关与对应功能选项相邻，用淡色细线分组；共用休息时长与存档保留数量置后。
-1.8.2 修复中文正文显示方框：字体改用游戏原生随语言切换的样式。
-为《文明 VII》单人游戏加入可配置的休息提醒与限制。界面跟随游戏文字语言，提供英文和简体中文，名称保留“英文（中文）”。
-设置入口：选项 → 附加内容 → No More Turn（不再来一回合）。回合、时间、夜间限制可分别开关。
-[list]
-[*]回合休息：在会话内累计结束回合次数，读档保留但不增加，退出清零。每20回合一档，默认间隔5／4／3／2／1回合，可调整。
-[*]时间休息：默认连续游戏25分钟后休息5分钟，时长可调整。
-[*]主动休息：空闲1分钟显示面板，随时可继续；满5分钟共同重置回合与时间计数，提前继续保留累计。
-[*]夜间禁玩：默认开启22:00–次日07:00，采用电脑本地时间。可单独关闭，起止按15分钟调整；起止相同不限制。锁定期间仍可退出，到主菜单修改设置。
-[*]休息存档：每次休息另存独立RestGuard文件，默认保留最近10个，可设1–100个。新存档确认成功后才清理旧文件，跨战役合计，不动原版自动、快速、其他手动、云端及其他Mod存档。
-[*]强制休息期间“退出游戏”和Esc始终可用，原生确认框显示在上层。退出前请确认保存成功。
-[/list]
-订阅更新后需重启游戏。请避免同时保留手动版和工坊版。本版209项离线检查通过，未启动游戏测试。
+给“再来一回合”设个终点。支持《文明 VII》单人游戏，界面跟随游戏文字语言，提供英文和简体中文。
+
+[b]1. 按时间休息，反向番茄钟[/b]
+后期两回合可能很久。默认连续游戏25分钟，休息5分钟；不必等当前回合做完，倒计时结束后继续。
+
+[b]2. 按回合休息[/b]
+1.8.6改用反向斐波那契默认间隔：第1–20／21–40／41–60／61–80／81回合以后，分别累计13／8／5／3／2次结束回合操作后休息。各档可设1–100。已有配置保留，恢复默认后应用新值。在内存中累计，读档不增加也不清零，退出游戏清零；完整休息共同重置回合与时间计数。
+
+[b]3. 主动休息[/b]
+空闲1分钟出现面板，把已经离开的时间计入休息；随时可以继续游戏。连续空闲5分钟完成休息，提前继续则保留之前的累计游戏进度。
+
+[b]4. 禁玩时间，早睡早起[/b]
+默认开启22:00–次日07:00的禁玩时间，按电脑本地时间判断。可单独关闭，起止时间按15分钟调整；起止相同不限制。强制休息期间退出游戏和Esc仍可用，退出确认框在上层；解锁后不会自动结束回合。可回主菜单修改设置。
+
+[b]5. 休息前自动存档[/b]
+每次休息尝试另存独立RestGuard文件，不覆盖原版自动保存。默认保留最近10个，可设1–100；新存档确认成功后才清理旧休息存档，跨战役合计。原版自动、快速、其他手动、云端与其他Mod存档不参与清理。退出前确认面板显示保存成功，重要进度另外手动保存。
+
+[b]安装与设置[/b]
+订阅并等待下载完成，重启游戏，在附加内容启用。避免手动版与工坊版重复安装。设置入口：选项 → 附加内容 → No More Turn（不再来一回合）。回合、时间、禁玩时间可分别开关；关闭时隐藏对应选项，共用选项不受影响。确认保存，取消放弃修改。
+本次默认值更新通过实际发行包78项离线检查，未启动游戏测试。配图实拍来自1.8.5、Mac 1.5.0 Metal，不代表其他平台或实体手柄验证。只限制游戏，不锁电脑。
+
+
+[h2]Screenshot notes / 配图说明[/h2]
+The first seven gallery images were captured in 1.8.5: timed break, turn-based break, turn settings, voluntary break, night restriction, time/night settings, and the save list. Timed-break demonstration: 1 minute of play / 1 minute of rest. Turn-break demonstration: one end-turn action / 30 seconds of rest. Night demonstration: 16:00–17:00. The turn-settings screenshot shows the old 5/4/3/2/1 defaults; 1.8.6 now uses 13/8/5/3/2.
+
+图库前七张为1.8.5实机截图，依次展示计时休息、回合休息、回合设置、主动休息、禁玩时间、时间设置及存档列表。计时演示临时使用玩1分钟／休息1分钟，回合演示临时使用每次结束回合／休息30秒，禁玩时段临时使用16:00–17:00。回合设置图中的5／4／3／2／1是旧默认值，1.8.6已改为13／8／5／3／2。

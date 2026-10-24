@@ -1,5 +1,5 @@
 {
-  "version": "0.2.1",
+  "version": "0.3.0",
   "publishedFileId": "3825193325",
   "title": "更好的手柄支持 · Better Controller Support",
   "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3825193325",
@@ -12,24 +12,24 @@
   "publishedDate": "2026-10-23",
   "metadataVerified": true,
   "previewHashesVerified": true,
-  "downloadHashesVerified": true,
-  "subscribedAndInstalledVerified": true,
+  "downloadHashesVerified": false,
+  "subscribedAndInstalledVerified": false,
   "uploadedFiles": {
     "map-tools-gamepad.modinfo": {
-      "size": 2372,
-      "sha256": "d8170db62b3eaeeba9e91fbb75cbfbd47b7c3706c1987474098141ca92a441e5"
+      "size": 2521,
+      "sha256": "47085586fe4c2c1c83fe2604c8175f48f2453d68d7921ab8049a2703abb12dd9"
     },
     "README.md": {
-      "size": 5228,
-      "sha256": "6076a467308c3747799ce1190dfdb4a4ba8813435864877df69b91e2a06b4112"
+      "size": 6658,
+      "sha256": "b3e59dc1b09b28258ef8e1cd1d98d54e3931f169c67d8dbfc82bea0e0e4f85c9"
     },
     "README-en.md": {
-      "size": 3820,
-      "sha256": "e2fe92bc9852b442d12f5f6a5d3e817a9d24ba6350d059826f97527147c8fb86"
+      "size": 5109,
+      "sha256": "f5dd9ef8cd5c685f6d13235247f0e3101562bb426b0ff27aad90de785bd0702b"
     },
     "VALIDATION.md": {
-      "size": 8201,
-      "sha256": "32554dc23402b7d15c68517d2dd4beb3cda1877b4e78941ea36a1b43df290d94"
+      "size": 10789,
+      "sha256": "3710904621cd1d76292f9eaf8de631d032a78a6cdae3eb950949e6f04d6fd7a7"
     },
     "ui/bridge-options.js": {
       "size": 3188,
@@ -79,6 +79,18 @@
       "size": 2651,
       "sha256": "9215acde1fb8810f6263108298963753f6a1638011b687af410e9381e23a4295"
     },
+    "ui/plot-shortcuts-adapter.js": {
+      "size": 4249,
+      "sha256": "ec058817faa9204893a0fa60fe482a74712a6f27d11e1adae20478c70a5bfa1a"
+    },
+    "ui/plot-shortcuts-runtime.js": {
+      "size": 4225,
+      "sha256": "1e5774fc8f6fdf52fac7a5878843d5a97e9e799d876609a45408279accc5785b"
+    },
+    "ui/plot-shortcuts.js": {
+      "size": 3336,
+      "sha256": "a76189199581985ab9d8896547644d70629291c6068e735b79f0c426581ff202"
+    },
     "ui/radial-icons.js": {
       "size": 1478,
       "sha256": "7a6de2153f3ae902948bf006a0cc58ff6f3056883001daefb5c816c4767aa69e"
@@ -88,24 +100,25 @@
       "sha256": "ea0223e5c9ad8d82a2de5c6fa991dc1a70e2f7ea247b9afb0303db85dfad2d05"
     },
     "text/map-tools.xml": {
-      "size": 1811,
-      "sha256": "350489d4edbfb4596e2e8eae63d1be47795605aa72fdba316dbbc41df8afaca4"
+      "size": 1897,
+      "sha256": "df0127f4d57bcb53834efcebf8e99f7aa94c42968e0ff00d4ddb350c6f904c11"
     }
   },
   "preview": {
     "path": "docs/workshop-preview.jpg",
     "sha256": "52bc167f29498b730ef9482e0938c8880b4094ae6aeb75705d8f840ae8912a90"
   },
-  "descriptionSha256": "9201f46d17d28c93176e0e72e0a521fdf65ddf1e960371a7acbbe20fedac7d2a",
+  "descriptionSha256": "1733c73bef18099008cbbad556504a64d287fcc74e7f37ff28f464143eeea2fd",
   "manualCopyBackup": "/Users/sunmer/Documents/Civ7-Mod-Backups/better-controller-support-workshop-20261023T111133Z-444e6b7e/previous-manual-0.1.2",
   "validation": {
-    "offlineTestsPassed": 76,
+    "offlineTestsPassed": 88,
     "offlineTestsSkipped": 0,
     "gameTested": false
   },
-  "updatedDate": "2026-10-23",
-  "latestReceipt": "docs/release-0.2.0.json",
+  "updatedDate": "2026-10-24",
+  "latestReceipt": "docs/release-0.3.0.json",
   "previousWorkshopBackup": "/Users/sunmer/Documents/Civ7-Mod-Backups/better-controller-support-20261023T113842Z-a7628a58/previous-workshop-0.1.2",
   "previewHashesVerifiedAtVersion": "0.1.2",
-  "previewUnchangedByUpdate": true
+  "previewUnchangedByUpdate": true,
+  "installedVersionAtPublication": "0.2.1"
 }

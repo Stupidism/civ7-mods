@@ -181,7 +181,8 @@ function install() {
     Game, Units, Armies, Players, GameContext, GameplayMap, MapUnits, GameInfo, GlobalParameters, Online, Configuration, UI, Camera, Locale, InputActionStatuses, OperationPlotModifiers,
     WorldUI, PlacementMode, OVERLAY_PRIORITY, Controls, CommanderInteract, window, document, engine,
     setTimeout, clearTimeout, enabled, localUnit, onMap, isPacked, military, ownedCommanders,
-    isEnemyPlot, isSettingsOpen, showNotice
+    isEnemyPlot, isSettingsOpen, showNotice,
+    cancelAutomaticSelection() { autoTarget = null; assist.cancelPending(); }
   }); } catch (error) {
     removeHooks();
     removeFocusHook();

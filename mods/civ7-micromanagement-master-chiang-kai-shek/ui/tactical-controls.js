@@ -322,6 +322,21 @@ export function installTacticalControls(api) {
       Game.UnitOperations.sendRequest(id,REINFORCE,{X:location.x,Y:location.y});
       cancel(); InterfaceMode.switchToDefault();
     },!choice.valid);
+    button(t('LOC_WC_CANCEL'),cancelReinforcement);
+  }
+  function cancelReinforcement() {
+    if (!picker || !usable() || mode() !== 'INTERFACEMODE_REINFORCE_ARMY') return;
+    const unit = localUnit(picker.id);
+    cancel();
+    if (!unit || !onMap(unit) || isPacked(unit)) { InterfaceMode.switchToDefault(); return; }
+    // Return to the soldier, not the commander we were previewing. Explicit
+    // cancellation must not trigger another automatic attack/join selection.
+    api.cancelAutomaticSelection();
+    if (!same(UI.Player.getHeadSelectedUnit(),unit.id)) choose(unit.id);
+    InterfaceMode.switchTo('INTERFACEMODE_UNIT_SELECTED',{UnitID:unit.id});
+    api.cancelAutomaticSelection();
+    Camera.lookAtPlot(unit.location);
+    PlotCursor.plotCursorCoords = unit.location;
   }
   function cancel() {
     pending = null; preview = null; picker = null; volley = null;
@@ -408,8 +423,9 @@ export function installTacticalControls(api) {
       const result=original(type,context,...rest);
       if(type===REINFORCE && enabled('reinforcementCycle') && mode()==='INTERFACEMODE_REINFORCE_ARMY' && localUnit(context?.UnitID)) {
         const origin=localUnit(context.UnitID).location;
-        const nearest=ownedCommanders().filter(onMap).sort((a,b)=>distance(a.location,origin)-distance(b.location,origin))[0];
-        picker={id:context.UnitID,current:nearest?.id}; frame(()=>cycle());
+        const choices=reinforcementChoices(context.UnitID).sort((a,b)=>distance(a.unit.location,origin)-distance(b.unit.location,origin));
+        const nearest=choices.find(choice=>choice.valid) ?? choices[0];
+        picker={id:context.UnitID,current:nearest?.unit.id}; frame(()=>cycle());
       }
       return result;
     });
@@ -446,6 +462,11 @@ export function installTacticalControls(api) {
     // The native action handler dispatches shoulder navigation as navigate-input.
     listen(window,'navigate-input',cycleInput,true);
     listen(window,'engine-input',event=>{
+      if(picker && usable() && mode()==='INTERFACEMODE_REINFORCE_ARMY' && event.isCancelInput?.()) {
+        consume(event);
+        if(event.detail?.status===api.InputActionStatuses.FINISH) cancelReinforcement();
+        return;
+      }
       if(event.isCancelInput?.() || event.detail?.name==='sys-menu') {cancel(); return;}
       cycleInput(event);
     },true);
@@ -461,7 +482,12 @@ export function installTacticalControls(api) {
       cycle(event.deltaY<0?-1:1);
     },true);
     listen(engine,'PlayerTurnDeactivated',cancel);
-    listen(window,'active-device-type-changed',cancel);
+    listen(window,'active-device-type-changed',()=>{
+      // Switching from keyboard/controller navigation to a right-click must
+      // leave the picker alive so that cancel can return to its source unit.
+      if(picker && enabled('reinforcementCycle') && usable() && mode()==='INTERFACEMODE_REINFORCE_ARMY') return;
+      cancel();
+    });
   } catch(error) { dispose(); throw error; }
   function dispose() {
     if(disposed) return; disposed=true; cancel();

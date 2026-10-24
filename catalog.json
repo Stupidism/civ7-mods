@@ -3,7 +3,7 @@
   "mods": [
     {
       "id": "civ7-map-tools-gamepad",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "manifest": "mods/civ7-better-controller-support/map-tools-gamepad.modinfo",
       "dependencies": [
         "base-standard"
@@ -44,7 +44,7 @@
     },
     {
       "id": "civ7-rest-guard",
-      "version": "1.8.5",
+      "version": "1.8.6",
       "manifest": "mods/civ7-no-more-turn/rest-guard.modinfo",
       "dependencies": [
         "base-standard"

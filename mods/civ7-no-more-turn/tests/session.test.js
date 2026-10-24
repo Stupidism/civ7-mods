@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { RestSession, IDLE_HINT_MS, IDLE_REST_MS } from '../ui/rest-session.js';
 import { normalizeConfig } from '../ui/rest-model.js';
 
-const c = normalizeConfig({ nightEnabled: false });
+const c = normalizeConfig({ nightEnabled: false, intervals: [5, 4, 3, 2, 1] });
 const at = (turn, context = 'game:age') => ({ turn, context, token: `${context}:${turn}` });
 const minute = 60000;
 const play = (s, current, config, from, minutes) => {
@@ -18,7 +18,7 @@ const endTurns = (s, turns, config = c, now = 0) => {
 
 test('four combinations of independent switches govern their own triggers', () => {
   for (const turnEnabled of [false, true]) for (const timeEnabled of [false, true]) {
-    const config = normalizeConfig({ turnEnabled, timeEnabled, nightEnabled: false });
+    const config = normalizeConfig({ turnEnabled, timeEnabled, nightEnabled: false, intervals: [5, 4, 3, 2, 1] });
     const byTurn = new RestSession();
     endTurns(byTurn, [1, 2, 3, 4], config);
     assert.equal(byTurn.requestTurn(at(5), config, 0), !turnEnabled);
@@ -100,7 +100,7 @@ test('less than five idle minutes does not reset play or turn cadence', () => {
 
 test('idle detection is disabled along with the time feature', () => {
   const s = new RestSession();
-  const config = normalizeConfig({ timeEnabled: false, nightEnabled: false });
+  const config = normalizeConfig({ timeEnabled: false, nightEnabled: false, intervals: [5, 4, 3, 2, 1] });
   s.tick(at(4), config, 0);
   s.tick(at(4), config, 20 * minute);
   assert.equal(s.idleRested, false);
@@ -298,4 +298,19 @@ test('an interval longer than a stage still counts real actions across boundarie
   for (let i = 0; i < 99; i++) assert.equal(s.requestTurn(at(7 + i), config, i), true);
   assert.equal(s.turnCount, 99);
   assert.equal(s.requestTurn(at(106), config, 100), false);
+});
+
+
+test('new defaults trigger only after the full reverse Fibonacci interval in each stage', () => {
+  const config = normalizeConfig({ timeEnabled: false, nightEnabled: false });
+  for (const [start, interval] of [[1, 13], [21, 8], [41, 5], [61, 3], [81, 2]]) {
+    const session = new RestSession();
+    session.tick(at(start), config, 0);
+    for (let i = 0; i < interval - 1; i++) {
+      assert.equal(session.requestTurn(at(start + i), config, i + 1), true);
+      assert.equal(session.pending, null);
+    }
+    assert.equal(session.requestTurn(at(start + interval - 1), config, interval), false);
+    assert.equal(session.pending.reason, 'turn');
+  }
 });

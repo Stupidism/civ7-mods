@@ -59,12 +59,14 @@ test('cancel and reopening restore saved values without writes or timer resets',
 });
 
 test('module reset is a cancelable draft; native global reset applies defaults', () => {
-  const h = harness({ playMinutes: 40, restMinutes: 2 });
+  const h = harness({ playMinutes: 40, restMinutes: 2, intervals: [5, 4, 3, 2, 1] });
   h.entry('reset').activateListener();
   assert.equal(h.calls.writes, 0);
   h.options.restore();
   assert.equal(h.store.data.config.playMinutes, 40);
+  assert.deepEqual(h.store.data.config.intervals, [5, 4, 3, 2, 1]);
   h.entry('reset').activateListener(); h.options.commitOptions();
+  assert.deepEqual(h.store.data.config.intervals, [13, 8, 5, 3, 2]);
   assert.deepEqual(h.store.data.config, normalizeConfig());
   h.change('rest-minutes', 2); h.options.commitOptions();
   h.options.resetOptionsToDefault();

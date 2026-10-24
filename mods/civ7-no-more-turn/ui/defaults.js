@@ -8,5 +8,5 @@ export const DEFAULTS = Object.freeze({
   nightEnd: 7 * 60,
   playMinutes: 25,
   restMinutes: 5,
-  intervals: Object.freeze([5, 4, 3, 2, 1]),
+  intervals: Object.freeze([13, 8, 5, 3, 2]),
 });

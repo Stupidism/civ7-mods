@@ -163,13 +163,13 @@ test('HUD shows the session turns remaining and keeps that progress after loadin
   const at = turn => ({ turn, context: 'a', token: `a:${turn}` });
   session.tick(at(10), config, 0);
   view.updateLauncher(at(10), config, false, session, 0);
-  assert.equal(view.turnMetric.value.textContent, '5');
+  assert.equal(view.turnMetric.value.textContent, '13');
   for (const turn of [10, 11]) session.requestTurn(at(turn), config, 1);
   session.beginLoading(2); session.finishLoading(3);
   view.updateLauncher(at(5), config, false, session, 3);
-  assert.equal(view.turnMetric.value.textContent, '3');
-  for (const turn of [5, 6]) session.requestTurn(at(turn), config, 4);
-  view.updateLauncher(at(7), config, false, session, 4);
+  assert.equal(view.turnMetric.value.textContent, '11');
+  for (const turn of [5, 6, 7, 8, 9, 10, 11, 12, 13, 14]) session.requestTurn(at(turn), config, 4);
+  view.updateLauncher(at(15), config, false, session, 4);
   assert.equal(view.turnMetric.value.textContent, '1');
   assert.match(view.launcher.getAttribute('data-tooltip-content'), /本回合结束时触发/);
   delete globalThis.document;

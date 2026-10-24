@@ -18,7 +18,7 @@ test('only fresh explicit recording/debug leases suspend; malformed or expired m
 });
 
 test('capture excludes elapsed time and preserves an existing break across a load', () => {
-  const config = normalizeConfig({nightEnabled:false});
+  const config = normalizeConfig({nightEnabled:false, intervals: [5, 4, 3, 2, 1]});
   const s = new RestSession();
   for(let turn=1;turn<=5;turn++) s.requestTurn({turn,token:`t${turn}`},config,1000);
   const deadline=s.pending.deadline;

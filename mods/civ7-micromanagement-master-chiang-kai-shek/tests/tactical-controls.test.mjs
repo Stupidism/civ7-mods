@@ -89,13 +89,40 @@ test('cancel during volley and settings changes invalidate pending shots',async(
  const f=await battlefield({mouse:{focusExclude:false}});soldier(f,8,2);fire(f);
  f.emitWindow('engine-input',{isCancelInput:()=>true});finished(f,f.id);assert.equal(f.state.requests.length,1);
 });
-test('reinforcement initially previews nearest owned commander even when it is ineligible',async()=>{
+test('reinforcement initially previews nearest eligible commander without dispatching',async()=>{
  const f=await fixture();f.unpack();const other={...f.state.commander,id:{owner:0,id:2,type:26},location:{x:8,y:0}};f.state.units.set(2,other);f.state.atPlot.set(8,[other.id]);
  f.state.operations.set(REINFORCE,{Success:true,Plots:[8]});f.handlers.switchToActionInterfaceMode(REINFORCE,{UnitID:f.id});f.flush();
- assert.equal(f.state.cameras.at(-1).x,1);assert.equal(f.state.requests.length,0);
- click(f,'确认增援');assert.equal(f.state.requests.length,0);
- click(f,'下一个');assert.equal(f.state.cameras.at(-1).x,8);click(f,'确认增援');
+ assert.equal(f.state.cameras.at(-1).x,8);assert.equal(f.state.requests.length,0);
+ click(f,'确认增援');
  assert.equal(f.state.requests.length,1);assert.equal(f.state.requests[0].args.X,8);
+});
+test('initial reinforcement target checks per-target eligibility and nearest distance',async()=>{
+ const f=await fixture();f.unpack();
+ for(const [id,x] of [[2,12],[3,6],[4,3]]) f.state.units.set(id,{...f.state.commander,id:{owner:0,id,type:26},location:{x,y:0}});
+ f.state.operations.set(REINFORCE,(_id,args)=>({Success:args.X!==1&&args.X!==3,Plots:[1,3,6,12]}));
+ f.handlers.switchToActionInterfaceMode(REINFORCE,{UnitID:f.id});f.flush();
+ assert.equal(f.state.cameras.at(-1).x,6);assert.equal(f.state.requests.length,0);
+});
+for(const input of ['button','mousebutton-right','keyboard-escape','cancel']) test('reinforcement cancellation restores originating unit and camera: '+input,async()=>{
+ const f=await fixture({mouse:{singleReinforcement:false}});f.unpack();f.select();
+ f.state.operations.set(REINFORCE,{Success:true,Plots:[1]});
+ f.handlers.switchToActionInterfaceMode(REINFORCE,{UnitID:f.id});f.flush();
+ let consumed=0;
+ if(input==='button') click(f,'取消');
+ else {
+  const event=status=>({detail:{name:input,status},isCancelInput:()=>true,preventDefault(){},stopImmediatePropagation(){consumed++;}});
+  f.emitWindow('engine-input',event(0));
+  assert.equal(f.state.mode,'INTERFACEMODE_REINFORCE_ARMY');
+  f.emitWindow('engine-input',event(2));
+  assert.equal(consumed,2);
+ }
+ f.flush();f.tick();f.flush();
+ assert.equal(f.state.head.id,f.id.id);
+ assert.equal(f.state.mode,'INTERFACEMODE_UNIT_SELECTED');
+ assert.equal(f.state.cameras.at(-1).x,0);
+ assert.equal(f.context.PlotCursor.plotCursorCoords.x,0);
+ assert.equal(f.state.requests.length,0);assert.equal(f.state.moves.length,0);
+ assert.equal(f.state.elements.filter(e=>e.className?.includes('war-controls-tactical')&&!e.removed).length,0);
 });
 for(const [name,event]of [
  ['keydown',{key:'ArrowDown'}],['wheel',{deltaY:1}],['engine-input',{detail:{name:'nav-shell-next',status:2}}],['navigate-input',{detail:{name:'nav-shell-next',status:2}}]
@@ -103,6 +130,36 @@ for(const [name,event]of [
  const f=await fixture();f.unpack();const other={...f.state.commander,id:{owner:0,id:2,type:26},location:{x:8,y:0}};f.state.units.set(2,other);
  f.state.operations.set(REINFORCE,{Success:true,Plots:[1]});f.handlers.switchToActionInterfaceMode(REINFORCE,{UnitID:f.id});f.flush();
  f.emitWindow(name,event);assert.equal(f.state.cameras.at(-1).x,8);assert.equal(f.state.requests.length,0);
+});
+test('reinforcement picker survives device switches before right-click cancellation',async()=>{
+ const f=await fixture({mouse:{singleReinforcement:false}});f.unpack();
+ f.state.operations.set(REINFORCE,{Success:true,Plots:[1]});
+ f.handlers.switchToActionInterfaceMode(REINFORCE,{UnitID:f.id});f.flush();
+ f.device(true);f.device(false);
+ f.emitWindow('engine-input',{detail:{name:'mousebutton-right',status:2},isCancelInput:()=>true});f.flush();
+ assert.equal(f.state.cameras.at(-1).x,0);assert.equal(f.state.requests.length,0);
+ assert.equal(f.state.mode,'INTERFACEMODE_UNIT_SELECTED');
+});
+test('reinforcement cancel before first preview prevents a delayed camera jump',async()=>{
+ const f=await fixture({mouse:{singleReinforcement:false}});f.unpack();
+ f.state.operations.set(REINFORCE,{Success:true,Plots:[1]});
+ f.handlers.switchToActionInterfaceMode(REINFORCE,{UnitID:f.id});
+ f.emitWindow('engine-input',{detail:{name:'keyboard-escape',status:2},isCancelInput:()=>true});f.flush();
+ assert.deepEqual(f.state.cameras.map(p=>p.x),[0]);assert.equal(f.state.requests.length,0);
+});
+test('reinforcement with no eligible targets cannot confirm and can still cancel',async()=>{
+ const f=await fixture();f.unpack();
+ f.state.operations.set(REINFORCE,{Success:false,Plots:[1]});
+ f.handlers.switchToActionInterfaceMode(REINFORCE,{UnitID:f.id});f.flush();
+ click(f,'确认增援');assert.equal(f.state.requests.length,0);
+ click(f,'取消');assert.equal(f.state.cameras.at(-1).x,0);
+});
+test('reinforcement confirmation rechecks eligibility without sending an invalid order',async()=>{
+ const f=await fixture({mouse:{singleReinforcement:false}});f.unpack();
+ f.state.operations.set(REINFORCE,{Success:true,Plots:[1]});
+ f.handlers.switchToActionInterfaceMode(REINFORCE,{UnitID:f.id});f.flush();
+ f.state.targetAllowed=false;click(f,'确认增援');
+ assert.equal(f.state.requests.length,0);click(f,'取消');assert.equal(f.state.cameras.at(-1).x,0);
 });
 test('reinforcement cycle can be switched off',async()=>{
  const f=await fixture({mouse:{reinforcementCycle:false,singleReinforcement:false}});f.unpack();f.state.operations.set(REINFORCE,{Success:true,Plots:[1]});

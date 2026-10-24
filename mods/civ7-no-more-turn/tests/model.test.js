@@ -11,7 +11,7 @@ const memoryStorage = (initial = {}) => {
 
 test('game turns select fixed stages, not a rest deadline', () => {
   assert.deepEqual([0, 20, 21, 40, 41, 60, 61, 80, 81, 1000].map(t => scheduleAt(t, config).interval),
-    [5, 5, 4, 4, 3, 3, 2, 2, 1, 1]);
+    [13, 13, 8, 8, 5, 5, 3, 3, 2, 2]);
   assert.equal('due' in scheduleAt(5, config), false);
 });
 test('20-turn boundaries are fixed and legacy cumulative settings are discarded', () => {
@@ -26,7 +26,7 @@ test('custom intervals are used in each stage, including after turn 80', () => {
 });
 test('invalid settings cannot create zero intervals or unbounded locks', () => {
   const c = normalizeConfig({ restMinutes: NaN, intervals: [0, -3, Infinity, '3', 900] });
-  assert.deepEqual(c.intervals, [1, 1, 3, 2, 100]);
+  assert.deepEqual(c.intervals, [1, 1, 5, 3, 100]);
   assert.equal(c.restMinutes, 5);
   assert.equal(normalizeConfig({ restMinutes: 0 }).restMinutes, 0.1);
   assert.equal(normalizeConfig({ restMinutes: 900 }).restMinutes, 120);
@@ -82,7 +82,7 @@ test('upgrading removes previous turn and age records while retaining user setti
   }) });
   const store = new RestStore(storage);
   const shared = JSON.parse(storage.getItem('modSettings'));
-  assert.deepEqual(shared['civ7-rest-guard'], { version: 3, config: { ...config, restMinutes: 3 } });
+  assert.deepEqual(shared['civ7-rest-guard'], { version: 3, config: { ...config, restMinutes: 3, intervals: [5, 4, 3, 2, 1] } });
   assert.deepEqual(shared.other, { value: 7 });
   assert.equal(store.error, false);
 });

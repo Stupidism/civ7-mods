@@ -267,3 +267,8 @@ Escape无法绕过休息锁。未点击继续提交该回合；退出测试游�
 - Tests cover night bypass/restoration, timer preservation across loading, and before-end-turn interoperability.
 - Real-game validation is tracked with the T25 video recording. No general OS recording detection claimed.
 - 212/212 checks passed with the installed native game sources and font rendering enabled; zero skips.
+
+2026-10-24 未发布：默认回合间隔调整
+默认间隔改为13/8/5/3/2，固定20回合分档不变。新配置和恢复默认使用新间隔；旧配置包括旧默认5/4/3/2/1继续保留。
+离线135项通过、0失败、1跳过（未配置字体浏览器测试环境，未改字体）。覆盖五档完整计数触发、档位边界、非法值回退、旧配置保留、取消/确认/恢复默认及HUD剩余计数。中英文XML和Mod清单解析通过。
+未启动游戏、未替换安装文件、未发布工坊；工坊1.8.5的实拍截图与发行回执保持历史证据。报告：work/rest-guard-default-intervals-20261024/validation.json。
