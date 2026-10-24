@@ -42,10 +42,7 @@ for i in range(61):
         id=f'fenhe-cs-{i}-{cat.lower()}';file=f'config/citystates/{i}-{cat.lower()}.sql'
         (root/file).write_text(f"UPDATE Independents SET CityStateType='{cat}',TribeType='TRIBE_DEFAULT',BiomeType='BIOME_PLAINS' WHERE IndependentType='INDEPENDENT_FENHE_{i}';\n",encoding='utf-8')
         criterion(id,key=f'FenheMinor{i}',value=cat);action(id,file,2300)
-# The normal map's major-player count can cap births below the imported plan.
-# Only configured Fenhe identities are eligible during INIT; request the whole
-# pool. This override disappears when the completed world is saved/reloaded.
-(pool/'isolate.sql').write_text("UPDATE Independents SET TribeType='TRIBE_FENHE_RESERVED',BiomeType=NULL WHERE IndependentType NOT LIKE 'INDEPENDENT_FENHE_%';\nUPDATE GlobalParameters SET Value='62' WHERE Name='INDEPENDENT_NUM_PER_MAJOR';\n",encoding='utf-8')
+(pool/'isolate.sql').write_text("UPDATE Independents SET TribeType='TRIBE_FENHE_RESERVED',BiomeType=NULL WHERE IndependentType NOT LIKE 'INDEPENDENT_FENHE_%';\n",encoding='utf-8')
 criterion('fenhe-cs-isolate',phase='INIT');action('fenhe-cs-isolate','config/citystates/isolate.sql',2400)
 # Remove probe-only actions and the unneeded game map-size override.
 for group in list(groups):

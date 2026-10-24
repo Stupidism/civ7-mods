@@ -13,7 +13,7 @@
 | 自动存档上限 150 · Autosave Limit 150 | `mods/civ7-autosave-limit-150` | `civ7-autosave-limit` |
 | 垃圾时间 · Garbage Time | `mods/civ7-garbage-time` | 不变 |
 | 资源规划 · Resource Planner | `mods/civ7-resource-planner` | 不变 |
-| 分合 · Fenhe | `mods/fenhe` | 源码目录不变，包含 `civ7-fenhe` / `civ7-fenhe-ui` |
+| 分合 · Fenhe | `mods/fenhe` | 源码目录不变，本次改动不纳入 PR；保持主分支版本 |
 
 ## 安装与历史引用
 
