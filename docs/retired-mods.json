@@ -9,7 +9,10 @@
       "replacementId": "civ7-map-tools-gamepad",
       "replacementWorkshopUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3825193325",
       "reporting": "不再列为独立开发或待发项目；历史订阅记录单列，不回写历史快照",
-      "remoteWorkshopStatus": "待用户选择是否下架；本次源码清理不代表已下架"
+      "remoteWorkshopStatus": "已设为未列出（Unlisted）；旧链接保留，中英文说明引导订阅更好的手柄支持",
+      "formerWorkshopUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3825119575",
+      "workshopVisibility": 3,
+      "remoteVerifiedAt": "2026-10-24T12:32:36.323906+00:00"
     }
   ]
 }
