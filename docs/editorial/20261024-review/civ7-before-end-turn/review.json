@@ -1,0 +1,135 @@
+{
+  "slug": "civ7-before-end-turn",
+  "zh": "行动前自动存档",
+  "en": "Auto-save Before…",
+  "sourceVersion": "1.1.1",
+  "releasedVersion": "1.1.2",
+  "workshop": "3815596737",
+  "intro_zh": "## 背景和总结\n\n先说结论：这个 Mod 会在结束回合前、确认重要外交行动前各存一个档。适合我这种点完下一回合，才想起来还有事情没做的人。\n\n以前写《老秦奇观飞天》的战报，同一个档重打了四遍，每次都是往回读 10T 以上。打到后面才发现，前面有些地方节奏就错了，中间还花了十来T奇观误国。这种重打是有收获的，读回去以后，至少知道自己准备改什么。\n\n但另一种读档就没那么有意思了。比如城市都安排完了，部队也走完了，下一回合一点，才想起还有一个地方没处理。读回回合开始，刚才那些没问题的操作也得再来一遍。\n\n所以做了这个「行动前自动存档」。大方向错了，还是得自己往前找档；只是漏了一步的话，希望少重打一点。",
+  "intro_en": "You've finished moving your units and managing your cities, then press Next Turn and notice something you missed. Loading the usual autosave means doing those actions again. I made Auto-save Before… to keep a checkpoint immediately before ending the turn or confirming a major diplomatic action.",
+  "limits_zh": "适用于单人游戏。两个名字各对应一个固定存档，下一次同类操作会覆盖，也会跨单人对局共用。想长期保留的节点，记得另存一份。\n\n本文三张图来自 macOS 上的 1.1.1，展示回合前保存、存档列表和配置页；工坊版本为 1.1.2。本次没有重新验收完整的外交保存与读档往返。",
+  "limits_en": "For single-player. Each fixed checkpoint is shared across campaigns on the same computer and overwritten by the next matching action; keep separate saves for anything you want to retain. These three screenshots show the installed macOS 1.1.1 interface and a turn-end save; Workshop is on 1.1.2. A complete diplomatic save/load round trip was not retested for this article.",
+  "sources": [
+    "mods/civ7-before-end-turn/README.md",
+    "mods/civ7-before-end-turn/docs/workshop.json",
+    "mods/civ7-before-end-turn/ui/save-gate.js"
+  ],
+  "sections": [
+    {
+      "zh": "下一回合点早了，别把这一回合再打一遍",
+      "en": "Keep the work you did this turn",
+      "pain_zh": "假设这一回合已经忙了半天，几个城的建造都排好了，单位也挨个走完。点完下一回合才发现，原本打算调整的一座城忘了动。事情不大，但要读回去，又得把刚才那一套重新操作一遍。文明后期一回合能干多少事，大家都懂。",
+      "fix_zh": "点下一回合时，会自动留下 BeforeEndTurn。读这个档，回到的是结束回合前：已经安排好的城市、走完的单位都还在，把漏掉的事情补上就行。",
+      "pain_en": "A start-of-turn autosave can be too far back when all you want to undo is the decision to end the turn.",
+      "fix_en": "BeforeEndTurn records the state immediately before the next-turn action proceeds, keeping the city management and unit moves you have already completed.",
+      "shot": "点击下一回合后，捕捉真实的“正在存档”提示；可从真实录屏取帧，不人为修改界面或制造失败。",
+      "scope": "current",
+      "image": "work/mod-editorial/20261023-review/civ7-before-end-turn/capture-20261024/01-saving-before-end-turn.png",
+      "caption_zh": "点下一回合，留住刚做完的安排。",
+      "caption_en": "A checkpoint before ending the turn. Captured on macOS with mod 1.1.1.",
+      "imageVersion": "1.1.1 / macOS",
+      "originalImage": "work/mod-editorial/20261023-review/civ7-before-end-turn/capture-20261024/01-saving-before-end-turn.png"
+    },
+    {
+      "zh": "外交没谈成，关系还变差了",
+      "en": "A checkpoint before diplomatic commitments",
+      "pain_zh": "外交前存档，主要防的还不是手滑。是你想跟 AI 谈个合作，它不一定答应。事情没谈成，友好度还可能往下掉。原本想把关系搞好，结果越聊越差。\n\n外交还牵涉影响力，不过具体代价要看行动：比如科研合作、文化交流，被拒绝会退还发起方的影响力，但关系仍可能变差。所以想留一份档，回到开口之前再考虑一下。",
+      "fix_zh": "这个时候就用得上 BeforeDiplomacy 了。模组会在支持的外交行动提交前留档；被拒绝以后，想换个对象、换种行动，或者干脆先不谈，可以读回提出行动之前重新考虑。\n\n它和回合前的存档分开放，外交不会把 BeforeEndTurn 顶掉。读档是让自己重新选，不是保证 AI 下次一定答应。",
+      "pain_en": "An AI leader may reject a diplomatic proposal. When an action involves Influence costs and relationship consequences, you may want to reconsider before committing rather than replay the whole turn.",
+      "fix_en": "BeforeDiplomacy keeps a checkpoint before supported diplomatic actions are submitted, so you can reload and reconsider the target or action. It uses a separate slot from BeforeEndTurn; reloading does not guarantee the AI will accept a repeated proposal.",
+      "shot": "拍当前存档界面，BeforeEndTurn 名称与回合可读；尽可能同时展示真实的 BeforeDiplomacy 条目。",
+      "scope": "current",
+      "image": "work/mod-editorial/20261023-review/civ7-before-end-turn/capture-20261024/02-save-list.png",
+      "caption_zh": "回合前一份，外交前一份。",
+      "caption_en": "Separate turn and diplomacy checkpoints. macOS, mod 1.1.1; the diplomacy entry is an existing save.",
+      "imageVersion": "1.1.1 / macOS",
+      "originalImage": "work/mod-editorial/20261023-review/civ7-before-end-turn/capture-20261024/02-save-list.png"
+    }
+  ],
+  "outro_zh": "总的来说，这个 Mod 做的事情很小：把存档往真正要用的位置挪一挪。该优化的节奏还是自己优化，已经操作对了的地方，就尽量别再点第二遍了。",
+  "supplementaryImages": [
+    {
+      "zh": "配置页面",
+      "en": "Settings",
+      "image": "work/mod-editorial/20261023-review/civ7-before-end-turn/capture-20261024/03-settings.png",
+      "shot": "拍当前版本配置页面，Mod 名称和选项清晰可读。",
+      "scope": "current",
+      "caption_zh": "设置在游戏的附加内容选项里，地图上的存档入口也能直达。",
+      "caption_en": "Settings are in the game’s Add-ons options, also accessible from the map save entry.",
+      "imageVersion": "1.1.1 / macOS",
+      "originalImage": "work/mod-editorial/20261023-review/civ7-before-end-turn/capture-20261024/03-settings.png"
+    }
+  ],
+  "redditImageSections": [
+    1,
+    2
+  ],
+  "snapshotAt": "2026-10-24T08:44:06+08:00",
+  "platforms": {
+    "bilibili": {
+      "status": "pending_review",
+      "url": null,
+      "managementUrl": "https://member.bilibili.com/platform/upload-manager/opus",
+      "receipt": "publication-20261024/bilibili.json"
+    },
+    "civfanatics": {
+      "status": "pending_moderation",
+      "url": "https://forums.civfanatics.com/threads/auto-save-before%E2%80%A6-%E2%80%94-save-before-ending-a-turn-or-confirming-diplomacy.705228/",
+      "receipt": "publication-20261024/civfanatics.json"
+    },
+    "reddit": {
+      "status": "published",
+      "url": "https://www.reddit.com/r/CivVII/comments/1xdwlhz/i_made_a_civ_vii_mod_to_save_before_ending_a_turn/",
+      "receipt": "publication-20261024/reddit.json"
+    }
+  },
+  "draftComplete": true,
+  "featureCount": 2,
+  "missingImageCount": 0,
+  "existingImageCount": 3,
+  "releaseReady": true,
+  "imageNotes": [
+    {
+      "chapter": 1,
+      "source": "work/mod-editorial/20261023-review/civ7-before-end-turn/capture-20261024/01-saving-before-end-turn.png",
+      "caption": "点下一回合，留住刚做完的安排。",
+      "imageVersion": "1.1.1 / macOS"
+    },
+    {
+      "chapter": 2,
+      "source": "work/mod-editorial/20261023-review/civ7-before-end-turn/capture-20261024/02-save-list.png",
+      "caption": "回合前一份，外交前一份。",
+      "imageVersion": "1.1.1 / macOS"
+    },
+    {
+      "chapter": null,
+      "source": "work/mod-editorial/20261023-review/civ7-before-end-turn/capture-20261024/03-settings.png",
+      "caption": "设置在游戏的附加内容选项里，地图上的存档入口也能直达。",
+      "imageVersion": "1.1.1 / macOS"
+    }
+  ],
+  "approval": "用户于2026-10-24明确批准：把自动保存这篇发布到 B 站，英文版发到 CivFanatics 和 Reddit。",
+  "draftHashes": {
+    "article-zh.md": "8983caa57df7ceaf5022d24a9c3a66212795feacb8c885ee63f9ca2fe1e5dc30",
+    "article-en.md": "bca1824208c7ad42a3589f01ab2cfc743f003dcc8568b68c0c0833dfffcbd93c",
+    "reddit-en.md": "3c988e056723adbafab8804db6e5c4e88004363618e2253ebd4b409b4ac58152"
+  },
+  "revisionNote": "两个核心效果章节和三张实机图已提交三平台；Reddit 已发布，B站及 CivFanatics 待审核。",
+  "captureThread": "01a160f1-3981-7533-a216-631c020204d9",
+  "captureStatus": "complete_verified",
+  "styleReferences": [
+    {
+      "url": "https://www.bilibili.com/opus/644828351051071504",
+      "title": "老秦奇观飞天"
+    }
+  ],
+  "workshopDescriptionUpdate": {
+    "status": "published_verified",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3815596737",
+    "receipt": "capture-20261024/steam-update-receipt.json",
+    "readback": "capture-20261024/steam-description-readback.txt"
+  },
+  "captureManifest": "capture-20261024/capture-manifest.json",
+  "editorialReview": "approved_and_submitted",
+  "publicationRecordedAt": "2026-10-24T02:09:06.345Z"
+}

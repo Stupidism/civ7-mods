@@ -1,0 +1,85 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>垃圾时间 · 文明7拯救计划</title><style>
+:root{--bg:#f3f0e9;--paper:#fffdf9;--ink:#26352e;--sub:#66716b;--line:#d9dfd5;--accent:#2e6953;--warm:#966426}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;line-height:1.85}a{color:var(--accent);text-underline-offset:4px}header,main,footer{max-width:1080px;margin:auto;padding:30px}header{padding-top:60px}h1{font-size:clamp(30px,5vw,50px);line-height:1.25;letter-spacing:-1px;margin:14px 0 20px}h2{font-size:25px;line-height:1.5;margin:42px 0 16px}h3{line-height:1.5}p{margin:15px 0}.kicker{letter-spacing:3px;color:var(--accent);font-size:12px;font-weight:700;text-transform:uppercase}.muted,small{color:var(--sub)}.summary{font-size:18px;max-width:800px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;position:sticky;top:0;background:rgba(243,240,233,.97);padding:16px 0;z-index:2}button{border:1px solid var(--line);background:white;color:var(--ink);padding:10px 18px;border-radius:8px;font:inherit;cursor:pointer}button.active{background:var(--accent);color:white}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.card{background:var(--paper);padding:26px;border:1px solid var(--line);border-radius:16px}.card h2{margin:8px 0 14px;font-size:24px}.tag{display:inline-block;font-size:12px;padding:3px 10px;border-radius:20px;background:#e5eee6;color:#295c43;margin:0 6px 5px 0}.tag.wait{background:#f6e9d4;color:#79521b}.meta{font-size:13px;color:var(--sub);margin:10px 0}.links{display:flex;gap:16px;flex-wrap:wrap}.notice{padding:18px 22px;border-left:3px solid var(--warm);background:#fcf3e5;border-radius:0 8px 8px 0;font-size:14px}.article{max-width:850px;background:var(--paper);padding:40px;border-radius:16px;border:1px solid var(--line);margin:24px auto}.article h1{font-size:34px}.article h2{padding-top:20px;border-top:1px solid var(--line)}figure{margin:24px 0}figure img{width:100%;height:auto;border-radius:8px;display:block;background:#202821}figcaption{font-size:13px;color:var(--sub);margin-top:10px}.missing{margin:24px 0;padding:24px;border:1px dashed #baa985;background:#fbf8f0;border-radius:10px;color:#756342;font-size:14px}.missing strong{display:block;font-size:12px;letter-spacing:1px;margin-bottom:5px}.missing span{display:block;font-size:12px;opacity:.8;margin-top:8px}.section-note{font-size:12px;color:#87652f}details{margin-top:18px}summary{cursor:pointer}li{margin:8px 0}.lang[hidden]{display:none}footer{font-size:13px;color:var(--sub);padding-bottom:50px}input{font:inherit;border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:250px}table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;border-bottom:1px solid var(--line);padding:10px;vertical-align:top}@media(max-width:700px){header,main,footer{padding:22px}.grid{grid-template-columns:1fr}.article{padding:22px}h1{font-size:32px}.article h1{font-size:28px}input{width:100%}}
+</style><body><header><a href="../index.html">← 全部稿件</a><div class="kicker">Civ VII Rescue Project · Review Copy</div><h1>垃圾时间</h1><p class="muted">Garbage Time</p><p class="meta">源码 0.1.4 · 发行记录 0.1.4 · 8 个功能章节 · 0 张已有图 / 8 张待补</p><span class="tag wait">文字已齐 · 配图待补</span><div class="links"><a href="article-zh.md">中文稿</a><a href="article-en.md">英文稿</a><a href="reddit-en.md">Reddit 短稿</a><a href="review.json">证据清单</a></div></header><main><div class="notice">验收版 · 新稿尚未发布。黄色虚线框是缺图的制作说明；正文里的版本与测试边界属于读者需要知道的信息。旧版截图均已标注，不代表新版操作已经完成验证。</div><nav class="toolbar"><button class="active" data-target="zh">B站 · 中文长稿</button><button data-target="en">CivFanatics · English</button><button data-target="reddit">Reddit · Short</button></nav><article class="article lang" id="zh"><h1>《文明7拯救计划》｜垃圾时间</h1>
+<p>局势已经明朗，待办却还在堆：空槽要补、军队要归队、城市队列又空了。「垃圾时间」把这些可以明确规定的重复劳动交给可选规则，保留需要判断的决定。所有自动化默认关闭，想省哪一步，就只打开哪一步。</p>
+<h2>1. 新到手的资源，按已有分工安排</h2>
+<p>贸易和回合变化不断带来资源，规划过的定居点又出现空槽，还是要反复打开面板。</p>
+<p>启用资源自动化后，每回合按 Resource Planner 中已有的倾向处理资源，并等待游戏允许分配。需要 Resource Planner 和 Resource Re-sorts；默认只动空闲资源，不替你改倾向或发起贸易。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>资源自动化开启与一轮后按倾向补齐的槽位，主图展示结果；依赖已启用。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>2. 让返程部队自己往集合点走</h2>
+<p>战斗告一段落，分散在地图上的部队还要一个个找路、一个个结束待命。</p>
+<p>军队可以前往最近可达的友方定居点，或你指定的目标，抵达后休眠。路径按实际可达性判断；飞机使用游戏允许的转场。它不负责主动进攻或宣战，目标失效时会暂停。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>军队抵达目标并休眠的地图，目标定居点与单位状态可读；不要摆拍正在进攻。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>3. 增长怎么分配，按你的权重来</h2>
+<p>定居点越多，重复处理增长的次数越多；只追某一种产出，又可能把幸福度压到危险位置。</p>
+<p>可以为增长分配设置全局产出权重，再让个别定居点覆盖它。决策同时检查幸福度门槛，无法可靠读取收益时不提交；不会为了一个看起来更高的数字盲目落子。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>某定居点增长自动化结果及其权重、幸福度门槛；主图展示已选地块或专家后的面板。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>4. 城市队列空了，用项目接上</h2>
+<p>主力建筑已经完成，仍要在一座座空队列城市里重复选择项目。</p>
+<p>启用后，空队列城市会根据科技、文化权重选择可用项目。现有队列不会被清空；城镇继续原有专精，不会被硬塞进城市项目流程。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>之前空队列的城市已有对应项目，项目名称与城市状态清晰；保存过程证据。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>5. 宝藏船队，带回去再领取</h2>
+<p>宝藏船队的目的很明确，回港路径和最后一次领取却仍要手动照看。</p>
+<p>宝藏自动化寻找最近可达的本土定居点，沿合法路径返航，再使用原生卸载领取奖励。领取会消耗船队，和游戏原有规则一致，因此需要主动开启。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>奖励领取后的游戏反馈与本土目的地；必须在测试副本，不能消耗用户原船队。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>6. 传教范围先定好，再执行路线</h2>
+<p>重复寻找尚未转化的目标很费工夫，但把传教士随便送出国境又不符合每一局的计划。</p>
+<p>可以限定自家、城邦或其他势力，默认只处理自家目标。模组寻找可达且仍需要转化的区域，区分城市与乡村，并遵守原生传教资格和次数。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>自家范围内传教完成的结果，城市/乡村宗教变化可辨；另留范围设置截图作证。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>7. 给研究空档接上一项</h2>
+<p>已经进入收尾阶段，还要反复为科技和市政选择下一项，容易变成机械点选。</p>
+<p>科技和市政分别开关，优先从可用、未完成的普通项目或精通中选择预计耗时较短的一项，之后才考虑未来重复研究。当前正在研究的项目会保留，不会被强行改掉。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>空档自动接续后的科技或市政界面，当前研究明确；避免暗示按照长期战略智能决策。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>8. 幸福度出问题，直接定位处理</h2>
+<p>帝国很大时，知道有地方不开心，不代表能立刻找到是哪一座城。</p>
+<p>幸福度不足提醒可以作为单独功能使用，提供受影响定居点的入口。它提醒你处理问题，不会擅自建造某一座幸福度建筑。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>原生行动提醒定位到缺幸福度定居点的画面，提醒文字与目标对应。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>适用范围与进展</h2>
+<p>面向单人游戏，设置按当前玩家、对局和时代隔离；新对局或新时代需要重新选择。不会替你自动结束回合、选政策或处理外交。历史验证主要来自 Windows 1.5.0，当前所有自动化组合、现代场景及完整手柄流程尚未穷举。</p>
+<p><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3822254009">Steam 创意工坊：垃圾时间</a></p>
+<p>如果遇到问题，欢迎说明游戏版本、平台、相关 Mod，以及出现问题时正在进行的操作。</p></article><article class="article lang" id="en" hidden><h1>Garbage Time — Civ VII Rescue Project</h1>
+<p>The outcome may be clear, but the checklist keeps growing: spare resources, idle production queues and units that need to come home. I made Garbage Time for repetitive jobs you can describe with clear rules. Every automation starts disabled; enable only the work you actually want it to handle.</p>
+<h2>1. Assign new resources using your preferences</h2>
+<p>Resources keep arriving after you have already decided what each settlement should specialize in.</p>
+<p>Optional resource automation reuses Resource Planner preferences each turn when allocation is available. It requires Resource Planner and Resource Re-sorts, defaults to unassigned resources, and does not choose preferences or initiate trades.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>资源自动化开启与一轮后按倾向补齐的槽位，主图展示结果；依赖已启用。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>2. Send units back to a rally point</h2>
+<p>After a campaign, getting scattered units home can become another round of individual orders.</p>
+<p>Units can head to the nearest reachable friendly settlement or a chosen destination, then sleep on arrival. Aircraft use legal rebasing. This does not initiate attacks or declarations of war, and an invalid destination pauses the task.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>军队抵达目标并休眠的地图，目标定居点与单位状态可读；不要摆拍正在进攻。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>3. Guide settlement growth with your priorities</h2>
+<p>Handling growth across many settlements is repetitive, but maximizing one yield can create a happiness problem.</p>
+<p>Growth decisions use global yield weights with per-settlement overrides and a happiness threshold. If the mod cannot obtain reliable yield information, it leaves the decision unsubmitted.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>某定居点增长自动化结果及其权重、幸福度门槛；主图展示已选地块或专家后的面板。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>4. Fill an empty city queue with a project</h2>
+<p>Once the important buildings are done, repeatedly choosing projects in empty city queues adds little to your plans.</p>
+<p>Enabled cities choose an available science or culture project according to their weights when the queue is empty. Existing queues stay intact, and towns keep their focus rather than being treated as cities.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>之前空队列的城市已有对应项目，项目名称与城市状态清晰；保存过程证据。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>5. Bring treasure fleets home</h2>
+<p>A treasure fleet has a clear destination, but still needs attention for the journey and the final delivery.</p>
+<p>Treasure automation finds the nearest reachable homeland settlement and uses the native unload action on arrival. Delivery consumes the fleet as usual, so this is an explicit opt-in action.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>奖励领取后的游戏反馈与本土目的地；必须在测试副本，不能消耗用户原船队。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>6. Choose a missionary scope before automating</h2>
+<p>Finding the next conversion target is repetitive, but sending missionaries abroad is not always part of the plan.</p>
+<p>Choose whether to include your own settlements, city-states or other powers; the default is your own. The mod considers reachable areas that still need conversion, distinguishes urban and rural targets, and uses native charge and eligibility rules.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>自家范围内传教完成的结果，城市/乡村宗教变化可辨；另留范围设置截图作证。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>7. Keep research from sitting empty</h2>
+<p>Late in a game, choosing the next technology or civic can become another routine interruption.</p>
+<p>Independent technology and civic options choose a shorter estimated available unfinished item, including masteries, before repeating future research. Research already in progress is left alone.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>空档自动接续后的科技或市政界面，当前研究明确；避免暗示按照长期战略智能决策。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>8. Get a direct route to a happiness problem</h2>
+<p>Knowing that happiness is low somewhere is different from finding the settlement quickly.</p>
+<p>A separate shortage reminder takes you to the affected settlement. It flags the problem without choosing or constructing a happiness building for you.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>原生行动提醒定位到缺幸福度定居点的画面，提醒文字与目标对应。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>Availability and testing</h2>
+<p>This is for single-player. Settings are scoped to the player, campaign and era, so a new game or age starts with automation off again. It does not end turns, pick policies or handle diplomacy for you. Historical validation is mainly on Windows 1.5.0; every combination, modern-era case and complete controller flow has not been tested.</p>
+<p><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3822254009">Garbage Time on Steam Workshop</a></p>
+<p>Feedback is welcome. Please include your platform, game version, related mods and the action you were taking when something went wrong.</p></article><article class="article lang" id="reddit" hidden><aside class="notice">Reddit 短版草稿。发布前重新核对社区规则、Mod 作者帖惯例和所需标签；图片从本篇补拍清单中选 2–3 张，不自动批量连发。</aside><h1>I made Garbage Time to handle optional repetitive tasks in Civ VII</h1>
+<p>The outcome may be clear, but the checklist keeps growing: spare resources, idle production queues and units that need to come home. I made Garbage Time for repetitive jobs you can describe with clear rules. Every automation starts disabled; enable only the work you actually want it to handle.</p>
+<p>A few things it focuses on:</p>
+<p><strong>Assign new resources using your preferences.</strong> Optional resource automation reuses Resource Planner preferences each turn when allocation is available. It requires Resource Planner and Resource Re-sorts, defaults to unassigned resources, and does not choose preferences or initiate trades.</p>
+<p><strong>Send units back to a rally point.</strong> Units can head to the nearest reachable friendly settlement or a chosen destination, then sleep on arrival. Aircraft use legal rebasing. This does not initiate attacks or declarations of war, and an invalid destination pauses the task.</p>
+<p><strong>Fill an empty city queue with a project.</strong> Enabled cities choose an available science or culture project according to their weights when the queue is empty. Existing queues stay intact, and towns keep their focus rather than being treated as cities.</p>
+<p>This is for single-player. Settings are scoped to the player, campaign and era, so a new game or age starts with automation off again. It does not end turns, pick policies or handle diplomacy for you. Historical validation is mainly on Windows 1.5.0; every combination, modern-era case and complete controller flow has not been tested.</p>
+<p><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3822254009">Steam Workshop</a></p>
+<p>I’m the author. If you try it, please include your platform, game version and related mods when reporting an issue.</p></article></main><footer>本地验收稿 · 2026-10-23T22:17:02+08:00 · 发布前会重新核对当前版本、平台规则与实际配图。</footer><script>document.querySelectorAll("button[data-target]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".lang").forEach(x=>x.hidden=x.id!==b.dataset.target);document.querySelectorAll("button").forEach(x=>x.classList.toggle("active",x===b));});</script></body></html>

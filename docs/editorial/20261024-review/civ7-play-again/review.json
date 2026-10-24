@@ -1,0 +1,89 @@
+{
+  "slug": "civ7-play-again",
+  "zh": "你的神图很好，现在是我的了",
+  "en": "Your Great Map, My Next Game",
+  "sourceVersion": "0.3.6-dev",
+  "releasedVersion": "开发中，未发布",
+  "workshop": null,
+  "intro_zh": "看到别人分享的神图，最麻烦的不是抄两个种子，而是补齐地图类型、时代、领袖和一串容易漏掉的设置。「你的神图很好，现在是我的了」正在把这些信息整理成能预览、能检查的一段配置。它还是开发项目，下面介绍当前方向和已实现的配置导入能力，不是正式发行公告。",
+  "intro_en": "A great map share often includes two seeds but leaves you to reconstruct the map type, age, leaders and other settings. I’m developing Your Great Map, My Next Game around a configuration you can inspect before applying. This is a development preview, not a release announcement.",
+  "limits_zh": "当前 0.3.6-dev 的重点是文本配置导入，尚无工坊发行。新界面和流程以离线验证为主；较早辅助工具的实机成功不能算作当前 Mod 已验收。直接读取任意存档、截图 OCR 和无损复刻整局仍未完成。DLC、其他 Mod、解锁进度及游戏生成差异都可能影响结果。",
+  "limits_en": "The current 0.3.6-dev priority is text configuration import, with no Workshop release. The new UI and flow are mainly verified offline; successful in-game runs of an older helper do not validate this implementation. Arbitrary save-file reading, screenshot OCR and lossless campaign reproduction are not complete. DLC, other mods, unlocks and game generation can affect the result.",
+  "sources": [
+    "mods/civ7-play-again/README.md",
+    "mods/civ7-play-again/package.json"
+  ],
+  "sections": [
+    {
+      "zh": "把分享的配置粘贴进来",
+      "en": "Paste a shared configuration",
+      "pain_zh": "种子和设置散落在几行聊天里，逐项抄进新建游戏容易漏填，也容易把两串数字放反。",
+      "fix_zh": "开发版在新建游戏流程加入粘贴配置文本入口，识别受支持的种子说明或配置码，再把解析结果展示出来。目标是先让分享的信息可读、可检查，而不是盲目直接开局。",
+      "pain_en": "Copying seeds and settings from a chat message is easy to get wrong, especially when two long numbers look alike.",
+      "fix_en": "The development build adds a text-paste entry to new-game setup, parsing supported seed descriptions or configuration codes into a visible result. The goal is to inspect the shared information before starting a game.",
+      "shot": "安装验收后的新建游戏粘贴面板，显示已解析的种子与地图类型；现阶段没有合格图则保持待补。",
+      "scope": "development",
+      "image": null,
+      "caption_zh": null,
+      "caption_en": null
+    },
+    {
+      "zh": "不只带种子，也带上开局条件",
+      "en": "Share the setup around the seeds",
+      "pain_zh": "同样的种子配上不同地图大小、时代或领袖，出来的体验未必一样。",
+      "fix_zh": "配置格式可以携带地图与大小、速度、难度、时代、领袖文明及玩家槽位；当前扩展格式还记录支持的纪念品、队伍和高级选项，并报告哪些设置没有被编码。缺什么直接说明，不假装完整。",
+      "pain_en": "The same seeds with a different map size, age or leader may not produce the experience you expected.",
+      "fix_en": "The configuration can carry map and size, speed, difficulty, age, leaders, civilizations and player slots. The extended format includes supported mementos, teams and advanced options, with a coverage report for settings it could not encode.",
+      "shot": "配置预览列出基础设置和覆盖报告，未编码项可见；不要用旧辅助工具界面冒充新 Mod。",
+      "scope": "development",
+      "image": null,
+      "caption_zh": null,
+      "caption_en": null
+    },
+    {
+      "zh": "缺少内容时，明确停下来",
+      "en": "Stop when required choices are unavailable",
+      "pain_zh": "朋友有的文明或领袖自己没有，如果导入时偷偷换成随机项，就很难知道哪里开始不一样。",
+      "fix_zh": "切换时代或领袖后会重新检查允许的选项，遇到不可用项明确停止，不悄悄截掉 AI 槽位或换成随机选择。已经应用的前面字段可能保留在设置中，因此仍要看完预览再开始。",
+      "pain_en": "If a shared civilization or leader is unavailable, silently replacing it with a random choice hides why the setup differs.",
+      "fix_en": "Allowed options are checked again after age or leader changes. Unavailable choices stop the import rather than silently dropping AI slots or choosing random replacements. Fields applied earlier may remain, so review the resulting setup before starting.",
+      "shot": "缺少内容的明确错误提示，显示不可用项且没有假成功；使用合法测试配置。",
+      "scope": "development",
+      "image": null,
+      "caption_zh": null,
+      "caption_en": null
+    }
+  ],
+  "redditImageSections": [
+    1,
+    2,
+    3
+  ],
+  "snapshotAt": "2026-10-23T22:17:02+08:00",
+  "platforms": {
+    "bilibili": {
+      "status": "draft",
+      "url": null
+    },
+    "civfanatics": {
+      "status": "draft",
+      "url": null
+    },
+    "reddit": {
+      "status": "draft",
+      "url": null
+    }
+  },
+  "draftComplete": true,
+  "featureCount": 3,
+  "missingImageCount": 3,
+  "existingImageCount": 0,
+  "releaseReady": false,
+  "imageNotes": [],
+  "approval": "既有手柄文章已授权发布；本次其他新稿等待用户验收，不发布。",
+  "draftHashes": {
+    "article-zh.md": "1914a3daedbfb8411de8db2f6e3e61074d0fa20f85d637848eb942cf69ca649e",
+    "article-en.md": "b9850ab6d748e08e24d663ba9b1306d8c84d795c9260ca93ab992f59462d0ac2",
+    "reddit-en.md": "05988e58207ea34652cfb339f1736fd5db2aca590ebdd1450963dbac0c258800"
+  }
+}

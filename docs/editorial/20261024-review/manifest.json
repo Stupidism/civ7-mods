@@ -1,0 +1,283 @@
+{
+  "series": "文明7拯救计划",
+  "createdAt": "2026-10-23T22:17:02+08:00",
+  "projectCount": 10,
+  "draftCount": 30,
+  "featureCount": 48,
+  "missingImageCount": 37,
+  "scope": "10 Mods；分合两个模块按一个项目；小助手暂停，另附项目说明。",
+  "publicationPolicy": "本批新稿仅供验收，未发布。",
+  "projects": [
+    {
+      "slug": "civ7-map-tools-gamepad",
+      "zh": "更好的手柄支持",
+      "en": "Better Controller Support",
+      "sourceVersion": "0.2.1",
+      "releasedVersion": "0.2.1",
+      "workshop": "3825193325",
+      "featureCount": 7,
+      "missingImageCount": 0,
+      "existingImageCount": 7,
+      "platforms": {
+        "bilibili": {
+          "status": "published",
+          "url": "https://www.bilibili.com/opus/1262385145689669638"
+        },
+        "civfanatics": {
+          "status": "submitted_pending",
+          "url": "https://forums.civfanatics.com/threads/better-controller-support-for-civilization-vii.705221/"
+        },
+        "reddit": {
+          "status": "published",
+          "url": "https://www.reddit.com/r/CivVII/comments/1xdenjj/i_made_a_controller_support_mod_for_civ_vii_map/"
+        }
+      },
+      "draftComplete": true,
+      "releaseReady": "existing_publication_only"
+    },
+    {
+      "slug": "civ7-before-end-turn",
+      "zh": "行动前自动存档",
+      "en": "Auto-save Before…",
+      "sourceVersion": "1.1.1",
+      "releasedVersion": "1.1.2",
+      "workshop": "3815596737",
+      "featureCount": 2,
+      "missingImageCount": 0,
+      "existingImageCount": 3,
+      "platforms": {
+        "bilibili": {
+          "status": "draft",
+          "url": null
+        },
+        "civfanatics": {
+          "status": "draft",
+          "url": null
+        },
+        "reddit": {
+          "status": "draft",
+          "url": null
+        }
+      },
+      "draftComplete": true,
+      "releaseReady": false
+    },
+    {
+      "slug": "civ7-rest-guard",
+      "zh": "不再来一回合",
+      "en": "No More Turn",
+      "sourceVersion": "1.8.5",
+      "releasedVersion": "1.8.5",
+      "workshop": "3815557333",
+      "featureCount": 6,
+      "missingImageCount": 4,
+      "existingImageCount": 2,
+      "platforms": {
+        "bilibili": {
+          "status": "draft",
+          "url": null
+        },
+        "civfanatics": {
+          "status": "draft",
+          "url": null
+        },
+        "reddit": {
+          "status": "draft",
+          "url": null
+        }
+      },
+      "draftComplete": true,
+      "releaseReady": false
+    },
+    {
+      "slug": "civ7-resource-planner",
+      "zh": "资源规划",
+      "en": "Resource Planner",
+      "sourceVersion": "1.1.0",
+      "releasedVersion": "1.0.0（本轮检索到的发行回执）",
+      "workshop": "3822254182",
+      "featureCount": 6,
+      "missingImageCount": 6,
+      "existingImageCount": 0,
+      "platforms": {
+        "bilibili": {
+          "status": "draft",
+          "url": null
+        },
+        "civfanatics": {
+          "status": "draft",
+          "url": null
+        },
+        "reddit": {
+          "status": "draft",
+          "url": null
+        }
+      },
+      "draftComplete": true,
+      "releaseReady": false
+    },
+    {
+      "slug": "civ7-garbage-time",
+      "zh": "垃圾时间",
+      "en": "Garbage Time",
+      "sourceVersion": "0.1.4",
+      "releasedVersion": "0.1.4",
+      "workshop": "3822254009",
+      "featureCount": 8,
+      "missingImageCount": 8,
+      "existingImageCount": 0,
+      "platforms": {
+        "bilibili": {
+          "status": "draft",
+          "url": null
+        },
+        "civfanatics": {
+          "status": "draft",
+          "url": null
+        },
+        "reddit": {
+          "status": "draft",
+          "url": null
+        }
+      },
+      "draftComplete": true,
+      "releaseReady": false
+    },
+    {
+      "slug": "civ7-war-controls",
+      "zh": "微操大师常凯申",
+      "en": "Micromanagement Master Chiang Kai-shek",
+      "sourceVersion": "0.6.0",
+      "releasedVersion": "0.5.1（War Controls 实验版）",
+      "workshop": "3822253543",
+      "featureCount": 7,
+      "missingImageCount": 7,
+      "existingImageCount": 0,
+      "platforms": {
+        "bilibili": {
+          "status": "draft",
+          "url": null
+        },
+        "civfanatics": {
+          "status": "draft",
+          "url": null
+        },
+        "reddit": {
+          "status": "draft",
+          "url": null
+        }
+      },
+      "draftComplete": true,
+      "releaseReady": false
+    },
+    {
+      "slug": "civ7-controller-bridge",
+      "zh": "Mac 手柄支持修复",
+      "en": "Mac Controller Support Fix",
+      "sourceVersion": "0.1.5",
+      "releasedVersion": "0.1.5",
+      "workshop": "3825119575",
+      "featureCount": 4,
+      "missingImageCount": 4,
+      "existingImageCount": 0,
+      "platforms": {
+        "bilibili": {
+          "status": "draft",
+          "url": null
+        },
+        "civfanatics": {
+          "status": "draft",
+          "url": null
+        },
+        "reddit": {
+          "status": "draft",
+          "url": null
+        }
+      },
+      "draftComplete": true,
+      "releaseReady": false
+    },
+    {
+      "slug": "civ7-autosave-limit",
+      "zh": "自动存档上限 150",
+      "en": "Autosave Limit 150",
+      "sourceVersion": "1.0.0",
+      "releasedVersion": "本地版本，未发现工坊发布回执",
+      "workshop": null,
+      "featureCount": 2,
+      "missingImageCount": 2,
+      "existingImageCount": 0,
+      "platforms": {
+        "bilibili": {
+          "status": "draft",
+          "url": null
+        },
+        "civfanatics": {
+          "status": "draft",
+          "url": null
+        },
+        "reddit": {
+          "status": "draft",
+          "url": null
+        }
+      },
+      "draftComplete": true,
+      "releaseReady": false
+    },
+    {
+      "slug": "civ7-play-again",
+      "zh": "你的神图很好，现在是我的了",
+      "en": "Your Great Map, My Next Game",
+      "sourceVersion": "0.3.6-dev",
+      "releasedVersion": "开发中，未发布",
+      "workshop": null,
+      "featureCount": 3,
+      "missingImageCount": 3,
+      "existingImageCount": 0,
+      "platforms": {
+        "bilibili": {
+          "status": "draft",
+          "url": null
+        },
+        "civfanatics": {
+          "status": "draft",
+          "url": null
+        },
+        "reddit": {
+          "status": "draft",
+          "url": null
+        }
+      },
+      "draftComplete": true,
+      "releaseReady": false
+    },
+    {
+      "slug": "fenhe",
+      "zh": "分合",
+      "en": "Fenhe — Division and Unification",
+      "sourceVersion": "0.2.0-alpha",
+      "releasedVersion": "实验原型，未发布",
+      "workshop": null,
+      "featureCount": 3,
+      "missingImageCount": 3,
+      "existingImageCount": 0,
+      "platforms": {
+        "bilibili": {
+          "status": "draft",
+          "url": null
+        },
+        "civfanatics": {
+          "status": "draft",
+          "url": null
+        },
+        "reddit": {
+          "status": "draft",
+          "url": null
+        }
+      },
+      "draftComplete": true,
+      "releaseReady": false
+    }
+  ],
+  "updatedAt": "2026-10-24T08:35:13+08:00"
+}

@@ -1,0 +1,72 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>资源规划 · 文明7拯救计划</title><style>
+:root{--bg:#f3f0e9;--paper:#fffdf9;--ink:#26352e;--sub:#66716b;--line:#d9dfd5;--accent:#2e6953;--warm:#966426}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;line-height:1.85}a{color:var(--accent);text-underline-offset:4px}header,main,footer{max-width:1080px;margin:auto;padding:30px}header{padding-top:60px}h1{font-size:clamp(30px,5vw,50px);line-height:1.25;letter-spacing:-1px;margin:14px 0 20px}h2{font-size:25px;line-height:1.5;margin:42px 0 16px}h3{line-height:1.5}p{margin:15px 0}.kicker{letter-spacing:3px;color:var(--accent);font-size:12px;font-weight:700;text-transform:uppercase}.muted,small{color:var(--sub)}.summary{font-size:18px;max-width:800px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;position:sticky;top:0;background:rgba(243,240,233,.97);padding:16px 0;z-index:2}button{border:1px solid var(--line);background:white;color:var(--ink);padding:10px 18px;border-radius:8px;font:inherit;cursor:pointer}button.active{background:var(--accent);color:white}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.card{background:var(--paper);padding:26px;border:1px solid var(--line);border-radius:16px}.card h2{margin:8px 0 14px;font-size:24px}.tag{display:inline-block;font-size:12px;padding:3px 10px;border-radius:20px;background:#e5eee6;color:#295c43;margin:0 6px 5px 0}.tag.wait{background:#f6e9d4;color:#79521b}.meta{font-size:13px;color:var(--sub);margin:10px 0}.links{display:flex;gap:16px;flex-wrap:wrap}.notice{padding:18px 22px;border-left:3px solid var(--warm);background:#fcf3e5;border-radius:0 8px 8px 0;font-size:14px}.article{max-width:850px;background:var(--paper);padding:40px;border-radius:16px;border:1px solid var(--line);margin:24px auto}.article h1{font-size:34px}.article h2{padding-top:20px;border-top:1px solid var(--line)}figure{margin:24px 0}figure img{width:100%;height:auto;border-radius:8px;display:block;background:#202821}figcaption{font-size:13px;color:var(--sub);margin-top:10px}.missing{margin:24px 0;padding:24px;border:1px dashed #baa985;background:#fbf8f0;border-radius:10px;color:#756342;font-size:14px}.missing strong{display:block;font-size:12px;letter-spacing:1px;margin-bottom:5px}.missing span{display:block;font-size:12px;opacity:.8;margin-top:8px}.section-note{font-size:12px;color:#87652f}details{margin-top:18px}summary{cursor:pointer}li{margin:8px 0}.lang[hidden]{display:none}footer{font-size:13px;color:var(--sub);padding-bottom:50px}input{font:inherit;border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:250px}table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;border-bottom:1px solid var(--line);padding:10px;vertical-align:top}@media(max-width:700px){header,main,footer{padding:22px}.grid{grid-template-columns:1fr}.article{padding:22px}h1{font-size:32px}.article h1{font-size:28px}input{width:100%}}
+</style><body><header><a href="../index.html">← 全部稿件</a><div class="kicker">Civ VII Rescue Project · Review Copy</div><h1>资源规划</h1><p class="muted">Resource Planner</p><p class="meta">源码 1.1.0 · 发行记录 1.0.0（本轮检索到的发行回执） · 6 个功能章节 · 0 张已有图 / 6 张待补</p><span class="tag wait">文字已齐 · 配图待补</span><div class="links"><a href="article-zh.md">中文稿</a><a href="article-en.md">英文稿</a><a href="reddit-en.md">Reddit 短稿</a><a href="review.json">证据清单</a></div></header><main><div class="notice">验收版 · 新稿尚未发布。黄色虚线框是缺图的制作说明；正文里的版本与测试边界属于读者需要知道的信息。旧版截图均已标注，不代表新版操作已经完成验证。</div><nav class="toolbar"><button class="active" data-target="zh">B站 · 中文长稿</button><button data-target="en">CivFanatics · English</button><button data-target="reddit">Reddit · Short</button></nav><article class="article lang" id="zh"><h1>《文明7拯救计划》｜资源规划</h1>
+<p>资源越来越多以后，分配面板很容易变成一场搬箱子：这座城缺幸福度，那座城想堆科研，骆驼还能再挤几个槽位。「资源规划」把这些重复比较变成明确的分组、倾向和批量分配。它基于 beezany 的 Resource Re-sorts，使用前需要启用这个依赖。</p>
+<h2>1. 城市、城镇和未连接定居点分开看</h2>
+<p>资源页越长，越难看出哪些地方能接收资源，哪些地方需要的是另一种资源。</p>
+<p>定居点按城市、城镇和未连接状态分组，支持折叠；再按金币、食物、科技、文化、生产力或幸福度排序。先找到想解决的问题，再决定资源给谁。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>资源面板展开城市与城镇组、显示未连接组；选一种排序，避免拍到未解析图标或调试文本。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>2. 先补幸福度，别让资源白白堆过头</h2>
+<p>有的城已经不缺幸福度，有的城仍在负值。挨个拖资源既费眼，也容易补错地方。</p>
+<p>幸福度填充会优先处理城市，再处理城镇；另有只填城镇的入口，不必打乱城市现有安排。目标是补到不为负，而不是把所有幸福度资源都塞给同一个地方。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>负幸福度定居点经过填充后达到非负，资源槽和幸福度同时可读；保存前后数据佐证。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>3. 给定居点一个产出倾向</h2>
+<p>科研城、生产城和缺粮城需要的东西不同。每次打开资源页都重新回忆分工，负担会不断增加。</p>
+<p>点击产出图标就能设置该定居点的倾向并分配合适资源，倾向会被记住，也能清除。让长期分工留在界面里，不用每一回合从头解释一遍。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>显示一个科技倾向定居点及实际分配后的槽位，倾向文字和产出变化清晰。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>4. 一次比较多个定居点的分配</h2>
+<p>把好资源先塞给列表第一座城，后面真正需要它的地方可能就轮不到了。</p>
+<p>“按倾向分配”会一起比较多个定居点的收益和容量，通过匹配与逐步改进安排资源。默认保留已经分配的资源；想全面重排时，再主动打开对应选项。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>一次全局分配完成后的面板，多座定居点的倾向与资源槽同屏；另保存分配记录。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>5. 骆驼带来的槽位，也纳入比较</h2>
+<p>骆驼的价值不只在自身：多出来的槽位，还能装下别的资源。只看单个资源，很容易漏算这一层。</p>
+<p>打开“包含骆驼资源”后，规划会考虑扩容带来的后续收益，而不是见到骆驼就塞进去。这个开关默认关闭，需要时再纳入，避免每次打开面板都意外大搬家。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>打开包含骆驼开关后的最终分配，显示骆驼及新增槽位中使用的资源；需过程记录证明变化。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>6. 调整资源时，列表别突然换位置</h2>
+<p>刚拖完一个资源，产出变了，定居点跟着重新排序。下一次点击很容易落到另一个位置。</p>
+<p>1.1.0 更新让排序集中在打开面板或主动改变排序的时候，分配过程不再因为产出变化自动重排；选中资源时优先执行放置，取消选择与关闭面板也分开处理。这部分交互改动仍按新版验收结果发布。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>新版一次资源放置后的同一排序列表，附前后序列证据；单张图仅展示终点，不能独立证明稳定。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>适用范围与进展</h2>
+<p>核心功能已有工坊版本；本文提到的稳定排序、交互与中英文补齐属于本地 1.1.0 更新范围，发布前需核对最新回执。历史 Windows 1.5.0 实测覆盖分组、倾向、幸福度和骆驼分配，不能代表所有时代与资源 Mod。分配算法会遵守可用槽位和游戏规则，但不承诺全局最优或绝不失败。</p>
+<p><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182">Steam 创意工坊：资源规划</a></p>
+<p>必要依赖：<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3507102808">Resource Re-sorts by beezany</a></p>
+<p>如果遇到问题，欢迎说明游戏版本、平台、相关 Mod，以及出现问题时正在进行的操作。</p></article><article class="article lang" id="en" hidden><h1>Resource Planner — Civ VII Rescue Project</h1>
+<p>Once an empire has enough resources, allocating them becomes a lot of shuffling: happiness here, science there, perhaps another slot from a camel. I made Resource Planner to organize that work around settlement groups, yield preferences and batch assignment. It extends beezany’s Resource Re-sorts, which is required.</p>
+<h2>1. Separate cities, towns and disconnected settlements</h2>
+<p>A long resource list makes it hard to see which settlements can receive resources and which need a different kind.</p>
+<p>Collapsible city, town and disconnected groups keep the list readable. Sort by gold, food, science, culture, production or happiness to find the settlements you want to work on.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>资源面板展开城市与城镇组、显示未连接组；选一种排序，避免拍到未解析图标或调试文本。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>2. Address happiness shortfalls first</h2>
+<p>One settlement may already have enough happiness while another remains negative, and manual assignment makes the imbalance easy to miss.</p>
+<p>Happiness filling handles cities before towns and stops targeting a settlement once it is no longer negative. A towns-only action leaves city allocations alone.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>负幸福度定居点经过填充后达到非负，资源槽和幸福度同时可读；保存前后数据佐证。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>3. Give each settlement a yield preference</h2>
+<p>A science city, a production center and a food-starved settlement do not need the same resources.</p>
+<p>Click a yield icon to set that settlement’s preference and assign suitable resources. Preferences are remembered and can be cleared, keeping the intended role visible instead of rebuilding it from memory each turn.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>显示一个科技倾向定居点及实际分配后的槽位，倾向文字和产出变化清晰。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>4. Plan across the empire</h2>
+<p>Assigning everything to the first eligible city can leave a more useful destination with nothing.</p>
+<p>Assign by Preference compares yields and capacity across settlements, using matching and iterative improvements. Existing allocations are preserved by default; including them in a reshuffle is an explicit choice.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>一次全局分配完成后的面板，多座定居点的倾向与资源槽同屏；另保存分配记录。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>5. Include the slots a camel can create</h2>
+<p>A camel can be valuable because of what its extra slots let you assign, not just because of its own entry.</p>
+<p>The optional camel setting considers the benefit of additional capacity. It is off by default, so opening the panel does not automatically trigger a broader reshuffle.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>打开包含骆驼开关后的最终分配，显示骆驼及新增槽位中使用的资源；需过程记录证明变化。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>6. Keep the list still while you work</h2>
+<p>If assigning a resource changes the sort order, the settlement you were working on can move away under the cursor.</p>
+<p>The 1.1.0 update keeps ordering stable during allocation and reserves reordering for opening the panel or an explicit sort change. Placement takes priority when a resource is selected, with cancellation separated from closing the panel. These changes remain subject to the update’s acceptance checks.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>新版一次资源放置后的同一排序列表，附前后序列证据；单张图仅展示终点，不能独立证明稳定。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>Availability and testing</h2>
+<p>The core features are available on Workshop. Stable ordering and interaction/localization fixes discussed here belong to the local 1.1.0 update and need a release check before being presented as shipped. Earlier Windows 1.5.0 tests cover grouping, preferences, happiness and camel allocation, not every era or resource mod. The planner respects available slots and game rules, but does not promise a mathematically optimal allocation or failure-free execution.</p>
+<p><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182">Resource Planner on Steam Workshop</a></p>
+<p>Required dependency: <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3507102808">Resource Re-sorts by beezany</a></p>
+<p>Feedback is welcome. Please include your platform, game version, related mods and the action you were taking when something went wrong.</p></article><article class="article lang" id="reddit" hidden><aside class="notice">Reddit 短版草稿。发布前重新核对社区规则、Mod 作者帖惯例和所需标签；图片从本篇补拍清单中选 2–3 张，不自动批量连发。</aside><h1>Resource Planner: settlement preferences and batch resource assignment for Civ VII</h1>
+<p>Once an empire has enough resources, allocating them becomes a lot of shuffling: happiness here, science there, perhaps another slot from a camel. I made Resource Planner to organize that work around settlement groups, yield preferences and batch assignment. It extends beezany’s Resource Re-sorts, which is required.</p>
+<p>A few things it focuses on:</p>
+<p><strong>Address happiness shortfalls first.</strong> Happiness filling handles cities before towns and stops targeting a settlement once it is no longer negative. A towns-only action leaves city allocations alone.</p>
+<p><strong>Give each settlement a yield preference.</strong> Click a yield icon to set that settlement’s preference and assign suitable resources. Preferences are remembered and can be cleared, keeping the intended role visible instead of rebuilding it from memory each turn.</p>
+<p><strong>Plan across the empire.</strong> Assign by Preference compares yields and capacity across settlements, using matching and iterative improvements. Existing allocations are preserved by default; including them in a reshuffle is an explicit choice.</p>
+<p>The core features are available on Workshop. Stable ordering and interaction/localization fixes discussed here belong to the local 1.1.0 update and need a release check before being presented as shipped. Earlier Windows 1.5.0 tests cover grouping, preferences, happiness and camel allocation, not every era or resource mod. The planner respects available slots and game rules, but does not promise a mathematically optimal allocation or failure-free execution.</p>
+<p><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182">Steam Workshop</a></p>
+<p>Required: <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3507102808">Resource Re-sorts by beezany</a>.</p>
+<p>I’m the author. If you try it, please include your platform, game version and related mods when reporting an issue.</p></article></main><footer>本地验收稿 · 2026-10-23T22:17:02+08:00 · 发布前会重新核对当前版本、平台规则与实际配图。</footer><script>document.querySelectorAll("button[data-target]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".lang").forEach(x=>x.hidden=x.id!==b.dataset.target);document.querySelectorAll("button").forEach(x=>x.classList.toggle("active",x===b));});</script></body></html>

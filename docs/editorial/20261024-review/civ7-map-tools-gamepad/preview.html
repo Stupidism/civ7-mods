@@ -1,0 +1,111 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>更好的手柄支持 · 文明7拯救计划</title><style>
+:root{--bg:#f3f0e9;--paper:#fffdf9;--ink:#26352e;--sub:#66716b;--line:#d9dfd5;--accent:#2e6953;--warm:#966426}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;line-height:1.85}a{color:var(--accent);text-underline-offset:4px}header,main,footer{max-width:1080px;margin:auto;padding:30px}header{padding-top:60px}h1{font-size:clamp(30px,5vw,50px);line-height:1.25;letter-spacing:-1px;margin:14px 0 20px}h2{font-size:25px;line-height:1.5;margin:42px 0 16px}h3{line-height:1.5}p{margin:15px 0}.kicker{letter-spacing:3px;color:var(--accent);font-size:12px;font-weight:700;text-transform:uppercase}.muted,small{color:var(--sub)}.summary{font-size:18px;max-width:800px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;position:sticky;top:0;background:rgba(243,240,233,.97);padding:16px 0;z-index:2}button{border:1px solid var(--line);background:white;color:var(--ink);padding:10px 18px;border-radius:8px;font:inherit;cursor:pointer}button.active{background:var(--accent);color:white}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.card{background:var(--paper);padding:26px;border:1px solid var(--line);border-radius:16px}.card h2{margin:8px 0 14px;font-size:24px}.tag{display:inline-block;font-size:12px;padding:3px 10px;border-radius:20px;background:#e5eee6;color:#295c43;margin:0 6px 5px 0}.tag.wait{background:#f6e9d4;color:#79521b}.meta{font-size:13px;color:var(--sub);margin:10px 0}.links{display:flex;gap:16px;flex-wrap:wrap}.notice{padding:18px 22px;border-left:3px solid var(--warm);background:#fcf3e5;border-radius:0 8px 8px 0;font-size:14px}.article{max-width:850px;background:var(--paper);padding:40px;border-radius:16px;border:1px solid var(--line);margin:24px auto}.article h1{font-size:34px}.article h2{padding-top:20px;border-top:1px solid var(--line)}figure{margin:24px 0}figure img{width:100%;height:auto;border-radius:8px;display:block;background:#202821}figcaption{font-size:13px;color:var(--sub);margin-top:10px}.missing{margin:24px 0;padding:24px;border:1px dashed #baa985;background:#fbf8f0;border-radius:10px;color:#756342;font-size:14px}.missing strong{display:block;font-size:12px;letter-spacing:1px;margin-bottom:5px}.missing span{display:block;font-size:12px;opacity:.8;margin-top:8px}.section-note{font-size:12px;color:#87652f}details{margin-top:18px}summary{cursor:pointer}li{margin:8px 0}.lang[hidden]{display:none}footer{font-size:13px;color:var(--sub);padding-bottom:50px}input{font:inherit;border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:250px}table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;border-bottom:1px solid var(--line);padding:10px;vertical-align:top}@media(max-width:700px){header,main,footer{padding:22px}.grid{grid-template-columns:1fr}.article{padding:22px}h1{font-size:32px}.article h1{font-size:28px}input{width:100%}}
+</style><body><header><a href="../index.html">← 全部稿件</a><div class="kicker">Civ VII Rescue Project · Review Copy</div><h1>更好的手柄支持</h1><p class="muted">Better Controller Support</p><p class="meta">源码 0.2.1 · 发行记录 0.2.1 · 7 个功能章节 · 7 张已有图 / 0 张待补</p><span class="tag wait">既有稿件 · 保留发布记录</span><div class="links"><a href="article-zh.md">中文稿</a><a href="article-en.md">英文稿</a><a href="reddit-en.md">Reddit 短稿</a><a href="review.json">证据清单</a></div></header><main><div class="notice">验收版 · 新稿尚未发布。黄色虚线框是缺图的制作说明；正文里的版本与测试边界属于读者需要知道的信息。旧版截图均已标注，不代表新版操作已经完成验证。</div><nav class="toolbar"><button class="active" data-target="zh">B站 · 中文长稿</button><button data-target="en">CivFanatics · English</button><button data-target="reddit">Reddit · Short</button></nav><article class="article lang" id="zh"><h1>《文明7拯救计划》｜更好的手柄支持</h1>
+<p>《文明7拯救计划》记录我为游戏做的一些小修补。第一期先解决用手柄时那些够不着的按钮、跟不上的光标，以及不顺手的输入。</p>
+<p><strong>更好的手柄支持（Better Controller Support）</strong> 已在 Steam 创意工坊发布。下面介绍已发布的 0.2.1 版本；配图取自 0.2.0。</p>
+<h2>1 地图工具进入手柄轮盘</h2>
+<p><strong>痛点</strong></p>
+<p>滤镜、城市、单位、奇观、地图钉都挤在左下角。用手柄玩时，这些按钮不容易访问，想查点信息还得拿起鼠标。</p>
+<p><strong>解决方案</strong></p>
+<p>模组把可用的地图工具放进原生轮盘。0.2.1 中，选好工具后按一次 A 就直接打开对应界面，按 B 关闭后回到地图，省去左下角按钮的中转。图标与左下角按钮保持一致，找工具时不用重新认一套符号。新版入口已通过离线检查，尚待实机验证。</p>
+<figure><img loading="lazy" src="assets/01-map-tools-wheel.png" alt="轮盘里可以直接找到地图工具。"></figure>
+<p><em>轮盘里可以直接找到地图工具。</em></p>
+<h2>2 长列表跟着选中项滚动</h2>
+<p><strong>痛点</strong></p>
+<p>打开城市、单位或奇观列表之后，如果选中项不明显，或者移到屏幕外却不跟着滚动，手柄操作还是会卡在半路。</p>
+<p><strong>解决方案</strong></p>
+<p>模组为支持的列表补上焦点导航，用金色边框标明当前选中项，长列表会自动滚动到它所在的位置，隐藏和不可用的项目会跳过。城市、单位和奇观列表需搭配 Map Trix。</p>
+<p>0.2.0 的取图中发现返回工具栏时的焦点问题。0.2.1 已改为关闭工具后直接回地图，相关离线检查通过，实机返回效果仍待确认。</p>
+<figure><img loading="lazy" src="assets/02-list-scroll.png" alt="列表会跟随选中项滚动，当前焦点一眼可见。"></figure>
+<p><em>列表会跟随选中项滚动，当前焦点一眼可见。</em></p>
+<h2>3 地图钉图标可以用手柄选择</h2>
+<p><strong>痛点</strong></p>
+<p>规划城市时想先放几个地图钉，但图标选择面板缺少顺手的手柄导航，思路容易被切换鼠标打断。</p>
+<p><strong>解决方案</strong></p>
+<p>搭配 Detailed Map Tacks，模组为图标选择器补上方向导航。选好图标后，交回原模组的地图放置流程，让手柄能够走到规划标记的入口。放置、预览和删除仍由 Detailed Map Tacks 提供。</p>
+<figure><img loading="lazy" src="assets/03-map-tack-icons.png" alt="地图钉的图标选择也有了手柄导航。"></figure>
+<p><em>地图钉的图标选择也有了手柄导航。</em></p>
+<h2>4 补齐 Mac 地图输入</h2>
+<p><strong>痛点</strong></p>
+<p>在 Mac 上，即使游戏已经识别了手柄，地图摇杆或轮盘入口仍可能没有正确响应，菜单能操作、回到地图却不顺手。</p>
+<p><strong>解决方案</strong></p>
+<p>模组为 Mac 增加地图输入兼容，处理地块选择、镜头移动和轮盘唤出。Mac 默认开启，Windows 默认保留原生地图输入；地图工具功能在两边都可使用。</p>
+<figure><img loading="lazy" src="assets/04-mac-map-input.png" alt="Mac 地图输入兼容开启后的地图界面。"></figure>
+<p><em>Mac 地图输入兼容开启后的地图界面。</em></p>
+<h2>5 让地块光标回到镜头中心</h2>
+<p><strong>痛点</strong></p>
+<p>镜头已经移到远处，选中的地块却还留在原地。接下来想操作眼前的格子，只能把光标一格一格挪回来。</p>
+<p><strong>解决方案</strong></p>
+<p>开启输入兼容后，按下右摇杆 R3，就能把选中地块移到当前镜头正中央。看向哪里，就可以把选择带到哪里，省去来回追光标。</p>
+<figure><img loading="lazy" src="assets/05-r3-center.png" alt="R3 将选中地块带到当前镜头中央。"></figure>
+<p><em>R3 将选中地块带到当前镜头中央。</em></p>
+<h2>6 左右摇杆方向分别设置</h2>
+<p><strong>痛点</strong></p>
+<p>选地块和推镜头是两种不同的操作习惯。把上下方向绑在一起，往往调舒服了一边，另一边又别扭。</p>
+<p><strong>解决方案</strong></p>
+<p>模组提供独立的左右摇杆上下方向选项，分别对应地块光标和镜头移动。这两项用于输入兼容模式；本次已确认设置页显示，修改后的保存与生效仍待补测。</p>
+<figure><img loading="lazy" src="assets/06-controller-settings.png" alt="设置页提供独立的左右摇杆上下方向选项。"></figure>
+<p><em>设置页提供独立的左右摇杆上下方向选项。</em></p>
+<h2>7 修复菜单中的摇杆响应</h2>
+<p><strong>痛点</strong></p>
+<p>有些情况下，主菜单或轮盘能用方向键切换，左摇杆却没有反应。明明是同一个手柄，进出不同界面时表现却不一致。</p>
+<p><strong>解决方案</strong></p>
+<p>模组补上菜单对左摇杆输入的兼容，让选中项能跟着摇杆移动。轮盘里，图标高亮和中央名称会同步切换，不必为了选一个入口再改用方向键。</p>
+<figure><img loading="lazy" src="assets/07-menu-stick.png" alt="左摇杆切换菜单选中项后的界面。"></figure>
+<p><em>左摇杆切换菜单选中项后的界面。</em></p>
+<p><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3825193325">Steam 创意工坊订阅：更好的手柄支持</a></p>
+<p>可选搭配：<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3507072814">Map Trix</a>、<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3507297712">Detailed Map Tacks</a>。</p>
+<p>本文七张配图来自 0.2.0 的 Mac 实机，展示各功能界面，不作为 0.2.1 一次确认打开或返回流程的实测证据。地图移动、R3 回中和轮盘切换已获得实体手柄反馈；列表与地图钉导航通过游戏内合成输入核验。Windows、其他型号手柄，以及设置修改后的保存效果仍待补测。</p></article><article class="article lang" id="en" hidden><h1>Better Controller Support for Civilization VII</h1>
+<p><em>Civ VII Rescue Project — Part 1</em></p>
+<p>Hi everyone! I&#x27;m the author of <strong>Better Controller Support</strong>, a UI mod that makes Civilization VII&#x27;s map tools easier to reach with a controller and adds input fixes for Mac players.</p>
+<p>If you&#x27;ve ever put down your controller just to open a list, choose a map tack, or catch up with a cursor left behind by the camera, these are the problems I wanted to address.</p>
+<p><strong>Version 0.2.1 is available on <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3825193325">Steam Workshop</a>.</strong> Here are its seven main features. The screenshots show version 0.2.0 running on macOS with the game set to Chinese; English UI text is also included in the mod.</p>
+<h2>1 Open map tools from the radial menu</h2>
+<p><strong>The problem:</strong> Lenses, city lists, unit lists, wonders and map tacks are useful throughout a game, but reaching their minimap buttons with a controller can interrupt what you&#x27;re doing.</p>
+<p><strong>The fix:</strong> Available tools appear in the game&#x27;s native radial menu, using the same icons as their minimap buttons. Version 0.2.1 lets you select a tool and press A once to open it directly, then press B to close it and return to the map. Tools that aren&#x27;t installed or available stay hidden. The new direct-opening and return flow has passed offline checks; an in-game check is still pending.</p>
+<figure><img loading="lazy" src="assets/01-map-tools-wheel.png" alt="Map tools grouped in the native radial menu, with the selected tool highlighted."></figure>
+<p><em>Your map tools, together in the radial menu.</em></p>
+<h2>2 Keep the selected item visible in long lists</h2>
+<p><strong>The problem:</strong> A list isn&#x27;t much use with a controller if you can&#x27;t tell which row is selected, or if the selection moves off-screen while the list stays still.</p>
+<p><strong>The fix:</strong> Supported lists get a gold outline around the selected item and scroll to keep it visible. Navigation skips hidden and disabled entries. City, unit and wonder lists use <strong>Map Trix</strong>, which is an optional companion mod.</p>
+<figure><img loading="lazy" src="assets/02-list-scroll.png" alt="The wonders list scrolled to keep the highlighted row visible."></figure>
+<p><em>The list follows your selection, so you can keep browsing without reaching for the mouse.</em></p>
+<h2>3 Choose map tack icons with a controller</h2>
+<p><strong>The problem:</strong> Planning a city with map tacks is handy, but an icon picker without controller navigation breaks the flow before you even place a marker.</p>
+<p><strong>The fix:</strong> With <strong>Detailed Map Tacks</strong> installed, you can navigate its icon picker using directional input. Confirming an icon hands control back to that mod&#x27;s placement flow. Detailed Map Tacks still handles placement, previews and deletion; the full placement and deletion sequence has not yet been verified with this controller support.</p>
+<figure><img loading="lazy" src="assets/03-map-tack-icons.png" alt="Detailed Map Tacks icon picker with an icon selected through controller navigation."></figure>
+<p><em>Browse the map tack icons from your controller.</em></p>
+<h2>4 Restore map input on Mac</h2>
+<p><strong>The problem:</strong> On Mac, the game can recognize a controller while map movement or access to the radial menu still fails to respond as expected.</p>
+<p><strong>The fix:</strong> The input compatibility mode handles plot selection, camera movement and opening the radial menu. It is enabled by default on macOS. Windows defaults to the game&#x27;s native map input, while the map-tool additions are available on both platforms.</p>
+<figure><img loading="lazy" src="assets/04-mac-map-input.png" alt="The game map with controller input compatibility active on macOS."></figure>
+<p><em>Move the plot cursor and camera with the sticks on Mac.</em></p>
+<h2>5 Bring the plot cursor to the center of the view</h2>
+<p><strong>The problem:</strong> You&#x27;ve moved the camera somewhere else, but the selected plot is still far away. Moving the cursor back one tile at a time gets old quickly.</p>
+<p><strong>The fix:</strong> With input compatibility enabled, click the right stick, R3, to move the selected plot to the center of the current camera view. The camera stays where it is; the selection comes to you.</p>
+<figure><img loading="lazy" src="assets/05-r3-center.png" alt="The selected plot at the center of the camera view after pressing R3."></figure>
+<p><em>Press R3 to select a plot in the area you&#x27;re already looking at.</em></p>
+<h2>6 Set vertical inversion separately for each stick</h2>
+<p><strong>The problem:</strong> Moving a plot cursor and panning a camera are different actions. A single inversion setting may make one feel right and the other feel wrong.</p>
+<p><strong>The fix:</strong> The mod provides separate vertical inversion options for the left and right sticks in <strong>Options → Add-ons → Better Controller Support</strong>. These apply while input compatibility is enabled. Both controls are present in the settings page; applying changes and retaining them after a restart still need verification.</p>
+<figure><img loading="lazy" src="assets/06-controller-settings.png" alt="The settings page with separate vertical inversion options for the left and right sticks."></figure>
+<p><em>Separate settings for the plot cursor and the camera.</em></p>
+<h2>7 Make menu navigation respond to the left stick</h2>
+<p><strong>The problem:</strong> Some menus respond to the D-pad but ignore the left stick, making the same controller feel inconsistent from one screen to the next.</p>
+<p><strong>The fix:</strong> Input compatibility also handles left-stick navigation in menus. In the radial menu, the highlighted icon and its central label change together as you move between entries.</p>
+<figure><img loading="lazy" src="assets/07-menu-stick.png" alt="The radial menu showing a different highlighted tool after left-stick navigation."></figure>
+<p><em>The highlighted tool and its name follow your selection.</em></p>
+<h2>Download and optional companion mods</h2>
+<p><strong><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3825193325">Subscribe to Better Controller Support on Steam Workshop</a></strong>, let Steam finish downloading it, then restart the game and enable it in Additional Content.</p>
+<ul><li><strong><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3507072814">Map Trix</a></strong> supplies the city, unit and wonder lists shown here.</li><li><strong><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3507297712">Detailed Map Tacks</a></strong> supplies the map tack picker and placement tools.</li></ul>
+<p>Both are optional. Base-game lenses remain available without them. Better Controller Support includes English and Simplified Chinese UI text.</p>
+<h2>Testing and feedback</h2>
+<p>Mac map movement, R3 recentering and radial stick navigation have received feedback from a player using a physical controller. List scrolling and icon-picker navigation were checked in-game using simulated controller inputs. Windows and other controller models still need testing.</p>
+<p>If you try it, please share your platform, controller model, game version and any other UI mods you&#x27;re using. If something stops responding, tell me which panel was open and which button or stick you used. That will help me reproduce it.</p></article><article class="article lang" id="reddit" hidden><h1>I made a controller support mod for Civ VII: map tools, scrolling lists and Mac input fixes</h1>
+<p>I&#x27;m the author of Better Controller Support, a free UI mod for Civ VII. I wanted to make the map tools usable without repeatedly reaching for the mouse.</p>
+<p>The three screenshots show:</p>
+<ul><li><strong>Map tools in the native radial menu.</strong> Available tools use the same icons as the minimap buttons. Version 0.2.1 adds one-press opening and a direct return to the map; that new flow has passed offline checks and still needs an in-game check.</li><li><strong>Lists that follow your selection.</strong> A gold outline shows the selected row, and long lists scroll to keep it visible. City, unit and wonder lists require the optional Map Trix mod.</li><li><strong>Map tack icon navigation.</strong> Directional input moves through the Detailed Map Tacks picker. Placement and deletion remain that mod&#x27;s responsibility; the complete placement sequence still needs testing.</li></ul>
+<p>It also adds Mac map-input and menu-stick fixes, R3 to bring the selected plot to the camera center, and separate vertical inversion options for each stick. Settings changes and persistence still need verification. Windows retains native map input by default; the map-tool additions are available on both platforms, but Windows testing is still pending.</p>
+<p>The screenshots are from 0.2.0 on Mac with Chinese game UI; the mod includes English text. Physical-controller feedback covers Mac map movement, R3 and radial navigation. List and icon-picker checks used simulated controller inputs in-game.</p>
+<p><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3825193325">Steam Workshop</a></p>
+<p>If you try it, I&#x27;d appreciate your platform, controller model, game version and other UI mods, especially if a panel stops responding.</p></article></main><footer>本地验收稿 · 2026-10-23T22:17:02+08:00 · 发布前会重新核对当前版本、平台规则与实际配图。</footer><script>document.querySelectorAll("button[data-target]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".lang").forEach(x=>x.hidden=x.id!==b.dataset.target);document.querySelectorAll("button").forEach(x=>x.classList.toggle("active",x===b));});</script></body></html>

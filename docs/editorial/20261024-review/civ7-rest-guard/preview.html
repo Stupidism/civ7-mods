@@ -1,0 +1,69 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>不再来一回合 · 文明7拯救计划</title><style>
+:root{--bg:#f3f0e9;--paper:#fffdf9;--ink:#26352e;--sub:#66716b;--line:#d9dfd5;--accent:#2e6953;--warm:#966426}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;line-height:1.85}a{color:var(--accent);text-underline-offset:4px}header,main,footer{max-width:1080px;margin:auto;padding:30px}header{padding-top:60px}h1{font-size:clamp(30px,5vw,50px);line-height:1.25;letter-spacing:-1px;margin:14px 0 20px}h2{font-size:25px;line-height:1.5;margin:42px 0 16px}h3{line-height:1.5}p{margin:15px 0}.kicker{letter-spacing:3px;color:var(--accent);font-size:12px;font-weight:700;text-transform:uppercase}.muted,small{color:var(--sub)}.summary{font-size:18px;max-width:800px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;position:sticky;top:0;background:rgba(243,240,233,.97);padding:16px 0;z-index:2}button{border:1px solid var(--line);background:white;color:var(--ink);padding:10px 18px;border-radius:8px;font:inherit;cursor:pointer}button.active{background:var(--accent);color:white}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.card{background:var(--paper);padding:26px;border:1px solid var(--line);border-radius:16px}.card h2{margin:8px 0 14px;font-size:24px}.tag{display:inline-block;font-size:12px;padding:3px 10px;border-radius:20px;background:#e5eee6;color:#295c43;margin:0 6px 5px 0}.tag.wait{background:#f6e9d4;color:#79521b}.meta{font-size:13px;color:var(--sub);margin:10px 0}.links{display:flex;gap:16px;flex-wrap:wrap}.notice{padding:18px 22px;border-left:3px solid var(--warm);background:#fcf3e5;border-radius:0 8px 8px 0;font-size:14px}.article{max-width:850px;background:var(--paper);padding:40px;border-radius:16px;border:1px solid var(--line);margin:24px auto}.article h1{font-size:34px}.article h2{padding-top:20px;border-top:1px solid var(--line)}figure{margin:24px 0}figure img{width:100%;height:auto;border-radius:8px;display:block;background:#202821}figcaption{font-size:13px;color:var(--sub);margin-top:10px}.missing{margin:24px 0;padding:24px;border:1px dashed #baa985;background:#fbf8f0;border-radius:10px;color:#756342;font-size:14px}.missing strong{display:block;font-size:12px;letter-spacing:1px;margin-bottom:5px}.missing span{display:block;font-size:12px;opacity:.8;margin-top:8px}.section-note{font-size:12px;color:#87652f}details{margin-top:18px}summary{cursor:pointer}li{margin:8px 0}.lang[hidden]{display:none}footer{font-size:13px;color:var(--sub);padding-bottom:50px}input{font:inherit;border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:250px}table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;border-bottom:1px solid var(--line);padding:10px;vertical-align:top}@media(max-width:700px){header,main,footer{padding:22px}.grid{grid-template-columns:1fr}.article{padding:22px}h1{font-size:32px}.article h1{font-size:28px}input{width:100%}}
+</style><body><header><a href="../index.html">← 全部稿件</a><div class="kicker">Civ VII Rescue Project · Review Copy</div><h1>不再来一回合</h1><p class="muted">No More Turn</p><p class="meta">源码 1.8.5 · 发行记录 1.8.5 · 6 个功能章节 · 2 张已有图 / 4 张待补</p><span class="tag wait">文字已齐 · 配图待补</span><div class="links"><a href="article-zh.md">中文稿</a><a href="article-en.md">英文稿</a><a href="reddit-en.md">Reddit 短稿</a><a href="review.json">证据清单</a></div></header><main><div class="notice">验收版 · 新稿尚未发布。黄色虚线框是缺图的制作说明；正文里的版本与测试边界属于读者需要知道的信息。旧版截图均已标注，不代表新版操作已经完成验证。</div><nav class="toolbar"><button class="active" data-target="zh">B站 · 中文长稿</button><button data-target="en">CivFanatics · English</button><button data-target="reddit">Reddit · Short</button></nav><article class="article lang" id="zh"><h1>《文明7拯救计划》｜不再来一回合</h1>
+<p>“处理完这件事就下线。”然后还有一个城、一个科技、下一回合的战斗。文明最难结束的往往不是战争，而是今天的游戏时间。「不再来一回合」给单人游戏加上几个明确的停顿点，让休息不再完全依赖临时的自觉。</p>
+<h2>1. 按回合休息，后期少一点“再来一次”</h2>
+<p>前期五回合很快，后期一回合却可能安排半个帝国。固定“再玩五回合”，到了后期就很容易变成很久。</p>
+<p>默认休息间隔随当前回合阶段从五回合逐步缩短到一回合，也能自行调整。达到间隔后，在回合边界停下来休息；完成休息后，回合和时间两种计数一起重新开始。</p>
+<figure><img loading="lazy" src="assets/08-turn-rest.jpg" alt="历史 1.3 系列实机图：达到回合间隔后的休息倒计时。当前版界面已有变化。"><figcaption>历史 1.3 系列实机图：达到回合间隔后的休息倒计时。当前版界面已有变化。</figcaption></figure>
+<h2>2. 一回合还没结束，也别一直坐着</h2>
+<p>只按回合提醒，遇到大战、城市规划或反复比较建造选项时，就可能一直等不到休息。</p>
+<p>连续游戏时间也单独计时，默认玩 25 分钟、休息 5 分钟。时间和回合规则可以一起使用；完成一次足额休息就同时重置两种累计，避免刚休息完又立刻被另一条规则拦住。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>当前时间触发休息面板，原因明确为游戏时间到；避免沿用旧图中的测试时长。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>3. 已经离开电脑，就把这次休息算上</h2>
+<p>已经起身喝水，再回来却又被要求从头休息，提醒就会变得不近人情。</p>
+<p>默认闲置一分钟会进入主动休息计时。可以随时继续游戏；休息满要求时长后，两种累计都会重置。提前回来则保留之前的游戏累计，不会因为动一下鼠标就伪造完成了一次休息。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>当前版主动休息面板，已休时长和可继续按钮同屏；不能用旧版仅 HUD 计时冒充当前面板。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>4. 到点收工，不和下一回合讨价还价</h2>
+<p>最容易拖延的不是忘了时间，而是知道已经很晚，仍想把眼前这一步做完。</p>
+<p>夜间限制默认覆盖 22:00 到次日 07:00，可独立开关和调整时段。限制期间保留退出入口，但不开放继续游戏；若要修改安排，可以回到主菜单设置。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>测试设置触发夜间限制，显示当前时段与退出按钮；拍完必须恢复原时段。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>5. 休息前留一份独立存档</h2>
+<p>愿意停下来，却担心刚才的进度没有落盘；或者休息越多，存档列表越长。</p>
+<p>主动、时间、回合和夜间休息会创建带时间信息的 RestGuard 存档，并显示保存状态。默认保留最近十份，可调整数量；清理只针对模组自己的旧存档，且在新存档成功后进行，不会拿普通自动存档来凑数。</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>当前休息面板显示存档已保存，并拍对应存档条目供核验；正文只放最清晰的一张。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>6. 离下次休息还有多久，一眼看清</h2>
+<p>提醒完全不露面时容易忘记，做成巨大面板又会一直挡住游戏。</p>
+<p>地图 HUD 用紧凑的时间和回合提示显示进度，也提供设置入口。间隔、休息时长和夜间时段集中在原生选项中，让提醒按自己的节奏工作。</p>
+<figure><img loading="lazy" src="assets/01-hud-both.jpg" alt="历史实机图：右上角的紧凑时间与回合提示。当前数值和布局请以新版为准。"><figcaption>历史实机图：右上角的紧凑时间与回合提示。当前数值和布局请以新版为准。</figcaption></figure>
+<h2>适用范围与进展</h2>
+<p>本文以已发布的 1.8.5 功能为范围。默认参数可以调整，休息限制作用于游戏内，不是系统级锁定。旧版实机图仅作界面参考；新版夜间、存档保留、设置保存及全部手柄流程仍需逐项补齐实机证据。休息存档须看到成功提示后再放心退出。</p>
+<p><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3815557333">Steam 创意工坊：不再来一回合</a></p>
+<p>如果遇到问题，欢迎说明游戏版本、平台、相关 Mod，以及出现问题时正在进行的操作。</p></article><article class="article lang" id="en" hidden><h1>No More Turn — Civ VII Rescue Project</h1>
+<p>One more city to manage, one more technology to finish, one more battle next turn. I made No More Turn to give a single-player session clear stopping points, with breaks based on turns, elapsed time and the hours you choose.</p>
+<h2>1. Take breaks between turns</h2>
+<p>Five early turns can be quick. Five late-game turns can take most of an evening.</p>
+<p>The default interval gets shorter as the campaign advances, from five turns to one, and can be adjusted. A break at the turn boundary gives you a clear pause; finishing it resets both the turn and time counters.</p>
+<figure><img loading="lazy" src="assets/08-turn-rest.jpg" alt="Historical 1.3-series screenshot of a turn-triggered break. The current interface has changed."><figcaption>Historical 1.3-series screenshot of a turn-triggered break. The current interface has changed.</figcaption></figure>
+<h2>2. Breaks even during a long turn</h2>
+<p>A turn-based reminder cannot help much when a single turn is taking a long time.</p>
+<p>An independent timer defaults to 25 minutes of play followed by a five-minute break. Completing a full break resets both timers, so the other rule does not immediately demand another break.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>当前时间触发休息面板，原因明确为游戏时间到；避免沿用旧图中的测试时长。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>3. Give an existing break credit</h2>
+<p>If you already stepped away for water, starting another mandatory break immediately afterward feels pointless.</p>
+<p>Idle time starts a voluntary break after one minute by default. You can resume whenever you like. A full break clears both accumulated counters; an early return keeps the previous play totals.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>当前版主动休息面板，已休时长和可继续按钮同屏；不能用旧版仅 HUD 计时冒充当前面板。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>4. Set a nightly stopping time</h2>
+<p>Sometimes you know exactly how late it is and still want to finish the next thing.</p>
+<p>A separate night rule defaults to 10 p.m.–7 a.m. and has configurable hours. During that period you can exit, but continuing the session is unavailable. The schedule can be adjusted from the main menu.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>测试设置触发夜间限制，显示当前时段与退出按钮；拍完必须恢复原时段。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>5. Keep a separate save when a break starts</h2>
+<p>Stopping is easier when you have a checkpoint, but a new break save every time should not leave an endless list.</p>
+<p>Idle, timed, turn-based and night breaks create distinct RestGuard saves and report their status. The default retention is ten. Cleanup only targets the mod’s own older saves after a new one succeeds, rather than deleting ordinary autosaves.</p>
+<aside class="missing"><strong>配图待补 · 实机效果图</strong>当前休息面板显示存档已保存，并拍对应存档条目供核验；正文只放最清晰的一张。<span>这是验收用的制作说明，不属于对外发布正文。</span></aside>
+<h2>6. See the next break coming</h2>
+<p>An invisible timer is easy to forget; a permanent large panel gets in the way.</p>
+<p>A compact HUD shows time and turn progress and provides access to settings. Intervals, break lengths and night hours live in the native options.</p>
+<figure><img loading="lazy" src="assets/01-hud-both.jpg" alt="Historical screenshot of the compact time and turn display at the top right. Current values and layout may differ."><figcaption>Historical screenshot of the compact time and turn display at the top right. Current values and layout may differ.</figcaption></figure>
+<h2>Availability and testing</h2>
+<p>This article covers the published 1.8.5 feature set. Defaults are configurable, and these are in-game restrictions rather than an operating-system lock. Historical screenshots are visual references only; current night rules, save retention, settings persistence and the full controller flow still need complete in-game evidence. Check that a rest save actually succeeded before relying on it.</p>
+<p><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3815557333">No More Turn on Steam Workshop</a></p>
+<p>Feedback is welcome. Please include your platform, game version, related mods and the action you were taking when something went wrong.</p></article><article class="article lang" id="reddit" hidden><aside class="notice">Reddit 短版草稿。发布前重新核对社区规则、Mod 作者帖惯例和所需标签；图片从本篇补拍清单中选 2–3 张，不自动批量连发。</aside><h1>I made No More Turn: configurable breaks for single-player Civ VII</h1>
+<p>One more city to manage, one more technology to finish, one more battle next turn. I made No More Turn to give a single-player session clear stopping points, with breaks based on turns, elapsed time and the hours you choose.</p>
+<p>A few things it focuses on:</p>
+<p><strong>Take breaks between turns.</strong> The default interval gets shorter as the campaign advances, from five turns to one, and can be adjusted. A break at the turn boundary gives you a clear pause; finishing it resets both the turn and time counters.</p>
+<p><strong>Breaks even during a long turn.</strong> An independent timer defaults to 25 minutes of play followed by a five-minute break. Completing a full break resets both timers, so the other rule does not immediately demand another break.</p>
+<p><strong>Give an existing break credit.</strong> Idle time starts a voluntary break after one minute by default. You can resume whenever you like. A full break clears both accumulated counters; an early return keeps the previous play totals.</p>
+<p>This article covers the published 1.8.5 feature set. Defaults are configurable, and these are in-game restrictions rather than an operating-system lock. Historical screenshots are visual references only; current night rules, save retention, settings persistence and the full controller flow still need complete in-game evidence. Check that a rest save actually succeeded before relying on it.</p>
+<p><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3815557333">Steam Workshop</a></p>
+<p>I’m the author. If you try it, please include your platform, game version and related mods when reporting an issue.</p></article></main><footer>本地验收稿 · 2026-10-23T22:17:02+08:00 · 发布前会重新核对当前版本、平台规则与实际配图。</footer><script>document.querySelectorAll("button[data-target]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".lang").forEach(x=>x.hidden=x.id!==b.dataset.target);document.querySelectorAll("button").forEach(x=>x.classList.toggle("active",x===b));});</script></body></html>

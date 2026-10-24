@@ -1,0 +1,154 @@
+{
+  "slug": "civ7-garbage-time",
+  "zh": "垃圾时间",
+  "en": "Garbage Time",
+  "sourceVersion": "0.1.4",
+  "releasedVersion": "0.1.4",
+  "workshop": "3822254009",
+  "intro_zh": "局势已经明朗，待办却还在堆：空槽要补、军队要归队、城市队列又空了。「垃圾时间」把这些可以明确规定的重复劳动交给可选规则，保留需要判断的决定。所有自动化默认关闭，想省哪一步，就只打开哪一步。",
+  "intro_en": "The outcome may be clear, but the checklist keeps growing: spare resources, idle production queues and units that need to come home. I made Garbage Time for repetitive jobs you can describe with clear rules. Every automation starts disabled; enable only the work you actually want it to handle.",
+  "limits_zh": "面向单人游戏，设置按当前玩家、对局和时代隔离；新对局或新时代需要重新选择。不会替你自动结束回合、选政策或处理外交。历史验证主要来自 Windows 1.5.0，当前所有自动化组合、现代场景及完整手柄流程尚未穷举。",
+  "limits_en": "This is for single-player. Settings are scoped to the player, campaign and era, so a new game or age starts with automation off again. It does not end turns, pick policies or handle diplomacy for you. Historical validation is mainly on Windows 1.5.0; every combination, modern-era case and complete controller flow has not been tested.",
+  "sources": [
+    "mods/civ7-garbage-time/README-zh-CN.txt",
+    "mods/civ7-garbage-time/docs/workshop.json"
+  ],
+  "sections": [
+    {
+      "zh": "新到手的资源，按已有分工安排",
+      "en": "Assign new resources using your preferences",
+      "pain_zh": "贸易和回合变化不断带来资源，规划过的定居点又出现空槽，还是要反复打开面板。",
+      "fix_zh": "启用资源自动化后，每回合按 Resource Planner 中已有的倾向处理资源，并等待游戏允许分配。需要 Resource Planner 和 Resource Re-sorts；默认只动空闲资源，不替你改倾向或发起贸易。",
+      "pain_en": "Resources keep arriving after you have already decided what each settlement should specialize in.",
+      "fix_en": "Optional resource automation reuses Resource Planner preferences each turn when allocation is available. It requires Resource Planner and Resource Re-sorts, defaults to unassigned resources, and does not choose preferences or initiate trades.",
+      "shot": "资源自动化开启与一轮后按倾向补齐的槽位，主图展示结果；依赖已启用。",
+      "scope": "current",
+      "image": null,
+      "caption_zh": null,
+      "caption_en": null
+    },
+    {
+      "zh": "让返程部队自己往集合点走",
+      "en": "Send units back to a rally point",
+      "pain_zh": "战斗告一段落，分散在地图上的部队还要一个个找路、一个个结束待命。",
+      "fix_zh": "军队可以前往最近可达的友方定居点，或你指定的目标，抵达后休眠。路径按实际可达性判断；飞机使用游戏允许的转场。它不负责主动进攻或宣战，目标失效时会暂停。",
+      "pain_en": "After a campaign, getting scattered units home can become another round of individual orders.",
+      "fix_en": "Units can head to the nearest reachable friendly settlement or a chosen destination, then sleep on arrival. Aircraft use legal rebasing. This does not initiate attacks or declarations of war, and an invalid destination pauses the task.",
+      "shot": "军队抵达目标并休眠的地图，目标定居点与单位状态可读；不要摆拍正在进攻。",
+      "scope": "current",
+      "image": null,
+      "caption_zh": null,
+      "caption_en": null
+    },
+    {
+      "zh": "增长怎么分配，按你的权重来",
+      "en": "Guide settlement growth with your priorities",
+      "pain_zh": "定居点越多，重复处理增长的次数越多；只追某一种产出，又可能把幸福度压到危险位置。",
+      "fix_zh": "可以为增长分配设置全局产出权重，再让个别定居点覆盖它。决策同时检查幸福度门槛，无法可靠读取收益时不提交；不会为了一个看起来更高的数字盲目落子。",
+      "pain_en": "Handling growth across many settlements is repetitive, but maximizing one yield can create a happiness problem.",
+      "fix_en": "Growth decisions use global yield weights with per-settlement overrides and a happiness threshold. If the mod cannot obtain reliable yield information, it leaves the decision unsubmitted.",
+      "shot": "某定居点增长自动化结果及其权重、幸福度门槛；主图展示已选地块或专家后的面板。",
+      "scope": "current",
+      "image": null,
+      "caption_zh": null,
+      "caption_en": null
+    },
+    {
+      "zh": "城市队列空了，用项目接上",
+      "en": "Fill an empty city queue with a project",
+      "pain_zh": "主力建筑已经完成，仍要在一座座空队列城市里重复选择项目。",
+      "fix_zh": "启用后，空队列城市会根据科技、文化权重选择可用项目。现有队列不会被清空；城镇继续原有专精，不会被硬塞进城市项目流程。",
+      "pain_en": "Once the important buildings are done, repeatedly choosing projects in empty city queues adds little to your plans.",
+      "fix_en": "Enabled cities choose an available science or culture project according to their weights when the queue is empty. Existing queues stay intact, and towns keep their focus rather than being treated as cities.",
+      "shot": "之前空队列的城市已有对应项目，项目名称与城市状态清晰；保存过程证据。",
+      "scope": "current",
+      "image": null,
+      "caption_zh": null,
+      "caption_en": null
+    },
+    {
+      "zh": "宝藏船队，带回去再领取",
+      "en": "Bring treasure fleets home",
+      "pain_zh": "宝藏船队的目的很明确，回港路径和最后一次领取却仍要手动照看。",
+      "fix_zh": "宝藏自动化寻找最近可达的本土定居点，沿合法路径返航，再使用原生卸载领取奖励。领取会消耗船队，和游戏原有规则一致，因此需要主动开启。",
+      "pain_en": "A treasure fleet has a clear destination, but still needs attention for the journey and the final delivery.",
+      "fix_en": "Treasure automation finds the nearest reachable homeland settlement and uses the native unload action on arrival. Delivery consumes the fleet as usual, so this is an explicit opt-in action.",
+      "shot": "奖励领取后的游戏反馈与本土目的地；必须在测试副本，不能消耗用户原船队。",
+      "scope": "current",
+      "image": null,
+      "caption_zh": null,
+      "caption_en": null
+    },
+    {
+      "zh": "传教范围先定好，再执行路线",
+      "en": "Choose a missionary scope before automating",
+      "pain_zh": "重复寻找尚未转化的目标很费工夫，但把传教士随便送出国境又不符合每一局的计划。",
+      "fix_zh": "可以限定自家、城邦或其他势力，默认只处理自家目标。模组寻找可达且仍需要转化的区域，区分城市与乡村，并遵守原生传教资格和次数。",
+      "pain_en": "Finding the next conversion target is repetitive, but sending missionaries abroad is not always part of the plan.",
+      "fix_en": "Choose whether to include your own settlements, city-states or other powers; the default is your own. The mod considers reachable areas that still need conversion, distinguishes urban and rural targets, and uses native charge and eligibility rules.",
+      "shot": "自家范围内传教完成的结果，城市/乡村宗教变化可辨；另留范围设置截图作证。",
+      "scope": "current",
+      "image": null,
+      "caption_zh": null,
+      "caption_en": null
+    },
+    {
+      "zh": "给研究空档接上一项",
+      "en": "Keep research from sitting empty",
+      "pain_zh": "已经进入收尾阶段，还要反复为科技和市政选择下一项，容易变成机械点选。",
+      "fix_zh": "科技和市政分别开关，优先从可用、未完成的普通项目或精通中选择预计耗时较短的一项，之后才考虑未来重复研究。当前正在研究的项目会保留，不会被强行改掉。",
+      "pain_en": "Late in a game, choosing the next technology or civic can become another routine interruption.",
+      "fix_en": "Independent technology and civic options choose a shorter estimated available unfinished item, including masteries, before repeating future research. Research already in progress is left alone.",
+      "shot": "空档自动接续后的科技或市政界面，当前研究明确；避免暗示按照长期战略智能决策。",
+      "scope": "current",
+      "image": null,
+      "caption_zh": null,
+      "caption_en": null
+    },
+    {
+      "zh": "幸福度出问题，直接定位处理",
+      "en": "Get a direct route to a happiness problem",
+      "pain_zh": "帝国很大时，知道有地方不开心，不代表能立刻找到是哪一座城。",
+      "fix_zh": "幸福度不足提醒可以作为单独功能使用，提供受影响定居点的入口。它提醒你处理问题，不会擅自建造某一座幸福度建筑。",
+      "pain_en": "Knowing that happiness is low somewhere is different from finding the settlement quickly.",
+      "fix_en": "A separate shortage reminder takes you to the affected settlement. It flags the problem without choosing or constructing a happiness building for you.",
+      "shot": "原生行动提醒定位到缺幸福度定居点的画面，提醒文字与目标对应。",
+      "scope": "current",
+      "image": null,
+      "caption_zh": null,
+      "caption_en": null
+    }
+  ],
+  "redditImageSections": [
+    1,
+    2,
+    4
+  ],
+  "snapshotAt": "2026-10-23T22:17:02+08:00",
+  "platforms": {
+    "bilibili": {
+      "status": "draft",
+      "url": null
+    },
+    "civfanatics": {
+      "status": "draft",
+      "url": null
+    },
+    "reddit": {
+      "status": "draft",
+      "url": null
+    }
+  },
+  "draftComplete": true,
+  "featureCount": 8,
+  "missingImageCount": 8,
+  "existingImageCount": 0,
+  "releaseReady": false,
+  "imageNotes": [],
+  "approval": "既有手柄文章已授权发布；本次其他新稿等待用户验收，不发布。",
+  "draftHashes": {
+    "article-zh.md": "2aa6228cfcc9a582d21d5ae34e61860ea9bc19da61a8eb69b7bab7a572c18846",
+    "article-en.md": "cc5690abe3b8f16988d8b8ebf537b5b27c2c72cf8e1b820eb5c27d0799e8dfb8",
+    "reddit-en.md": "4f1f96351cb2f1943a1488ec992164e5bec7beaeba07aaa7d39ba4636f15363f"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "slug": "civ7-autosave-limit",
+  "zh": "自动存档上限 150",
+  "en": "Autosave Limit 150",
+  "sourceVersion": "1.0.0",
+  "releasedVersion": "本地版本，未发现工坊发布回执",
+  "workshop": null,
+  "intro_zh": "自动存档明明在工作，想回到更早一点的节点时，却发现那份记录已经轮换掉了。「自动存档上限 150」只做一件小事：把原生设置里可选的保留数量上限扩展到 150，让你自己决定留下多少历史。",
+  "intro_en": "Autosaves can be working perfectly and still rotate away the checkpoint you wanted. Autosave Limit 150 is a small local mod that expands the native retention slider to 150, leaving the choice of how much history to keep with you. It is not currently presented here as a Workshop release.",
+  "limits_zh": "当前为 1.0.0 本地版本，目标游戏版本 1.5.0，未发现工坊发布回执。扩展上限不等于自动生成 150 份存档，也不会找回已经被轮换的文件；存档间隔不变。更多存档会占用更多磁盘空间，保留数量和现有存档目录备份是两件事。",
+  "limits_en": "This local 1.0.0 version targets game 1.5.0; no Workshop release receipt was found. A higher limit does not instantly create 150 saves or recover files already rotated away, and the autosave interval is unchanged. More retained saves use more disk space. Retention is not a substitute for backing up the save directory.",
+  "sources": [
+    "mods/civ7-autosave-limit/README.md"
+  ],
+  "sections": [
+    {
+      "zh": "把自动存档历史留得更长",
+      "en": "Keep a longer autosave history",
+      "pain_zh": "只保留最近几个节点，适合快速回退，却未必够用来复盘几十回合前的布局。",
+      "fix_zh": "原生自动存档数量滑块扩展为 1 到 150，按一份为单位调整。你可以沿用原数量，也可以选择更长的历史窗口，不必被迫设到最大。",
+      "pain_en": "A short retention window works for an immediate undo, but may be too small for reviewing a decision from much earlier.",
+      "fix_en": "The native autosave-count slider supports values from 1 to 150 in steps of one. Keep the existing value or choose a longer history; the mod does not force the maximum.",
+      "shot": "原生自动存档数量滑块显示 150 的上限；截图前记下原设置，拍完取消或恢复，不能暗改用户参数。",
+      "scope": "current",
+      "image": null,
+      "caption_zh": null,
+      "caption_en": null
+    },
+    {
+      "zh": "仍在原生设置里管理",
+      "en": "Use the existing options screen",
+      "pain_zh": "为了改一个数字，再记住一个快捷键或打开额外工具，没有必要。",
+      "fix_zh": "主菜单和对局中的原生自动存档设置都使用扩展后的范围，确认、取消和保存方式沿用游戏。这个模组不接管存档流程，也不调整存档间隔。",
+      "pain_en": "Changing one setting should not require a separate tool or another shortcut to remember.",
+      "fix_en": "The expanded range is available through the game’s normal autosave options in the main menu and in-game, using native confirmation and persistence. It does not replace the save system or change the interval.",
+      "shot": "原生游戏设置页显示数量与间隔两个不同选项，说明只扩展数量；需实测确认/取消后补图。",
+      "scope": "current",
+      "image": null,
+      "caption_zh": null,
+      "caption_en": null
+    }
+  ],
+  "redditImageSections": [
+    1,
+    2
+  ],
+  "snapshotAt": "2026-10-23T22:17:02+08:00",
+  "platforms": {
+    "bilibili": {
+      "status": "draft",
+      "url": null
+    },
+    "civfanatics": {
+      "status": "draft",
+      "url": null
+    },
+    "reddit": {
+      "status": "draft",
+      "url": null
+    }
+  },
+  "draftComplete": true,
+  "featureCount": 2,
+  "missingImageCount": 2,
+  "existingImageCount": 0,
+  "releaseReady": false,
+  "imageNotes": [],
+  "approval": "既有手柄文章已授权发布；本次其他新稿等待用户验收，不发布。",
+  "draftHashes": {
+    "article-zh.md": "4738a5986ba0a0338c5408533af594dd2b19d38b754fa6aa9f0ab5525b6b96e6",
+    "article-en.md": "6cf99e82bc0a3b624621554213a6b05651db123a7582fcfe77c1da582d6fc1eb",
+    "reddit-en.md": "35d02f8c4eb500fd953ecac7e661db84647175d9568591ab9f9615a685e555c5"
+  }
+}
