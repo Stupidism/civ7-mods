@@ -1,0 +1,4 @@
+interface:
+  display_name: "文明7 Mod 图文与发布"
+  short_description: "编写文明7中英图文，核对功能与实机配图，并管理跨平台审核和发布回执"
+  default_prompt: "使用 $civ7-mod-publishing 为文明7 Mod 准备《文明7拯救计划》中英图文，并按我的审核与授权范围发布。"

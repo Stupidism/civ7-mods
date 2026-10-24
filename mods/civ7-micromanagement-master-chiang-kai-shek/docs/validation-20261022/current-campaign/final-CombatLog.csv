@@ -1,0 +1,21 @@
+Turn, SourceType, Location, AttPlayer, DefPlayer, CombatType, Attacker, Defender, AttStr, DefStr, AttStrMod, DefStrMod, AttDmg, DefDmg, Destroyed, HealAmount, attHealth, defHealth
+25,Unit vs Unit,(20)(33),4,30,Melee,(14)UNIT_WARRIOR,(1)UNIT_SCOUT,20,10,8,0,0,57,N/A,0,(100)100,(43)100
+25,Unit vs Unit,(65)(45),22,3,Melee,(14)UNIT_WARRIOR,(1)UNIT_SCOUT,20,10,0,8,0,40,N/A,0,(100)100,(29)100
+25,Unit vs Location,(13)(16),25,0,Melee,(14)UNIT_WARRIOR,(-1)LOC_DISTRICT_CITY_CENTER_NAME,20,25,-1,6,20,13,N/A,0,(80)100,(87)100
+25,Unit Heal,(30)(40),0,-1,,(20)UNIT_GALLEY,(-1)N/A,0,0,0,0,0,0,N/A,15,(57)100,(0)0
+25,Unit Heal,(47)(17),6,-1,,(14)UNIT_WARRIOR,(-1)N/A,0,0,0,0,0,0,N/A,2,(100)100,(0)0
+25,Unit Heal,(38)(31),7,-1,,(14)UNIT_WARRIOR,(-1)N/A,0,0,0,0,0,0,N/A,10,(53)100,(0)0
+26,Unit vs Unit,(54)(40),3,22,Melee,(14)UNIT_WARRIOR,(1)UNIT_SCOUT,20,10,11,-5,0,62,Defender,0,(100)100,(0)100
+26,Unit vs Unit,(46)(38),3,8,Melee,(14)UNIT_WARRIOR,(14)UNIT_WARRIOR,20,20,11,4,24,46,N/A,0,(76)100,(54)100
+26,Unit vs Unit,(21)(34),4,30,Melee,(14)UNIT_WARRIOR,(1)UNIT_SCOUT,20,10,8,-6,0,98,Defender,0,(100)100,(0)100
+26,Unit vs Unit,(37)(31),7,15,Melee,(14)UNIT_WARRIOR,(14)UNIT_WARRIOR,20,20,11,3,26,39,N/A,0,(27)100,(61)100
+26,Unit vs Unit,(30)(16),10,6,Melee,(14)UNIT_WARRIOR,(1)UNIT_SCOUT,20,10,0,14,0,20,N/A,0,(100)100,(80)100
+26,Unit vs Unit,(65)(45),22,3,Melee,(14)UNIT_WARRIOR,(1)UNIT_SCOUT,20,10,0,4,0,45,Defender,0,(100)100,(0)100
+26,Unit vs Location,(13)(16),25,0,Melee,(14)UNIT_WARRIOR,(-1)LOC_DISTRICT_CITY_CENTER_NAME,20,25,-3,6,35,19,N/A,0,(45)100,(68)100
+26,Unit Heal,(30)(40),0,-1,,(20)UNIT_GALLEY,(-1)N/A,0,0,0,0,0,0,N/A,15,(72)100,(0)0
+26,Unit Heal,(43)(34),7,-1,,(14)UNIT_WARRIOR,(-1)N/A,0,0,0,0,0,0,N/A,15,(36)100,(0)0
+26,Unit Heal,(46)(38),8,-1,,(14)UNIT_WARRIOR,(-1)N/A,0,0,0,0,0,0,N/A,15,(69)100,(0)0
+26,Unit Heal,(37)(31),15,-1,,(14)UNIT_WARRIOR,(-1)N/A,0,0,0,0,0,0,N/A,15,(76)100,(0)0
+27,Unit vs Unit,(12)(16),0,25,Ranged,(17)UNIT_ARCHER,(14)UNIT_WARRIOR,20,20,13,-6,0,46,Defender,0,(100)100,(0)100
+27,Unit vs Unit,(11)(17),0,25,Ranged,(17)UNIT_ARCHER,(14)UNIT_WARRIOR,20,20,13,1,0,34,N/A,0,(100)100,(66)100
+27,Unit vs Unit,(11)(17),0,25,Ranged,(15)UNIT_SLINGER,(14)UNIT_WARRIOR,15,20,13,-2,0,56,N/A,0,(100)100,(10)100

@@ -1,0 +1,54 @@
+{
+  "version": "0.1.1",
+  "createdAt": "20261023T102755078653Z",
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261023T102755078653Z/civ7-map-tools-gamepad-0.1.1.zip",
+  "archiveSha256": "82c430211fa4bf7527a413a6d8263ac18997d7a1057175fb7ae730705cd3021c",
+  "files": {
+    "map-tools-gamepad.modinfo": {
+      "size": 1267,
+      "sha256": "1a6aecb3ee2896192071865e99ebb094ed21621853bbc2c9ec9008f3e5844c86"
+    },
+    "README.md": {
+      "size": 3498,
+      "sha256": "fa333287063975af17b80499925894ddfbc139ec8dbffdac112d3639e7a250d1"
+    },
+    "README-en.md": {
+      "size": 1988,
+      "sha256": "017fe12e3b16b1ba74393e2a97390ee38c5cd61d7a37d3fcabd0d0cc422871b6"
+    },
+    "VALIDATION.md": {
+      "size": 4302,
+      "sha256": "0999deacf1d21c35998983b6308d883356ce48a66afa8d5026db52f845e2960e"
+    },
+    "ui/map-tools-gamepad.css": {
+      "size": 267,
+      "sha256": "2b502f0e96ba18b99903118f306955165ea79a83917382be4cbfa0ef175bf928"
+    },
+    "ui/map-tools-gamepad.js": {
+      "size": 2561,
+      "sha256": "57cd1dd4cd0068374859bc60a091881293ab787561e1cf64b198d8111cbd5ba6"
+    },
+    "ui/map-tools-runtime.js": {
+      "size": 10952,
+      "sha256": "0ce321c3eee0c2c3a0372753f2b5fac9c6dc0336f6038af42c506b08509573a3"
+    },
+    "ui/navigation.js": {
+      "size": 2651,
+      "sha256": "9215acde1fb8810f6263108298963753f6a1638011b687af410e9381e23a4295"
+    },
+    "ui/radial-icons.js": {
+      "size": 1478,
+      "sha256": "7a6de2153f3ae902948bf006a0cc58ff6f3056883001daefb5c816c4767aa69e"
+    },
+    "text/map-tools.xml": {
+      "size": 1802,
+      "sha256": "f0ab4d77a0c988ef5f8c75b0074c8159a3ccb94578f63d6afdc729185eb5106a"
+    }
+  },
+  "installedAt": "2026-10-23T10:28:15.262692+00:00",
+  "destination": "/Users/sunmer/Library/Application Support/Civilization VII/Mods/civ7-map-tools-gamepad",
+  "backup": "/Users/sunmer/Documents/Civ7-Mod-Backups/map-tools-gamepad-20261023T102815258263Z",
+  "backupVerified": true,
+  "installedFilesVerified": true,
+  "scope": "File-only icon update. No game UI/CDP, restart, load, save or live testing. Saves and Rest Guard not accessed or modified."
+}

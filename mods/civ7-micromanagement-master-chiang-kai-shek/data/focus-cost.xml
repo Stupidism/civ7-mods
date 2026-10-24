@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <Types><Row Type="STORY_WC_FOCUS_COST_INIT_V1" Kind="KIND_NARRATIVE_STORY" /></Types>
+  <NarrativeTags>
+    <Row NarrativeTagType="NARRATIVE_TAG_WC_COST_READY" Name="LOC_WC_FOCUS_BONUS" />
+    <Row NarrativeTagType="NARRATIVE_TAG_WC_COST_UNIT" Name="LOC_WC_FOCUS_BONUS" />
+    <Row NarrativeTagType="NARRATIVE_TAG_WC_COST_TYPE" Name="LOC_WC_FOCUS_BONUS" />
+    <Row NarrativeTagType="NARRATIVE_TAG_WC_COST_ACTIVE" Name="LOC_WC_FOCUS_BONUS" />
+  </NarrativeTags>
+  <NarrativeStories><Row NarrativeStoryType="STORY_WC_FOCUS_COST_INIT_V1" Activation="AUTO" Name="LOC_WC_MOD_NAME" Description="LOC_WC_MOD_DESCRIPTION" Hidden="true" RequirementSetId="Met" StartEveryone="true" UIActivation="SYSTEMIC" /></NarrativeStories>
+  <NarrativeRewards>
+    <Row NarrativeRewardType="REWARD_WC_COST_READY" ModifierID="MOD_WC_COST_READY" />
+    <Row NarrativeRewardType="REWARD_WC_COST_ALLOWANCE" ModifierID="MOD_WC_COST_ALLOWANCE" />
+  </NarrativeRewards>
+  <NarrativeStory_Rewards>
+    <Row NarrativeRewardType="REWARD_WC_COST_READY" NarrativeStoryType="STORY_WC_FOCUS_COST_INIT_V1" Activation="COMPLETE" BonusEligible="false" />
+    <Row NarrativeRewardType="REWARD_WC_COST_ALLOWANCE" NarrativeStoryType="STORY_WC_FOCUS_COST_INIT_V1" Activation="COMPLETE" BonusEligible="false" />
+  </NarrativeStory_Rewards>
+</Database>

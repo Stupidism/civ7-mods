@@ -1,7 +1,8 @@
 import {createSignal, onCleanup, onMount, createEffect, untrack} from '/core/vendor/solid-js/dist/solid.js';
-import {planAllocation, planHappiness, effectsFor, cityKey} from './rp-planner.js';
+import {planAllocationAsync, planHappiness, effectsFor, cityKey} from './rp-planner.js';
 import {resourceCatalog,snapshot,gameScope,preferenceKey,findAssignment,sendOperation} from './rp-game-adapter.js';
 import {readSettings,writeSettings} from './rp-settings.js';
+import {t,errorMessage} from './rp-l10n.js';
 const controllers=new WeakMap();
 export function getPlanner(model){return controllers.get(model);}
 export function createPlanner(model) {
@@ -10,11 +11,13 @@ export function createPlanner(model) {
   const scope=gameScope(),catalog=resourceCatalog();
   const [tendencies,setTendencies]=createSignal(saved.games?.[scope]||{});
   const [camels,setCamels]=createSignal(false),[assigned,setAssigned]=createSignal(false);
-  const [busy,setBusy]=createSignal(false),[status,setStatus]=createSignal('点击产出图标：记住倾向并填充资源');
+  const [busy,setBusy]=createSignal(false),[statusData,setStatusData]=createSignal({key:'HINT',args:[]});
+  const status=()=>t(statusData().key,...statusData().args);
+  const setStatus=(key,...args)=>setStatusData({key,args});
   let alive=true;
   const persist=()=>{
     try {const current=readSettings();current.games||={};current.preferences||={};current.games[scope]=tendencies();current.preferences.sort=model.selectedSettlementSortType();current.preferences.direction=model.selectedSortDirection();writeSettings(current);}
-    catch(e){setStatus('设置保存失败：'+e.message);console.error('[Resource Planner] '+e.message);}
+    catch(e){setStatus('SETTINGS_FAILED',errorMessage(e));console.error('[Resource Planner] '+e.message);}
   };
   onMount(()=>{
     model.setSelectedSettlementSortType(saved.preferences?.sort??13);
@@ -41,8 +44,8 @@ export function createPlanner(model) {
   }
   async function run(mode,target) {
     if(busy()||!alive)return;
-    if(Players.get(GameContext.localPlayerID)?.Resources?.isResourceAssignmentLocked()){setStatus('本回合资源分配已锁定');return;}
-    setBusy(true);setStatus('正在计算整体收益…');
+    if(Players.get(GameContext.localPlayerID)?.Resources?.isResourceAssignmentLocked()){setStatus('LOCKED');return;}
+    setBusy(true);setStatus('COMPUTING');
     const playerID=GameContext.localPlayerID,turn=Game.turn,age=Game.age;
     const sameGame=()=>GameContext.localPlayerID===playerID&&Game.turn===turn&&Game.age===age&&gameScope()===scope;
     const guard=()=>sameGame()&&alive;
@@ -55,30 +58,29 @@ export function createPlanner(model) {
       if(target)data.cities.forEach(c=>{if(c.key!==target)c.tendency=undefined;});
       let plan;
       if(mode==='tendency') {
-        if(!data.cities.some(c=>c.tendency)){setStatus('先点击定居点的产出图标，设置倾向');return;}
-        plan=planAllocation(data.resources,data.cities);
+        if(!data.cities.some(c=>c.tendency)){setStatus('CHOOSE_PREFERENCE');return;}
+        plan=await planAllocationAsync(data.resources,data.cities,'tendency',{shouldContinue:guard});
       } else {
         restrict(data,r=>!r.bonusSlots&&r.effects.some(e=>e.yield==='YIELD_HAPPINESS'&&e.amount>0));
         plan=planHappiness(data.resources,data.cities,mode==='town-happiness');
       }
       changes=data.resources.filter(r=>(plan[r.key]||undefined)!==r.original).map(r=>({r,to:plan[r.key]}));
-      if(!changes.length){setStatus('无需调整：没有可用资源、空槽或更高收益的分配');return;}
+      if(!changes.length){setStatus('NO_CHANGES');return;}
       model.deselectSelectedResource();
       const city=k=>data.cities.find(c=>c.key===k);
       let done=0;
       for(const change of changes.filter(x=>x.r.original).sort((a,b)=>a.r.bonusSlots-b.r.bonusSlots)) {
-        setStatus(`正在重新调配：${++done} / ${changes.length}`);
+        setStatus('REALLOCATING',++done,changes.length);
         await sendOperation(change.r,city(change.r.original),true,data.cities,guard);
       }
       // Capacity-expanding resources must be acknowledged before dependent slots.
       const adds=changes.filter(x=>x.to).sort((a,b)=>b.r.bonusSlots-a.r.bonusSlots);
       done=0;
       for(const change of adds) {
-        setStatus(`正在分配：${++done} / ${adds.length}`);
+        setStatus('ASSIGNING',++done,adds.length);
         await sendOperation(change.r,city(change.to),false,data.cities,guard);
       }
-      model.onSortResources();
-      setStatus(`已完成：装入 ${adds.length} 份资源，调整 ${changes.length} 份`);
+      setStatus('COMPLETED',adds.length,changes.length);
     } catch(error) {
       console.error('[Resource Planner] '+error.message);
       let restored=true;
@@ -91,7 +93,7 @@ export function createPlanner(model) {
         for(const {r} of [...changes].sort((a,b)=>b.r.bonusSlots-a.r.bonusSlots))if(r.original&&findAssignment(r,data.cities)!==r.original)
           try{await sendOperation(r,data.cities.find(c=>c.key===r.original),false,data.cities,sameGame);}catch{restored=false;}
       } else if(changes.length)restored=false;
-      setStatus(`${error.message}；${restored?'本次调整已撤回':'部分资源未恢复，请检查空闲资源'}`);
+      setStatus(restored?'ROLLED_BACK':'RESTORE_INCOMPLETE',errorMessage(error));
     } finally {setBusy(false);}
   }
   console.log('[Resource Planner] loaded; resource effects='+catalog.size);

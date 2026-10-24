@@ -17,3 +17,9 @@ mods/fenhe/试玩存档/
 mods/fenhe/分合推演.html
 mods/fenhe/data/*.json
 !mods/fenhe/data/calibrated.json
+
+# Unfinished local assistant prototype; not part of the mod collection.
+/apps/civ7-assistant/
+
+# Editorial drafts stay local; archive only verified publications.
+/docs/editorial/

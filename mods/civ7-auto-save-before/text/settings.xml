@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_OPTIONS_GROUP_SAVE_BEFORE_ACTION"><Text>Auto-save Before...</Text></Row>
+    <Row Tag="LOC_SBE_TURN_ENABLED"><Text>Save before ending the turn</Text></Row>
+    <Row Tag="LOC_SBE_TURN_DESCRIPTION"><Text>Overwrite BeforeEndTurn before submitting your turn. Continue only after saving succeeds. Keeps one fixed local save.</Text></Row>
+    <Row Tag="LOC_SBE_DIPLOMACY_ENABLED"><Text>Save before diplomatic actions</Text></Row>
+    <Row Tag="LOC_SBE_DIPLOMACY_DESCRIPTION"><Text>Overwrite BeforeDiplomacy before declarations of war, alliances, diplomatic projects, responses or peace deals during your active single-player turn. Viewing information does not save. Independent of BeforeEndTurn.</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_SHORT"><Text>Saves</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_TOOLTIP"><Text>Automatic save settings — separate switches for end-turn and diplomatic actions</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_ERROR_TITLE"><Text>Could not save automatic-save settings</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_ERROR_BODY"><Text>The previously saved settings remain active. Check storage access and try again.</Text></Row>
+    <Row Tag="LOC_SBE_BUSY_TURN"><Text>Saving before ending the turn…</Text></Row>
+    <Row Tag="LOC_SBE_BUSY_DIPLOMACY"><Text>Saving before the diplomatic action…</Text></Row>
+    <Row Tag="LOC_SBE_ERROR_TITLE_TURN"><Text>End-turn save not completed</Text></Row>
+    <Row Tag="LOC_SBE_ERROR_TITLE_DIPLOMACY"><Text>Diplomatic action save not completed</Text></Row>
+    <Row Tag="LOC_SBE_ERROR_BODY_TURN"><Text>The backup was not confirmed, so your turn has not been ended. Check the Load Game screen to see whether the previous save is still available.</Text></Row>
+    <Row Tag="LOC_SBE_ERROR_BODY_DIPLOMACY"><Text>The backup was not confirmed, so the diplomatic action has not been performed. Check the Load Game screen to see whether the previous save is still available.</Text></Row>
+    <Row Tag="LOC_SBE_RETRY"><Text>Retry save</Text></Row>
+    <Row Tag="LOC_SBE_CANCEL_TURN"><Text>Stay on this turn</Text></Row>
+    <Row Tag="LOC_SBE_CANCEL_DIPLOMACY"><Text>Cancel diplomatic action</Text></Row>
+    <Row Tag="LOC_SBE_RESELECT"><Text>You can select the action again.</Text></Row>
+    <Row Tag="LOC_SBE_DIPLOMACY_UNAVAILABLE"><Text>Diplomatic auto-save is unavailable. End-turn auto-save is still available.</Text></Row>
+    <Row Tag="LOC_SBE_SAVE_UNAVAILABLE"><Text>The game does not allow normal saves at this stage. Keeping the latest backup and continuing.</Text></Row>
+    <Row Tag="LOC_SBE_SAVE_TIMEOUT"><Text>Timed out waiting for the save (60 seconds). The action has not been performed. Retry saving or cancel the action.</Text></Row>
+    <Row Tag="LOC_SBE_SAVE_REJECTED"><Text>The game did not accept the save request. Check local storage and try again.</Text></Row>
+    <Row Tag="LOC_SBE_SAVE_START_FAILED"><Text>Could not start saving: {1}</Text></Row>
+    <Row Tag="LOC_SBE_SAVE_CONFLICT"><Text>Another save is in progress. The action was cancelled to protect the backup. Wait for saving to finish and try again.</Text></Row>
+    <Row Tag="LOC_SBE_SAVE_FAILED"><Text>Save failed (error code {1}). The action has not been performed.</Text></Row>
+    <Row Tag="LOC_SBE_MOD_DESCRIPTION"><Text>Save to BeforeEndTurn before ending your turn and BeforeDiplomacy before diplomatic actions, keeping one fixed slot for each. Toggle them separately in Options → Add-ons, or use the Saves shortcut at the top right. Single-player only.</Text></Row>
+  </EnglishText>
+  <LocalizedText>
+    <Row Tag="LOC_OPTIONS_GROUP_SAVE_BEFORE_ACTION" Language="zh_Hans_CN"><Text>自动存档 · Auto-save Before...</Text></Row>
+    <Row Tag="LOC_SBE_TURN_ENABLED" Language="zh_Hans_CN"><Text>过回合前自动存档</Text></Row>
+    <Row Tag="LOC_SBE_TURN_DESCRIPTION" Language="zh_Hans_CN"><Text>过回合前覆盖 BeforeEndTurn，确认保存成功后再过回合。只保留一个固定的本地存档。</Text></Row>
+    <Row Tag="LOC_SBE_DIPLOMACY_ENABLED" Language="zh_Hans_CN"><Text>外交行动前自动存档</Text></Row>
+    <Row Tag="LOC_SBE_DIPLOMACY_DESCRIPTION" Language="zh_Hans_CN"><Text>在自己的单人活动回合内，宣战、结盟、发起外交项目、回复提议或提交和平协议前覆盖 BeforeDiplomacy。只查看信息不存档；与过回合前存档互不覆盖。</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_SHORT" Language="zh_Hans_CN"><Text>存档</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_TOOLTIP" Language="zh_Hans_CN"><Text>自动存档设置：分别开关过回合前存档和外交行动前存档</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_ERROR_TITLE" Language="zh_Hans_CN"><Text>自动存档设置保存失败</Text></Row>
+    <Row Tag="LOC_SBE_SETTINGS_ERROR_BODY" Language="zh_Hans_CN"><Text>原有设置仍在生效，请检查存储权限后重试。</Text></Row>
+    <Row Tag="LOC_SBE_BUSY_TURN" Language="zh_Hans_CN"><Text>正在保存过回合前的进度…</Text></Row>
+    <Row Tag="LOC_SBE_BUSY_DIPLOMACY" Language="zh_Hans_CN"><Text>正在保存外交行动前的进度…</Text></Row>
+    <Row Tag="LOC_SBE_ERROR_TITLE_TURN" Language="zh_Hans_CN"><Text>过回合前存档未完成</Text></Row>
+    <Row Tag="LOC_SBE_ERROR_TITLE_DIPLOMACY" Language="zh_Hans_CN"><Text>外交行动前存档未完成</Text></Row>
+    <Row Tag="LOC_SBE_ERROR_BODY_TURN" Language="zh_Hans_CN"><Text>没有确认备份成功，因此未执行过回合。原存档是否仍可用需在载入界面检查。</Text></Row>
+    <Row Tag="LOC_SBE_ERROR_BODY_DIPLOMACY" Language="zh_Hans_CN"><Text>没有确认备份成功，因此未执行外交行动。原存档是否仍可用需在载入界面检查。</Text></Row>
+    <Row Tag="LOC_SBE_RETRY" Language="zh_Hans_CN"><Text>重试存档</Text></Row>
+    <Row Tag="LOC_SBE_CANCEL_TURN" Language="zh_Hans_CN"><Text>留在本回合</Text></Row>
+    <Row Tag="LOC_SBE_CANCEL_DIPLOMACY" Language="zh_Hans_CN"><Text>取消外交行动</Text></Row>
+    <Row Tag="LOC_SBE_RESELECT" Language="zh_Hans_CN"><Text>可以重新选择刚才的操作。</Text></Row>
+    <Row Tag="LOC_SBE_DIPLOMACY_UNAVAILABLE" Language="zh_Hans_CN"><Text>外交自动存档接口不可用；过回合前存档仍可使用。</Text></Row>
+    <Row Tag="LOC_SBE_SAVE_UNAVAILABLE" Language="zh_Hans_CN"><Text>当前阶段游戏不允许普通存档，保留最近的备份并继续操作。</Text></Row>
+    <Row Tag="LOC_SBE_SAVE_TIMEOUT" Language="zh_Hans_CN"><Text>等待存档完成超时（60 秒）。本次操作尚未执行；可以重试存档，或取消操作。</Text></Row>
+    <Row Tag="LOC_SBE_SAVE_REJECTED" Language="zh_Hans_CN"><Text>游戏没有接受存档请求。请检查本地存储后重试。</Text></Row>
+    <Row Tag="LOC_SBE_SAVE_START_FAILED" Language="zh_Hans_CN"><Text>无法开始存档：{1}</Text></Row>
+    <Row Tag="LOC_SBE_SAVE_CONFLICT" Language="zh_Hans_CN"><Text>检测到同时进行的其他存档。为确保备份正确，已取消本次操作，请等存档结束后再试。</Text></Row>
+    <Row Tag="LOC_SBE_SAVE_FAILED" Language="zh_Hans_CN"><Text>存档失败（错误码 {1}）。本次操作尚未执行。</Text></Row>
+    <Row Tag="LOC_SBE_MOD_DESCRIPTION" Language="zh_Hans_CN"><Text>过回合前保存 BeforeEndTurn，外交行动前保存 BeforeDiplomacy，各保留一个固定槽。两个功能可在选项→附加内容中独立开关，右上角“存档”直达设置。仅单人游戏。</Text></Row>
+  </LocalizedText>
+</Database>

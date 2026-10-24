@@ -1,0 +1,13 @@
+{
+  "publishedFileId": "3815557333",
+  "title": "No More Turn（不再来一回合）",
+  "previewFile": "workshop-preview.jpg",
+  "previewSha256": "ff589f5a5e2ceb2d7ce123f1bb91c2b01e14db4dc4fcaae02e29554f36426aa5",
+  "downloadedPreviewSha256": "ff589f5a5e2ceb2d7ce123f1bb91c2b01e14db4dc4fcaae02e29554f36426aa5",
+  "previewHashesVerified": true,
+  "modVersion": "1.8.3",
+  "modContentUnchanged": true,
+  "generator": "built-in image_gen",
+  "promptFile": "workshop-preview-prompt.txt",
+  "updatedAt": "2026-10-22T22:35:21.978421+08:00"
+}

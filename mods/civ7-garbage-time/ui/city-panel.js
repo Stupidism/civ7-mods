@@ -5,7 +5,7 @@ import { FocusManager } from '/core/ui-next/services/focus-manager.js';
 import NavTray from '/core/ui/navigation-tray/model-navigation-tray.js';
 import { cityKey, citySettings, normalizeCity, PRESETS, YIELDS, happinessWeight } from './rules.js';
 const runtime = () => globalThis.__civ7GarbageTime;
-const button = (caption,action) => { const b=document.createElement('fxs-button'); b.setAttribute('caption',caption);b.addEventListener('action-activate',action);return b; };
+const button = (caption,action) => { const b=document.createElement('fxs-button'); b.setAttribute('caption',caption);b.setAttribute('action-key','inline-accept');b.addEventListener('action-activate',action);return b; };
 const label = text => {const el=document.createElement('div');el.textContent=text;el.className='font-body text-sm';return el;};
 
 class GarbageCityEntry extends Component {

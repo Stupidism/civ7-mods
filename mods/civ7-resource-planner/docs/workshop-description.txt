@@ -1,6 +1,9 @@
 [h1]资源规划 · Resource Planner[/h1]
 为 beezany 的 Resource Re-sorts 3.0.2 增加资源分组、排序、幸福度填充和按定居点倾向分配。
 [b]必须另行订阅并启用 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507102808]Resource Re-sorts[/url]。[/b]
+[h2]1.1.0 更新 / Update[/h2]
+支持英文与简体中文，跟随游戏文字语言；调整资源时保持顺序，点击排序或关闭重开才重新计算。修复资源点选后放置，以及右键／Esc 取消选中时误关面板。
+English UI is now available, following the game language. Resource placement and cancel behavior are fixed, and settlement order stays stable while assigning resources.
 [h2]功能[/h2]
 [list]
 [*]按金币、粮食、科技、文化、生产力、幸福度排序；城市、城镇和离网定居点分组显示。
@@ -15,11 +18,23 @@
 [h2]来源与归属[/h2]
 基础资源页派生自 beezany 的 Resource Re-sorts 3.0.2，沿用其数据模型、资源交互和原生界面。感谢原作者。Resource Re-sorts 需单独安装；原作者与游戏代码的权利仍归各自权利人，本扩展未为第三方代码另行授予许可证。
 [h2]English[/h2]
-An extension for Resource Re-sorts 3.0.2 by beezany. Adds grouped yield sorting, happiness filling, settlement preferences and resource assignment. Requires Resource Re-sorts to be installed and enabled. Other replacements for the same resource panel may conflict.
+An extension for Resource Re-sorts 3.0.2 by beezany. [b]Requires Resource Re-sorts to be installed and enabled.[/b]
+English and Simplified Chinese follow the game's text language, with English fallback for other languages. No separate language switch is needed.
+[list]
+[*]Sort settlements by Gold, Food, Science, Culture, Production or Happiness, grouped into cities, towns and settlements outside the trade network. Order stays fixed while adjusting resources; explicitly sort or reopen the page to recalculate it.
+[*]Use Fill to improve negative happiness. City resources prioritize cities, then towns; the Bonus resources button handles towns only and never takes resources from cities.
+[*]Click a settlement's yield icon to remember its preference and assign suitable resources. Assign by preference considers all chosen settlements together.
+[*]Optionally include Camels for extra slots or rearrange assigned resources. Both options start off each time the page opens.
+[*]With a resource selected, clicking a yield icon attempts to place it. Right-click / Esc first cancels the selection before closing the panel.
+[/list]
+Preferences survive reopening, restarting and loading; saves from the same map share these UI preferences. Allocation weights are Gold/Food/Science/Culture/Production/Happiness = 1/2/4/4/4/8; happiness only scores improvements up to zero. The game still enforces turn locks, resource classes, trade connections and slot capacity. Nonlinear combinations are improved iteratively, not exhaustively optimized.
+Other mods replacing the same commerce page or model may conflict. Native controller paths are retained; complete physical-controller support has not been verified for this update. Original Resource Re-sorts and game code remain the property of their respective owners.
 
 [h2]安装与兼容[/h2]
 订阅后等待 Steam 下载，重启游戏，在“附加内容”确认启用。可用于已有存档。手动安装过同一模组时，请退出游戏并把手动版移到 Mods 目录之外，避免重复加载。
-基于 Civilization VII 1.5.0 (1311346) 开发。Windows DX12 的详细实机验证记录见源码。2026-10-18 在 Apple Silicon Mac / Metal 上通过仓库 324 项自动测试，并观察到游戏成功加载模组进入主菜单；Mac 对局内功能尚未完整验证。
-封面为原创图标示意，不是游戏截图。
+基于 Civilization VII 1.5.0 (1311346) 开发。Windows DX12 的详细实机验证记录见源码。2026-10-23 在 Apple Silicon Mac / Metal 上实测中英文界面、鼠标拾取／放置、右键取消、幸福度填充、按倾向分配与排序稳定性；41 项模块离线测试通过。未完成实体手柄、多人和全部第三方模组组合验证。
+Tested in-game on Apple Silicon Mac / Metal: English and Chinese UI, mouse resource placement/cancel, happiness filling, preference assignment and stable ordering. 41 offline checks passed. Physical controllers, multiplayer and all third-party combinations have not been fully tested.
+封面为原创图标示意；附图为 1.1.0 的真实游戏截图。
+The cover is an original illustration; additional images are real in-game screenshots of version 1.1.0.
 
 [url=https://github.com/Stupidism/civ7-mods/tree/main/mods/civ7-resource-planner]源码与完整说明 / Source and documentation[/url]

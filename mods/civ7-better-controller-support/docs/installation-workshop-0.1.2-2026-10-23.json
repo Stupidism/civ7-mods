@@ -1,0 +1,104 @@
+{
+  "version": "0.1.2",
+  "installationSource": "Steam Workshop",
+  "publishedFileId": "3825193325",
+  "title": "更好的手柄支持 · Better Controller Support",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3825193325",
+  "destination": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3825193325",
+  "installedAt": "2026-10-23T11:11:33.467727+00:00",
+  "filesVerified": {
+    "map-tools-gamepad.modinfo": {
+      "size": 1267,
+      "sha256": "d6035bbd9705ed29b94e58e35d7555d7a6550e6c22c79e4f61d306a404b21aab"
+    },
+    "README.md": {
+      "size": 3458,
+      "sha256": "8b4b5021e71f7ca606083b923cddfbadd3f95bbe3d28782c8ff8f2d94f1bcc57"
+    },
+    "README-en.md": {
+      "size": 2085,
+      "sha256": "ba6b2cb391e2295da18dda11f0a391d7bbd7e9888bce37a540e61d16eb0c494f"
+    },
+    "VALIDATION.md": {
+      "size": 5112,
+      "sha256": "4ef8f3fc018319635fa7c424e21e477e667f9bcd840faf70a83bd977c8e65ae6"
+    },
+    "ui/map-tools-gamepad.css": {
+      "size": 267,
+      "sha256": "2b502f0e96ba18b99903118f306955165ea79a83917382be4cbfa0ef175bf928"
+    },
+    "ui/map-tools-gamepad.js": {
+      "size": 2561,
+      "sha256": "37a896e832b7244165e743d24c36c7a7e83f9ac270805d605c314eba66c685f4"
+    },
+    "ui/map-tools-runtime.js": {
+      "size": 10952,
+      "sha256": "0ce321c3eee0c2c3a0372753f2b5fac9c6dc0336f6038af42c506b08509573a3"
+    },
+    "ui/navigation.js": {
+      "size": 2651,
+      "sha256": "9215acde1fb8810f6263108298963753f6a1638011b687af410e9381e23a4295"
+    },
+    "ui/radial-icons.js": {
+      "size": 1478,
+      "sha256": "7a6de2153f3ae902948bf006a0cc58ff6f3056883001daefb5c816c4767aa69e"
+    },
+    "text/map-tools.xml": {
+      "size": 1815,
+      "sha256": "d29e382becfddb35c584c805af0100fac6e2d619d0334c2a566f690ad147991a"
+    }
+  },
+  "previousManualBackup": "/Users/sunmer/Documents/Civ7-Mod-Backups/better-controller-support-workshop-20261023T111133Z-444e6b7e/previous-manual-0.1.2",
+  "previousFilesVerified": {
+    "README-en.md": {
+      "size": 2085,
+      "sha256": "ba6b2cb391e2295da18dda11f0a391d7bbd7e9888bce37a540e61d16eb0c494f"
+    },
+    "README.md": {
+      "size": 3458,
+      "sha256": "8b4b5021e71f7ca606083b923cddfbadd3f95bbe3d28782c8ff8f2d94f1bcc57"
+    },
+    "VALIDATION.md": {
+      "size": 5112,
+      "sha256": "4ef8f3fc018319635fa7c424e21e477e667f9bcd840faf70a83bd977c8e65ae6"
+    },
+    "map-tools-gamepad.modinfo": {
+      "size": 1267,
+      "sha256": "d6035bbd9705ed29b94e58e35d7555d7a6550e6c22c79e4f61d306a404b21aab"
+    },
+    "text/map-tools.xml": {
+      "size": 1815,
+      "sha256": "d29e382becfddb35c584c805af0100fac6e2d619d0334c2a566f690ad147991a"
+    },
+    "ui/map-tools-gamepad.css": {
+      "size": 267,
+      "sha256": "2b502f0e96ba18b99903118f306955165ea79a83917382be4cbfa0ef175bf928"
+    },
+    "ui/map-tools-gamepad.js": {
+      "size": 2561,
+      "sha256": "37a896e832b7244165e743d24c36c7a7e83f9ac270805d605c314eba66c685f4"
+    },
+    "ui/map-tools-runtime.js": {
+      "size": 10952,
+      "sha256": "0ce321c3eee0c2c3a0372753f2b5fac9c6dc0336f6038af42c506b08509573a3"
+    },
+    "ui/navigation.js": {
+      "size": 2651,
+      "sha256": "9215acde1fb8810f6263108298963753f6a1638011b687af410e9381e23a4295"
+    },
+    "ui/radial-icons.js": {
+      "size": 1478,
+      "sha256": "7a6de2153f3ae902948bf006a0cc58ff6f3056883001daefb5c816c4767aa69e"
+    }
+  },
+  "gameRunningAtInstallation": true,
+  "gameInteraction": false,
+  "savesReadOrModified": false,
+  "restGuardChanged": false,
+  "savesBackup": "Not performed: file installation only, no live test or game interaction",
+  "validation": {
+    "offlineTestsPassed": 13,
+    "userFeedback": "Current setup confirmed working by user on 2026-10-23; broader device coverage unverified",
+    "gameTested": false
+  }
+}

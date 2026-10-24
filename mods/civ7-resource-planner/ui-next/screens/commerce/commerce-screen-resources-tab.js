@@ -1,6 +1,6 @@
 // Resource Planner extension of Resource Re-sorts 3.0.2 by beezany.
 import { template, insert, className, setAttribute } from '../../../../core/vendor/solid-js/web/dist/web.js';
-import { createSignal, createMemo, createEffect, on, createComponent, untrack, Show, mergeProps, createRenderEffect, For, onCleanup } from '../../../../core/vendor/solid-js/dist/solid.js';
+import { createSignal, createMemo, createEffect, on, createComponent, untrack, Show, mergeProps, createRenderEffect, For, onCleanup, onMount } from '../../../../core/vendor/solid-js/dist/solid.js';
 import { displayRequestUniqueId } from '../../../../core/ui/context-manager/display-handler.js';
 import { DialogBoxManager } from '../../../../core/ui/dialog-box/manager-dialog-box.js';
 import { ComponentID } from '../../../../core/ui/utilities/utilities-component-id.js';
@@ -37,6 +37,7 @@ import { ResourceTooltip } from '../../tooltips/resource-tooltip.js';
 // TRIX
 import { Hotkeys } from '/core/ui-next/components/hotkeys.js';
 import style from './commerce-screen.scss.js';
+import { t } from '/civ7-resource-planner/ui/rp-l10n.js';
 import { createPlanner, getPlanner } from '/civ7-resource-planner/ui/rp-controller.js';
 import { PlannerToolbar, HappinessButton, TendencyYield, TendencyLabel, createGroups, plannerStyle } from '/civ7-resource-planner/ui/rp-ui.js';
 
@@ -137,12 +138,14 @@ const DraggableResource = (props) => {
       }
       model.clickSlottedResource({
         resourceValue: props.resourceData.resourceValue,
-        cityID: props.resourceData.cityID
+        cityID: props.resourceData.cityID,
+        isOffMap: props.resourceData.isOffMap
       });
     } else {
       model.clickAvailableResource({
         resourceValue: props.resourceData.resourceValue,
-        cityID: props.resourceData.cityID
+        cityID: props.resourceData.cityID,
+        isOffMap: props.resourceData.isOffMap
       });
     }
   }
@@ -524,7 +527,7 @@ const AvailableResourcesSectionInternal = (props) => {
                       var _el$6 = _tmpl$5(), _el$7 = _el$6.firstChild;
                       insert(_el$7, createComponent(L10n.Compose, {
                         get text() {
-                          return subSection.type === "RESOURCECLASS_CITY" ? "城市资源" : subSection.type === "RESOURCECLASS_BONUS" ? "城镇资源（通用）" : subSection.title;
+                          return subSection.type === "RESOURCECLASS_CITY" ? t("CITY_RESOURCES") : subSection.type === "RESOURCECLASS_BONUS" ? t("BONUS_RESOURCES") : subSection.title;
                         }
                       }));
                       insert(_el$6, createComponent(HappinessButton, {model, type:subSection.type}), null);
@@ -548,7 +551,8 @@ const AvailableResourcesSectionInternal = (props) => {
                             "class": "size-19 mb-1",
                             get data() {
                               return {
-                                resourceValue: resourceSlot.resourceValue
+                                resourceValue: resourceSlot.resourceValue,
+                                isOffMap: resourceSlot.isOffMap
                               };
                             },
                             get debugId() {
@@ -1072,7 +1076,8 @@ const CityResourceContainerInternal = (props) => {
                           get data() {
                             return {
                               cityID: props.cityID,
-                              resourceValue: slottedResource.resourceValue
+                              resourceValue: slottedResource.resourceValue,
+                              isOffMap: slottedResource.isOffMap
                             };
                           },
                           canDrop,
@@ -1415,14 +1420,22 @@ const CommerceResourcesContainerComponent = (props) => {
   const yieldHighlightDropdownItems = ["DEFAULT", "YIELD_FOOD", "YIELD_PRODUCTION", "YIELD_GOLD", "YIELD_SCIENCE", "YIELD_CULTURE", "YIELD_HAPPINESS", "YIELD_DIPLOMACY"];
   const onDragStart = (draggable) => {
     const data = draggable.data;
+    const selected = model.selectedResource();
+    // A drag begins a selection, not the click handler's toggle/swap gesture.
+    if (selected.resourceValue === data.resourceValue &&
+        !!selected.isOffMap === !!data.isOffMap &&
+        ((!selected.cityID && !data.cityID) || ComponentID.isMatch(selected.cityID, data.cityID))) return;
+    model.deselectSelectedResource();
     if (data.cityID) {
       model.clickSlottedResource({
         cityID: data.cityID,
-        resourceValue: data.resourceValue
+        resourceValue: data.resourceValue,
+        isOffMap: data.isOffMap
       });
     } else {
       model.clickAvailableResource({
-        resourceValue: data.resourceValue
+        resourceValue: data.resourceValue,
+        isOffMap: data.isOffMap
       });
     }
   };
@@ -1451,11 +1464,13 @@ const CommerceResourcesContainerComponent = (props) => {
       if (cityID) {
         model.clickSlottedResource({
           cityID,
-          resourceValue: targetResourceValue
+          resourceValue: targetResourceValue,
+          isOffMap: dropzone.data.isOffMap
         });
       } else {
         model.clickAvailableResource({
-          resourceValue: targetResourceValue
+          resourceValue: targetResourceValue,
+          isOffMap: dropzone.data.isOffMap
         });
       }
     } else if (cityID) {
@@ -1468,8 +1483,9 @@ const CommerceResourcesContainerComponent = (props) => {
       model.unslotSelectedResource(Input.isShiftDown());
     }
   };
+  const [cancelDrag, setCancelDrag] = createSignal(false);
   const disableDND = createMemo(() => {
-    return !model.isSlottingAvailable || !!getPlanner(model)?.busy();
+    return !model.isSlottingAvailable || !!getPlanner(model)?.busy() || cancelDrag();
   });
   const [gamepadTrayItems, setGamepadTrayItems] = createSignal([]);
   createEffect(on(model.focusedSettlementId, (newId, prevId) => {
@@ -1708,8 +1724,8 @@ const CommerceResourcesContainerComponent = (props) => {
                   },
                   onItemSelected: (json) => {
                     const [_key, value] = JSON.parse(json);
-                    model.setSelectedSettlementSortType(value)
-                    delayByFrame(() => model.onSortResources(), 1);
+                    model.setSelectedSettlementSortType(value);
+                    model.onSortResources();
                   },
                   get disableFocus() {
                     return disableFilters();
@@ -1790,9 +1806,30 @@ const CommerceResourcesContainerComponent = (props) => {
                 "class": "flex-auto relative",
                 get children() {
                   var _el$46 = _tmpl$22();
-                  const rpInputGuard = (event) => { if (getPlanner(model)?.busy() && event.detail?.name !== "cancel") { event.preventDefault(); event.stopPropagation(); } };
-                  _el$46.addEventListener("engine-input", rpInputGuard, true);
-                  onCleanup(() => _el$46.removeEventListener("engine-input", rpInputGuard, true));
+                  const rpInputGuard = (event) => {
+                    const {name, status} = event.detail ?? {};
+                    const isCancel = name === "cancel" || name === "mousebutton-right" || name === "keyboard-escape";
+                    if (isCancel && model.selectedResource().resourceValue !== -1) {
+                      // Consume press AND release before the screen's close hotkey.
+                      event.preventDefault();
+                      event.stopPropagation();
+                      if (status === InputActionStatuses.FINISH) {
+                        setCancelDrag(true);
+                        model.deselectSelectedResource();
+                        setTimeout(() => setCancelDrag(false), 0);
+                      }
+                    } else if (getPlanner(model)?.busy() && !isCancel && _el$46.contains(event.target)) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }
+                  };
+                  let inputRoot;
+                  onMount(() => {
+                    // Include the header and blank panel space, but not other screens.
+                    inputRoot = _el$46.closest("screen-resource-allocation") ?? _el$46;
+                    inputRoot.addEventListener("engine-input", rpInputGuard, true);
+                  });
+                  onCleanup(() => inputRoot?.removeEventListener("engine-input", rpInputGuard, true));
                   insert(_el$46, createComponent(AvailableResourcesContainer, props), null);
                   insert(_el$46, createComponent(SlottedResourcesContainer, props), null);
                   return _el$46;

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_OPTIONS_GROUP_REST_GUARD"><Text>No More Turn（不再来一回合）</Text></Row>
+    <Row Tag="LOC_RG_TURN_ENABLED"><Text>Turn-based breaks</Text></Row>
+    <Row Tag="LOC_RG_TIME_ENABLED"><Text>Time-based breaks</Text></Row>
+    <Row Tag="LOC_RG_PLAY_MINUTES"><Text>Continuous play (minutes)</Text></Row>
+    <Row Tag="LOC_RG_REST_MINUTES"><Text>Break duration (minutes)</Text></Row>
+    <Row Tag="LOC_RG_TURN_DESCRIPTION"><Text>Counts end-turn actions in memory for this session. Loading preserves the count without adding turns; exiting clears it. The game turn selects a fixed 20-turn stage, with default intervals of 13/8/5/3/2.</Text></Row>
+    <Row Tag="LOC_RG_TIME_DESCRIPTION"><Text>Default: play 25 minutes, then rest 5 minutes. After 1 idle minute a voluntary break panel pauses the play timer; Continue Game is always available. Five idle minutes reset both counters. Loading counts as play; exiting the game clears the timer.</Text></Row>
+    <Row Tag="LOC_RG_REST_DESCRIPTION"><Text>Triggers can be enabled independently. Completing any forced or idle break resets both counters. Each break creates a separate RestGuard save without overwriting older files.</Text></Row>
+    <Row Tag="LOC_RG_RESET_LABEL"><Text>Reset No More Turn settings</Text></Row>
+    <Row Tag="LOC_RG_RESET_BUTTON"><Text>Restore defaults</Text></Row>
+    <Row Tag="LOC_RG_RESET_DESCRIPTION"><Text>Resets only No More Turn. Confirm Changes saves the draft; Cancel Changes discards it.</Text></Row>
+    <Row Tag="LOC_RG_SAVE_ERROR_TITLE"><Text>Could not save No More Turn settings</Text></Row>
+    <Row Tag="LOC_RG_SAVE_ERROR_BODY"><Text>The settings could not be written. The previously saved settings remain active. Check storage access or try again.</Text></Row>
+    <Row Tag="LOC_RG_STAGE_0"><Text>Turns 1–20: turns per break</Text></Row>
+    <Row Tag="LOC_RG_STAGE_1"><Text>Turns 21–40: turns per break</Text></Row>
+    <Row Tag="LOC_RG_STAGE_2"><Text>Turns 41–60: turns per break</Text></Row>
+    <Row Tag="LOC_RG_STAGE_3"><Text>Turns 61–80: turns per break</Text></Row>
+    <Row Tag="LOC_RG_STAGE_4"><Text>After turn 80: turns per break</Text></Row>
+    <Row Tag="LOC_RG_SAVE_KEEP_COUNT"><Text>Rest saves to keep</Text></Row>
+    <Row Tag="LOC_RG_SAVE_KEEP_DESCRIPTION"><Text>Default: keep the newest 10 RestGuard saves. After a successful rest save, remove only older local RestGuard saves. Other saves are untouched. Changes apply after the next successful rest save.</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_ENABLED"><Text>Night-time play restriction</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_START"><Text>Night restriction starts</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_END"><Text>Night restriction ends</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_DESCRIPTION"><Text>Independent switch, enabled by default from 22:00 to 07:00 local computer time. Supports overnight windows and 15-minute choices. Equal times disable the window. You can exit during the restriction; adjust settings in the main menu.</Text></Row>
+    <Row Tag="LOC_RG_OPEN_SETTINGS"><Text>Rest settings</Text></Row>
+    <Row Tag="LOC_RG_OFF"><Text>Off</Text></Row>
+    <Row Tag="LOC_RG_TIME_DUE"><Text>Your play-time limit has been reached</Text></Row>
+    <Row Tag="LOC_RG_TURN_DUE"><Text>End of turn {1}</Text></Row>
+    <Row Tag="LOC_RG_FORCED_TITLE"><Text>Required break</Text></Row>
+    <Row Tag="LOC_RG_BREAK_SUBTITLE"><Text>{1} · Rest for {2} min</Text></Row>
+    <Row Tag="LOC_RG_FORCED_NOTE"><Text>Continue unlocks when the timer ends. You can exit at any time (Esc). Time in other windows counts toward your break.</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_TITLE"><Text>Night-time break</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_SUBTITLE"><Text>Play is restricted during these hours</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_NOTE"><Text>Change or disable night-time restrictions in Main Menu → Options → Additional Content. You can exit at any time (Esc).</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_MESSAGE"><Text>Play is restricted from {1} to {2}. You can resume at {2}.</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_WAIT"><Text>Night-time break in progress</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_TIMER"><Text>Night-time restriction countdown</Text></Row>
+    <Row Tag="LOC_RG_IDLE_TITLE"><Text>Voluntary break</Text></Row>
+    <Row Tag="LOC_RG_IDLE_SUBTITLE"><Text>Time rested · 5 minutes completes a break</Text></Row>
+    <Row Tag="LOC_RG_IDLE_NOTE"><Text>Continue or exit at any time (Esc). The break timer keeps running in other windows.</Text></Row>
+    <Row Tag="LOC_RG_IDLE_TIMER"><Text>Voluntary break timer</Text></Row>
+    <Row Tag="LOC_RG_FORCED_TIMER"><Text>Required break countdown</Text></Row>
+    <Row Tag="LOC_RG_BREAK_TIP"><Text>Stretch your legs, drink some water, and look into the distance.</Text></Row>
+    <Row Tag="LOC_RG_BREAK_WAIT"><Text>Break in progress, please wait</Text></Row>
+    <Row Tag="LOC_RG_EXIT_GAME"><Text>Exit game</Text></Row>
+    <Row Tag="LOC_RG_SAVE_WAITING"><Text>Waiting for another save to finish…</Text></Row>
+    <Row Tag="LOC_RG_SAVE_SAVING"><Text>Saving your break save. Please wait for it to finish before exiting.</Text></Row>
+    <Row Tag="LOC_RG_SAVE_SAVED"><Text>Break save completed</Text></Row>
+    <Row Tag="LOC_RG_SAVE_FAILED"><Text>Break save failed. Please save manually.</Text></Row>
+    <Row Tag="LOC_RG_SAVE_UNAVAILABLE"><Text>A break save cannot be created at this stage.</Text></Row>
+    <Row Tag="LOC_RG_SAVE_UNCONFIRMED"><Text>The break save is not confirmed. Please check it or save manually.</Text></Row>
+    <Row Tag="LOC_RG_CLEANUP_FAILED"><Text>; old break-save cleanup did not finish.</Text></Row>
+    <Row Tag="LOC_RG_CONTINUE"><Text>Continue game</Text></Row>
+    <Row Tag="LOC_RG_IDLE_COMPLETE"><Text>Break completed. Both turn and play-time counters reset when you continue.</Text></Row>
+    <Row Tag="LOC_RG_IDLE_TIP"><Text>Stretch, drink some water, and look into the distance. Continuing early keeps your existing counters.</Text></Row>
+    <Row Tag="LOC_RG_BREAK_CONTINUE"><Text>Break complete — continue</Text></Row>
+    <Row Tag="LOC_RG_BREAK_COMPLETE"><Text>Your break is over. Both turn and play-time counters reset when you continue.</Text></Row>
+    <Row Tag="LOC_RG_IDLE_ELAPSED"><Text>Rested {1} min {2} sec</Text></Row>
+    <Row Tag="LOC_RG_TURNS_LEFT"><Text>{1} turn(s)</Text></Row>
+    <Row Tag="LOC_RG_TIME_LEFT"><Text>{1} min {2} sec</Text></Row>
+    <Row Tag="LOC_RG_OR"><Text> or </Text></Row>
+    <Row Tag="LOC_RG_UNTIL_BREAK"><Text>A {2}-minute break is due in {1}. </Text></Row>
+    <Row Tag="LOC_RG_TIMERS_OFF"><Text>Turn-based and time-based breaks are off. </Text></Row>
+    <Row Tag="LOC_RG_NIGHT_HUD"><Text>Night restriction: {1}–{2}. </Text></Row>
+    <Row Tag="LOC_RG_NIGHT_ONLY"><Text>Night restriction</Text></Row>
+    <Row Tag="LOC_RG_TURN_END_HINT"><Text>Triggers at the end of this turn. </Text></Row>
+    <Row Tag="LOC_RG_IDLE_DONE_HINT"><Text>; break completed. </Text></Row>
+    <Row Tag="LOC_RG_IDLE_SHORT_HINT"><Text>; 5 minutes completes a break. </Text></Row>
+    <Row Tag="LOC_RG_SETTINGS_HINT"><Text>Click to open Options → Additional Content → No More Turn（不再来一回合）. </Text></Row>
+    <Row Tag="LOC_RG_SETTINGS_ERROR_HINT"><Text>Settings could not be saved.</Text></Row>
+    <Row Tag="LOC_RG_MOD_DESCRIPTION"><Text>Single-player turn-based and timed breaks, voluntary idle breaks, and an independent night-time restriction (22:00–07:00 by default). Creates separate RestGuard saves and keeps the newest 10 by default. Configurable in Options → Additional Content. Follows the game text language: English and Simplified Chinese.</Text></Row>
+  </EnglishText>
+  <LocalizedText>
+    <Row Tag="LOC_OPTIONS_GROUP_REST_GUARD" Language="zh_Hans_CN"><Text>No More Turn（不再来一回合）</Text></Row>
+    <Row Tag="LOC_RG_TURN_ENABLED" Language="zh_Hans_CN"><Text>按回合休息</Text></Row>
+    <Row Tag="LOC_RG_TIME_ENABLED" Language="zh_Hans_CN"><Text>按时间休息</Text></Row>
+    <Row Tag="LOC_RG_PLAY_MINUTES" Language="zh_Hans_CN"><Text>连续游戏时长（分钟）</Text></Row>
+    <Row Tag="LOC_RG_REST_MINUTES" Language="zh_Hans_CN"><Text>每次休息时长（分钟）</Text></Row>
+    <Row Tag="LOC_RG_TURN_DESCRIPTION" Language="zh_Hans_CN"><Text>在本次会话内累计结束回合次数，读档保留累计但不增加计数，退出游戏后清零。游戏当前回合只用于选择档位，每20回合一档，默认间隔13／8／5／3／2回合。</Text></Row>
+    <Row Tag="LOC_RG_TIME_DESCRIPTION" Language="zh_Hans_CN"><Text>默认连续游戏25分钟休息5分钟。无操作1分钟显示主动休息面板并暂停游戏计时，随时可继续；满5分钟共同重置两项间隔。读档计入游戏时间，完整退出游戏后计时清零。</Text></Row>
+    <Row Tag="LOC_RG_REST_DESCRIPTION" Language="zh_Hans_CN"><Text>两个功能独立开关，可同时开启。任意一次强制休息或空闲休息完成后，回合与时间间隔共同重置。休息开始时另存独立RestGuard文件，不覆盖旧存档。</Text></Row>
+    <Row Tag="LOC_RG_RESET_LABEL" Language="zh_Hans_CN"><Text>恢复本模块默认设置</Text></Row>
+    <Row Tag="LOC_RG_RESET_BUTTON" Language="zh_Hans_CN"><Text>恢复默认</Text></Row>
+    <Row Tag="LOC_RG_RESET_DESCRIPTION" Language="zh_Hans_CN"><Text>只重置不再来一回合的设置；点击底部“确认变更”后保存，“取消变更”可放弃。</Text></Row>
+    <Row Tag="LOC_RG_SAVE_ERROR_TITLE" Language="zh_Hans_CN"><Text>休息设置保存失败</Text></Row>
+    <Row Tag="LOC_RG_SAVE_ERROR_BODY" Language="zh_Hans_CN"><Text>设置未能写入。原有设置仍在生效，请检查存储权限或稍后重试。</Text></Row>
+    <Row Tag="LOC_RG_STAGE_0" Language="zh_Hans_CN"><Text>1–20回合：每几回合休息</Text></Row>
+    <Row Tag="LOC_RG_STAGE_1" Language="zh_Hans_CN"><Text>21–40回合：每几回合休息</Text></Row>
+    <Row Tag="LOC_RG_STAGE_2" Language="zh_Hans_CN"><Text>41–60回合：每几回合休息</Text></Row>
+    <Row Tag="LOC_RG_STAGE_3" Language="zh_Hans_CN"><Text>61–80回合：每几回合休息</Text></Row>
+    <Row Tag="LOC_RG_STAGE_4" Language="zh_Hans_CN"><Text>80回合后：每几回合休息</Text></Row>
+    <Row Tag="LOC_RG_SAVE_KEEP_COUNT" Language="zh_Hans_CN"><Text>休息存档保留数量</Text></Row>
+    <Row Tag="LOC_RG_SAVE_KEEP_DESCRIPTION" Language="zh_Hans_CN"><Text>默认保留最近10个休息存档（可设1–100个）。下次休息存档成功后清理较旧的本地RestGuard存档，不动其他存档。</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_ENABLED" Language="zh_Hans_CN"><Text>启用夜间禁玩</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_START" Language="zh_Hans_CN"><Text>夜间禁玩开始时间</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_END" Language="zh_Hans_CN"><Text>夜间禁玩结束时间</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_DESCRIPTION" Language="zh_Hans_CN"><Text>独立开关，默认开启：本地时间22:00至次日07:00禁止游戏。时间按15分钟调整，支持跨午夜；起止相同则不限制。期间可退出，主菜单中可修改设置。</Text></Row>
+    <Row Tag="LOC_RG_OPEN_SETTINGS" Language="zh_Hans_CN"><Text>休息设置</Text></Row>
+    <Row Tag="LOC_RG_OFF" Language="zh_Hans_CN"><Text>已关闭</Text></Row>
+    <Row Tag="LOC_RG_TIME_DUE" Language="zh_Hans_CN"><Text>连续游戏时间已到</Text></Row>
+    <Row Tag="LOC_RG_TURN_DUE" Language="zh_Hans_CN"><Text>第 {1} 回合结束</Text></Row>
+    <Row Tag="LOC_RG_FORCED_TITLE" Language="zh_Hans_CN"><Text>强制休息</Text></Row>
+    <Row Tag="LOC_RG_BREAK_SUBTITLE" Language="zh_Hans_CN"><Text>{1} · 休息 {2} 分钟</Text></Row>
+    <Row Tag="LOC_RG_FORCED_NOTE" Language="zh_Hans_CN"><Text>倒计时结束前不能继续游戏，可随时退出（Esc）。切换窗口仍计入休息时间。</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_TITLE" Language="zh_Hans_CN"><Text>夜间休息</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_SUBTITLE" Language="zh_Hans_CN"><Text>已进入夜间禁玩时段</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_NOTE" Language="zh_Hans_CN"><Text>夜间限制可在主菜单 → 选项 → 附加内容中单独关闭或调整。可随时退出游戏（Esc）。</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_MESSAGE" Language="zh_Hans_CN"><Text>禁玩时段 {1}–{2}，{2} 后可继续游戏。</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_WAIT" Language="zh_Hans_CN"><Text>夜间休息中</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_TIMER" Language="zh_Hans_CN"><Text>夜间禁玩倒计时</Text></Row>
+    <Row Tag="LOC_RG_IDLE_TITLE" Language="zh_Hans_CN"><Text>主动休息</Text></Row>
+    <Row Tag="LOC_RG_IDLE_SUBTITLE" Language="zh_Hans_CN"><Text>已休息时长 · 满 5 分钟算完成一次休息</Text></Row>
+    <Row Tag="LOC_RG_IDLE_NOTE" Language="zh_Hans_CN"><Text>随时可继续或退出游戏（Esc）。切换到其他窗口，休息计时仍会继续。</Text></Row>
+    <Row Tag="LOC_RG_IDLE_TIMER" Language="zh_Hans_CN"><Text>主动休息计时</Text></Row>
+    <Row Tag="LOC_RG_FORCED_TIMER" Language="zh_Hans_CN"><Text>强制休息倒计时</Text></Row>
+    <Row Tag="LOC_RG_BREAK_TIP" Language="zh_Hans_CN"><Text>起身走一走，喝口水，看看远处。</Text></Row>
+    <Row Tag="LOC_RG_BREAK_WAIT" Language="zh_Hans_CN"><Text>休息中，请稍候</Text></Row>
+    <Row Tag="LOC_RG_EXIT_GAME" Language="zh_Hans_CN"><Text>退出游戏</Text></Row>
+    <Row Tag="LOC_RG_SAVE_WAITING" Language="zh_Hans_CN"><Text>正在等待其他存档完成…</Text></Row>
+    <Row Tag="LOC_RG_SAVE_SAVING" Language="zh_Hans_CN"><Text>正在保存休息存档，请等待完成后再退出。</Text></Row>
+    <Row Tag="LOC_RG_SAVE_SAVED" Language="zh_Hans_CN"><Text>休息存档已保存</Text></Row>
+    <Row Tag="LOC_RG_SAVE_FAILED" Language="zh_Hans_CN"><Text>休息存档失败，请手动保存。</Text></Row>
+    <Row Tag="LOC_RG_SAVE_UNAVAILABLE" Language="zh_Hans_CN"><Text>当前阶段无法保存休息存档。</Text></Row>
+    <Row Tag="LOC_RG_SAVE_UNCONFIRMED" Language="zh_Hans_CN"><Text>休息存档尚未确认成功，请手动检查或保存。</Text></Row>
+    <Row Tag="LOC_RG_CLEANUP_FAILED" Language="zh_Hans_CN"><Text>；旧休息存档清理未完成。</Text></Row>
+    <Row Tag="LOC_RG_CONTINUE" Language="zh_Hans_CN"><Text>继续游戏</Text></Row>
+    <Row Tag="LOC_RG_IDLE_COMPLETE" Language="zh_Hans_CN"><Text>已完成一次休息。继续后，回合与时间间隔一同重新计算。</Text></Row>
+    <Row Tag="LOC_RG_IDLE_TIP" Language="zh_Hans_CN"><Text>起身走一走，喝口水，看看远处。提前继续不会重置休息间隔。</Text></Row>
+    <Row Tag="LOC_RG_BREAK_CONTINUE" Language="zh_Hans_CN"><Text>休息完成，继续</Text></Row>
+    <Row Tag="LOC_RG_BREAK_COMPLETE" Language="zh_Hans_CN"><Text>休息结束。继续后，回合与时间间隔一同重新计算。</Text></Row>
+    <Row Tag="LOC_RG_IDLE_ELAPSED" Language="zh_Hans_CN"><Text>已休息 {1} 分 {2} 秒</Text></Row>
+    <Row Tag="LOC_RG_TURNS_LEFT" Language="zh_Hans_CN"><Text>{1} 回合</Text></Row>
+    <Row Tag="LOC_RG_TIME_LEFT" Language="zh_Hans_CN"><Text>{1} 分 {2} 秒</Text></Row>
+    <Row Tag="LOC_RG_OR" Language="zh_Hans_CN"><Text> 或 </Text></Row>
+    <Row Tag="LOC_RG_UNTIL_BREAK" Language="zh_Hans_CN"><Text>还有 {1}强制休息 {2} 分钟。</Text></Row>
+    <Row Tag="LOC_RG_TIMERS_OFF" Language="zh_Hans_CN"><Text>按回合休息和按时间休息均已关闭。</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_HUD" Language="zh_Hans_CN"><Text>夜间禁玩 {1}–{2}。</Text></Row>
+    <Row Tag="LOC_RG_NIGHT_ONLY" Language="zh_Hans_CN"><Text>夜间限制</Text></Row>
+    <Row Tag="LOC_RG_TURN_END_HINT" Language="zh_Hans_CN"><Text>本回合结束时触发。</Text></Row>
+    <Row Tag="LOC_RG_IDLE_DONE_HINT" Language="zh_Hans_CN"><Text>；已完成一次休息。</Text></Row>
+    <Row Tag="LOC_RG_IDLE_SHORT_HINT" Language="zh_Hans_CN"><Text>；满5分钟算休息一次。</Text></Row>
+    <Row Tag="LOC_RG_SETTINGS_HINT" Language="zh_Hans_CN"><Text>点击打开选项 → 附加内容 → No More Turn（不再来一回合）。</Text></Row>
+    <Row Tag="LOC_RG_SETTINGS_ERROR_HINT" Language="zh_Hans_CN"><Text>设置保存异常。</Text></Row>
+    <Row Tag="LOC_RG_MOD_DESCRIPTION" Language="zh_Hans_CN"><Text>在本次会话内累计结束回合或连续游戏时间，达到间隔后强制休息；读档不增加回合计数，可独立开启。默认每20回合换档（13/8/5/3/2），连续游戏25分钟休息5分钟；无操作1分钟显示主动休息面板，随时可继续，满5分钟共同重置两项间隔。每次进入休息另存独立RestGuard文件，默认保留最近10个，数量可调整；默认22:00至07:00禁止游戏，可独立关闭或调整时段。右上角图标显示剩余回合与时间。仅单人游戏。</Text></Row>
+  </LocalizedText>
+</Database>

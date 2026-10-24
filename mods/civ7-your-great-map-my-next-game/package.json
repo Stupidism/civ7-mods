@@ -1,0 +1,15 @@
+{
+  "name": "civ7-play-again",
+  "version": "0.3.6-dev",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "inspect": "node tools/inspect-save.mjs",
+    "install": "node tools/install.mjs",
+    "start": "node tools/local-service.mjs",
+    "export": "node tools/export-config.mjs",
+    "verify-probe": "node tools/verify-probe.mjs"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "version": "0.3.0",
+  "date": "2026-10-24",
+  "status": "offline-ready-not-installed-or-published",
+  "scope": "LB/RB cycle stacked units on the highlighted plot; X opens its settlement before or after selecting a unit",
+  "validation": {
+    "offlineTestsPassed": 88,
+    "offlineTestsFailed": 0,
+    "offlineTestsSkipped": 0,
+    "javascriptSyntaxAndImports": "passed",
+    "manifestReferences": 26,
+    "versionConsistency": "passed",
+    "englishAndSimplifiedChineseXml": "passed",
+    "installed021FilesStillMatchPublishedHashes": 19
+  },
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261024T132230242500Z/better-controller-support-0.3.0.zip",
+  "manifest": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261024T132230242500Z/manifest.json",
+  "packagedFilesVerified": 22,
+  "gameInteracted": false,
+  "liveTested": false,
+  "installed": false,
+  "published": false,
+  "savesAccessed": false,
+  "restGuardChanged": false,
+  "note": "User is playing and explicitly prohibited live testing. Engine selection endpoints were stubbed in offline native-source replay; this is not physical-controller or live-game evidence."
+}

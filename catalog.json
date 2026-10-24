@@ -2,12 +2,28 @@
   "snapshotDate": "2026-10-17",
   "mods": [
     {
-      "id": "civ7-before-end-turn",
-      "version": "1.1.0",
-      "manifest": "mods/civ7-before-end-turn/before-end-turn.modinfo",
+      "id": "civ7-map-tools-gamepad",
+      "version": "0.3.0",
+      "manifest": "mods/civ7-better-controller-support/map-tools-gamepad.modinfo",
       "dependencies": [
         "base-standard"
-      ]
+      ],
+      "name": {
+        "zh_Hans_CN": "更好的手柄支持",
+        "en_US": "Better Controller Support"
+      }
+    },
+    {
+      "id": "civ7-before-end-turn",
+      "version": "1.1.1",
+      "manifest": "mods/civ7-auto-save-before/before-end-turn.modinfo",
+      "dependencies": [
+        "base-standard"
+      ],
+      "name": {
+        "zh_Hans_CN": "行动前自动存档",
+        "en_US": "Auto-save Before…"
+      }
     },
     {
       "id": "civ7-garbage-time",
@@ -19,7 +35,7 @@
     },
     {
       "id": "civ7-resource-planner",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "manifest": "mods/civ7-resource-planner/resource-planner.modinfo",
       "dependencies": [
         "base-standard",
@@ -28,19 +44,27 @@
     },
     {
       "id": "civ7-rest-guard",
-      "version": "1.4.0",
-      "manifest": "mods/civ7-rest-guard/rest-guard.modinfo",
+      "version": "1.8.6",
+      "manifest": "mods/civ7-no-more-turn/rest-guard.modinfo",
       "dependencies": [
         "base-standard"
-      ]
+      ],
+      "name": {
+        "zh_Hans_CN": "不再来一回合",
+        "en_US": "No More Turn"
+      }
     },
     {
       "id": "civ7-war-controls",
-      "version": "0.5.1",
-      "manifest": "mods/civ7-war-controls/war-controls.modinfo",
+      "version": "0.6.0",
+      "manifest": "mods/civ7-micromanagement-master-chiang-kai-shek/war-controls.modinfo",
       "dependencies": [
         "base-standard"
-      ]
+      ],
+      "name": {
+        "zh_Hans_CN": "微操大师常凯申",
+        "en_US": "Micromanagement Master Chiang Kai-shek"
+      }
     },
     {
       "id": "civ7-fenhe",

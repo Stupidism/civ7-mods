@@ -1,0 +1,18 @@
+{
+  "retiredMods": [
+    {
+      "id": "civ7-controller-bridge",
+      "formerDirectory": "civ7-mac-controller-support-fix",
+      "name": "Mac 手柄支持修复",
+      "retiredOn": "2026-10-24",
+      "reason": "已吸收至更好的手柄支持，用户要求移除独立代码及发布材料",
+      "replacementId": "civ7-map-tools-gamepad",
+      "replacementWorkshopUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3825193325",
+      "reporting": "不再列为独立开发或待发项目；历史订阅记录单列，不回写历史快照",
+      "remoteWorkshopStatus": "已设为未列出（Unlisted）；旧链接保留，中英文说明引导订阅更好的手柄支持",
+      "formerWorkshopUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3825119575",
+      "workshopVisibility": 3,
+      "remoteVerifiedAt": "2026-10-24T12:32:36.323906+00:00"
+    }
+  ]
+}
