@@ -8,9 +8,16 @@ export class SaveGate {
     this.failedKind = null;
     this.disposed = false;
     this.recoveryEvents = null;
+    this.recovery = null;
   }
 
   get busy() { return this.job !== null; }
+
+  // Internal cross-mod contract, not native SaveComplete provenance. A new
+  // token means the serializer accepted a recovery and stale counts were reset.
+  get saveTracking() {
+    return this.disposed ? null : { recovery: this.recovery, inFlight: this.inFlight };
+  }
 
   request(submit, manual = false, kind = 'turn') {
     if (this.disposed || this.job || this.env.dialogOpen()) return;
@@ -76,6 +83,7 @@ export class SaveGate {
     this.recoveryEvents = null;
     if (accepted && this.job === job) {
       this.inFlight = 0;
+      this.recovery = { source: 'civ7-before-end-turn', kind: job.kind };
       job.phase = 'saving';
       job.requireStart = true;
       this.env.recovering?.(job.context, job.kind);

@@ -13,6 +13,21 @@ const gameRoot = process.env.CIV7_GAME_DIR || "D:/Program Files (x86)/Steam/stea
 const panelPath = join(gameRoot, 'Base/modules/base-standard/ui/action/panel-action.js');
 const restRoot = process.env.CIV7_REST_GUARD_DIR || fileURLToPath(new URL('../../civ7-no-more-turn/', import.meta.url));
 const skip = !existsSync(panelPath);
+
+test('native adapter exposes recovery tracking for the rest saver', { skip }, () => {
+  const h = harness();
+  h.panel.sendEndTurn();
+  const bridge = h.context.__civ7BeforeEndTurnV1;
+  assert.equal(bridge.saveTracking.recovery, null);
+  h.flush(5000);
+  assert.equal(bridge.saveTracking.recovery.source, 'civ7-before-end-turn');
+  assert.equal(bridge.saveTracking.recovery.kind, 'turn');
+  assert.equal(bridge.saveTracking.inFlight, 1);
+  h.complete(1); h.flush(0);
+  assert.equal(bridge.saveTracking.inFlight, 0);
+  bridge.destroy();
+  assert.equal(bridge.saveTracking, null);
+});
 const withoutImports = text => text.replace(/^import .*;\r?$/gm, '');
 const modSource = withoutImports(readFileSync(new URL('../ui/before-end-turn.js', import.meta.url), 'utf8'));
 

@@ -196,7 +196,7 @@ function install() {
   }
   window.addEventListener('unload', destroy);
   console.warn(`${PREFIX} Ready. Single-player; BeforeEndTurn and BeforeDiplomacy; independent settings. Diplomacy hooks: ${!!diplomacy}.`);
-  return { destroy, get busy() { return gate.busy; } };
+  return { destroy, get busy() { return gate.busy; }, get saveTracking() { return gate.saveTracking; } };
 }
 
 if (!globalThis[INSTANCE_KEY]) globalThis[INSTANCE_KEY] = install();

@@ -492,6 +492,21 @@ test('only a matching autosave completion confirms the rest snapshot', () => {
   assert.equal(h.session.restSave.status, 'saved');
 });
 
+test('rest adapter consumes the save-before recovery snapshot without claiming its completion', () => {
+  const h = harness({ autoSave: false, idleSaveEnabled: true });
+  h.emitSave('StartSaveRequest'); h.emitSave('StartSaveRequest');
+  h.emitSave('SaveComplete', { options: 1, result: 0 });
+  h.sandbox.__civ7BeforeEndTurnV1 = {
+    busy: false,
+    saveTracking: { recovery: { source: 'civ7-before-end-turn', kind: 'turn' }, inFlight: 0 }
+  };
+  h.clock.now += 60000; h.timers[0]();
+  assert.equal(h.calls.restSaves.length, 1);
+  assert.equal(h.session.restSave.status, 'saving');
+  h.emitSave('SaveComplete', { options: 4, fileName: h.calls.restSaves[0].FileName, result: 0 });
+  assert.equal(h.session.restSave.status, 'saved');
+});
+
 const localTime = (h, m = 0, day = 22) => new Date(2026, 9, day, h, m).getTime();
 
 test('night restriction blocks all turn and continue routes but preserves exit confirmation', () => {

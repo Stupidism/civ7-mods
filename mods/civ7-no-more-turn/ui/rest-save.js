@@ -18,9 +18,19 @@ export class RestSaver {
     this.env = env;
     this.inFlight = 0;
     this.job = null;
+    this.recovery = null;
   }
 
   poll(state, current) {
+    const tracking = this.env.saveTracking?.();
+    if (tracking?.recovery && tracking.recovery !== this.recovery &&
+        Number.isInteger(tracking.inFlight) && tracking.inFlight >= 0) {
+      // Use the current count, not zero: a recovery (or a later native write)
+      // may still be saving. Never use this to confirm our own checkpoint.
+      this.recovery = tracking.recovery;
+      this.inFlight = tracking.inFlight;
+      if (this.job?.state.status === 'saving') this.finish('unconfirmed');
+    }
     if (this.job && this.job.state !== state) this.cancel();
     if (!current) return this.cancel();
     if (!state || !['waiting', 'saving'].includes(state.status)) return;
@@ -68,6 +78,7 @@ export function createRestSaver(canSave, saved) {
   const saver = new RestSaver({
     now: () => Date.now(),
     busy: () => !!globalThis.__civ7BeforeEndTurnV1?.busy,
+    saveTracking: () => globalThis.__civ7BeforeEndTurnV1?.saveTracking,
     canSave, saved,
     save: fileName => Network.saveGame({
       Location: SaveLocations.LOCAL_STORAGE,
