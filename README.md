@@ -1,6 +1,6 @@
 # Civilization VII Mods
 
-Stupidism 的文明7 Mod 开发合集。收录当前 9 个 Mod 项目，包含当前源码、测试、安装说明和各项目的验证记录。
+Stupidism 的文明7 Mod 开发合集。收录本 PR 范围内的 6 个 Mod 项目，包含当前源码、测试、安装说明和各项目的验证记录。
 
 | 项目 | 当前源码版本 | 功能与状态 |
 | --- | --- | --- |
@@ -10,9 +10,6 @@ Stupidism 的文明7 Mod 开发合集。收录当前 9 个 Mod 项目，包含�
 | [微操大师常凯申](mods/civ7-micromanagement-master-chiang-kai-shek/README-zh-CN.txt) | 0.6.0 | 连续部署、原地齐射与增援切换；集中火力临时加成已实测，其他新增功能见验证记录 |
 | [垃圾时间 · Garbage Time](mods/civ7-garbage-time/README-zh-CN.txt) | 0.1.4 | 主动开启军队、定居点、宝藏、传教、科技、市政及资源自动化；宝藏船自动兑现已实测 |
 | [资源规划 · Resource Planner](mods/civ7-resource-planner/) | 1.1.0 | 资源排序、分组、幸福度填充和定居点倾向分配；需要 Resource Re-sorts |
-| [自动存档上限 150](mods/civ7-autosave-limit-150/) | 1.0.0 | 扩大原生自动存档数量滑块范围；本地版本 |
-| [你的神图很好，现在是我的了](mods/civ7-your-great-map-my-next-game/) | 0.3.6-dev | 开局设置复制与微调，开发中 |
-| [分合 · Fenhe](mods/fenhe/) | 0.2.0-alpha | 国家分裂、融合与新时代世界生成；包含 `civ7-fenhe`、`civ7-fenhe-ui` 两个模块，实验版 |
 
 目录命名与稳定 Mod ID 对照见 [目录名称表](docs/mod-directory-names.md)。
 
@@ -39,7 +36,6 @@ Stupidism 的文明7 Mod 开发合集。收录当前 9 个 Mod 项目，包含�
 
 - No More Turn、Auto-save Before...：各目录带有安装脚本。
 - 微操大师常凯申、Garbage Time、Resource Planner：将对应目录复制到下方的 Mods 目录；`.modinfo` 必须位于该 Mod 目录的第一层。
-- 分合：使用 [分合源码安装说明](mods/fenhe/README.md)，通过 `Install-Fenhe.ps1` 安装两个模块；世界接入还需要 Node.js、Python 和本机官方调试接口。
 
 ```text
 %LOCALAPPDATA%/Firaxis Games/Sid Meier's Civilization VII/Mods/
@@ -60,9 +56,7 @@ npm run check
 npm test
 ```
 
-测试按 8 个包含自动测试的项目分别运行。回合前存档中读取原版游戏源码的集成检查，在没有本机游戏时会跳过；可用 `CIV7_GAME_DIR` 指定游戏根目录。自动测试不替代实机测试，历史证据的版本与范围以各项目验证文档为准。
-
-分合的模拟、桥接与构建源码完整保留；个人存档、导出的世界地图、实机数据快照、运行日志和生成的回放不上传。接入器会从使用者自己的游戏导出并生成所需地图。详见 [分合说明](mods/fenhe/README.md)。
+测试按 6 个包含自动测试的项目分别运行。回合前存档中读取原版游戏源码的集成检查，在没有本机游戏时会跳过；可用 `CIV7_GAME_DIR` 指定游戏根目录。自动测试不替代实机测试，历史证据的版本与范围以各项目验证文档为准。
 
 ## 原项目与权利说明
 

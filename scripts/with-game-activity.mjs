@@ -4,7 +4,7 @@ import { spawn } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-import { evaluate } from '../mods/fenhe/tools/cdp.mjs';
+import { evaluate } from './lib/game-cdp.mjs';
 const [kind, separator, command, ...args] = process.argv.slice(2);
 if (!['recording', 'debug'].includes(kind) || separator !== '--' || !command) {
   console.error('Usage: node scripts/with-game-activity.mjs recording|debug -- command [args...]');

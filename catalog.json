@@ -65,22 +65,6 @@
         "zh_Hans_CN": "微操大师常凯申",
         "en_US": "Micromanagement Master Chiang Kai-shek"
       }
-    },
-    {
-      "id": "civ7-fenhe",
-      "version": "0.2.0-alpha",
-      "manifest": "mods/fenhe/mod/civ7-fenhe/fenhe.modinfo",
-      "dependencies": [
-        "base-standard"
-      ]
-    },
-    {
-      "id": "civ7-fenhe-ui",
-      "version": "0.2.0-alpha",
-      "manifest": "mods/fenhe/mod/civ7-fenhe-ui/fenhe-ui.modinfo",
-      "dependencies": [
-        "base-standard"
-      ]
     }
   ]
 }

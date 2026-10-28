@@ -5,5 +5,3 @@
 Resource Planner 的资源页派生自 **beezany / Resource Re-sorts 3.0.2**，并依赖它的数据模型和交互。保留项目原有归属说明与依赖，不为这些内容另行授予许可证。来源：https://steamcommunity.com/sharedfiles/filedetails/?id=3507102808 。
 
 Rest Guard 和 Auto-save Before... 的 docs 图片延续原项目素材。实机截图、功能封面及历史版本的适用范围见原 README；没有用旧图宣称新的界面已经验收。
-
-分合的用户世界数据、试玩存档、原生导出地图与 SDK 研究摘录未纳入本次源码归并。`data/calibrated.json` 是模型参数，测试内的小型世界为人工构造夹具。
