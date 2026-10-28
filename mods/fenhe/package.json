@@ -1,1 +1,0 @@
-{"name":"civ7-fenhe","version":"0.2.0-alpha","private":true,"type":"module","scripts":{"test":"node --test tests/*.test.mjs","calibrate":"node tools/calibrate.mjs","report":"node tools/report.mjs","bridge":"node tools/bridge.mjs"}}

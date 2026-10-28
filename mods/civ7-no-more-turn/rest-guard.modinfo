@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="civ7-rest-guard" version="19" xmlns="ModInfo">
+  <Properties>
+    <Name>No More Turn（不再来一回合）</Name>
+    <Description>LOC_RG_MOD_DESCRIPTION</Description>
+    <Authors>Custom Mod</Authors>
+    <Version>1.8.6</Version>
+    <Package>Mod</Package>
+    <AffectsSavedGames>0</AffectsSavedGames>
+  </Properties>
+  <Dependencies><Mod id="base-standard" title="Base Game" /></Dependencies>
+  <ActionCriteria><Criteria id="always"><AlwaysMet /></Criteria></ActionCriteria>
+  <ActionGroups>
+    <ActionGroup id="rest-guard-game" scope="game" criteria="always">
+      <Properties><LoadOrder>2000</LoadOrder></Properties>
+      <Actions>
+        <UpdateText><Item>text/settings.xml</Item></UpdateText>
+        <UIScripts><Item>ui/rest-guard.js</Item></UIScripts>
+        <ImportFiles>
+          <Item>ui/defaults.js</Item>
+          <Item>ui/rest-model.js</Item>
+          <Item>ui/rest-session.js</Item>
+          <Item>ui/rest-activity.js</Item>
+          <Item>ui/rest-save.js</Item>
+          <Item>ui/rest-retention.js</Item>
+          <Item>ui/rest-runtime.js</Item>
+          <Item>ui/rest-store.js</Item>
+          <Item>ui/rest-options.js</Item>
+          <Item>ui/rest-settings.js</Item>
+          <Item>ui/rest-view.js</Item>
+          <Item>ui/rest-guard.css</Item>
+        </ImportFiles>
+      </Actions>
+    </ActionGroup>
+    <ActionGroup id="rest-guard-shell" scope="shell" criteria="always">
+      <Properties><LoadOrder>2000</LoadOrder></Properties>
+      <Actions>
+        <UpdateText><Item>text/settings.xml</Item></UpdateText>
+        <UIScripts><Item>ui/rest-shell.js</Item></UIScripts>
+        <ImportFiles>
+          <Item>ui/defaults.js</Item>
+          <Item>ui/rest-model.js</Item>
+          <Item>ui/rest-session.js</Item>
+          <Item>ui/rest-activity.js</Item>
+          <Item>ui/rest-save.js</Item>
+          <Item>ui/rest-retention.js</Item>
+          <Item>ui/rest-runtime.js</Item>
+          <Item>ui/rest-store.js</Item>
+          <Item>ui/rest-options.js</Item>
+          <Item>ui/rest-settings.js</Item>
+        </ImportFiles>
+      </Actions>
+    </ActionGroup>
+  </ActionGroups>
+</Mod>

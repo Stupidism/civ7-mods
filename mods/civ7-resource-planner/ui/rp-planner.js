@@ -56,7 +56,7 @@ function permitted(r,c,mode) {
 
 // Maximum-weight bipartite allocation, with reverse edges to undo early choices.
 // Unlike sorting pairs greedily, this can reserve the sole legal slot of a resource.
-function matching(resources,cities,mode) {
+function* matching(resources,cities,mode,eligible) {
   const source=0, ro=1, co=ro+resources.length, sink=co+cities.length;
   const graph=Array.from({length:sink+1},()=>[]);
   const add=(u,v,cap,cost,data)=>{
@@ -66,13 +66,14 @@ function matching(resources,cities,mode) {
   resources.forEach((r,ri)=>{
     add(source,ro+ri,1,0);
     cities.forEach((c,ci)=>{
-      if (!permitted(r,c,mode)) return;
+      if (!eligible(r,c)) return;
       const value=marginal(c,r).score;
       if(value>EPS || r.original===c.key) add(ro+ri,co+ci,1,-value-(r.original===c.key?1e-8:0),{ri,ci});
     });
   });
   cities.forEach((c,i)=>add(co+i,sink,Math.max(0,c.capacity),0));
   for(let iteration=0;iteration<resources.length;iteration++) {
+    yield;
     const dist=Array(graph.length).fill(Infinity), prev=Array(graph.length); dist[source]=0;
     // Bellman-Ford works with negative costs; the residual network has no negative cycles.
     for(let pass=0;pass<graph.length-1;pass++) {
@@ -94,32 +95,43 @@ export function planUtility(assignment, resources,cities) {
   return cities.reduce((sum,c)=>sum+utility(cityYieldVector(c,resources.filter(r=>assignment[r.key]===c.key))),0);
 }
 
-function improve(assignment,resources,cities,mode) {
+function* improve(assignment,resources,cities,mode,eligible) {
   const byCity=new Map(cities.map(c=>[c.key,c]));
-  const at=k=>resources.filter(r=>assignment[r.key]===k);
-  const value=k=> k ? utility(cityYieldVector(byCity.get(k),at(k))) : 0;
+  // Eligibility and resource effects are invariant during one plan. Cache them
+  // locally; never reuse live-game data across runs.
+  const effects=new Map(cities.map(c=>[c.key,new Map(resources.map(r=>[r.key,effectsFor(r,c)]))]));
+  const value=(key,held)=>{
+    if(!key)return 0;
+    const c=byCity.get(key),flat=Array(7).fill(0),percent=Array(7).fill(0);let construction=0;
+    for(const r of held){const e=effects.get(key).get(r.key);construction+=e.construction;for(let i=0;i<7;i++){flat[i]+=e.flat[i];percent[i]+=e.percent[i];}}
+    const vector=c.base.map((b,i)=>((b+flat[i])*(c.multiplier[i]+percent[i]/100)+(c.offset?.[i]||0))*(c.postMultiplier?.[i]??1));
+    vector[1]*=1+construction/100;return utility(vector);
+  };
   for(const r of resources) {
-    const key=assignment[r.key];
-    if(key && r.original!==key && marginal(byCity.get(key),r,at(key).filter(x=>x.key!==r.key)).score<=EPS)delete assignment[r.key];
+    const key=assignment[r.key],held=resources.filter(x=>assignment[x.key]===key);
+    if(key && r.original!==key && marginal(byCity.get(key),r,held.filter(x=>x.key!==r.key)).score<=EPS)delete assignment[r.key];
   }
-  // Correct nonlinear happiness saturation and flat/percent interactions using
-  // full settlement totals, including swaps with currently unused resources.
   for(let pass=0;pass<resources.length*2+4;pass++) {
+    // Build membership once per pass instead of scanning every resource for
+    // every possible move and swap.
+    const held=new Map(cities.map(c=>[c.key,[]]));
+    for(const r of resources)if(assignment[r.key])held.get(assignment[r.key]).push(r);
+    const current=new Map(cities.map(c=>[c.key,value(c.key,held.get(c.key))]));
+    const trial=(key,remove,add)=>key?value(key,[...held.get(key).filter(r=>r!==remove),...(add?[add]:[])]):0;
     let bestGain=EPS,best;
     for(let i=0;i<resources.length;i++) {
-      const a=resources[i], from=assignment[a.key];
+      yield;
+      const a=resources[i],from=assignment[a.key];
       for(const c of [...cities,null]) {
         const to=c?.key;
-        if(from===to || (c&&(!permitted(a,c,mode)||at(to).length>=c.capacity)))continue;
-        const before=value(from)+value(to); assignment[a.key]=to;
-        const gain=value(from)+value(to)-before; assignment[a.key]=from;
+        if(from===to || (c&&(!eligible(a,c)||held.get(to).length>=c.capacity)))continue;
+        const gain=trial(from,a,null)+trial(to,null,a)-(current.get(from)||0)-(current.get(to)||0);
         if(gain>bestGain){bestGain=gain;best=[a.key,to];}
       }
       for(let j=i+1;j<resources.length;j++) {
         const b=resources[j],to=assignment[b.key];
-        if(from===to || (to&&!permitted(a,byCity.get(to),mode)) || (from&&!permitted(b,byCity.get(from),mode)))continue;
-        const before=value(from)+value(to);assignment[a.key]=to;assignment[b.key]=from;
-        const gain=value(from)+value(to)-before;assignment[a.key]=from;assignment[b.key]=to;
+        if(from===to || (to&&!eligible(a,byCity.get(to))) || (from&&!eligible(b,byCity.get(from))))continue;
+        const gain=trial(from,a,b)+trial(to,b,a)-(current.get(from)||0)-(current.get(to)||0);
         if(gain>bestGain){bestGain=gain;best=[a.key,to,b.key,from];}
       }
     }
@@ -129,7 +141,9 @@ function improve(assignment,resources,cities,mode) {
   return assignment;
 }
 
-export function planAllocation(resources,cities,mode='tendency') {
+function* allocationSteps(resources,cities,mode='tendency') {
+  const eligibility=new Map(cities.map(c=>[c.key,new Map(resources.map(r=>[r.key,permitted(r,c,mode)]))]));
+  const eligible=(r,c)=>eligibility.get(c.key).get(r.key);
   const normal=resources.filter(r=>!r.bonusSlots);
   const camels=resources.filter(r=>r.bonusSlots>0);
   const state=cities.map(c=>({...c}));
@@ -138,7 +152,7 @@ export function planAllocation(resources,cities,mode='tendency') {
     camelAssignments[camel.key]=camel.original;
     state.find(c=>c.key===camel.original).capacity+=camel.bonusSlots-1;
   }
-  let assignment=improve(matching(normal,state,mode),normal,state,mode);
+  let assignment=yield* improve(yield* matching(normal,state,mode,eligible),normal,state,mode,eligible);
   for(const camel of camels) {
     let best, bestValue=planUtility(assignment,normal,state);
     const from=camelAssignments[camel.key],source=state.find(c=>c.key===from);
@@ -147,7 +161,7 @@ export function planAllocation(resources,cities,mode='tendency') {
       if(source && source.capacity<camel.bonusSlots-1)continue;
       if(source)source.capacity-=camel.bonusSlots-1;
       c.capacity += camel.bonusSlots-1;
-      const next=improve(matching(normal,state,mode),normal,state,mode);
+      const next=yield* improve(yield* matching(normal,state,mode,eligible),normal,state,mode,eligible);
       const value=planUtility(next,normal,state);
       c.capacity -= camel.bonusSlots-1;
       if(source)source.capacity+=camel.bonusSlots-1;
@@ -161,6 +175,23 @@ export function planAllocation(resources,cities,mode='tendency') {
     if(planUtility(result,resources,cities)<=planUtility(previous,resources,cities)+EPS)return previous;
   }
   return result;
+}
+
+// The same iterator drives deterministic offline tests and cooperative UI work.
+export function planAllocation(resources,cities,mode='tendency') {
+  const steps=allocationSteps(resources,cities,mode);let next;
+  do{next=steps.next();}while(!next.done);return next.value;
+}
+export async function planAllocationAsync(resources,cities,mode='tendency',{shouldContinue=()=>true}={}) {
+  const steps=allocationSteps(resources,cities,mode);let deadline=performance.now()+8;
+  const check=()=>{if(!shouldContinue()){steps.return();throw new Error('LOC_RP_CONTEXT_CHANGED');}};
+  check();
+  for(;;){
+    const next=steps.next();if(next.done)return next.value;
+    if(performance.now()>=deadline){
+      await new Promise(resolve=>setTimeout(resolve,0));check();deadline=performance.now()+8;
+    }
+  }
 }
 
 export function groupedSettlements(sections) {

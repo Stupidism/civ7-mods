@@ -1,0 +1,51 @@
+{
+  "version": "0.1.0",
+  "createdAt": "20261023T101622136088Z",
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261023T101622136088Z/civ7-map-tools-gamepad-0.1.0.zip",
+  "archiveSha256": "54da8f300466692108c66c0d2e11093e2b8847484935880c064bfc7a5c89a7ec",
+  "files": {
+    "map-tools-gamepad.modinfo": {
+      "size": 1236,
+      "sha256": "5a069330792668aceefb525368bba3a801e5ca727b98247f98190d89369505a5"
+    },
+    "README.md": {
+      "size": 3435,
+      "sha256": "6a54a59a1ae2706fe24bd58871ca66a5c94a5cb1e5731fb1afb76508fcd32b98"
+    },
+    "README-en.md": {
+      "size": 1928,
+      "sha256": "c9a4ed7c6734ca2a6fb40ee9bc2262772737da266581d9e1bb3c56956918bc8e"
+    },
+    "VALIDATION.md": {
+      "size": 3435,
+      "sha256": "0868091859a994f2a66c885796926a8273cccffb118b0a0b1b504a93437b9db1"
+    },
+    "ui/map-tools-gamepad.css": {
+      "size": 267,
+      "sha256": "2b502f0e96ba18b99903118f306955165ea79a83917382be4cbfa0ef175bf928"
+    },
+    "ui/map-tools-gamepad.js": {
+      "size": 1901,
+      "sha256": "f9fdf0b78e1281a498b35cd849b5921336c4edbcf4f1b4bce0f1a91b41532343"
+    },
+    "ui/map-tools-runtime.js": {
+      "size": 10952,
+      "sha256": "0ce321c3eee0c2c3a0372753f2b5fac9c6dc0336f6038af42c506b08509573a3"
+    },
+    "ui/navigation.js": {
+      "size": 2324,
+      "sha256": "6b9e65e0090a0993264bd4fd86a15c5175a47888092d1e024640e9bf7e1a45d3"
+    },
+    "text/map-tools.xml": {
+      "size": 1802,
+      "sha256": "f0ab4d77a0c988ef5f8c75b0074c8159a3ccb94578f63d6afdc729185eb5106a"
+    }
+  },
+  "installedAt": "2026-10-23T10:16:35.213525+00:00",
+  "destination": "/Users/sunmer/Library/Application Support/Civilization VII/Mods/civ7-map-tools-gamepad",
+  "installedFilesVerified": true,
+  "scope": "File-only installation; no game UI/CDP, restart, load, save or live test. User-controlled game left untouched. Saves and Rest Guard not read or modified.",
+  "previousInstallation": null,
+  "backupRequired": false,
+  "reason": "New mod directory; no existing files replaced and no live interaction."
+}

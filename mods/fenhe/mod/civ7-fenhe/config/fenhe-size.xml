@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Database>
- <Types><Row Type="MAPSIZE_FENHE" Kind="KIND_MAPSIZE"/></Types>
- <Maps><Row MapSizeType="MAPSIZE_FENHE" Name="分合存量世界" Description="使用存量地图的实际尺寸" DefaultPlayers="8" PlayersLandmass1="5" PlayersLandmass2="3" GridWidth="84" GridHeight="54" NumNaturalWonders="5" OceanWidth="4" LakeSizeCutoff="8" LakeGenerationFrequency="25" Continents="4" StartSectorRows="4" StartSectorCols="3"/></Maps>
-</Database>

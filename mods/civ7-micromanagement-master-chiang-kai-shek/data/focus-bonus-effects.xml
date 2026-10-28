@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GameEffects xmlns="GameEffects">
+  <Modifier id="MOD_WC_FOCUS_READY" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="true" permanent="true">
+    <Argument name="Amount">1</Argument>
+    <Argument name="NarrativeTagType">NARRATIVE_TAG_WC_FOCUS_READY</Argument>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_ATTACH_1" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+    <Argument name="ModifierId">MOD_WC_FOCUS_SHOT_1</Argument>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_SHOT_1" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+    <OwnerRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS">
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_WC_FOCUS_1</Argument>
+        <Argument name="Amount">1</Argument>
+      </Requirement>
+    </OwnerRequirements>
+    <SubjectRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING" />
+      <Requirement type="REQUIREMENT_COMBAT_TYPE_MATCHES">
+        <Argument name="CombatType">COMBAT_RANGED</Argument>
+      </Requirement>
+    </SubjectRequirements>
+    <Argument name="Amount">1</Argument>
+    <String context="Preview">LOC_WC_FOCUS_BONUS_PREVIEW</String>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_ATTACH_2" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+    <Argument name="ModifierId">MOD_WC_FOCUS_SHOT_2</Argument>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_SHOT_2" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+    <OwnerRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS">
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_WC_FOCUS_2</Argument>
+        <Argument name="Amount">1</Argument>
+      </Requirement>
+    </OwnerRequirements>
+    <SubjectRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING" />
+      <Requirement type="REQUIREMENT_COMBAT_TYPE_MATCHES">
+        <Argument name="CombatType">COMBAT_RANGED</Argument>
+      </Requirement>
+    </SubjectRequirements>
+    <Argument name="Amount">2</Argument>
+    <String context="Preview">LOC_WC_FOCUS_BONUS_PREVIEW</String>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_ATTACH_4" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+    <Argument name="ModifierId">MOD_WC_FOCUS_SHOT_4</Argument>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_SHOT_4" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+    <OwnerRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS">
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_WC_FOCUS_4</Argument>
+        <Argument name="Amount">1</Argument>
+      </Requirement>
+    </OwnerRequirements>
+    <SubjectRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING" />
+      <Requirement type="REQUIREMENT_COMBAT_TYPE_MATCHES">
+        <Argument name="CombatType">COMBAT_RANGED</Argument>
+      </Requirement>
+    </SubjectRequirements>
+    <Argument name="Amount">4</Argument>
+    <String context="Preview">LOC_WC_FOCUS_BONUS_PREVIEW</String>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_ATTACH_8" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+    <Argument name="ModifierId">MOD_WC_FOCUS_SHOT_8</Argument>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_SHOT_8" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+    <OwnerRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS">
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_WC_FOCUS_8</Argument>
+        <Argument name="Amount">1</Argument>
+      </Requirement>
+    </OwnerRequirements>
+    <SubjectRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING" />
+      <Requirement type="REQUIREMENT_COMBAT_TYPE_MATCHES">
+        <Argument name="CombatType">COMBAT_RANGED</Argument>
+      </Requirement>
+    </SubjectRequirements>
+    <Argument name="Amount">8</Argument>
+    <String context="Preview">LOC_WC_FOCUS_BONUS_PREVIEW</String>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_ATTACH_16" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+    <Argument name="ModifierId">MOD_WC_FOCUS_SHOT_16</Argument>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_SHOT_16" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+    <OwnerRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS">
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_WC_FOCUS_16</Argument>
+        <Argument name="Amount">1</Argument>
+      </Requirement>
+    </OwnerRequirements>
+    <SubjectRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING" />
+      <Requirement type="REQUIREMENT_COMBAT_TYPE_MATCHES">
+        <Argument name="CombatType">COMBAT_RANGED</Argument>
+      </Requirement>
+    </SubjectRequirements>
+    <Argument name="Amount">16</Argument>
+    <String context="Preview">LOC_WC_FOCUS_BONUS_PREVIEW</String>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_ATTACH_32" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+    <Argument name="ModifierId">MOD_WC_FOCUS_SHOT_32</Argument>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_SHOT_32" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+    <OwnerRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS">
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_WC_FOCUS_32</Argument>
+        <Argument name="Amount">1</Argument>
+      </Requirement>
+    </OwnerRequirements>
+    <SubjectRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING" />
+      <Requirement type="REQUIREMENT_COMBAT_TYPE_MATCHES">
+        <Argument name="CombatType">COMBAT_RANGED</Argument>
+      </Requirement>
+    </SubjectRequirements>
+    <Argument name="Amount">32</Argument>
+    <String context="Preview">LOC_WC_FOCUS_BONUS_PREVIEW</String>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_ATTACH_64" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+    <Argument name="ModifierId">MOD_WC_FOCUS_SHOT_64</Argument>
+  </Modifier>
+  <Modifier id="MOD_WC_FOCUS_SHOT_64" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+    <OwnerRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS">
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_WC_FOCUS_64</Argument>
+        <Argument name="Amount">1</Argument>
+      </Requirement>
+    </OwnerRequirements>
+    <SubjectRequirements>
+      <Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING" />
+      <Requirement type="REQUIREMENT_COMBAT_TYPE_MATCHES">
+        <Argument name="CombatType">COMBAT_RANGED</Argument>
+      </Requirement>
+    </SubjectRequirements>
+    <Argument name="Amount">64</Argument>
+    <String context="Preview">LOC_WC_FOCUS_BONUS_PREVIEW</String>
+  </Modifier>
+</GameEffects>

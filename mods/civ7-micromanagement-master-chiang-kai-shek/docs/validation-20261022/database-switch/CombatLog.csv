@@ -1,0 +1,2 @@
+Turn, SourceType, Location, AttPlayer, DefPlayer, CombatType, Attacker, Defender, AttStr, DefStr, AttStrMod, DefStrMod, AttDmg, DefDmg, Destroyed, HealAmount, attHealth, defHealth
+1,Unit vs Unit,(14)(21),0,1,Ranged,(17)UNIT_ARCHER,(17)UNIT_ARCHER,20,10,-1,-2,0,40,N/A,0,(100)100,(60)100

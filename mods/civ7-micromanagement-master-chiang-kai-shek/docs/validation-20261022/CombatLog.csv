@@ -1,0 +1,5 @@
+Turn, SourceType, Location, AttPlayer, DefPlayer, CombatType, Attacker, Defender, AttStr, DefStr, AttStrMod, DefStrMod, AttDmg, DefDmg, Destroyed, HealAmount, attHealth, defHealth
+122,Unit vs Location,(5)(26),0,2,Ranged,(17)UNIT_ARCHER,(-1)LOC_DISTRICT_CITY_CENTER_NAME,10,35,4,8,0,10,N/A,0,(98)100,(20)200
+122,Unit vs Location,(6)(26),0,2,Ranged,(17)UNIT_ARCHER,(-1)LOC_DISTRICT_URBAN_NAME,10,35,6,8,0,9,District,0,(100)100,(0)100
+122,Unit vs Location,(9)(26),0,2,Ranged,(17)UNIT_ARCHER,(-1)LOC_DISTRICT_URBAN_NAME,10,35,6,8,0,11,N/A,0,(100)100,(71)100
+122,Unit vs Location,(9)(26),0,2,Ranged,(19)UNIT_BALLISTA,(-1)LOC_DISTRICT_URBAN_NAME,30,35,6,8,0,20,N/A,0,(91)100,(51)100

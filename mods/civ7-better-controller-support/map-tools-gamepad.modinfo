@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Mod xmlns="ModInfo" id="civ7-map-tools-gamepad" version="5">
+  <Properties>
+    <Name>LOC_MTG_MOD_NAME</Name>
+    <Description>LOC_MTG_DESCRIPTION</Description>
+    <Authors>Stupidism</Authors>
+    <Version>0.3.0</Version>
+    <Package>Mod</Package>
+    <AffectsSavedGames>0</AffectsSavedGames>
+    <ShowInBrowser>1</ShowInBrowser>
+    <EnabledByDefault>1</EnabledByDefault>
+  </Properties>
+  <Dependencies>
+    <Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME" />
+  </Dependencies>
+  <ActionCriteria>
+    <Criteria id="always">
+      <AlwaysMet />
+    </Criteria>
+  </ActionCriteria>
+  <ActionGroups>
+    <ActionGroup id="mtg-text" scope="shell" criteria="always">
+      <Properties>
+        <LoadOrder>4100</LoadOrder>
+      </Properties>
+      <Actions>
+        <UpdateText>
+          <Item>text/map-tools.xml</Item>
+          <Item>text/controller-settings.xml</Item>
+        </UpdateText>
+        <UIScripts>
+          <Item>ui/bridge-settings.js</Item>
+        </UIScripts>
+        <ImportFiles>
+          <Item>ui/bridge-store.js</Item>
+          <Item>ui/bridge-options.js</Item>
+          <Item>ui/controller-policy.js</Item>
+          <Item>ui/menu-navigation.js</Item>
+          <Item>ui/menu-navigation-adapter.js</Item>
+        </ImportFiles>
+      </Actions>
+    </ActionGroup>
+    <ActionGroup id="mtg-game" scope="game" criteria="always">
+      <Properties>
+        <LoadOrder>4100</LoadOrder>
+      </Properties>
+      <Actions>
+        <UpdateText>
+          <Item>text/map-tools.xml</Item>
+          <Item>text/controller-settings.xml</Item>
+        </UpdateText>
+        <UIScripts>
+          <Item>ui/map-tools-gamepad.js</Item>
+          <Item>ui/controller-bridge.js</Item>
+          <Item>ui/plot-shortcuts.js</Item>
+        </UIScripts>
+        <ImportFiles>
+          <Item>ui/bridge-store.js</Item>
+          <Item>ui/bridge-options.js</Item>
+          <Item>ui/controller-policy.js</Item>
+          <Item>ui/menu-navigation.js</Item>
+          <Item>ui/menu-navigation-adapter.js</Item>
+          <Item>ui/bridge-settings.js</Item>
+          <Item>ui/bridge-runtime.js</Item>
+          <Item>ui/plot-shortcuts-runtime.js</Item>
+          <Item>ui/plot-shortcuts-adapter.js</Item>
+          <Item>ui/map-tools-runtime.js</Item>
+          <Item>ui/navigation.js</Item>
+          <Item>ui/radial-icons.js</Item>
+          <Item>ui/map-tools-gamepad.css</Item>
+        </ImportFiles>
+      </Actions>
+    </ActionGroup>
+  </ActionGroups>
+</Mod>

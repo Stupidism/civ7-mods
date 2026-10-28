@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="civ7-before-end-turn" version="6" xmlns="ModInfo">
+  <Properties>
+    <Name>Auto-save Before...</Name>
+    <Description>LOC_SBE_MOD_DESCRIPTION</Description>
+    <Authors>Stupidism</Authors>
+    <Version>1.1.2</Version>
+    <Package>Mod</Package>
+    <AffectsSavedGames>0</AffectsSavedGames>
+    <ShowInBrowser>1</ShowInBrowser>
+    <EnabledByDefault>1</EnabledByDefault>
+  </Properties>
+  <Dependencies><Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME" /></Dependencies>
+  <ActionCriteria><Criteria id="always"><AlwaysMet /></Criteria></ActionCriteria>
+  <ActionGroups>
+    <ActionGroup id="before-end-turn-game" scope="game" criteria="always">
+      <!-- After Rest Guard (2000): the outer save wrapper completes the backup
+           before the inner rest guard pauses the pending end-turn action. -->
+      <Properties><LoadOrder>3000</LoadOrder></Properties>
+      <Actions>
+        <UpdateText><Item>text/settings.xml</Item></UpdateText>
+        <UIScripts><Item>ui/before-end-turn.js</Item></UIScripts>
+        <ImportFiles>
+          <Item>ui/save-gate.js</Item>
+          <Item>ui/diplomacy-hook.js</Item>
+          <Item>ui/save-store.js</Item>
+          <Item>ui/save-options.js</Item>
+          <Item>ui/save-settings.js</Item>
+        </ImportFiles>
+      </Actions>
+    </ActionGroup>
+    <ActionGroup id="before-end-turn-shell" scope="shell" criteria="always">
+      <Properties><LoadOrder>1500</LoadOrder></Properties>
+      <Actions>
+        <UpdateText><Item>text/settings.xml</Item></UpdateText>
+        <UIScripts><Item>ui/save-settings.js</Item></UIScripts>
+        <ImportFiles>
+          <Item>ui/save-store.js</Item>
+          <Item>ui/save-options.js</Item>
+        </ImportFiles>
+      </Actions>
+    </ActionGroup>
+  </ActionGroups>
+</Mod>

@@ -1,1 +1,0 @@
-UPDATE Independents SET TribeType='TRIBE_FENHE_RESERVED',BiomeType=NULL WHERE IndependentType NOT LIKE 'INDEPENDENT_FENHE_%';

@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_MTG_MOD_NAME">
+      <Text>Better Controller Support</Text>
+    </Row>
+    <Row Tag="LOC_MTG_DESCRIPTION">
+      <Text>Controller map tools, LB/RB cycling through stacked units, and X to open the settlement on the highlighted tile. Includes Mac input compatibility. City/unit/wonder lists require Map Trix; map tacks require Detailed Map Tacks.</Text>
+    </Row>
+    <Row Tag="LOC_MTG_TITLE">
+      <Text>Map Tools</Text>
+    </Row>
+    <Row Tag="LOC_MTG_LENSES">
+      <Text>Lenses</Text>
+    </Row>
+    <Row Tag="LOC_MTG_CITIES">
+      <Text>Cities</Text>
+    </Row>
+    <Row Tag="LOC_MTG_UNITS">
+      <Text>Units</Text>
+    </Row>
+    <Row Tag="LOC_MTG_WONDERS">
+      <Text>Wonders</Text>
+    </Row>
+    <Row Tag="LOC_MTG_TACKS">
+      <Text>Map Tacks</Text>
+    </Row>
+  </EnglishText>
+  <LocalizedText>
+    <Row Tag="LOC_MTG_MOD_NAME" Language="zh_Hans_CN">
+      <Text>更好的手柄支持 · Better Controller Support</Text>
+    </Row>
+    <Row Tag="LOC_MTG_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>手柄地图工具导航，LB/RB 切换同格重叠单位，X 打开光标格上的定居点，内置 Mac 输入兼容。城市、单位、奇观列表需 Map Trix，地图钉需 Detailed Map Tacks。</Text>
+    </Row>
+    <Row Tag="LOC_MTG_TITLE" Language="zh_Hans_CN">
+      <Text>地图工具</Text>
+    </Row>
+    <Row Tag="LOC_MTG_LENSES" Language="zh_Hans_CN">
+      <Text>滤镜</Text>
+    </Row>
+    <Row Tag="LOC_MTG_CITIES" Language="zh_Hans_CN">
+      <Text>城市</Text>
+    </Row>
+    <Row Tag="LOC_MTG_UNITS" Language="zh_Hans_CN">
+      <Text>单位</Text>
+    </Row>
+    <Row Tag="LOC_MTG_WONDERS" Language="zh_Hans_CN">
+      <Text>奇观</Text>
+    </Row>
+    <Row Tag="LOC_MTG_TACKS" Language="zh_Hans_CN">
+      <Text>地图钉</Text>
+    </Row>
+  </LocalizedText>
+</Database>

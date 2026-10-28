@@ -1,0 +1,26 @@
+2026-10-22 临时技能与集中火力实机探针
+
+范围
+用户本轮已明确允许游戏测试。本轮仅验证原生技能／集中火力接口，不代表 0.6.0 新界面、英文、连续部署和增援切换已通过实机验收。未安装开发稿、未发布。未修改游戏数据库、程序文件或已安装模组。
+
+存档
+每轮加载、结算探针及退出前均完整备份 Saves，校验目录、相对文件路径、大小和 SHA-256，并在独立时间戳目录保留 manifest.json。备份根目录：~/Documents/Civ7-Test-Backups/。
+以 WarControls_TurnStart 的新副本 WC_TemporaryAbility_20261022.Civ7Save 测试。未主动保存或结束回合；加载后进入第 122 回合。游戏自动存档和已安装 Rest Guard 自动创建了三个新存档，全部保留。
+退出前核对：测试开始时已有 327 个文件全部哈希不变，未删除或覆盖。详见 docs/validation-20261022/save-audit.json。
+最后撤销临时事件监听，恢复待命状态并退出到主菜单；测试进度未手动保存。
+
+实机结果
+1. Units.get(id) 的原生方法包括 getAbilities / getAbilityCount / hasAbility / canHaveAbility；未暴露技能添加或移除方法。Game.Modifiers 只提供 getModifiers / getModifierSubjects。不能据此断言引擎内部没有该功能，但当前界面 API 未找到可靠入口。
+2. 给读取到的 Combat.rangedStrength 和 rangedStrengthModifier 加 2，重新读取仍为原值；向 getAbilities() 返回数组追加技能，也不改变实际技能。此方法不能产生真实临时加成。
+3. 原生 UnitAbility_TimedAbilities 数据表存在，但本次存档下没有行；表字段为 TimedUnitAbilityType、UnitAbilityType、Duration。这不是“可以立即挂载并在一次射击后清除”的实测证明。
+4. 相同单位、相同目标的战斗预测，分别附加 FocusedAttack、IsFocusedAttack、bIsFocusedAttack，结果均为基础战力 10、修正 4、预测伤害 9；未出现额外加成。实际普通 RANGE_ATTACK 携带 FocusedAttack:true 后，CombatLog 仍记修正 4，造成 10 伤害，单位留在原格，消耗正常行动。
+5. 原生集中火力的两次弓箭手日志均记修正 6，另一次弩炮也为修正 6；符合原版额外 +2 的行为。此样本未覆盖弹幕等额外晋升加成。
+6. 待命排除方案失败。对 (9,26) 的耐打目标，弓箭手 5177383 保持清醒，能射击的弩炮 6160434 设为 SLEEP。原生集中火力仍让两者都射击：弩炮被唤醒，移动力 3→0、攻击次数 1→0，目标累计伤害 18→49。两者位置未变。不能使用待命作为排除功能。
+7. 先前对 (6,26) 残血目标仅一人射击的样本，属于目标被消灭后停止，不能当作待命排除成功。
+8. 尚未实现“只给本次参与者临时补齐所有加成并可靠清除”。未向正式代码加入永久光环、猜测参数或不可靠待命方案。原地齐射开发稿仍是普通远程攻击，不能作为用户已接受的最终替代。
+
+证据
+docs/validation-20261022/ 包含运行时方法、限时技能表、实际单位前后状态与 CombatLog.csv。
+
+后续更新（同日，数据库路线）
+后续通过 NarrativeTags 条件与隐藏 NarrativeStory 奖励实现了旧档可挂载的临时远程战斗力效果，基础 +2 和含弹幕 +7 均通过真实战斗日志验证；原地逐发齐射及排除单位也已联合验证。此前第 8 点仅描述当时状态，当前实现和验证边界以 ../VALIDATION-zh-CN.txt 为准。证据位于 validation-20261022/database-switch/。
