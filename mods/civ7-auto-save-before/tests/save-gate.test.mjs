@@ -270,3 +270,24 @@ test('outer save wrapper saves once before inner rest, blocking new requests unt
   resume();
   assert.deepEqual(h.calls, ['lock', 'save', 'unlock', 'saved', 'turn']);
 });
+
+test('standalone recovery retries native busy rejections until accepted, never advances on acceptance', () => {
+  const h = harness(); h.gate.onSaveStart(); h.request();
+  h.env.save = () => { h.calls.push('rejected'); return false; };
+  h.flush(5000); h.flush(5000);
+  assert.equal(h.gate.inFlight, 1); assert.equal(h.gate.saveTracking.recovery, null);
+  h.env.save = () => { h.calls.push('recovery'); h.gate.onSaveStart(); return true; };
+  h.flush(5000);
+  assert.equal(h.gate.inFlight, 1); assert.equal(h.calls.includes('turn'), false);
+  h.complete(); h.flush();
+  assert.equal(h.calls.filter(x => x === 'turn').length, 1);
+  h.setContext({ token: 'next-turn' }); h.request(); h.complete(); h.flush();
+  assert.equal(h.calls.filter(x => x === 'turn').length, 2);
+});
+
+test('cancelled recovery does not leave a retry timer that can write later', () => {
+  const h = harness(); h.gate.onSaveStart(); h.request(); h.env.save = () => false;
+  h.flush(5000); h.gate.cancel();
+  h.env.save = () => { throw Error('must not save after cancellation'); }; h.flush(5000);
+  assert.equal(h.gate.busy, false);
+});

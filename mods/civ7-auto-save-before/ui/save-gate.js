@@ -91,6 +91,9 @@ export class SaveGate {
     // Preserve synchronous native callbacks too. On rejection they still belong
     // to the original write. On acceptance require the fresh StartSaveRequest.
     for (const [method, result] of events) this[method](result);
+    if (!accepted && this.job === job && job.phase !== 'saved') {
+      job.recoveryTimer = this.env.setTimer(() => this.recover(job), 5000);
+    }
   }
 
   onSaveStart() {
@@ -120,7 +123,7 @@ export class SaveGate {
       }
       return;
     }
-    if (job.phase !== 'saving' || job.requireStart || !this.env.matches(result)) return;
+    if (job.phase !== 'saving' || job.requireStart || !this.env.matches(result, job.kind)) return;
     if (!this.env.succeeded(result)) {
       this.fail('LOC_SBE_SAVE_FAILED', String(result?.result));
       return;

@@ -42,6 +42,7 @@ function harness({ reverse = false, recoveryMode = 'start', accepted = true } = 
     request: () => gate.request(() => submitted++),
     flush(ms) { for (const [id, t] of [...timers]) if (t.ms === ms) { timers.delete(id); t.fn(); } },
     poll: state => rest.poll(state, { token: 'turn13' }),
+    advance(ms) { now += ms; },
     expire() { now = 60001; }
   };
 }
@@ -112,3 +113,24 @@ test('reconciliation retains a newer native save instead of blindly clearing all
   assert.equal(h.restWrites.length, 1);
   assert.equal(state.status, 'saving');
 });
+
+for (const reverse of [false, true]) {
+  test(`rest recovers first, then action save and next rest both recover (${reverse})`, () => {
+    const h = harness({ reverse });
+    const first = newRestSave('idle', 13, 0);
+    h.poll(first); // Rest's own first completion is lost; both saw its start.
+    const oldName = first.fileName;
+    h.advance(5000); h.poll(first);
+    assert.notEqual(first.fileName, oldName);
+    h.complete('auto', first.fileName);
+    assert.equal(first.status, 'saved');
+    h.request(); // Gate still has the missing event count; it must recover independently.
+    assert.equal(h.gateWrites, 0);
+    h.flush(5000); assert.equal(h.gateWrites, 1);
+    h.complete('normal'); h.flush(0); assert.equal(h.submitted, 1);
+    const next = newRestSave('time', 13, 1);
+    h.poll(next); h.complete('auto', next.fileName);
+    assert.equal(next.status, 'saved');
+    assert.equal(h.rest.inFlight, 0); assert.equal(h.gate.inFlight, 0);
+  });
+}

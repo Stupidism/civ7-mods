@@ -102,3 +102,74 @@ test('same-break saved state is not retried and a new break creates a new reques
   assert.equal(h.writes.length, 2);
   assert.notEqual(h.writes[0], h.writes[1]);
 });
+
+for (const timing of ['deferred', 'sync-start', 'sync-complete']) {
+  for (const missing of ['system', 'own']) {
+    test(`standalone rest recovers lost ${missing} completion (${timing})`, () => {
+      const h = harness();
+      if (missing === 'system') h.saver.onStart();
+      h.poll();
+      if (missing === 'own') h.saver.onStart();
+      const oldName = h.state.fileName;
+      h.saver.env.save = name => {
+        h.writes.push(name);
+        if (timing !== 'deferred') h.saver.onStart();
+        if (timing === 'sync-complete') h.complete(0);
+        return true;
+      };
+      h.now = 4999; h.poll();
+      assert.equal(h.writes.length, missing === 'own' ? 1 : 0);
+      h.now = 5000; h.poll();
+      assert.notEqual(h.state.fileName, oldName, 'recovery must not overwrite an already-written checkpoint');
+      if (timing === 'deferred') {
+        h.complete(0); // Completion without fresh start is not proof.
+        assert.equal(h.state.status, 'saving');
+        h.saver.onStart();
+      }
+      if (timing !== 'sync-complete') {
+        assert.equal(h.state.status, 'saving');
+        h.complete(1); assert.equal(h.state.status, 'saving');
+        h.complete(0);
+      }
+      assert.equal(h.state.status, 'saved');
+      assert.equal(h.saver.inFlight, 0);
+      h.state = newRestSave('time', 10, 2); h.poll();
+      if (timing === 'deferred') h.saver.onStart();
+      if (timing !== 'sync-complete') h.complete(0);
+      assert.equal(h.state.status, 'saved', 'later break also works');
+    });
+  }
+}
+
+test('standalone recovery retries busy rejection, never clears it on rejection or exception', () => {
+  const h = harness(); h.saver.onStart(); h.poll();
+  const name = h.state.fileName;
+  h.accepted = false; h.now = 5000; h.poll();
+  assert.equal(h.saver.inFlight, 1); assert.equal(h.state.fileName, name);
+  h.throws = true; h.now = 10000; h.poll();
+  assert.equal(h.saver.inFlight, 1); assert.equal(h.state.status, 'waiting');
+  h.throws = false; h.accepted = true; h.now = 15000; h.poll();
+  assert.equal(h.state.status, 'saving');
+  h.saver.onStart(); h.complete(0); assert.equal(h.state.status, 'saved');
+});
+
+test('recovery is bounded, missing or failed completion never becomes saved', () => {
+  for (const failure of ['lost', 'failed', 'overlap']) {
+    const h = harness(); h.saver.onStart(); h.poll(); h.now = 5000; h.poll();
+    h.saver.onStart();
+    if (failure === 'failed') h.complete(99);
+    if (failure === 'overlap') h.saver.onStart();
+    h.now = 10000; h.poll(); h.now = 60001; h.poll();
+    assert.equal(h.writes.length, 1, 'no endless accepted recovery writes');
+    assert.notEqual(h.state.status, 'saved');
+    h.complete(0); assert.notEqual(h.state.status, 'saved');
+  }
+});
+
+test('cancel/context change before recovery never issues a new write', () => {
+  for (const mode of ['resume', 'context']) {
+    const h = harness(); h.saver.onStart(); h.poll(); h.now = 5000;
+    if (mode === 'resume') h.state = null; else h.current = { token: 'other' };
+    h.poll(); assert.equal(h.writes.length, 0);
+  }
+});

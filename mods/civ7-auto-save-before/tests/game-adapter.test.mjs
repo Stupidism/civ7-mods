@@ -350,3 +350,19 @@ test('disabling rest preserves save-before-turn behavior', { skip }, () => {
   assert.notEqual(h.getRest().view.mode, 'rest');
   h.dispose();
 });
+
+for (const kind of ['turn', 'diplomacy']) {
+  test(`completion identity when native supplies it: ${kind}`, { skip }, () => {
+    const h = harness();
+    if (kind === 'turn') h.panel.sendEndTurn();
+    else h.context.Game.PlayerOperations.sendRequest(0, 1, { Player2: 4 });
+    const fileName = kind === 'turn' ? 'BeforeEndTurn' : 'BeforeDiplomacy';
+    for (const extra of [{ fileName: 'OtherMod' }, { fileName: kind === 'turn' ? 'BeforeDiplomacy' : 'BeforeEndTurn' }, { type: 9 }, { fileType: 9 }]) {
+      h.emit('SaveComplete', { options: 65, result: 0, ...extra }); h.flush();
+      assert.equal(h.calls.some(x => x[0] === 'turn' || x[0] === 'diplomacy'), false);
+    }
+    h.emit('SaveComplete', { options: 65, result: 0, fileName, type: 1, fileType: 0 }); h.flush();
+    assert.equal(h.calls.filter(x => x[0] === (kind === 'turn' ? 'turn' : 'diplomacy')).length, 1);
+    h.dispose();
+  });
+}

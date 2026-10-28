@@ -86,14 +86,16 @@ function install() {
     }),
     isPending: result => result?.result === SerializerResult.RESULT_PENDING,
     succeeded: result => result?.result === SerializerResult.RESULT_OK,
-    matches: result => {
+    matches: (result, kind) => {
       if (!result || typeof result.options !== 'number') return false;
       const other = SaveLocationCategories.AUTOSAVE | SaveLocationCategories.QUICKSAVE;
       if ((result.options & other) !== 0) return false;
       // NORMAL is a bit flag in this build; also support a zero-valued NORMAL enum.
       if (SaveLocationCategories.NORMAL !== 0 &&
           (result.options & SaveLocationCategories.NORMAL) === 0) return false;
-      return true;
+      if (result.fileName !== undefined && result.fileName !== fileName(kind)) return false;
+      return (result.type === undefined || result.type === GameStateStorage.getGameConfigurationSaveType()) &&
+        (result.fileType === undefined || result.fileType === SaveFileTypes.GAME_STATE);
     },
     saved: (state, kind) => console.warn(`${PREFIX} Saved ${fileName(kind)} at turn ${state.turn}; submitting ${kind}.`),
     recovering: (state, kind) => console.warn(`${PREFIX} Save completion missing for ${kind} at turn ${state.turn}; native serializer accepted one recovery write. Waiting for fresh completion.`),

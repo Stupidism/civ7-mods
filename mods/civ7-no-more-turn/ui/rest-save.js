@@ -1,4 +1,5 @@
 let sequence = 0;
+const suffix = () => `${++sequence}-${Math.random().toString(36).slice(2, 8)}`;
 
 export function newRestSave(reason, turn, now = Date.now()) {
   const date = new Date(now);
@@ -7,18 +8,18 @@ export function newRestSave(reason, turn, now = Date.now()) {
   const kind = { idle: 'Idle', time: 'Time', turn: 'Turn', night: 'Night' }[reason];
   // Timestamp + per-document sequence + entropy avoids collisions across reloads.
   // The native request also forbids overwrite, even if a name already exists.
-  const suffix = `${++sequence}-${Math.random().toString(36).slice(2, 8)}`;
-  return { status: 'waiting', fileName: `RestGuard_${kind}_T${turn}_${stamp}_${suffix}` };
+  return { status: 'waiting', fileName: `RestGuard_${kind}_T${turn}_${stamp}_${suffix()}` };
 }
 
-// One attempt per break. Track native writes so a prior autosave can finish
-// first; acceptance alone is never reported as successful completion.
+// One checkpoint per break, with one accepted recovery if notification is lost.
+// Track native writes first; acceptance alone never means successful completion.
 export class RestSaver {
   constructor(env) {
     this.env = env;
     this.inFlight = 0;
     this.job = null;
     this.recovery = null;
+    this.recoveryEvents = null;
   }
 
   poll(state, current) {
@@ -34,11 +35,15 @@ export class RestSaver {
     if (this.job && this.job.state !== state) this.cancel();
     if (!current) return this.cancel();
     if (!state || !['waiting', 'saving'].includes(state.status)) return;
-    if (!this.job) this.job = { state, token: current.token, deadline: this.env.now() + 60000, started: false };
+    if (!this.job) this.job = { state, token: current.token, deadline: this.env.now() + 60000, recoverAt: this.env.now() + 5000, recovered: false, started: false };
     const job = this.job;
     if (current?.token !== job.token) return this.finish('unconfirmed');
     if (this.env.now() >= job.deadline) return this.finish('unconfirmed');
-    if (state.status !== 'waiting' || this.inFlight || this.env.busy()) return;
+    if (this.env.busy()) return;
+    if (this.inFlight && !job.recovered && this.env.now() >= job.recoverAt) {
+      return this.recover(job);
+    }
+    if (state.status !== 'waiting' || this.inFlight) return;
     try {
       if (!this.env.canSave()) return this.finish('unavailable');
       state.status = 'saving';
@@ -49,7 +54,32 @@ export class RestSaver {
     }
   }
 
+  recover(job) {
+    // One accepted recovery per break. Busy/rejected requests may be retried
+    // at five-second intervals, bounded by the original deadline.
+    job.recoverAt = this.env.now() + 5000;
+    try { if (!this.env.canSave()) return; } catch (_) { return; }
+    const previousName = job.state.fileName;
+    const freshName = previousName.replace(/_\d+-[a-z0-9]+$/, `_${suffix()}`);
+    const events = this.recoveryEvents = [];
+    let accepted = false;
+    try { accepted = this.env.save(freshName); } catch (_) { /* Keep the original wait. */ }
+    this.recoveryEvents = null;
+    if (accepted && this.job === job) {
+      // The native serializer accepted a fresh request after the old completion
+      // was lost. Acceptance only repairs bookkeeping; a new start AND matching
+      // successful completion are still required. Never overwrite the old file.
+      this.inFlight = 0;
+      job.state.fileName = freshName;
+      job.state.status = 'saving';
+      job.started = false;
+      job.recovered = true;
+    }
+    for (const [method, result] of events) this[method](result);
+  }
+
   onStart() {
+    if (this.recoveryEvents) return void this.recoveryEvents.push(['onStart']);
     this.inFlight++;
     if (this.job?.state.status !== 'saving') return;
     this.job.started = true;
@@ -57,6 +87,7 @@ export class RestSaver {
   }
 
   onComplete(result) {
+    if (this.recoveryEvents) return void this.recoveryEvents.push(['onComplete', result]);
     if (this.env.isPending(result)) return;
     this.inFlight = Math.max(0, this.inFlight - 1);
     const job = this.job;
