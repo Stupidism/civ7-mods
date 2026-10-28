@@ -23,12 +23,20 @@ def save(s, action):
         os.chmod(p, 0o600)
         json.dump(s,f,ensure_ascii=False,indent=2); f.flush(); os.fsync(f.fileno())
     os.replace(p,ROOT/'state.json')
-def assign_next(s, sender):
+def grant_prompt(owner):
+    return f"游戏锁已轮到本会话。CIV7_SESSION_ID={owner['thread']}；CIV7_GAME_LOCK_TOKEN={owner['token']}。按仓库 AGENTS.md 执行，操作前先 assert；上位收尾见 status 的 lastRelease。仅继续已授权工作，过期通知忽略，无需回复或转发。"
+
+def assign_next(s, sender, direct_thread=None):
     if s['paused'] or s['owner'] or not s['queue']: return None
     owner={**s['queue'].pop(0),'token':str(uuid.uuid4()),'grantedAt':now(),'heartbeatAt':now()}
     s['owner']=owner
-    s['notification']={'id':owner['token'],'thread':owner['thread'],'sender':sender,'createdAt':now(),'deliveredAt':None,
-        'prompt':f"游戏锁已正式交给本会话。CIV7_SESSION_ID={owner['thread']}；CIV7_GAME_LOCK_TOKEN={owner['token']}。先读 /Users/sunmer/Documents/civ7-mods/AGENTS.md，核验 game-lock.py assert 后才操作。仅继续原用户已授权的活动；用户停止指令优先，需求已取消则不要操作游戏，按协议release。每轮测试完整备份Saves并验证，录制/调试前暂停Rest Guard，结束恢复。每15分钟heartbeat。完成后release；程序模式自动通知下一位，不要重复转发。上位收尾：{s.get('lastRelease',{}).get('reason','首次授锁')}"}
+    # Only the caller that receives this grant directly can skip a wake-up.
+    # Keep this decision in the same state transaction as assigning ownership:
+    # the service must never see an intermediate outbox and send a duplicate.
+    s['notification']=None
+    if owner['thread'] != direct_thread:
+        s['notification']={'id':owner['token'],'thread':owner['thread'],'sender':sender,'createdAt':now(),'deliveredAt':None,
+            'prompt':grant_prompt(owner)}
     return owner
 
 def auth(s,a):
@@ -51,6 +59,7 @@ def dispatch():
         o=s['owner']; pending=[]
         n=s.get('notification')
         if n and n['id']==o['token'] and n['thread']==o['thread'] and not n.get('deliveredAt'):
+            n['prompt']=grant_prompt(o)  # Shorten any unsent legacy grant on retry too.
             pending.append(n)
         alert=s.get('staleAlert')
         if alert and alert['id']==o['token'] and not alert.get('deliveredAt'):
@@ -135,6 +144,12 @@ def main():
                 for sig, handler in previous.items(): signal.signal(sig, handler)
     # release/resume cannot race a running guarded command.
     with contextlib.ExitStack() as stack:
+        request_can_grant=False
+        if a.action=='request':
+            try:
+                stack.enter_context(mutex('use.lock',True))
+                request_can_grant=True
+            except ValueError: pass  # Enqueue normally while a guarded command is active.
         if a.action in ['release','resume','grant','enable-program']: stack.enter_context(mutex('use.lock',True))
         stack.enter_context(mutex('state.lock'))
         s=read(); result=None
@@ -142,6 +157,9 @@ def main():
             if not a.purpose: raise ValueError('--purpose required')
             if s['owner'] and s['owner']['thread']==a.thread: result=s['owner']
             elif not any(q['thread']==a.thread for q in s['queue']): s['queue'].append({'thread':a.thread,'purpose':a.purpose,'requestedAt':now()})
+            if program(s) and request_can_grant:
+                granted=assign_next(s,COORDINATOR,direct_thread=a.thread)
+                if granted and granted['thread']==a.thread: result=granted
         elif a.action=='enable-program':
             coordinator(a)
             if s['owner'] or s['queue']: raise ValueError('Enable program mode only during an empty, idle handover')
@@ -179,11 +197,14 @@ def main():
             age=(datetime.datetime.now(datetime.timezone.utc)-datetime.datetime.fromisoformat(s['owner']['heartbeatAt'])).total_seconds()
             out['ownerHeartbeatAgeSeconds']=int(age); out['needsCheck']=age>3600
     if a.action in ['request','release','resume'] and program(s):
-        try: tick()
+        try:
+            if a.action=='request': dispatch()  # Assignment was atomic with the request above.
+            else: tick()
         except (ValueError,OSError) as e: print('Program delivery deferred: '+str(e),file=sys.stderr)
         with mutex('state.lock'):
             s=read(); out['state']=s
-            if a.action=='request' and s['owner'] and s['owner']['thread']==a.thread: out['result']=s['owner']
+            # A queued request stays queued in its response even if the service
+            # grants it concurrently; that separate grant carries its own wake-up.
     print(json.dumps(out,ensure_ascii=False,indent=2))
     return 0
 if __name__=='__main__':

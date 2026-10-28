@@ -5,7 +5,7 @@ The state and existing grants remain in `~/Library/Application Support/Civ7Agent
 
 ## Operation
 
-- `request --thread ID --purpose TEXT`: append once; if free and unpaused, grant FIFO and queue the exact token to the existing chat immediately.
+- `request --thread ID --purpose TEXT`: append once; if free and unpaused, grant FIFO. When this request receives its own grant immediately, return the owner/token directly without creating a chat notification. A grant to an older queued request still gets a wake-up.
 - `assert`, `heartbeat`, `run`, `release`, `cancel`: existing session/token interface retained.
 - `release --reason TEXT`: refuse while a guarded command runs, persist cleanup evidence, atomically grant the next owner, then deliver immediately.
 - `tick`: one program pass; `serve`: singleton loop every two seconds, no model calls.
@@ -14,6 +14,17 @@ The state and existing grants remain in `~/Library/Application Support/Civ7Agent
 The enabled scheduler is recorded as `scheduler: program`. Initial migration uses `enable-program` and is allowed only with no owner, no queued requests and no guarded command. A missing state defaults to paused. Legacy manual grants remain for compatibility but normal agents must use request and wait.
 
 ## Delivery and failure behavior
+
+Immediate grants are decided while holding both the command-use and state locks. Their
+`notification` is null; no message is sent or falsely marked delivered. Repeating
+`request` returns the same current token without creating another notice. If the CLI
+response is lost, repeat `request` to recover it; ownership is never reassigned automatically.
+
+Queued grants (release, resume, service tick, or an older waiter encountered by a new
+request) retain a durable outbox. The short message contains the session/token and
+points to `AGENTS.md`, `assert`, and `status.state.lastRelease`. Full cleanup evidence
+stays in state rather than being copied into the chat. Pending legacy messages already
+accepted by Codex cannot be recalled; stale tokens still fail assertion.
 
 The transport is `/Users/sunmer/.local/bin/codex queue --thread ID --message TEXT`.
 This queues a message in the original chat and does not use a second model to decide scheduling. The receiving model runs only to perform its already-authorized work or handle a genuine exception. No private app database or rollout is edited.
@@ -56,6 +67,6 @@ python3 scripts/tests/game-lock.test.py
 python3 scripts/tests/game-lock-program.test.py
 ```
 
-Coverage includes FIFO/token authentication, concurrent requests, guarded-command exclusion, pause/resume, failed notification persistence and retry from a new process, no duplicate acknowledged sends, one stale reminder and no automatic takeover. The installed Codex CLI queue was separately checked with a harmless message to the dashboard itself.
+Coverage includes silent immediate grants and idempotent requests, concise queued notices with complete cleanup evidence retained, FIFO/token authentication, concurrent requests, guarded-command exclusion, pause/resume, failed notification persistence and retry from a new process, no duplicate acknowledged sends, one stale reminder and no automatic takeover. The installed Codex CLI queue was separately checked with a harmless message to the dashboard itself.
 
 The service is a cooperative lock, not an operating-system sandbox. It cannot verify arbitrary direct UI activity or prove cleanup from a free-form reason; all agents must obey AGENTS.md.
