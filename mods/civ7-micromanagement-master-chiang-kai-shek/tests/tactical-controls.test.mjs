@@ -12,14 +12,16 @@ function deploy(f) {
  f.state.unit.location={x:2,y:0};
  f.emit('UnitRemovedFromArmy',{initiatingUnit:f.id});f.tick();f.flush();
 }
-async function battlefield(config) {
- const f=await fixture(config);f.unpack();
+async function battlefield(config, nativeDefaults = false) {
+ const f=await fixture(nativeDefaults ? config : {...config,mouse:{focusNoMove:true,focusFarFirst:true,focusExclude:true,...config?.mouse}});f.unpack();
  f.state.operations.set(ATTACK,{Success:true,Plots:[5],Modifiers:[1]});
  f.state.atPlot.set(5,[{owner:1,id:90,type:26}]);
  f.state.reachable=[5];
  return f;
 }
 function target(f) {f.state.mode=FOCUS;f.nativeModes.get(FOCUS).decorateHover({x:5,y:0});}
+const framePlots=f=>f.state.formationFrames.map(vfx=>vfx[1].x);
+const filledPlots=f=>f.state.tacticalOverlays.filter(o=>o.style.fillColor.y>0.5).flatMap(o=>o.plots);
 function fire(f) {target(f);f.nativeModes.get(FOCUS).selectPlot({x:5,y:0});}
 function click(f,label) {
  const panel=f.state.elements.filter(e=>e.className?.includes('war-controls-tactical')&&!e.removed).at(-1);
@@ -27,6 +29,57 @@ function click(f,label) {
  assert.ok(button,'missing button '+label);button.events['action-activate']({stopPropagation(){}});
 }
 function finished(f,id) { f.emit('Combat',{attacker:id});f.emit('UnitOperationDeactivated',{unit:id,data1:0});f.flush(); }
+
+test('default focus preview delegates the actual shot to native commander focus fire',async()=>{
+ const f=await battlefield(undefined,true);target(f);
+ assert.ok(f.state.formationFrames.length);assert.equal(f.state.requests.length,0);
+ fire(f);assert.deepEqual(f.state.requests.map(r=>r.type),['UNITCOMMAND_FOCUSED_ATTACK_LAND_RANGED']);
+ assert.equal(f.state.requests[0].id.id,f.state.commander.id.id);
+ assert.equal(f.state.formationFrames.length,0);assert.equal(f.state.costRequests,undefined);
+});
+test('default manual exclusion is inactive and preview-off also retains native focus fire',async()=>{
+ const f=await battlefield(undefined,true);target(f);const h=f.nativeModes.get(FOCUS);
+ h.selectPlot(f.state.unit.location);assert.deepEqual(filledPlots(f),[0]);
+ const cfg=f.state.settings.getConfig();cfg.mouse.focusPreview=false;f.state.settings.save(cfg);
+ fire(f);assert.equal(f.state.requests[0].type,'UNITCOMMAND_FOCUSED_ATTACK_LAND_RANGED');
+});
+test('no-movement alone filters moving shots without imposing farthest-first order',async()=>{
+ const f=await battlefield({mouse:{focusNoMove:true}},true);f.state.unit.location={x:4,y:0};soldier(f,8,0);soldier(f,9,2);
+ f.state.operations.set(ATTACK,(id,args)=>args.X!==undefined?{Success:true}:{Success:true,Plots:[5],Modifiers:[id.id===9?0:1]});
+ fire(f);finished(f,f.id);assert.deepEqual(f.state.requests.map(r=>r.id.id),[7,8]);
+ assert.ok(f.state.requests.every(r=>r.args.Modifiers===undefined));
+});
+test('farthest-first alone uses native attack movement flags and does not impose stationary filtering',async()=>{
+ const f=await battlefield({mouse:{focusFarFirst:true}},true);f.state.unit.location={x:4,y:0};soldier(f,8,0);
+ f.state.operations.set(ATTACK,(_id,args)=>args.X!==undefined?{Success:true}:{Success:true,Plots:[5],Modifiers:[0]});
+ fire(f);assert.equal(f.state.requests[0].id.id,8);finished(f,{owner:0,id:8,type:26});
+ assert.deepEqual(f.state.requests.map(r=>r.id.id),[8,7]);assert.ok(f.state.requests.every(r=>r.args.Modifiers===3));
+});
+test('manual exclusion alone omits the clicked unit and permits native attack movement',async()=>{
+ const f=await battlefield({mouse:{focusExclude:true}},true);const excluded=soldier(f,8,3);soldier(f,9,4);
+ target(f);f.nativeModes.get(FOCUS).selectPlot(excluded.location);fire(f);finished(f,f.id);
+ assert.deepEqual(f.state.requests.map(r=>r.id.id),[7,9]);assert.ok(f.state.requests.every(r=>r.args.Modifiers===3));
+});
+test('moving ranged shots cannot fall through into melee or an illegal move',async()=>{
+ const f=await battlefield({mouse:{focusFarFirst:true}},true);f.context.Game.Combat.testAttackInto=()=>0;
+ fire(f);assert.equal(f.state.requests.length,0);assert.equal(f.state.moves.length,0);
+});
+for(const profile of ['mouse','gamepad']) for(const bits of [0,1,2,3,4,5,6,7]) test(`focus options are independent for ${profile}: ${bits}`,async()=>{
+ const focusNoMove=!!(bits&1),focusFarFirst=!!(bits&2),focusExclude=!!(bits&4);
+ const f=await battlefield({[profile]:{focusNoMove,focusFarFirst,focusExclude}},true);f.device(profile==='gamepad');
+ f.state.unit.location={x:4,y:0};const far=soldier(f,8,0);const omitted=soldier(f,9,3);
+ const h=f.nativeModes.get(FOCUS);target(f);h.selectPlot(omitted.location);fire(f);
+ if(bits===0) {assert.equal(f.state.requests[0].type,'UNITCOMMAND_FOCUSED_ATTACK_LAND_RANGED');return;}
+ const order=focusFarFirst?[far.id,omitted.id,f.id]:[f.id,far.id,omitted.id];
+ const expected=order.filter(id=>!focusExclude||id.id!==omitted.id.id);
+ for(let i=0;i<expected.length;i++) {assert.equal(f.state.requests[i].id.id,expected[i].id);finished(f,expected[i]);}
+ assert.equal(f.state.requests.length,expected.length);
+ assert.ok(f.state.requests.every(r=>focusNoMove?r.args.Modifiers===undefined:r.args.Modifiers===3));
+});
+test('an exclusion checkbox alone cannot change native fire while its preview prerequisite is off',async()=>{
+ const f=await battlefield({mouse:{focusExclude:true,focusPreview:false}},true);fire(f);
+ assert.equal(f.state.requests[0].type,'UNITCOMMAND_FOCUSED_ATTACK_LAND_RANGED');
+});
 
 test('deployment selects the next mobile military unit, skipping scout, civilian and spent soldier',async()=>{
  const f=await fixture();f.state.definitions.set('SCOUT',{CoreClass:'CORE_CLASS_RECON'});
@@ -215,15 +268,16 @@ for (const focusExclude of [true,false]) test('map-only volley confirms without 
  assert.equal(f.state.elements.filter(e=>e.className?.includes('war-controls-tactical')&&!e.removed).length,0);
  assert.equal(f.state.requests.length,0);fire(f);assert.equal(f.state.requests.length,1);
 });
-test('gold formation frames persist without a target and disappear when excluded',async()=>{
+test('candidate frames persist while clicks toggle only participation fill',async()=>{
  const f=await battlefield();const near=soldier(f,9,4);
  f.state.mode=FOCUS;f.nativeModes.get(FOCUS).decorate();
  const painted=()=>f.state.tacticalOverlays.find(o=>o.plots.includes(4))?.style;
- assert.equal(painted().fillColor.w,0);assert.ok(painted().edgeColor.x>painted().edgeColor.z);
+ assert.ok(painted().fillColor.w>0);assert.deepEqual(framePlots(f),[0,4]);
+ assert.ok(f.state.formationFrames.every(vfx=>vfx[0]==='VFX_3dUI_PlotCursor_01'));
  target(f);assert.equal(f.state.attackArrows.length,2);
  f.nativeModes.get(FOCUS).decorateHover(near.location);
  assert.ok(painted());assert.equal(f.state.attackArrows.length,0);
- f.nativeModes.get(FOCUS).selectPlot(near.location);assert.equal(painted(),undefined);
+ f.nativeModes.get(FOCUS).selectPlot(near.location);assert.equal(painted(),undefined);assert.deepEqual(framePlots(f),[0,4]);
  target(f);assert.equal(f.state.attackArrows.length,1);assert.equal(painted(),undefined);
  f.nativeModes.get(FOCUS).decorateHover(near.location);
  f.nativeModes.get(FOCUS).selectPlot(near.location);assert.ok(painted());
@@ -231,19 +285,18 @@ test('gold formation frames persist without a target and disappear when excluded
 });
 test('map-only preview can be cancelled without firing',async()=>{
  const f=await battlefield();target(f);f.emitWindow('engine-input',{isCancelInput:()=>true});
- assert.equal(f.state.requests.length,0);assert.equal(f.state.tacticalOverlays.length,0);
+ assert.equal(f.state.requests.length,0);assert.equal(f.state.tacticalOverlays.length,0);assert.equal(f.state.formationFrames.length,0);
  assert.equal(f.state.attackArrows.length,0);
 });
 
 test('formation can be edited before hovering any enemy; empty plots never turn red or fire',async()=>{
  const f=await battlefield();const near=soldier(f,8,3);soldier(f,9,4);
  f.state.mode=FOCUS;const h=f.nativeModes.get(FOCUS);h.decorate();
- assert.equal(f.state.tacticalOverlays.length,3);assert.equal(f.state.attackArrows.length,0);
+ assert.deepEqual(filledPlots(f),[0,3,4]);assert.equal(f.state.attackArrows.length,0);assert.deepEqual(framePlots(f),[0,3,4]);
  h.selectPlot(near.location);
  for(const x of [2,12,3]) {
    h.decorateHover({x,y:0});h.selectPlot({x:12,y:0});
-   assert.equal(f.state.tacticalOverlays.length,2);
-   assert.ok(f.state.tacticalOverlays.every(p=>p.style.edgeColor && p.style.fillColor.w===0));
+   assert.deepEqual(filledPlots(f),[0,4]);assert.deepEqual(framePlots(f),[0,3,4]);
    assert.equal(f.state.attackArrows.length,0);assert.equal(f.state.requests.length,0);
  }
  fire(f);finished(f,f.id);assert.equal(f.state.requests.at(-1).id.id,9);
@@ -258,7 +311,7 @@ test('arrows come from selected units with a legal stationary shot, not every go
    assert.equal(arrow[0],'VFX_3DUI_Ranged_Attack_Preview');
    assert.deepEqual(arrow[3].constants.target_position,[5,0,0]);
  }
- assert.equal(f.state.tacticalOverlays.filter(o=>o.style.edgeColor).length,3);
+ assert.deepEqual(framePlots(f),[0,1,4]);assert.deepEqual(filledPlots(f),[0,4]);
  fire(f);finished(f,f.id);
  assert.deepEqual(f.state.requests.map(r=>r.id.id),[7,9]);
  assert.equal(f.state.attackArrows.length,0);
@@ -270,9 +323,30 @@ test('changing hovered enemies narrows arrows without restoring an excluded unit
  f.state.operations.set(ATTACK,(id,args)=>args.X!==undefined?{Success:true}:{Success:true,Plots:id.id===9?[5]:[5,6],Modifiers:id.id===9?[1]:[1,1]});
  target(f);const h=f.nativeModes.get(FOCUS);h.selectPlot(near.location);
  h.decorateHover({x:6,y:0});assert.equal(f.state.attackArrows.length,1);
+ assert.deepEqual(filledPlots(f),[0]);assert.deepEqual(framePlots(f),[0,3,4]);
  assert.deepEqual(f.state.attackArrows[0][3].constants.source_position,[0,0,0]);
  h.decorateHover({x:5,y:0});assert.equal(f.state.attackArrows.length,2);
+ assert.deepEqual(filledPlots(f),[0,4]);assert.deepEqual(framePlots(f),[0,3,4]);
  assert.ok(!f.state.tacticalOverlays.some(o=>o.plots.includes(3)));
+ h.decorateHover({x:12,y:0});assert.deepEqual(filledPlots(f),[0,4]);
+});
+
+test('enemy out of range removes all fill without erasing manual selection',async()=>{
+ const f=await battlefield();const excluded=soldier(f,8,3);soldier(f,9,4);
+ const h=f.nativeModes.get(FOCUS);target(f);h.selectPlot(excluded.location);
+ f.state.atPlot.set(6,[{owner:1,id:91,type:26}]);
+ h.decorateHover({x:6,y:0});assert.deepEqual(filledPlots(f),[]);assert.equal(f.state.attackArrows.length,0);
+ assert.deepEqual(framePlots(f),[0,3,4]);
+ h.decorateHover({x:12,y:0});assert.deepEqual(filledPlots(f),[0,4]);
+ target(f);assert.deepEqual(filledPlots(f),[0,4]);
+ fire(f);finished(f,f.id);assert.deepEqual(f.state.requests.map(r=>r.id.id),[7,9]);
+});
+
+test('spent units cannot appear as focus-fire candidates',async()=>{
+ const f=await battlefield();soldier(f,8,3,{Movement:{movementMovesRemaining:0}});
+ soldier(f,9,4,{Combat:{isCombat:true,attacksRemaining:0}});
+ const h=f.nativeModes.get(FOCUS);f.state.mode=FOCUS;h.decorate();
+ assert.deepEqual(framePlots(f),[0]);assert.deepEqual(filledPlots(f),[0]);
 });
 
 test('out-of-command units, scouts, civilians, packed units and land melee do not enter the formation',async()=>{
@@ -284,22 +358,22 @@ test('out-of-command units, scouts, civilians, packed units and land melee do no
  soldier(f,12,4,{type:'MELEE'});
  f.state.operations.set(ATTACK,id=>id.id===12?{Success:false}:{Success:true,Plots:[5],Modifiers:[1]});
  target(f);assert.equal(f.state.attackArrows.length,1);
- assert.equal(f.state.tacticalOverlays.filter(o=>o.style.edgeColor).length,1);
+ assert.deepEqual(framePlots(f),[0]);
 });
 
 test('preview disabled paints neither frames nor arrows and cannot exclude units',async()=>{
  const f=await battlefield({mouse:{focusPreview:false}});const near=soldier(f,8,3);
  target(f);f.nativeModes.get(FOCUS).selectPlot(near.location);
- assert.equal(f.state.tacticalOverlays.length,0);assert.equal(f.state.attackArrows.length,0);
+ assert.equal(f.state.tacticalOverlays.length,0);assert.equal(f.state.attackArrows.length,0);assert.equal(f.state.formationFrames.length,0);
  fire(f);finished(f,f.id);assert.equal(f.state.requests.length,2);
 });
 
 test('native mode exit clears arrows and a new entry selects the full formation again',async()=>{
  const f=await battlefield();const near=soldier(f,8,3);const h=f.nativeModes.get(FOCUS);
  target(f);h.selectPlot(near.location);target(f);assert.equal(f.state.attackArrows.length,1);
- h.reset();assert.equal(f.state.attackArrows.length,0);assert.equal(f.state.tacticalOverlays.length,0);
+ h.reset();assert.equal(f.state.attackArrows.length,0);assert.equal(f.state.tacticalOverlays.length,0);assert.equal(f.state.formationFrames.length,0);
  h.decorate();target(f);assert.equal(f.state.attackArrows.length,2);
- f.context.__civ7WarControls.dispose();assert.equal(f.state.attackArrows.length,0);
+ f.context.__civ7WarControls.dispose();assert.equal(f.state.attackArrows.length,0);assert.equal(f.state.formationFrames.length,0);
 });
 
 test('naval formation uses the same native attack arrows and excludes land units',async()=>{

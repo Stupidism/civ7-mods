@@ -1,0 +1,20 @@
+{
+  "version": "1.1.2",
+  "date": "2026-10-22",
+  "workshopId": "3815596737",
+  "upload": {
+    "civ7-before-end-turn": {
+      "id": "3815596737",
+      "version": "1.1.2",
+      "phase": "uploaded",
+      "updateResult": 1,
+      "legalAgreementRequired": false,
+      "returnedId": "3815596737"
+    }
+  },
+  "verification": {
+    "files": 8,
+    "sha256Verified": true
+  },
+  "liveGameTestPerformed": false
+}

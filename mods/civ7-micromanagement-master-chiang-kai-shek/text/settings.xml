@@ -7,46 +7,46 @@
     <Row Tag="LOC_WC_COLUMN_GAMEPAD"><Text>Controller</Text></Row>
     <Row Tag="LOC_WC_NOT_APPLICABLE"><Text>Not applicable</Text></Row>
     <Row Tag="LOC_WC_CATEGORY"><Text>Micromanagement Master Chiang Kai-shek</Text></Row>
-    <Row Tag="LOC_WC_CATEGORY_DESCRIPTION"><Text>Separate mouse/keyboard and controller settings. All enabled by default. Confirm to apply and save.</Text></Row>
+    <Row Tag="LOC_WC_CATEGORY_DESCRIPTION"><Text>Separate mouse/keyboard and controller settings. Stationary fire, farthest-first ordering and manual exclusions default off; other features default on. Confirm to apply and save.</Text></Row>
     <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS_MOUSE"><Text>Mouse / Keyboard</Text></Row>
     <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS_GAMEPAD"><Text>Controller</Text></Row>
     <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS_DEFAULTS"><Text>Defaults for this page</Text></Row>
-    <Row Tag="LOC_WC_AUTOATTACK"><Text>Automatically enter attack mode</Text></Row>
-    <Row Tag="LOC_WC_AUTOATTACK_DESCRIPTION"><Text>Selecting a ranged unit with a valid visible target opens attack targeting. Native right-click or controller Cancel still cancels.</Text></Row>
-    <Row Tag="LOC_WC_AUTOJOIN"><Text>Automatically enter join mode</Text></Row>
-    <Row Tag="LOC_WC_AUTOJOIN_DESCRIPTION"><Text>Without a reachable enemy, automatically enter join mode when an eligible friendly commander is on the same or adjacent tile.</Text></Row>
-    <Row Tag="LOC_WC_RIGHTCLICKJOIN"><Text>Right-click to join a commander</Text></Row>
+    <Row Tag="LOC_WC_AUTOATTACK"><Text>Select to attack</Text></Row>
+    <Row Tag="LOC_WC_AUTOATTACK_DESCRIPTION"><Text>Selecting a ranged unit with a valid visible target opens attack targeting. Click another friendly unit to switch directly. Only a legal enemy target attacks; other clicks return to normal map selection. Right-click or controller Cancel still cancels.</Text></Row>
+    <Row Tag="LOC_WC_AUTOJOIN"><Text>Select to join</Text></Row>
+    <Row Tag="LOC_WC_AUTOJOIN_DESCRIPTION"><Text>Without a reachable enemy, automatically enter join mode when an eligible friendly commander is on the same or adjacent tile. Click an eligible commander to join, or another friendly unit to switch directly.</Text></Row>
+    <Row Tag="LOC_WC_RIGHTCLICKJOIN"><Text>Prevent right-click swaps</Text></Row>
     <Row Tag="LOC_WC_RIGHTCLICKJOIN_DESCRIPTION"><Text>Right-click joins only when another friendly military unit shares the commander tile. Otherwise retain normal movement. Invalid joins on occupied tiles block move/swap.</Text></Row>
-    <Row Tag="LOC_WC_AUTOEXIT"><Text>Automatically enter deployment mode</Text></Row>
-    <Row Tag="LOC_WC_AUTOEXIT_DESCRIPTION"><Text>Selecting an individual packed unit opens deployment targeting. Selecting the commander does not unpack the entire army.</Text></Row>
-    <Row Tag="LOC_WC_SINGLEREINFORCEMENT"><Text>Confirm the only reinforcement target</Text></Row>
+    <Row Tag="LOC_WC_AUTOEXIT"><Text>Select to deploy</Text></Row>
+    <Row Tag="LOC_WC_AUTOEXIT_DESCRIPTION"><Text>Selecting an individual packed unit opens deployment targeting. Click a legal unoccupied tile to deploy; click another friendly unit to switch, even on a legal deployment tile. Other invalid clicks return to normal map selection. Selecting the commander does not unpack the entire army.</Text></Row>
+    <Row Tag="LOC_WC_SINGLEREINFORCEMENT"><Text>Faster reinforcement: only commander</Text></Row>
     <Row Tag="LOC_WC_SINGLEREINFORCEMENT_DESCRIPTION"><Text>After clicking Reinforce, send directly only if you own exactly one commander and it is eligible. Owning multiple commanders always requires a choice.</Text></Row>
-    <Row Tag="LOC_WC_EMPTYMARKER"><Text>Pink marker for empty commanders</Text></Row>
-    <Row Tag="LOC_WC_EMPTYMARKER_DESCRIPTION"><Text>Show a faint pink tile under friendly commanders with no packed units. Updates when the active input device changes.</Text></Row>
-    <Row Tag="LOC_WC_DEFAULTS_LABEL"><Text>All 23 checkboxes</Text></Row>
-    <Row Tag="LOC_WC_DEFAULTS_DESCRIPTION"><Text>Enable all applicable Micromanagement Master Chiang Kai-shek options. Use the native Confirm button to save, or Cancel to discard.</Text></Row>
+    <Row Tag="LOC_WC_EMPTYMARKER"><Text>Commander mobility reminder</Text></Row>
+    <Row Tag="LOC_WC_EMPTYMARKER_DESCRIPTION"><Text>Show a strong pink tile under friendly commanders with no packed units, reminding you of reduced mobility. Updates when the active input device changes.</Text></Row>
+    <Row Tag="LOC_WC_DEFAULTS_LABEL"><Text>Mod defaults</Text></Row>
+    <Row Tag="LOC_WC_DEFAULTS_DESCRIPTION"><Text>Restore defaults: stationary fire, farthest-first ordering and manual exclusions off; other applicable options on. Confirm to save, or Cancel to discard.</Text></Row>
     <Row Tag="LOC_WC_DEFAULTS_BUTTON"><Text>Reset Micromanagement Master Chiang Kai-shek</Text></Row>
     <Row Tag="LOC_WC_SAVE_ERROR_TITLE"><Text>Micromanagement Master Chiang Kai-shek settings not saved</Text></Row>
     <Row Tag="LOC_WC_SAVE_ERROR_BODY"><Text>Could not write local mod settings. Your changes have not been saved. Check the settings data and retry; other mods’ data has been preserved.</Text></Row>
-    <Row Tag="LOC_WC_KEEPCOMMANDERFOCUS"><Text>Keep commander selected after deployment</Text></Row>
+    <Row Tag="LOC_WC_KEEPCOMMANDERFOCUS"><Text>Continuous deployment: retain commander</Text></Row>
     <Row Tag="LOC_WC_KEEPCOMMANDERFOCUS_DESCRIPTION"><Text>After deployment, retain commander selection while military units remain packed. Civilians and recon units do not count.</Text></Row>
-    <Row Tag="LOC_WC_NEXTDEPLOYABLE"><Text>Select next deployable military unit</Text></Row>
+    <Row Tag="LOC_WC_NEXTDEPLOYABLE"><Text>Continuous deployment: select next unit</Text></Row>
     <Row Tag="LOC_WC_NEXTDEPLOYABLE_DESCRIPTION"><Text>After deployment, select and highlight the next packed military unit with movement and a legal deployment plot. Independent of commander retention.</Text></Row>
-    <Row Tag="LOC_WC_NEXTRANGED"><Text>Select next ranged attacker</Text></Row>
-    <Row Tag="LOC_WC_NEXTRANGED_DESCRIPTION"><Text>After a manual ranged attack, select another ready unit of the same type under the same commander with a visible stationary attack target.</Text></Row>
-    <Row Tag="LOC_WC_FOCUSPREVIEW"><Text>Preview stationary volley participants</Text></Row>
-    <Row Tag="LOC_WC_FOCUSPREVIEW_DESCRIPTION"><Text>Show persistent gold frames around the selected ranged formation. Hover an enemy to preview red attack arrows only from selected units that can fire without moving. Keep focused-fire bonuses and fire farthest first.</Text></Row>
-    <Row Tag="LOC_WC_FOCUSEXCLUDE"><Text>Exclude stationary volley participants</Text></Row>
-    <Row Tag="LOC_WC_FOCUSEXCLUDE_DESCRIPTION"><Text>Requires participant preview. All ranged units in command range start selected. Click a friendly unit to remove or restore its gold frame. Hover an enemy to preview eligible attackers, then click it to fire.</Text></Row>
-    <Row Tag="LOC_WC_REINFORCEMENTCYCLE"><Text>Cycle reinforcement commanders</Text></Row>
+    <Row Tag="LOC_WC_NEXTRANGED"><Text>Continuous attack selection</Text></Row>
+    <Row Tag="LOC_WC_NEXTRANGED_DESCRIPTION"><Text>After a manual ranged attack, consider only ready units within 3 hexes of the attacker with a legal stationary target. Prioritize the same enemy, a shared commander, the same unit type, then the same class (ranged or siege), and finally nearest first. Selects only; never attacks automatically.</Text></Row>
+    <Row Tag="LOC_WC_FOCUSPREVIEW"><Text>Focus Fire: highlight participants</Text></Row>
+    <Row Tag="LOC_WC_FOCUSPREVIEW_DESCRIPTION"><Text>Bright hex outlines mark available ranged units; pale gold fill marks participants. Hover an enemy to show eligible attackers and red arrows. When stationary fire is enabled, only units that can fire from their current tiles retain fill. Preview alone keeps native Focus Fire execution.</Text></Row>
+    <Row Tag="LOC_WC_FOCUSEXCLUDE"><Text>Focus Fire: manually exclude units</Text></Row>
+    <Row Tag="LOC_WC_FOCUSEXCLUDE_DESCRIPTION"><Text>Off by default; requires participant highlighting. Click a friendly unit to remove or restore its pale gold fill. Its outline stays visible, and changing the hovered enemy does not undo manual exclusions.</Text></Row>
+    <Row Tag="LOC_WC_REINFORCEMENTCYCLE"><Text>Faster reinforcement: cycle commanders</Text></Row>
     <Row Tag="LOC_WC_REINFORCEMENTCYCLE_DESCRIPTION"><Text>Start with the closest commander eligible for reinforcement. Cycle with LB/RB, Up/Down, wheel or panel buttons. Cancel to return to your selected military unit. Ineligible commanders cannot be confirmed.</Text></Row>
     <Row Tag="LOC_WC_UNIT_FALLBACK"><Text>Unit {1}</Text></Row>
-    <Row Tag="LOC_WC_VOLLEY_COUNT"><Text>Stationary volley: {1} eligible units</Text></Row>
-    <Row Tag="LOC_WC_VOLLEY_BONUS_NOTE"><Text>Keep focused-fire strength bonuses. Fire without moving, starting with the farthest unit.</Text></Row>
-    <Row Tag="LOC_WC_VOLLEY_HELP"><Text>Gold frames show the selected formation. Click friendly units to toggle selection; hover an enemy to preview red attack arrows, then click it to fire.</Text></Row>
-    <Row Tag="LOC_WC_VOLLEY_CONFIRM"><Text>Confirm stationary volley</Text></Row>
+    <Row Tag="LOC_WC_VOLLEY_COUNT"><Text>Focus Fire: {1} eligible units</Text></Row>
+    <Row Tag="LOC_WC_VOLLEY_BONUS_NOTE"><Text>Focus Fire bonuses are preserved. Movement and ordering follow your Focus Fire settings.</Text></Row>
+    <Row Tag="LOC_WC_VOLLEY_HELP"><Text>Bright outlines mark candidates; pale gold fill marks participants. Enable manual exclusion to toggle friendly units. Hover an enemy to preview attackers, then click to fire.</Text></Row>
+    <Row Tag="LOC_WC_VOLLEY_CONFIRM"><Text>Confirm Focus Fire</Text></Row>
     <Row Tag="LOC_WC_CANCEL"><Text>Cancel</Text></Row>
-    <Row Tag="LOC_WC_NO_STATIONARY_ATTACKERS"><Text>No units can attack this target from their current tiles.</Text></Row>
+    <Row Tag="LOC_WC_NO_STATIONARY_ATTACKERS"><Text>No selected units can attack this target with the current Focus Fire settings.</Text></Row>
     <Row Tag="LOC_WC_VOLLEY_TIMEOUT"><Text>Timed out waiting for the attack to finish. Remaining attacks have been stopped.</Text></Row>
     <Row Tag="LOC_WC_ATTACK_REJECTED"><Text>The attack request was rejected. Remaining attacks have been stopped.</Text></Row>
     <Row Tag="LOC_WC_ATTACK_FAILED"><Text>The attack request failed. Remaining attacks have been stopped.</Text></Row>
@@ -61,13 +61,20 @@
     <Row Tag="LOC_WC_JOIN_UNAVAILABLE"><Text>Cannot join this commander now. Movement or swapping has been blocked.</Text></Row>
     <Row Tag="LOC_WC_JOIN_FAILED"><Text>Failed to join the commander. Movement or swapping has been blocked.</Text></Row>
     <Row Tag="LOC_WC_MOD_NAME"><Text>Micromanagement Master Chiang Kai-shek</Text></Row>
-    <Row Tag="LOC_WC_MOD_DESCRIPTION"><Text>0.6.0: Continuous deployment and attack selection, stationary volley previews and exclusions, and reinforcement commander cycling. Twelve features with separate mouse and controller settings. New features await in-game validation.</Text></Row>
-    <Row Tag="LOC_WC_FOCUS_BONUS"><Text>Focused fire</Text></Row>
-    <Row Tag="LOC_WC_FOCUS_BONUS_PREVIEW"><Text>+{Amount} Focused fire</Text></Row>
-    <Row Tag="LOC_WC_FOCUS_BONUS_UNAVAILABLE"><Text>Focused-fire bonuses are not ready. No shots fired.</Text></Row>
+    <Row Tag="LOC_WC_MOD_DESCRIPTION"><Text>Shorter attack, deployment and reinforcement controls. Separate mouse and controller settings. Stationary Focus Fire, farthest-first ordering and manual exclusions are optional and default off.</Text></Row>
+    <Row Tag="LOC_WC_FOCUS_BONUS"><Text>Focus Fire</Text></Row>
+    <Row Tag="LOC_WC_FOCUS_BONUS_PREVIEW"><Text>+{Amount} Focus Fire</Text></Row>
+    <Row Tag="LOC_WC_FOCUS_BONUS_UNAVAILABLE"><Text>Focus Fire bonuses are not ready. No shots fired.</Text></Row>
     <Row Tag="LOC_WC_FOCUS_BUSY"><Text>Wait for the current shot to finish. Remaining shots cancelled.</Text></Row>
     <Row Tag="LOC_WC_FOCUS_NEEDS_MOVEMENT"><Text>The commander needs at least 1 movement point to use Focus Fire.</Text></Row>
     <Row Tag="LOC_WC_FOCUS_COST_UNAVAILABLE"><Text>Commander movement could not be charged. Focus Fire has stopped; reload to retry.</Text></Row>
+    <Row Tag="LOC_WC_FOCUSNOMOVE"><Text>Focus Fire: keep units stationary</Text></Row>
+    <Row Tag="LOC_WC_FOCUSFARFIRST"><Text>Focus Fire: farthest first</Text></Row>
+    <Row Tag="LOC_WC_FOCUSNOMOVE_DESCRIPTION"><Text>Off by default. Enable to fire only from current tiles and preserve formation. Disable to let native attack operations handle permitted movement. Independent of farthest-first ordering.</Text></Row>
+    <Row Tag="LOC_WC_FOCUSFARFIRST_DESCRIPTION"><Text>Off by default. Enable to fire from farthest to nearest, rechecking after each shot and stopping when the target disappears. Disable to avoid distance-based reordering.</Text></Row>
+    <Row Tag="LOC_WC_QUICKTRANSFER"><Text>Select to join: quick transfer</Text></Row>
+    <Row Tag="LOC_WC_QUICKTRANSFER_DESCRIPTION"><Text>In automatic join mode, green tiles preview a land unit's transfer through an adjacent commander with Initiative. Hover to see the route and a cost of 1 movement. Click to join, then deploy once the engine confirms joining. Occupied tiles still select units. Deployment is rechecked after joining; if blocked, the unit stays packed.</Text></Row>
+    <Row Tag="LOC_WC_TRANSFER_STOPPED"><Text>Quick transfer stopped. If the unit has already joined, it remains in the commander; no further deployment was issued.</Text></Row>
   </EnglishText>
   <LocalizedText>
     <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS" Language="zh_Hans_CN"><Text>微操大师常凯申</Text></Row>
@@ -76,49 +83,49 @@
     <Row Tag="LOC_WC_COLUMN_GAMEPAD" Language="zh_Hans_CN"><Text>手柄</Text></Row>
     <Row Tag="LOC_WC_NOT_APPLICABLE" Language="zh_Hans_CN"><Text>不适用</Text></Row>
     <Row Tag="LOC_WC_CATEGORY" Language="zh_Hans_CN"><Text>微操大师常凯申</Text></Row>
-    <Row Tag="LOC_WC_CATEGORY_DESCRIPTION" Language="zh_Hans_CN"><Text>鼠标／键盘和手柄分别配置，默认全部开启。确认后生效并保存。</Text></Row>
+    <Row Tag="LOC_WC_CATEGORY_DESCRIPTION" Language="zh_Hans_CN"><Text>鼠标／键盘和手柄分别配置。不移动单位、由远及近和手动排除默认关闭，其他功能默认开启。确认后生效并保存。</Text></Row>
     <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS_MOUSE" Language="zh_Hans_CN"><Text>鼠标／键盘</Text></Row>
     <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS_GAMEPAD" Language="zh_Hans_CN"><Text>手柄</Text></Row>
     <Row Tag="LOC_OPTIONS_GROUP_WAR_CONTROLS_DEFAULTS" Language="zh_Hans_CN"><Text>本页默认设置</Text></Row>
-    <Row Tag="LOC_WC_AUTOATTACK" Language="zh_Hans_CN"><Text>自动进入攻击模式</Text></Row>
-    <Row Tag="LOC_WC_AUTOATTACK_DESCRIPTION" Language="zh_Hans_CN"><Text>选中单位时，有可攻击的可见敌人就自动进入攻击选格。右键或手柄 B 仍可取消。</Text></Row>
-    <Row Tag="LOC_WC_AUTOJOIN" Language="zh_Hans_CN"><Text>自动进入加入模式</Text></Row>
-    <Row Tag="LOC_WC_AUTOJOIN_DESCRIPTION" Language="zh_Hans_CN"><Text>没有可攻击敌人，且同格或相邻一格有可加入的己方指挥官时，直接进入加入模式。</Text></Row>
-    <Row Tag="LOC_WC_RIGHTCLICKJOIN" Language="zh_Hans_CN"><Text>右键加入指挥官</Text></Row>
+    <Row Tag="LOC_WC_AUTOATTACK" Language="zh_Hans_CN"><Text>选中即进攻</Text></Row>
+    <Row Tag="LOC_WC_AUTOATTACK_DESCRIPTION" Language="zh_Hans_CN"><Text>选中单位时，有可攻击的可见敌人就自动进入攻击选格。点其他己方单位直接切换；只有合法敌方目标才执行攻击，其余点击返回普通地图选择。右键或手柄 B 仍可取消。</Text></Row>
+    <Row Tag="LOC_WC_AUTOJOIN" Language="zh_Hans_CN"><Text>选中即加入</Text></Row>
+    <Row Tag="LOC_WC_AUTOJOIN_DESCRIPTION" Language="zh_Hans_CN"><Text>没有可攻击敌人，且同格或相邻一格有可加入的己方指挥官时，直接进入加入模式。点可加入的指挥官归队，点其他己方单位直接切换，不用先取消。</Text></Row>
+    <Row Tag="LOC_WC_RIGHTCLICKJOIN" Language="zh_Hans_CN"><Text>右键防换位</Text></Row>
     <Row Tag="LOC_WC_RIGHTCLICKJOIN_DESCRIPTION" Language="zh_Hans_CN"><Text>仅当指挥官所在格还有其他己方军事单位时，右键改为加入；该情况下无法加入则阻止换位。空格仍正常移动。</Text></Row>
-    <Row Tag="LOC_WC_AUTOEXIT" Language="zh_Hans_CN"><Text>自动进入退出模式</Text></Row>
-    <Row Tag="LOC_WC_AUTOEXIT_DESCRIPTION" Language="zh_Hans_CN"><Text>选中指挥官内已收纳的单个单位后，直接选择退出落点。选中指挥官本人不展开整军。</Text></Row>
-    <Row Tag="LOC_WC_SINGLEREINFORCEMENT" Language="zh_Hans_CN"><Text>自动确认唯一增援目标</Text></Row>
+    <Row Tag="LOC_WC_AUTOEXIT" Language="zh_Hans_CN"><Text>选中即部署</Text></Row>
+    <Row Tag="LOC_WC_AUTOEXIT_DESCRIPTION" Language="zh_Hans_CN"><Text>选中指挥官内已收纳的单个单位后，直接选择退出落点。点合法空格部署；点有其他己方单位的格子优先切换，即使该格可以部署。其余无效点击返回普通地图选择。选中指挥官本人不展开整军。</Text></Row>
+    <Row Tag="LOC_WC_SINGLEREINFORCEMENT" Language="zh_Hans_CN"><Text>更快的增援：唯一指挥官直达</Text></Row>
     <Row Tag="LOC_WC_SINGLEREINFORCEMENT_DESCRIPTION" Language="zh_Hans_CN"><Text>主动点击增援后，只有总共拥有一位指挥官且其可接收时才直接派遣。拥有多位时，即使仅一位合法，也必须选择。</Text></Row>
-    <Row Tag="LOC_WC_EMPTYMARKER" Language="zh_Hans_CN"><Text>空指挥官粉色底座</Text></Row>
-    <Row Tag="LOC_WC_EMPTYMARKER_DESCRIPTION" Language="zh_Hans_CN"><Text>己方指挥官内没有实际收纳单位时，脚下显示淡粉色底座。切换输入设备时按对应组设置刷新。</Text></Row>
-    <Row Tag="LOC_WC_DEFAULTS_LABEL" Language="zh_Hans_CN"><Text>全部 23 项设置</Text></Row>
-    <Row Tag="LOC_WC_DEFAULTS_DESCRIPTION" Language="zh_Hans_CN"><Text>启用微操大师常凯申的所有适用设置。点击原生“确认变更”保存，取消则放弃。</Text></Row>
+    <Row Tag="LOC_WC_EMPTYMARKER" Language="zh_Hans_CN"><Text>指挥官移动力不足提醒</Text></Row>
+    <Row Tag="LOC_WC_EMPTYMARKER_DESCRIPTION" Language="zh_Hans_CN"><Text>己方指挥官内没有实际收纳单位时，脚下显示加深的粉色底座，提醒留意机动力下降。切换输入设备时按对应组设置刷新。</Text></Row>
+    <Row Tag="LOC_WC_DEFAULTS_LABEL" Language="zh_Hans_CN"><Text>本模组默认设置</Text></Row>
+    <Row Tag="LOC_WC_DEFAULTS_DESCRIPTION" Language="zh_Hans_CN"><Text>恢复默认：集中开火的不移动单位、由远及近、手动排除关闭，其他适用设置开启。点击“确认变更”保存，取消则放弃。</Text></Row>
     <Row Tag="LOC_WC_DEFAULTS_BUTTON" Language="zh_Hans_CN"><Text>恢复微操大师常凯申默认</Text></Row>
     <Row Tag="LOC_WC_SAVE_ERROR_TITLE" Language="zh_Hans_CN"><Text>微操大师常凯申设置未保存</Text></Row>
     <Row Tag="LOC_WC_SAVE_ERROR_BODY" Language="zh_Hans_CN"><Text>本地 Mod 设置数据无法写入，本次修改尚未保存。请检查本地设置后重试；其他 Mod 的存储数据已保留。</Text></Row>
-    <Row Tag="LOC_WC_KEEPCOMMANDERFOCUS" Language="zh_Hans_CN"><Text>部署后保持指挥官焦点</Text></Row>
+    <Row Tag="LOC_WC_KEEPCOMMANDERFOCUS" Language="zh_Hans_CN"><Text>连续部署：保持指挥官焦点</Text></Row>
     <Row Tag="LOC_WC_KEEPCOMMANDERFOCUS_DESCRIPTION" Language="zh_Hans_CN"><Text>派出单位后，只要仍收纳军事单位，就保留指挥官选择；不计平民和侦察单位。</Text></Row>
-    <Row Tag="LOC_WC_NEXTDEPLOYABLE" Language="zh_Hans_CN"><Text>自动选择下一个可派出单位</Text></Row>
+    <Row Tag="LOC_WC_NEXTDEPLOYABLE" Language="zh_Hans_CN"><Text>连续部署：选择下一个单位</Text></Row>
     <Row Tag="LOC_WC_NEXTDEPLOYABLE_DESCRIPTION" Language="zh_Hans_CN"><Text>部署后自动选中仍有移动力且存在合法退出格的军事单位，并高亮头像。与保持指挥官焦点分别开关。</Text></Row>
-    <Row Tag="LOC_WC_NEXTRANGED" Language="zh_Hans_CN"><Text>攻击后选择下一个远程单位</Text></Row>
-    <Row Tag="LOC_WC_NEXTRANGED_DESCRIPTION" Language="zh_Hans_CN"><Text>手动远程攻击结束后，选择同一指挥官范围内、同类型且当前能原地攻击可见敌人的单位。</Text></Row>
-    <Row Tag="LOC_WC_FOCUSPREVIEW" Language="zh_Hans_CN"><Text>原地火力参与者高亮</Text></Row>
-    <Row Tag="LOC_WC_FOCUSPREVIEW_DESCRIPTION" Language="zh_Hans_CN"><Text>进入集中火力后，已选远程编队持续显示金框。悬停敌人时，仅可原地攻击该敌人的已选单位显示红色攻击箭头；保留集中火力加成，远处单位优先射击。</Text></Row>
-    <Row Tag="LOC_WC_FOCUSEXCLUDE" Language="zh_Hans_CN"><Text>原地火力手动排除单位</Text></Row>
-    <Row Tag="LOC_WC_FOCUSEXCLUDE_DESCRIPTION" Language="zh_Hans_CN"><Text>需要开启参与者高亮。默认选中指挥范围内的远程单位；直接点击友军取消或恢复选择，取消后金框消失。悬停敌人查看可参与攻击者，点击敌人开火。</Text></Row>
-    <Row Tag="LOC_WC_REINFORCEMENTCYCLE" Language="zh_Hans_CN"><Text>增援指挥官快速切换</Text></Row>
+    <Row Tag="LOC_WC_NEXTRANGED" Language="zh_Hans_CN"><Text>连续进攻</Text></Row>
+    <Row Tag="LOC_WC_NEXTRANGED_DESCRIPTION" Language="zh_Hans_CN"><Text>手动远程攻击结束后，仅考虑该单位周围3格内、有移动力及攻击次数且能原地攻击可见敌人的单位。依次优先：能攻击同一敌人、同一指挥官麾下、同类型（如投石兵、弓箭手）、同军种（如远程、攻城），最后按距离由近及远选择。只选中，不自动攻击。</Text></Row>
+    <Row Tag="LOC_WC_FOCUSPREVIEW" Language="zh_Hans_CN"><Text>优化集中开火：参与者高亮</Text></Row>
+    <Row Tag="LOC_WC_FOCUSPREVIEW_DESCRIPTION" Language="zh_Hans_CN"><Text>醒目六角框标出可用远程单位，淡金色底座表示参与；悬停敌人筛选可攻击者并显示红色箭头。开启“不移动单位”时，仅能原地射击者保留填色。单独开启高亮仍由原版执行集中开火。</Text></Row>
+    <Row Tag="LOC_WC_FOCUSEXCLUDE" Language="zh_Hans_CN"><Text>优化集中开火：手动排除单位</Text></Row>
+    <Row Tag="LOC_WC_FOCUSEXCLUDE_DESCRIPTION" Language="zh_Hans_CN"><Text>默认关闭，需要开启参与者高亮。点击友军取消或恢复淡金色底座，醒目边框始终保留。切换悬停敌人不会恢复手动排除的单位。</Text></Row>
+    <Row Tag="LOC_WC_REINFORCEMENTCYCLE" Language="zh_Hans_CN"><Text>更快的增援：切换指挥官</Text></Row>
     <Row Tag="LOC_WC_REINFORCEMENTCYCLE_DESCRIPTION" Language="zh_Hans_CN"><Text>默认预览最近的可增援指挥官；LB／RB、键盘上下、滚轮或面板按钮切换。取消后回到原军事单位。不可增援者不能确认。</Text></Row>
     <Row Tag="LOC_WC_UNIT_FALLBACK" Language="zh_Hans_CN"><Text>单位 {1}</Text></Row>
-    <Row Tag="LOC_WC_VOLLEY_COUNT" Language="zh_Hans_CN"><Text>原地齐射：{1} 个单位可参与</Text></Row>
-    <Row Tag="LOC_WC_VOLLEY_BONUS_NOTE" Language="zh_Hans_CN"><Text>保留集中火力战斗力加成，原地射击，远处单位优先。</Text></Row>
-    <Row Tag="LOC_WC_VOLLEY_HELP" Language="zh_Hans_CN"><Text>金框表示已选编队，直接点击友军取消或恢复。悬停敌人显示可原地攻击者的红色箭头，点击敌人开火。</Text></Row>
-    <Row Tag="LOC_WC_VOLLEY_CONFIRM" Language="zh_Hans_CN"><Text>确认原地齐射</Text></Row>
+    <Row Tag="LOC_WC_VOLLEY_COUNT" Language="zh_Hans_CN"><Text>集中开火：{1} 个单位可参与</Text></Row>
+    <Row Tag="LOC_WC_VOLLEY_BONUS_NOTE" Language="zh_Hans_CN"><Text>保留集中开火加成；移动与攻击顺序按当前设置执行。</Text></Row>
+    <Row Tag="LOC_WC_VOLLEY_HELP" Language="zh_Hans_CN"><Text>醒目边框表示候选单位，淡金色底座表示参与。开启手动排除后可点击友军切换选择；悬停敌人预览，点击敌人开火。</Text></Row>
+    <Row Tag="LOC_WC_VOLLEY_CONFIRM" Language="zh_Hans_CN"><Text>确认集中开火</Text></Row>
     <Row Tag="LOC_WC_CANCEL" Language="zh_Hans_CN"><Text>取消</Text></Row>
-    <Row Tag="LOC_WC_NO_STATIONARY_ATTACKERS" Language="zh_Hans_CN"><Text>没有可在原地攻击该目标的单位。</Text></Row>
-    <Row Tag="LOC_WC_VOLLEY_TIMEOUT" Language="zh_Hans_CN"><Text>集中火力等待攻击完成超时，已停止后续攻击。</Text></Row>
-    <Row Tag="LOC_WC_ATTACK_REJECTED" Language="zh_Hans_CN"><Text>攻击请求未接受，已停止集中火力。</Text></Row>
-    <Row Tag="LOC_WC_ATTACK_FAILED" Language="zh_Hans_CN"><Text>攻击请求失败，已停止集中火力。</Text></Row>
+    <Row Tag="LOC_WC_NO_STATIONARY_ATTACKERS" Language="zh_Hans_CN"><Text>当前集中开火设置下，没有已选单位可以攻击该目标。</Text></Row>
+    <Row Tag="LOC_WC_VOLLEY_TIMEOUT" Language="zh_Hans_CN"><Text>集中开火等待攻击完成超时，已停止后续攻击。</Text></Row>
+    <Row Tag="LOC_WC_ATTACK_REJECTED" Language="zh_Hans_CN"><Text>攻击请求未接受，已停止集中开火。</Text></Row>
+    <Row Tag="LOC_WC_ATTACK_FAILED" Language="zh_Hans_CN"><Text>攻击请求失败，已停止集中开火。</Text></Row>
     <Row Tag="LOC_WC_REINFORCEMENT_TARGET" Language="zh_Hans_CN"><Text>增援目标 {1}/{2}：{3}</Text></Row>
     <Row Tag="LOC_WC_REINFORCEMENT_READY" Language="zh_Hans_CN"><Text>可以增援；确认后派遣。</Text></Row>
     <Row Tag="LOC_WC_REINFORCEMENT_UNAVAILABLE" Language="zh_Hans_CN"><Text>当前无法增援此指挥官；可以切换目标。</Text></Row>
@@ -130,12 +137,19 @@
     <Row Tag="LOC_WC_JOIN_UNAVAILABLE" Language="zh_Hans_CN"><Text>暂时无法加入该指挥官；已阻止移动或交换位置。</Text></Row>
     <Row Tag="LOC_WC_JOIN_FAILED" Language="zh_Hans_CN"><Text>加入指挥官失败；已阻止移动或交换位置。</Text></Row>
     <Row Tag="LOC_WC_MOD_NAME" Language="zh_Hans_CN"><Text>微操大师常凯申</Text></Row>
-    <Row Tag="LOC_WC_MOD_DESCRIPTION" Language="zh_Hans_CN"><Text>0.6.0：连续部署与攻击选择、原地齐射预览和排除、增援指挥官切换；十二项功能分别配置鼠标与手柄。新增功能待实机验证。</Text></Row>
-    <Row Tag="LOC_WC_FOCUS_BONUS" Language="zh_Hans_CN"><Text>集中火力</Text></Row>
-    <Row Tag="LOC_WC_FOCUS_BONUS_PREVIEW" Language="zh_Hans_CN"><Text>+{Amount} 集中火力</Text></Row>
-    <Row Tag="LOC_WC_FOCUS_BONUS_UNAVAILABLE" Language="zh_Hans_CN"><Text>集中火力加成暂不可用，未发射。</Text></Row>
+    <Row Tag="LOC_WC_MOD_DESCRIPTION" Language="zh_Hans_CN"><Text>减少进攻、部署与增援的重复操作，鼠标与手柄分别设置。集中开火的不移动单位、由远及近和手动排除为可选功能，默认关闭。</Text></Row>
+    <Row Tag="LOC_WC_FOCUS_BONUS" Language="zh_Hans_CN"><Text>集中开火</Text></Row>
+    <Row Tag="LOC_WC_FOCUS_BONUS_PREVIEW" Language="zh_Hans_CN"><Text>+{Amount} 集中开火</Text></Row>
+    <Row Tag="LOC_WC_FOCUS_BONUS_UNAVAILABLE" Language="zh_Hans_CN"><Text>集中开火加成暂不可用，未发射。</Text></Row>
     <Row Tag="LOC_WC_FOCUS_BUSY" Language="zh_Hans_CN"><Text>请等待当前射击结束，后续齐射已取消。</Text></Row>
-    <Row Tag="LOC_WC_FOCUS_NEEDS_MOVEMENT" Language="zh_Hans_CN"><Text>指挥官至少需要 1 点移动力才能使用集中火力。</Text></Row>
-    <Row Tag="LOC_WC_FOCUS_COST_UNAVAILABLE" Language="zh_Hans_CN"><Text>指挥官移动力结算暂不可用，集中火力已停止；重新载入可重试。</Text></Row>
+    <Row Tag="LOC_WC_FOCUS_NEEDS_MOVEMENT" Language="zh_Hans_CN"><Text>指挥官至少需要 1 点移动力才能使用集中开火。</Text></Row>
+    <Row Tag="LOC_WC_FOCUS_COST_UNAVAILABLE" Language="zh_Hans_CN"><Text>指挥官移动力结算暂不可用，集中开火已停止；重新载入可重试。</Text></Row>
+    <Row Tag="LOC_WC_FOCUSNOMOVE" Language="zh_Hans_CN"><Text>优化集中开火：不移动单位</Text></Row>
+    <Row Tag="LOC_WC_FOCUSFARFIRST" Language="zh_Hans_CN"><Text>优化集中开火：由远及近</Text></Row>
+    <Row Tag="LOC_WC_FOCUSNOMOVE_DESCRIPTION" Language="zh_Hans_CN"><Text>默认关闭。开启后只允许从当前格射击，保持阵型；关闭时由原版攻击操作处理允许的移动。与由远及近分别开关。</Text></Row>
+    <Row Tag="LOC_WC_FOCUSFARFIRST_DESCRIPTION" Language="zh_Hans_CN"><Text>默认关闭。开启后按离目标由远及近的顺序逐发攻击，逐发复查，目标消失即停止；关闭后不按距离重排。</Text></Row>
+    <Row Tag="LOC_WC_QUICKTRANSFER" Language="zh_Hans_CN"><Text>选中即加入：快速转移</Text></Row>
+    <Row Tag="LOC_WC_QUICKTRANSFER_DESCRIPTION" Language="zh_Hans_CN"><Text>自动加入状态下，绿色格子预览陆军经相邻且有“先手”的指挥官转移的位置。悬停显示路线和1点移动力；点击后先加入，确认加入成功后再部署。点击有单位的格子仍切换单位。加入后会重新检查部署条件；若无法部署，单位留在指挥官内。</Text></Row>
+    <Row Tag="LOC_WC_TRANSFER_STOPPED" Language="zh_Hans_CN"><Text>快速转移已停止。若已加入指挥官，单位会留在其中，不再继续部署。</Text></Row>
   </LocalizedText>
 </Database>

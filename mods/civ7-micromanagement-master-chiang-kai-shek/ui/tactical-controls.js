@@ -32,6 +32,8 @@ export function installTacticalControls(api) {
   });
   const overlay = WorldUI.createOverlayGroup('WarControlsTactical', OVERLAY_PRIORITY.PLOT_HIGHLIGHT);
   const attackArrows = WorldUI.createModelGroup('WarControlsAttackPreview');
+  const formationFrames = WorldUI.createModelGroup('WarControlsFormationFrames');
+  let framedPlots = '';
   const key = id => ComponentID.isValid(id) ? ComponentID.toString(id) : '';
   const same = (a, b) => !!a && !!b && ComponentID.isMatch(a, b);
   const plotIndex = location => GameplayMap.getIndexFromLocation(location);
@@ -62,26 +64,43 @@ export function installTacticalControls(api) {
   }
   const radius = commander => new Set(Units.getCommandRadiusPlots(commander.id) ?? []);
   const within = (unit, commander) => onMap(unit) && radius(commander).has(plotIndex(unit.location));
-  function shot(unit, target, operation) {
+  const exclusionEnabled = () => enabled('focusPreview') && enabled('focusExclude');
+  const customFire = () => enabled('focusNoMove') || enabled('focusFarFirst') || exclusionEnabled();
+  function attackArgs(target, stationary) {
+    const args = {X:target.x,Y:target.y};
+    if (!stationary) args.Modifiers = api.UnitOperationMoveModifiers.ATTACK + api.UnitOperationMoveModifiers.MOVE_IGNORE_UNEXPLORED_DESTINATION;
+    return args;
+  }
+  function shot(unit, target, operation, stationary = true) {
     if (!military(unit) || !onMap(unit) || isPacked(unit) || !(unit.Movement?.movementMovesRemaining > 0) || !(unit.Combat?.attacksRemaining > 0)) return false;
+    if (!isEnemyPlot(unit, plotIndex(target))) return false;
+    if (!stationary) {
+      // Use the native world-input ranged/naval attack contract. The engine
+      // owns permitted movement; do not invent a path or issue a MOVE_TO.
+      const args = {X:target.x,Y:target.y,Modifiers:api.UnitOperationMoveModifiers.NONE};
+      return (operation !== RANGE || Game.Combat.testAttackInto(unit.id,args) === api.CombatTypes.COMBAT_RANGED) &&
+        Game.UnitOperations.canStart(unit.id,operation,args,false).Success;
+    }
     // Direct ranged operations never issue MOVE_TO. Require the native target
     // list AND target validation; reachable targets alone may include movement.
     const result = Game.UnitOperations.canStart(unit.id, operation, {}, false);
     const index = result.Plots?.indexOf(plotIndex(target)) ?? -1;
     if (!result.Success || index < 0) return false;
     if (operation === RANGE && (!result.Modifiers || result.Modifiers.length !== result.Plots.length || result.Modifiers[index] === api.OperationPlotModifiers.NONE)) return false;
-    return isEnemyPlot(unit, plotIndex(target)) && Game.UnitOperations.canStart(unit.id, operation, { X: target.x, Y: target.y }, false).Success;
+    return Game.UnitOperations.canStart(unit.id, operation, { X: target.x, Y: target.y }, false).Success;
   }
   function candidates(commander, target, operation) {
     if (!commander || !onMap(commander)) return [];
-    return formation(commander,operation).filter(unit => shot(unit, target, operation))
-      .sort((a,b) => distance(b.location,target) - distance(a.location,target) || key(a.id).localeCompare(key(b.id)));
+    const units = formation(commander,operation).filter(unit => shot(unit, target, operation, enabled('focusNoMove')));
+    if (enabled('focusFarFirst')) units.sort((a,b) => distance(b.location,target) - distance(a.location,target) || key(a.id).localeCompare(key(b.id)));
+    return units;
   }
   function formation(commander, operation) {
     if (!commander || !onMap(commander)) return [];
     const plots = radius(commander);
     return allUnits().filter(unit => {
       if (!military(unit) || !onMap(unit) || isPacked(unit) || !plots.has(plotIndex(unit.location))) return false;
+      if (!(unit.Movement?.movementMovesRemaining > 0) || !(unit.Combat?.attacksRemaining > 0)) return false;
       const definition = GameInfo.Units.lookup(unit.type);
       if (operation === NAVAL) return definition?.Domain === 'DOMAIN_SEA';
       if (['DOMAIN_SEA','DOMAIN_AIR'].includes(definition?.Domain)) return false;
@@ -90,13 +109,57 @@ export function installTacticalControls(api) {
         Game.UnitOperations.canStart(unit.id,operation,{},true).Success;
     });
   }
-  function nextAttacker(commander, previous) {
-    if (!commander) return null;
-    return allUnits().find(unit => !same(unit.id, previous.id) && unit.type === previous.type && within(unit, commander) &&
-      [RANGE, NAVAL].some(operation => {
-        const result = Game.UnitOperations.canStart(unit.id, operation, {}, false);
-        return result.Plots?.some(index => shot(unit, GameplayMap.getLocationFromIndex(index), operation));
-      }));
+  function nearbyUnits(origin) {
+    const found = new Map();
+    for (const index of GameplayMap.getPlotIndicesInRadius(origin.x,origin.y,3) ?? []) {
+      const plot = GameplayMap.getLocationFromIndex(index);
+      for (const id of MapUnits.getUnits(plot.x,plot.y)) {
+        const unit = localUnit(id);
+        if (unit && onMap(unit) && distance(origin,unit.location) <= 3) found.set(key(id),unit);
+      }
+    }
+    return [...found.values()];
+  }
+  function nextAttacker(previous) {
+    const source = localUnit(previous.id);
+    if (!source || !onMap(source)) return null;
+    const nearby = nearbyUnits(source.location);
+    const commandAreas = nearby.filter(unit=>unit.isCommanderUnit && within(source,unit)).map(radius);
+    // Remember identities, not just the attacked hex: a replacement occupant
+    // must not inherit same-target priority after the original enemy dies.
+    const targets = previous.targets.flatMap(id=> {
+      const unit = Units.get(id);
+      if (unit && onMap(unit)) return [unit.location];
+      return previous.target && MapUnits.getUnits(previous.target.x,previous.target.y).some(other=>same(id,other)) ? [previous.target] : [];
+    });
+    if (!previous.targets.length && previous.target) targets.push(previous.target);
+    const ranked = [];
+    for (const unit of nearby) {
+      if (same(unit.id,previous.id) || !military(unit) || isPacked(unit) ||
+          !(unit.Movement?.movementMovesRemaining > 0) || !(unit.Combat?.attacksRemaining > 0)) continue;
+      const legal = new Set();
+      for (const operation of [RANGE,NAVAL]) {
+        const result = Game.UnitOperations.canStart(unit.id,operation,{},false);
+        if (!result.Success) continue;
+        for (const index of result.Plots ?? []) {
+          if (shot(unit,GameplayMap.getLocationFromIndex(index),operation)) legal.add(index);
+        }
+      }
+      if (!legal.size) continue;
+      const coreClass = GameInfo.Units.lookup(unit.type)?.CoreClass;
+      ranked.push({unit, score:[
+        targets.some(target=>legal.has(plotIndex(target))) ? 0 : 1,
+        commandAreas.some(area=>area.has(plotIndex(unit.location))) ? 0 : 1,
+        unit.type === previous.type ? 0 : 1,
+        previous.coreClass && coreClass === previous.coreClass ? 0 : 1,
+        distance(source.location,unit.location)
+      ]});
+    }
+    ranked.sort((a,b)=> {
+      for (let i=0;i<a.score.length;i++) if (a.score[i] !== b.score[i]) return a.score[i]-b.score[i];
+      return key(a.unit.id).localeCompare(key(b.unit.id));
+    });
+    return ranked[0]?.unit ?? null;
   }
   function highlightPortrait() {
     const head = UI.Player.getHeadSelectedUnit();
@@ -164,15 +227,24 @@ export function installTacticalControls(api) {
     document.body.appendChild(panel);
   }
   function unitName(unit) { return unit.name ? (api.Locale?.compose?.(unit.name) ?? unit.name) : t('LOC_WC_UNIT_FALLBACK', unit.id.id); }
-  function paint(target, units) {
+  function clearPreviewVisuals() {
+    overlay.reset(); attackArrows.clear(); formationFrames.clear(); framedPlots = '';
+  }
+  function paint(target, members, participants) {
     overlay.reset();
     const add = (plots, color) => { if (plots.length) overlay.addPlotOverlay().addPlots(plots, { fillColor: color }); };
     if (target) add([plotIndex(target)], {x:1,y:0.2,z:0.2,w:0.5});
-    // Keep each unit's hex visible even when adjacent units share a state.
-    for (const unit of units) overlay.addPlotOverlay().addPlots([plotIndex(unit.location)], {
-      fillColor:{x:1,y:0.78,z:0.25,w:0},
-      edgeColor:{x:1,y:0.78,z:0.25,w:1}
-    });
+    // Native plot-cursor VFX provides the thick, high-contrast hex outline.
+    // Keep every candidate clickable, including manually excluded units, and
+    // avoid restarting the persistent VFX on each mouse-hover update.
+    const plots = [...new Set(members.map(unit=>plotIndex(unit.location)))].sort((a,b)=>a-b);
+    const signature = plots.join(',');
+    if (signature !== framedPlots) {
+      formationFrames.clear(); framedPlots = signature;
+      for (const index of plots) formationFrames.addVFXAtPlot('VFX_3dUI_PlotCursor_01',
+        GameplayMap.getLocationFromIndex(index), {x:0,y:0,z:0});
+    }
+    add([...new Set(participants.map(unit=>plotIndex(unit.location)))], {x:1,y:0.84,z:0.42,w:0.42});
   }
   function ensurePreview(commander, operation) {
     if (!preview || !same(preview.commander,commander) || preview.operation !== operation)
@@ -183,12 +255,13 @@ export function installTacticalControls(api) {
     attackArrows.clear();
     if (!preview) return;
     const {commander, target, operation, excluded} = preview;
-    const selected = formation(localUnit(commander),operation).filter(u=>!excluded.has(key(u.id)));
-    const attackers = target ? selected.filter(u=>shot(u,target,operation)) : [];
-    if (!enabled('focusPreview')) { overlay.reset(); return; }
-    // Formation membership survives hovering empty/friendly plots or changing
-    // enemies. Only arrows narrow to the units that can hit this enemy now.
-    paint(attackers.length ? target : null, selected);
+    const members = formation(localUnit(commander),operation);
+    const selected = members.filter(u=>!excluded.has(key(u.id)));
+    const attackers = target ? selected.filter(u=>shot(u,target,operation,enabled('focusNoMove'))) : [];
+    if (!enabled('focusPreview')) { clearPreviewVisuals(); return; }
+    // Hover filters participation fill and arrows without changing the user's
+    // exclusions. Empty/friendly plots restore the selected formation's fill.
+    paint(attackers.length ? target : null, members, target ? attackers : selected);
     if (!attackers.length) return;
     const targetPosition = WorldUI.getPlotLocation(target,{x:0,y:0,z:0},api.PlacementMode.TERRAIN);
     for (const unit of attackers) {
@@ -219,9 +292,9 @@ export function installTacticalControls(api) {
     if (!units.length) { showNotice(t('LOC_WC_NO_STATIONARY_ATTACKERS')); return; }
     // Remember identities: do not spend another shot on a replacement target.
     const targets = MapUnits.getUnits(target.x,target.y).map(key);
-    volley = {commander, target:{...target}, operation, remaining:units.map(u=>u.id), targets, waiting:null, costStarted:false, charged:false};
+    volley = {commander, target:{...target}, operation, stationary:enabled('focusNoMove'), remaining:units.map(u=>u.id), targets, waiting:null, costStarted:false, charged:false};
     pending = null;
-    preview = null; overlay.reset(); attackArrows.clear(); clearPanel();
+    preview = null; clearPreviewVisuals(); clearPanel();
     InterfaceMode.switchToDefault();
     advanceVolley();
   }
@@ -231,7 +304,7 @@ export function installTacticalControls(api) {
     if (!usable() || !localUnit(plan.commander) || (plan.targets.length && !MapUnits.getUnits(plan.target.x,plan.target.y).some(id => plan.targets.includes(key(id))))) { volley = null; return; }
     while (plan.remaining.length) {
       const id = plan.remaining.shift(), unit = localUnit(id);
-      if (!unit || !within(unit,localUnit(plan.commander)) || !shot(unit,plan.target,plan.operation)) continue;
+      if (!unit || !within(unit,localUnit(plan.commander)) || !shot(unit,plan.target,plan.operation,plan.stationary)) continue;
       if (!bonus.begin(unit)) { cancel(); showNotice(t('LOC_WC_FOCUS_BONUS_UNAVAILABLE')); return; }
       if (!plan.costStarted) {
         if (!cost.arm(plan.commander,id)) { bonus.clear();cancel();showNotice(t('LOC_WC_FOCUS_COST_UNAVAILABLE'));return; }
@@ -243,7 +316,7 @@ export function installTacticalControls(api) {
       plan.timeout = later(() => { if (volley === plan) { volley = null; showNotice(t('LOC_WC_VOLLEY_TIMEOUT')); } }, 15000);
       sendingVolley = true;
       try {
-        const result = Game.UnitOperations.sendRequest(id, plan.operation, {X:plan.target.x,Y:plan.target.y});
+        const result = Game.UnitOperations.sendRequest(id, plan.operation, attackArgs(plan.target,plan.stationary));
         if (result === false) { cost.reject();bonus.clear(); cancel(); showNotice(t('LOC_WC_ATTACK_REJECTED')); }
       } catch (error) { cost.reject();bonus.clear(); cancel(); showNotice(t('LOC_WC_ATTACK_FAILED')); }
       finally { sendingVolley = false; }
@@ -251,23 +324,30 @@ export function installTacticalControls(api) {
     }
     volley = null;
   }
-  function captureOrder(id, type) {
-    if (!usable() || volley || !same(UI.Player.getHeadSelectedUnit(),id)) return null;
+  function captureOrder(id, type, args = {}) {
+    if (!usable() || volley || api.isQuickTransfer?.() || !same(UI.Player.getHeadSelectedUnit(),id)) return null;
     const unit = localUnit(id);
     if (!unit) return null;
     if (type === REMOVE && (enabled('keepCommanderFocus') || enabled('nextDeployable')) && isPacked(unit)) {
       const commander = ownedCommanders().find(c=>same(c.armyId,unit.armyId));
       if (commander) return {kind:'deploy', id, commander:commander.id};
     }
-    if ([RANGE,NAVAL].includes(type) && enabled('nextRanged') && military(unit)) {
-      const commander = ownedCommanders().filter(c=>within(unit,c)).sort((a,b)=>distance(a.location,unit.location)-distance(b.location,unit.location))[0];
-      if (commander) return {kind:'attack', id, commander:commander.id, type:unit.type};
+    // Action-panel requests use database names; native map attack handlers
+    // submit UnitOperationTypes enums. Recognize both without changing the
+    // original request's argument, return value or engine-owned execution.
+    const rangedAttack = [RANGE,NAVAL].includes(type) ||
+      (type !== undefined && [api.UnitOperationTypes?.RANGE_ATTACK,api.UnitOperationTypes?.NAVAL_ATTACK].includes(type));
+    if (rangedAttack && enabled('nextRanged') && military(unit)) {
+      const target = Number.isFinite(args.X) && Number.isFinite(args.Y) ? {x:args.X,y:args.Y} : null;
+      return {kind:'attack', id, type:unit.type, coreClass:GameInfo.Units.lookup(unit.type)?.CoreClass,
+        target, targets:target ? MapUnits.getUnits(target.x,target.y).filter(other=>other.owner !== unit.owner).map(other=>({...other})) : []};
     }
     return null;
   }
   function completePending() {
     const ticket = pending;
     if (!ticket || ticket.scheduled) return;
+    if (ticket.kind === 'attack' && (!ticket.combatConfirmed || !ticket.operationEnded)) return;
     ticket.scheduled = true;
     // Native action panel has a 150 ms delayed switchToDefault. Restore after
     // that transition, but abandon if the user selected something else.
@@ -277,9 +357,9 @@ export function installTacticalControls(api) {
       if (!usable() || !['INTERFACEMODE_DEFAULT','INTERFACEMODE_UNIT_SELECTED','INTERFACEMODE_REMOVE_FROM_ARMY','INTERFACEMODE_RANGE_ATTACK','INTERFACEMODE_NAVAL_ATTACK'].includes(mode())) return;
       const head = UI.Player.getHeadSelectedUnit();
       if (ComponentID.isValid(head) && !same(head,ticket.id) && !same(head,ticket.commander)) return;
-      const commander = localUnit(ticket.commander);
-      if (!commander) return;
       if (ticket.kind === 'deploy') {
+        const commander = localUnit(ticket.commander);
+        if (!commander) return;
         const packed = (Armies.get(commander.armyId)?.getUnitIds() ?? []).map(localUnit).filter(u=>military(u) && !same(u.id,ticket.id));
         const next = enabled('nextDeployable') && packed.find(u => {
           if (!(u.Movement?.movementMovesRemaining > 0)) return false;
@@ -289,7 +369,7 @@ export function installTacticalControls(api) {
         if (next) choose(next.id);
         else if (enabled('keepCommanderFocus') && packed.length) choose(commander.id);
       } else if (enabled('nextRanged')) {
-        const next = nextAttacker(commander,{id:ticket.id,type:ticket.type});
+        const next = nextAttacker(ticket);
         if (next) choose(next.id);
       }
     });
@@ -309,7 +389,8 @@ export function installTacticalControls(api) {
     const choice = choices[index]; picker.current = choice.unit.id;
     Camera.lookAtPlot(choice.unit.location);
     PlotCursor.plotCursorCoords = choice.unit.location;
-    paint(choice.unit.location,[]);
+    clearPreviewVisuals();
+    overlay.addPlotOverlay().addPlots([plotIndex(choice.unit.location)], {fillColor:{x:1,y:0.2,z:0.2,w:0.5}});
     newPanel();
     text(t('LOC_WC_REINFORCEMENT_TARGET', index + 1, choices.length, unitName(choice.unit)));
     text(choice.valid ? t('LOC_WC_REINFORCEMENT_READY') : t('LOC_WC_REINFORCEMENT_UNAVAILABLE'));
@@ -341,13 +422,13 @@ export function installTacticalControls(api) {
   function cancel() {
     pending = null; preview = null; picker = null; volley = null;
     for (const timer of timers) clearTimeout(timer);
-    timers.clear(); overlay.reset(); attackArrows.clear(); clearPanel();
+    timers.clear(); clearPreviewVisuals(); clearPanel();
   }
   try {
     wrap(Game.UnitCommands,'sendRequest',function(original,id,type,...args){
       if (!sendingVolley && (bonus.active || cost.busy)) { cancel(); showNotice(t('LOC_WC_FOCUS_BUSY')); return false; }
       if (!sendingVolley) { if (volley) cancel(); pending = null; }
-      const ticket = captureOrder(id,type);
+      const ticket = captureOrder(id,type,args[0]);
       if (ticket) { pending = ticket; later(() => { if (pending === ticket) pending = null; }, 30000); }
       try { const result = original(id,type,...args); if (result === false && pending === ticket) pending = null; return result; }
       catch(error) { if (pending === ticket) pending=null; throw error; }
@@ -355,7 +436,7 @@ export function installTacticalControls(api) {
     wrap(Game.UnitOperations,'sendRequest',function(original,id,type,...args){
       if (!sendingVolley && (bonus.active || cost.busy)) { cancel(); showNotice(t('LOC_WC_FOCUS_BUSY')); return false; }
       if (!sendingVolley) { if (volley) cancel(); pending = null; }
-      const ticket = captureOrder(id,type);
+      const ticket = captureOrder(id,type,args[0]);
       if (ticket) { pending = ticket; later(() => { if (pending === ticket) pending = null; }, 30000); }
       try { const result = original(id,type,...args); if (result === false && pending === ticket) pending = null; return result; }
       catch(error) { if (pending === ticket) pending=null; throw error; }
@@ -386,7 +467,7 @@ export function installTacticalControls(api) {
         return result;
       });
       wrap(handler,'reset',function(original,...args){
-        preview=null; overlay.reset(); attackArrows.clear();
+        preview=null; clearPreviewVisuals();
         return original(...args);
       });
       wrap(handler,'decorateHover',function(original,target,...rest){
@@ -408,6 +489,12 @@ export function installTacticalControls(api) {
         }
         const commander=localUnit(plan.commander);
         if (!commander || !isEnemyPlot(commander,plotIndex(target))) return false;
+        // Preview alone must not replace native focus fire, its movement,
+        // ordering, bonuses or movement cost. Gameplay changes are opt-in.
+        if (!customFire()) {
+          preview=null; clearPreviewVisuals();
+          return _original(target);
+        }
         startVolley(plan.commander,target,operation,plan.excluded);
         return false;
       });
@@ -439,10 +526,21 @@ export function installTacticalControls(api) {
       }
       if (pending?.kind==='deploy' && (same(initiatingUnit,pending.id) || same(initiatingUnit,pending.commander))) completePending();
     });
+    listen(engine,'Combat',data=>{
+      // An operation ending can also mean rejection/cancellation. Only the
+      // requested attacker's actual combat may unlock automatic selection.
+      if (pending?.kind==='attack' && same(data.attacker,pending.id)) {
+        pending.combatConfirmed=true;
+        completePending();
+      }
+    });
     listen(engine,'UnitOperationDeactivated',data=>{
       if (volley?.waiting && same(data.unit,volley.waiting)) {
         const plan=volley; clearTimeout(plan.timeout); timers.delete(plan.timeout); plan.waiting=null; frame(advanceVolley);
-      } else if (pending?.kind==='attack' && same(data.unit,pending.id)) completePending();
+      } else if (pending?.kind==='attack' && same(data.unit,pending.id)) {
+        pending.operationEnded=true;
+        completePending();
+      }
     });
     listen(engine,'UnitSelectionChanged',data=>{
       if (data.selected && !selecting && volley && !same(data.unit,volley.commander) && !same(data.unit,volley.waiting)) cancel();
@@ -450,7 +548,7 @@ export function installTacticalControls(api) {
       frame(highlightPortrait);
     });
     listen(window,'interface-mode-changed',()=>{
-      if(!FOCUS.has(mode())) {preview=null; attackArrows.clear(); if(!picker) {overlay.reset(); clearPanel();}}
+      if(!FOCUS.has(mode())) {preview=null; clearPreviewVisuals(); if(!picker) clearPanel();}
       if(picker && mode()!=='INTERFACEMODE_REINFORCE_ARMY') {picker=null; overlay.reset(); clearPanel();}
     });
     const consume=event=>{event.preventDefault?.(); event.stopImmediatePropagation?.();};
@@ -497,6 +595,7 @@ export function installTacticalControls(api) {
     armyPanels.clear();
     for(const cleanup of cleanups.reverse()) cleanup();
     overlay.destroy();
+    formationFrames.destroy(); attackArrows.destroy();
     document.querySelectorAll('[data-war-controls-unit]').forEach(button=>{
       button.style.outline=''; button.style.backgroundColor=''; button.removeAttribute('data-war-controls-unit');
     });

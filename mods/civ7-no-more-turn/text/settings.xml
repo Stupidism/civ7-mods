@@ -8,7 +8,7 @@
     <Row Tag="LOC_RG_REST_MINUTES"><Text>Break duration (minutes)</Text></Row>
     <Row Tag="LOC_RG_TURN_DESCRIPTION"><Text>Counts end-turn actions in memory for this session. Loading preserves the count without adding turns; exiting clears it. The game turn selects a fixed 20-turn stage, with default intervals of 13/8/5/3/2.</Text></Row>
     <Row Tag="LOC_RG_TIME_DESCRIPTION"><Text>Default: play 25 minutes, then rest 5 minutes. After 1 idle minute a voluntary break panel pauses the play timer; Continue Game is always available. Five idle minutes reset both counters. Loading counts as play; exiting the game clears the timer.</Text></Row>
-    <Row Tag="LOC_RG_REST_DESCRIPTION"><Text>Triggers can be enabled independently. Completing any forced or idle break resets both counters. Each break creates a separate RestGuard save without overwriting older files.</Text></Row>
+    <Row Tag="LOC_RG_REST_DESCRIPTION"><Text>Triggers can be enabled independently. Completing any forced or idle break resets both counters. Forced breaks create separate RestGuard saves without overwriting older files. Voluntary-break autosaves are off by default.</Text></Row>
     <Row Tag="LOC_RG_RESET_LABEL"><Text>Reset No More Turn settings</Text></Row>
     <Row Tag="LOC_RG_RESET_BUTTON"><Text>Restore defaults</Text></Row>
     <Row Tag="LOC_RG_RESET_DESCRIPTION"><Text>Resets only No More Turn. Confirm Changes saves the draft; Cancel Changes discards it.</Text></Row>
@@ -19,8 +19,10 @@
     <Row Tag="LOC_RG_STAGE_2"><Text>Turns 41–60: turns per break</Text></Row>
     <Row Tag="LOC_RG_STAGE_3"><Text>Turns 61–80: turns per break</Text></Row>
     <Row Tag="LOC_RG_STAGE_4"><Text>After turn 80: turns per break</Text></Row>
+    <Row Tag="LOC_RG_IDLE_SAVE_ENABLED"><Text>Autosave during voluntary breaks</Text></Row>
+    <Row Tag="LOC_RG_IDLE_SAVE_DESCRIPTION"><Text>Off by default. Voluntary breaks can be ended at any time so you can save manually. Enable to create a separate RestGuard save when an idle break starts. Forced-break saves are unaffected.</Text></Row>
     <Row Tag="LOC_RG_SAVE_KEEP_COUNT"><Text>Rest saves to keep</Text></Row>
-    <Row Tag="LOC_RG_SAVE_KEEP_DESCRIPTION"><Text>Default: keep the newest 10 RestGuard saves. After a successful rest save, remove only older local RestGuard saves. Other saves are untouched. Changes apply after the next successful rest save.</Text></Row>
+    <Row Tag="LOC_RG_SAVE_KEEP_DESCRIPTION"><Text>Default: keep the newest 10 RestGuard saves. After a successful rest save, remove only older local RestGuard saves in the auto folder. Other saves are untouched. Changes apply after the next successful rest save.</Text></Row>
     <Row Tag="LOC_RG_NIGHT_ENABLED"><Text>Night-time play restriction</Text></Row>
     <Row Tag="LOC_RG_NIGHT_START"><Text>Night restriction starts</Text></Row>
     <Row Tag="LOC_RG_NIGHT_END"><Text>Night restriction ends</Text></Row>
@@ -81,7 +83,7 @@
     <Row Tag="LOC_RG_REST_MINUTES" Language="zh_Hans_CN"><Text>每次休息时长（分钟）</Text></Row>
     <Row Tag="LOC_RG_TURN_DESCRIPTION" Language="zh_Hans_CN"><Text>在本次会话内累计结束回合次数，读档保留累计但不增加计数，退出游戏后清零。游戏当前回合只用于选择档位，每20回合一档，默认间隔13／8／5／3／2回合。</Text></Row>
     <Row Tag="LOC_RG_TIME_DESCRIPTION" Language="zh_Hans_CN"><Text>默认连续游戏25分钟休息5分钟。无操作1分钟显示主动休息面板并暂停游戏计时，随时可继续；满5分钟共同重置两项间隔。读档计入游戏时间，完整退出游戏后计时清零。</Text></Row>
-    <Row Tag="LOC_RG_REST_DESCRIPTION" Language="zh_Hans_CN"><Text>两个功能独立开关，可同时开启。任意一次强制休息或空闲休息完成后，回合与时间间隔共同重置。休息开始时另存独立RestGuard文件，不覆盖旧存档。</Text></Row>
+    <Row Tag="LOC_RG_REST_DESCRIPTION" Language="zh_Hans_CN"><Text>两个功能独立开关，可同时开启。任意一次强制休息或空闲休息完成后，回合与时间间隔共同重置。强制休息开始时另存独立RestGuard文件，不覆盖旧存档。主动休息默认不自动存档。</Text></Row>
     <Row Tag="LOC_RG_RESET_LABEL" Language="zh_Hans_CN"><Text>恢复本模块默认设置</Text></Row>
     <Row Tag="LOC_RG_RESET_BUTTON" Language="zh_Hans_CN"><Text>恢复默认</Text></Row>
     <Row Tag="LOC_RG_RESET_DESCRIPTION" Language="zh_Hans_CN"><Text>只重置不再来一回合的设置；点击底部“确认变更”后保存，“取消变更”可放弃。</Text></Row>
@@ -92,8 +94,10 @@
     <Row Tag="LOC_RG_STAGE_2" Language="zh_Hans_CN"><Text>41–60回合：每几回合休息</Text></Row>
     <Row Tag="LOC_RG_STAGE_3" Language="zh_Hans_CN"><Text>61–80回合：每几回合休息</Text></Row>
     <Row Tag="LOC_RG_STAGE_4" Language="zh_Hans_CN"><Text>80回合后：每几回合休息</Text></Row>
+    <Row Tag="LOC_RG_IDLE_SAVE_ENABLED" Language="zh_Hans_CN"><Text>主动休息时自动存档</Text></Row>
+    <Row Tag="LOC_RG_IDLE_SAVE_DESCRIPTION" Language="zh_Hans_CN"><Text>默认关闭。主动休息可随时继续并手动保存；开启后，空闲触发主动休息时另存一份RestGuard存档。不影响强制休息存档。</Text></Row>
     <Row Tag="LOC_RG_SAVE_KEEP_COUNT" Language="zh_Hans_CN"><Text>休息存档保留数量</Text></Row>
-    <Row Tag="LOC_RG_SAVE_KEEP_DESCRIPTION" Language="zh_Hans_CN"><Text>默认保留最近10个休息存档（可设1–100个）。下次休息存档成功后清理较旧的本地RestGuard存档，不动其他存档。</Text></Row>
+    <Row Tag="LOC_RG_SAVE_KEEP_DESCRIPTION" Language="zh_Hans_CN"><Text>默认保留最近10个休息存档（可设1–100个）。下次休息存档成功后清理auto目录中较旧的本地RestGuard存档，不动其他存档。</Text></Row>
     <Row Tag="LOC_RG_NIGHT_ENABLED" Language="zh_Hans_CN"><Text>启用夜间禁玩</Text></Row>
     <Row Tag="LOC_RG_NIGHT_START" Language="zh_Hans_CN"><Text>夜间禁玩开始时间</Text></Row>
     <Row Tag="LOC_RG_NIGHT_END" Language="zh_Hans_CN"><Text>夜间禁玩结束时间</Text></Row>

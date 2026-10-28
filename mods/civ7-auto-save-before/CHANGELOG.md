@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.2 — 2026-10-22
+
+- Follow the game language for all save progress messages, failure reasons, retry/cancel buttons, notifications and the mod description. Supply English defaults and Simplified Chinese translations through native localization.
+- Preserve fixed save names and existing save behavior, including the 1.1.1 save-before-rest integration.
+- Validate 27 matching localization entries and 79 offline tests with the installed game handlers. No live save/load test was performed for this release.
+
 ## 1.1.1 — 2026-10-20 (local development)
 
 - With Rest Guard 1.5.1, confirm the BeforeEndTurn save before opening the forced turn break. Continue submits the already-saved turn once, without another write.

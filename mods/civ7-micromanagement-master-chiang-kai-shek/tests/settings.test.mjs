@@ -3,10 +3,19 @@ import assert from 'node:assert/strict';
 import {createSettingsStore, normalizeConfig, FEATURE_KEYS, PROFILES, isFeatureApplicable} from '../ui/settings-store.js';
 import {fixture, ADD, REMOVE, ATTACK, REINFORCE} from './game-fixture.mjs';
 
-test('all feature defaults are enabled and profile objects are independent',()=>{
+test('balance-affecting fire options default off in both independent profiles',()=>{
   const config=normalizeConfig();
-  assert.equal(PROFILES.flatMap(p=>Object.values(config[p])).filter(Boolean).length,FEATURE_KEYS.length*PROFILES.length);
+  for(const p of PROFILES) for(const k of FEATURE_KEYS) assert.equal(config[p][k],!['focusNoMove','focusFarFirst','focusExclude'].includes(k),p+'.'+k);
   config.mouse.autoExit=false;assert.equal(config.gamepad.autoExit,true);
+});
+test('version-1 balance defaults reset once without changing other settings or writing on load',()=>{
+ let raw=JSON.stringify({other:{keep:42},'civ7-war-controls':{version:1,config:{mouse:{autoAttack:false,focusExclude:true},gamepad:{focusExclude:true}}}}), writes=0;
+ const store=createSettingsStore({getItem:()=>raw,setItem:(_,v)=>{raw=v;writes++;}});
+ const config=store.load().config;
+ assert.equal(config.mouse.autoAttack,false);assert.equal(config.mouse.focusExclude,false);assert.equal(config.gamepad.focusExclude,false);assert.equal(writes,0);
+ config.mouse.focusExclude=true;config.gamepad.focusFarFirst=true;store.save(config);
+ assert.equal(store.load().config.mouse.focusExclude,true);assert.equal(store.load().config.gamepad.focusFarFirst,true);
+ assert.deepEqual(JSON.parse(raw).other,{keep:42});assert.equal(JSON.parse(raw)['civ7-war-controls'].version,2);
 });
 test('invalid values use defaults; explicit false and other profile survive',()=>{
   const config=normalizeConfig({mouse:{autoAttack:false,autoJoin:'false'},gamepad:{autoExit:false}});

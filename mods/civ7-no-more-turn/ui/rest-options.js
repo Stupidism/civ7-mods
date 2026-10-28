@@ -94,6 +94,7 @@ export function installRestOptions({ options, optionType, categories, store, app
       [0.1, ...Array.from({ length: 240 }, (_, i) => (i + 1) / 2)]);
     add('save-keep-count', 'SAVE_KEEP_COUNT', 'SAVE_KEEP_DESCRIPTION', c => c.saveKeepCount, (c, v) => { c.saveKeepCount = v; },
       Array.from({ length: 100 }, (_, i) => i + 1));
+    add('idle-save-enabled', 'IDLE_SAVE_ENABLED', 'IDLE_SAVE_DESCRIPTION', c => c.idleSaveEnabled, (c, v) => { c.idleSaveEnabled = v; });
     const reset = {
       id: 'rest-guard-reset', category: REST_OPTIONS_CATEGORY, group: REST_OPTIONS_GROUP,
       type: optionType.Editor, label: 'LOC_RG_RESET_LABEL', description: 'LOC_RG_RESET_DESCRIPTION',

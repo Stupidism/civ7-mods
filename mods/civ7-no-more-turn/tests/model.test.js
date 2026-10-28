@@ -16,7 +16,7 @@ test('game turns select fixed stages, not a rest deadline', () => {
 });
 test('20-turn boundaries are fixed and legacy cumulative settings are discarded', () => {
   const c = normalizeConfig({ stageLength: 99, cumulativeAges: true });
-  assert.deepEqual(Object.keys(c), ['turnEnabled', 'timeEnabled', 'saveKeepCount', 'nightEnabled', 'nightStart', 'nightEnd', 'playMinutes', 'restMinutes', 'intervals']);
+  assert.deepEqual(Object.keys(c), ['turnEnabled', 'timeEnabled', 'saveKeepCount', 'idleSaveEnabled', 'nightEnabled', 'nightStart', 'nightEnd', 'playMinutes', 'restMinutes', 'intervals']);
   assert.equal(scheduleAt(20, c).stage, 0);
   assert.equal(scheduleAt(21, c).stage, 1);
 });
@@ -97,4 +97,11 @@ test('clock display never shows zero before the break expires', () => {
   assert.equal(formatTime(300000), '05:00');
   assert.equal(formatTime(1), '00:01');
   assert.equal(formatTime(0), '00:00');
+});
+
+test('voluntary saves default off for old and invalid settings, preserving explicit opt-in', () => {
+  for (const value of [undefined, null, 'true', 1, false]) {
+    assert.equal(normalizeConfig({ idleSaveEnabled: value }).idleSaveEnabled, false);
+  }
+  assert.equal(normalizeConfig({ idleSaveEnabled: true }).idleSaveEnabled, true);
 });

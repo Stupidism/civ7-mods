@@ -71,7 +71,7 @@ export function createRestSaver(canSave, saved) {
     canSave, saved,
     save: fileName => Network.saveGame({
       Location: SaveLocations.LOCAL_STORAGE,
-      LocationCategories: SaveLocationCategories.NORMAL,
+      LocationCategories: SaveLocationCategories.AUTOSAVE,
       Type: GameStateStorage.getGameConfigurationSaveType(),
       ContentType: SaveFileTypes.GAME_STATE,
       FileName: fileName,
@@ -81,9 +81,9 @@ export function createRestSaver(canSave, saved) {
     succeeded: result => result?.result === SerializerResult.RESULT_OK,
     matches: (result, fileName) => {
       if (typeof result?.options !== 'number') return false;
-      const other = SaveLocationCategories.AUTOSAVE | SaveLocationCategories.QUICKSAVE;
+      const other = SaveLocationCategories.NORMAL | SaveLocationCategories.QUICKSAVE;
       if (result.options & other) return false;
-      if (SaveLocationCategories.NORMAL && !(result.options & SaveLocationCategories.NORMAL)) return false;
+      if (!(result.options & SaveLocationCategories.AUTOSAVE)) return false;
       if (result.fileName !== undefined && result.fileName !== fileName) return false;
       return (result.type === undefined || result.type === GameStateStorage.getGameConfigurationSaveType()) &&
         (result.fileType === undefined || result.fileType === SaveFileTypes.GAME_STATE);

@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { fixture, translations, REINFORCE } from './game-fixture.mjs';
+import { FEATURE_KEYS } from '../ui/settings-store.js';
 
 test('every locale has matching keys and interpolation parameters', () => {
   assert.deepEqual(Object.keys(translations.EnglishText).sort(), Object.keys(translations.LocalizedText).sort());
@@ -9,10 +10,14 @@ test('every locale has matching keys and interpolation parameters', () => {
     assert.deepEqual(value.match(/\{\d+\}/g) ?? [], translations.LocalizedText[key].match(/\{\d+\}/g) ?? [], key);
   }
   assert.equal(translations.LocalizedText.LOC_WC_MOD_NAME, '微操大师常凯申');
+  for(const key of FEATURE_KEYS) for(const locale of Object.values(translations)) {
+    assert.ok(locale['LOC_WC_'+key.toUpperCase()],key);
+    assert.ok(locale['LOC_WC_'+key.toUpperCase()+'_DESCRIPTION'],key);
+  }
 });
 
 test('all runtime localization references have both translations', async () => {
-  for (const file of ['tactical-controls.js', 'war-controls.js', 'settings-ui.js']) {
+  for (const file of ['quick-transfer.js', 'tactical-controls.js', 'war-controls.js', 'settings-ui.js']) {
     const source = await readFile(new URL('../ui/' + file, import.meta.url), 'utf8');
     for (const [tag] of source.matchAll(/LOC_(?:WC|OPTIONS_GROUP_WAR_CONTROLS)[A-Z_]*/g)) {
       assert.ok(translations.EnglishText[tag], tag);

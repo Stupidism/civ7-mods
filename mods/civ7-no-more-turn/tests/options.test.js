@@ -33,7 +33,7 @@ function harness(config = {}, extra = {}) {
 test('all settings share the Add-ons category and preserve other mods', () => {
   const h = harness();
   assert.equal(h.categories.mods, h.existingCategory);
-  assert.equal(h.options.data.size, 15);
+  assert.equal(h.options.data.size, 16);
   assert.equal(h.entry('interval-4').category, 'mods');
   assert.equal(h.entry('interval-4').group, 'rest_guard');
   assert.equal(h.entry('rest-minutes').dropdownItems[h.entry('rest-minutes').selectedItemIndex].label, '5');
@@ -54,7 +54,7 @@ test('cancel and reopening restore saved values without writes or timer resets',
   assert.equal(h.entry('time-enabled').currentValue, true);
   assert.equal(h.entry('play-minutes').dropdownItems[h.entry('play-minutes').selectedItemIndex].label, '25');
   h.options.init();
-  assert.equal(h.options.data.size, 15);
+  assert.equal(h.options.data.size, 16);
   assert.equal(h.calls.writes, 0); assert.equal(h.calls.applies, 0);
 });
 
@@ -102,7 +102,7 @@ test('pending rest cannot be bypassed by native settings or reset', () => {
 test('reinitialization and disposal preserve subsequent native option wrappers', () => {
   const h = harness();
   h.options.data.clear(); h.options.init();
-  assert.equal(h.options.data.size, 14);
+  assert.equal(h.options.data.size, 15);
   const previous = h.options.commitOptions;
   const outer = function (...args) { return previous.apply(this, args); };
   h.options.commitOptions = outer;
@@ -199,4 +199,17 @@ test('saved disabled switches hide on reopen; enabling restores values and reset
   assert.equal(h.entry('night-start').isHidden, false);
   assert.equal(h.entry('night-start').dropdownItems[h.entry('night-start').selectedItemIndex].label, '22:00');
   h.options.restore(); assert.equal(h.entry('night-start').isHidden, true);
+});
+
+test('voluntary autosave opt-in supports confirm, cancel and restoring defaults', () => {
+  const h = harness();
+  assert.equal(h.entry('idle-save-enabled').currentValue, false);
+  h.change('idle-save-enabled', true);
+  assert.equal(h.store.data.config.idleSaveEnabled, false);
+  h.options.restore();
+  assert.equal(h.entry('idle-save-enabled').currentValue, false);
+  h.change('idle-save-enabled', true); h.options.commitOptions(); h.options.init();
+  assert.equal(h.entry('idle-save-enabled').currentValue, true);
+  h.entry('reset').activateListener(); h.options.commitOptions();
+  assert.equal(h.saved()['civ7-rest-guard'].config.idleSaveEnabled, false);
 });

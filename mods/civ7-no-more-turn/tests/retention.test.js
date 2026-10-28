@@ -4,9 +4,9 @@ import { oldRestSaves, RestRetention } from '../ui/rest-retention.js';
 import fs from 'node:fs';
 import vm from 'node:vm';
 
-const scope = { location: 1, category: 1, type: 1, contentType: 0 };
+const scope = { location: 1, category: 4, type: 1, contentType: 0 };
 const name = i => `RestGuard_Idle_T${i}_20261022-120000-000_${i}-abcdef`;
-const file = (i, extra = {}) => ({ fileName: name(i), location: 1, locationCategories: 1,
+const file = (i, extra = {}) => ({ fileName: name(i), location: 1, locationCategories: 4, isAutosave: true,
   type: 1, contentType: 0, saveTime: i, slot: i, additionalInfo: `slot-${i}`, ...extra });
 const list = n => Array.from({ length: n }, (_, i) => file(i + 1));
 
@@ -19,12 +19,12 @@ test('retention keeps newest 10 across all rest kinds and campaigns', () => {
   assert.equal(oldRestSaves(list(10), 10, scope, name(10)).length, 0);
 });
 
-test('default, manual, other-mod, cloud, quick, auto and configuration saves are never selected', () => {
+test('default, manual, other-mod, cloud, quick, legacy normal and configuration saves are never selected', () => {
   const unrelated = [file(0, { fileName: 'AutoSave_1' }), file(0, { fileName: 'BeforeEndTurn' }),
     file(0, { fileName: 'BeforeDiplomacy' }), file(0, { fileName: 'RestGuard_my_manual_save' }),
     file(0, { fileName: '../' + name(0) }), file(0, { location: 2 }), file(0, { type: 2 }),
-    file(0, { locationCategories: 4 }), file(0, { locationCategories: 2 }), file(0, { contentType: 1 }),
-    file(0, { isAutosave: true }), file(0, { isQuicksave: true }), file(0, { location: undefined })];
+    file(0, { locationCategories: 1 }), file(0, { locationCategories: 2 }), file(0, { contentType: 1 }),
+    file(0, { isQuicksave: true }), file(0, { location: undefined })];
   assert.deepEqual(oldRestSaves([...unrelated, ...list(12)], 10, scope, name(12)).map(f => f.saveTime), [2, 1]);
 });
 
@@ -95,10 +95,10 @@ test('increasing retention count before deletion preserves the newly requested n
   assert.equal(h.state.cleanup, 'done');
 });
 
-test('native adapter requests only local normal saves and preserves full deletion identity', () => {
+test('native adapter requests only local autosaves and preserves full deletion identity', () => {
   const listeners = new Map(), queries = [], deletions = [], closes = [];
   const sandbox = { Date, console, RestRetention,
-    SaveLocations: { LOCAL_STORAGE: 1 }, SaveLocationCategories: { NORMAL: 1 }, SaveFileTypes: { GAME_STATE: 0 },
+    SaveLocations: { LOCAL_STORAGE: 1 }, SaveLocationCategories: { NORMAL: 1, AUTOSAVE: 4 }, SaveFileTypes: { GAME_STATE: 0 },
     SerializerResult: { RESULT_PENDING: 1, RESULT_OK: 0 },
     GameStateStorage: { getGameConfigurationSaveType: () => 1,
       querySaveGameList: params => { queries.push(params); return 42; }, closeFileListQuery: id => closes.push(id) },
@@ -107,9 +107,10 @@ test('native adapter requests only local normal saves and preserves full deletio
   const code = fs.readFileSync(new URL('../ui/rest-retention.js', import.meta.url), 'utf8');
   vm.runInNewContext(code.slice(code.indexOf('export function createRestRetention')).replace('export ', '') + '\nglobalThis.retention = createRestRetention(() => 10, () => false);', sandbox);
   sandbox.retention.request({ status: 'saved', fileName: name(11) }); sandbox.retention.poll();
-  assert.equal(queries[0].LocationOptions, 1); assert.equal(queries[0].Location, 1);
+  assert.equal(queries[0].LocationOptions, 4); assert.equal(queries[0].Location, 1);
   listeners.get('FileListQueryResults')(42, list(11)); sandbox.retention.poll();
   assert.equal(deletions.length, 1);
+  assert.equal(deletions[0].LocationCategories, 4);
   assert.equal(deletions[0].FileName, name(1)); assert.equal(deletions[0].Slot, 1);
   assert.equal(deletions[0].AdditionalInfo, 'slot-1'); assert.deepEqual(closes, [42]);
   sandbox.retention.destroy(); assert.equal(listeners.size, 0);

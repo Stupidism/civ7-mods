@@ -25,13 +25,13 @@ function fixture() {
   const change=(profile='mouse',key='autoExit',value=false)=>{const e=entry(profile,key);e.updateListener(e,value);};
   return {options,original,categories,store,storage,calls,applied,errors,entry,change,dependencies,get integration(){return integration;},reinstall(){integration.dispose();integration=installNativeOptions(dependencies);options.init();}};
 }
-test('shared Mods category registers 23 native checkboxes, no inapplicable control, and a reset',()=>{
-  const f=fixture();assert.equal(CATEGORY,'mods');assert.equal(f.options.data.size,24);
+test('shared Mods category registers 29 native checkboxes, no inapplicable control, and a reset',()=>{
+  const f=fixture();assert.equal(CATEGORY,'mods');assert.equal(f.options.data.size,30);
   assert.equal(f.categories[CATEGORY].title,'LOC_UI_CONTENT_MGR_SUBTITLE');
   assert.equal(f.entry('gamepad','rightClickJoin'),undefined);
-  assert.equal(Array.from(f.options.data.values()).filter(o=>o.type===1).length,23);
-  f.options.init();assert.equal(f.options.data.size,24);
-  f.options.data.clear();f.options.init();assert.equal(f.options.data.size,24);
+  assert.equal(Array.from(f.options.data.values()).filter(o=>o.type===1).length,29);
+  f.options.init();assert.equal(f.options.data.size,30);
+  f.options.data.clear();f.options.init();assert.equal(f.options.data.size,30);
   assert.equal(f.entry().currentValue,true);assert.equal(f.entry('gamepad').currentValue,true);
 });
 test('native Confirm persists the draft and notifies the running game',()=>{
@@ -39,6 +39,22 @@ test('native Confirm persists the draft and notifies the running game',()=>{
   assert.equal(f.options.commitOptions(),71);assert.equal(f.store.load().config.mouse.autoExit,false);
   assert.equal(f.store.load().config.gamepad.autoExit,true);assert.equal(f.applied.length,1);
   const call=f.calls.find(c=>c[0]==='commit');assert.equal(call[1],f.options);
+});
+test('related independent options are adjacent and three fire alterations reset to off',()=>{
+  const f=fixture();
+  const rows=Array.from(f.options.data.values()).filter(e=>e.warControlsProfile==='mouse').map(e=>e.warControlsFeature);
+  for(const keys of [['autoJoin','quickTransfer'],['keepCommanderFocus','nextDeployable'],['focusPreview','focusNoMove','focusFarFirst','focusExclude'],['singleReinforcement','reinforcementCycle']]) {
+    const start=rows.indexOf(keys[0]);assert.deepEqual(rows.slice(start,start+keys.length),keys);
+  }
+  for(const profile of ['mouse','gamepad']) for(const key of ['focusNoMove','focusFarFirst','focusExclude']) {
+    assert.equal(f.entry(profile,key).currentValue,false);f.change(profile,key,true);
+  }
+  f.options.commitOptions();assert.equal(f.store.load().config.mouse.focusNoMove,true);
+  f.options.data.get('war-controls-reset-page').activateListener();
+  for(const profile of ['mouse','gamepad']) for(const key of ['focusNoMove','focusFarFirst','focusExclude']) assert.equal(f.entry(profile,key).currentValue,false);
+  f.options.restore();assert.equal(f.entry('mouse','focusNoMove').currentValue,true);
+  f.options.data.get('war-controls-reset-page').activateListener();f.options.commitOptions();
+  assert.deepEqual(f.store.load().config,normalizeConfig());
 });
 test('native Cancel discards changes without saving',()=>{
   const f=fixture();f.change();f.options.restore();assert.equal(f.entry().currentValue,true);
@@ -70,7 +86,7 @@ test('failed Mod save blocks Confirm, retains draft and reports the error',()=>{
 });
 test('reinstall preserves saved values without duplicate entries or notifications',()=>{
   const f=fixture();f.change();f.options.commitOptions();f.reinstall();
-  assert.equal(f.options.data.size,24);assert.equal(f.entry().currentValue,false);
+  assert.equal(f.options.data.size,30);assert.equal(f.entry().currentValue,false);
   f.change('gamepad');f.options.commitOptions();assert.equal(f.applied.length,2);
 });
 test('dispose removes only its own entries, category, and current wrappers',()=>{

@@ -14,6 +14,7 @@ export function normalizeConfig(value = {}) {
     turnEnabled: typeof value.turnEnabled === 'boolean' ? value.turnEnabled : DEFAULTS.turnEnabled,
     timeEnabled: typeof value.timeEnabled === 'boolean' ? value.timeEnabled : DEFAULTS.timeEnabled,
     saveKeepCount: numberInRange(value.saveKeepCount, DEFAULTS.saveKeepCount, 1, 100, true),
+    idleSaveEnabled: typeof value.idleSaveEnabled === 'boolean' ? value.idleSaveEnabled : DEFAULTS.idleSaveEnabled,
     nightEnabled: typeof value.nightEnabled === 'boolean' ? value.nightEnabled : DEFAULTS.nightEnabled,
     nightStart: numberInRange(value.nightStart, DEFAULTS.nightStart, 0, 1439, true),
     nightEnd: numberInRange(value.nightEnd, DEFAULTS.nightEnd, 0, 1439, true),

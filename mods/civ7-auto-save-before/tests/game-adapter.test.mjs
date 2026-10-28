@@ -84,7 +84,7 @@ function harness({ withRest = false } = {}) {
   panel.setEndTurnWaiting = () => calls.push(['waiting']);
   return {
     context, panel, config, calls, emit, getRest,
-    complete: () => emit('SaveComplete', { options: 65, result: 0 }),
+    complete: (options = 65) => emit('SaveComplete', { options, result: 0 }),
     flush(ms = 0) { for (const [id, timer] of [...timers]) if (timer.ms === ms) { timers.delete(id); timer.fn(); } },
     nextTurn() { sent = false; context.Game.turn++; },
     advanceTime(ms) { now += ms; },
@@ -204,17 +204,19 @@ function installRest(context, evaluate) {
   context.UI.getGameLoadingState = () => 9;
   Object.assign(context, evaluate(`${read('rest-runtime.js')}\nreturn { session, checkpoint, installLoadingHooks };`));
   context.Game.turn = 5;
+  // Use an explicit user configuration; this integration checks ordering, not release defaults.
+  const restConfig = { nightEnabled: false, intervals: [5, 4, 3, 2, 1] };
   // Four real end actions in this live session; loading turn 5 alone is not due.
   for (const turn of [1, 2, 3, 4]) context.session.requestTurn({
     turn, context: 'prior', token: `prior:${turn}`,
-  }, context.normalizeConfig({ nightEnabled: false }), context.Date.now());
+  }, context.normalizeConfig(restConfig), context.Date.now());
   Object.assign(context, evaluate(`${read('rest-retention.js')}\nreturn { createRestRetention };`));
   Object.assign(context, evaluate(`${read('rest-save.js')}\nreturn { createRestSaver, newRestSave };`));
   context.RestStore = evaluate(`${read('rest-store.js')}\nreturn RestStore;`);
   // Current Rest Guard shares its store with the settings UI. The settings UI
   // itself is outside this test; exercise the real controller and store.
   context.restSettingsStore = new context.RestStore();
-  context.restSettingsStore.data.config.nightEnabled = false;
+  Object.assign(context.restSettingsStore.data.config, restConfig);
   context.subscribeSettings = () => () => {};
   context.isSettingsOpen = () => false;
   context.openSettings = () => {};
@@ -249,7 +251,8 @@ for (const method of ['onActionButton', 'onNextActionHotkey', 'onActionNextActio
     const restSave = h.calls.filter(x => x[0] === 'save' && x[1].FileName.startsWith('RestGuard_'));
     assert.equal(restSave.length, 1, 'a separate rest snapshot follows the pre-turn save');
     assert.equal(restSave[0][1].Overwrite, false);
-    h.complete();
+    assert.equal(restSave[0][1].LocationCategories, h.context.SaveLocationCategories.AUTOSAVE);
+    h.complete(h.context.SaveLocationCategories.AUTOSAVE);
     assert.equal(h.context.session.restSave.status, 'saved');
     for (let i = 0; i < 3; i++) h.panel.sendEndTurn();
     h.getRest().view.callbacks.resume(); // Too early: cannot release the turn.

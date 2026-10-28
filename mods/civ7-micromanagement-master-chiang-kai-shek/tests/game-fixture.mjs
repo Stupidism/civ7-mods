@@ -1,8 +1,9 @@
+import { installQuickTransfer } from '../ui/quick-transfer.js';
 import { installTacticalControls } from '../ui/tactical-controls.js';
 import vm from 'node:vm';
 import { readFile } from 'node:fs/promises';
 import { createSelectionAssist } from '../ui/selection-assist.js';
-import { installCommandHooks, installAutoTargetFocus } from '../ui/command-hooks.js';
+import { installCommandHooks, installAutoTargetFocus, installAutoTargetSwitching } from '../ui/command-hooks.js';
 import { createSettingsStore, normalizeConfig } from '../ui/settings-store.js';
 const source = (await readFile(new URL('../ui/war-controls.js', import.meta.url), 'utf8')).replace(/^import .+;\r?\n/gm, '');
 const localizationXml = await readFile(new URL('../text/settings.xml', import.meta.url), 'utf8');
@@ -10,21 +11,21 @@ export const translations = Object.fromEntries(['EnglishText', 'LocalizedText'].
   section, Object.fromEntries([...localizationXml.match(new RegExp('<' + section + '>([\\s\\S]*?)</' + section + '>'))[1].matchAll(/<Row Tag="([^"]+)"[^>]*><Text>([\s\S]*?)<\/Text><\/Row>/g)].map(([,key,value]) => [key,value]))
 ]));
 export const ADD = 'UNITCOMMAND_ADD_TO_ARMY', REMOVE = 'UNITCOMMAND_REMOVE_FROM_ARMY', ATTACK = 'UNITOPERATION_RANGE_ATTACK', REINFORCE = 'UNITOPERATION_REINFORCE_ARMY';
-export async function fixture(initialConfig, { nativeArmyPanelSource } = {}) {
+export async function fixture(initialConfig, { nativeArmyPanelSource, unitOperationTypes = {RANGE_ATTACK:ATTACK,NAVAL_ATTACK:'UNITOPERATION_NAVAL_ATTACK'} } = {}) {
   const id = { owner: 0, id: 7, type: 26 };
   const armyId = { owner: 0, id: 1, type: 29 };
   const commander = { id: {owner:0,id:1,type:26}, owner:0, isCommanderUnit:true, armyId, location:{x:1,y:0}, Movement:{movementMovesRemaining:4,maxMoves:2} };
   const unit = { id, owner:0, armyId, location:{x:-9999,y:-9999}, isCommanderUnit:false, Movement:{movementMovesRemaining:2}, type:'ARCHER', Combat:{isCombat:true,attacksRemaining:1} };
   const state = {
     tags:new Map([[0,1],[100,1]]), language:'zh_Hans_CN', head:id, unit, commander, members:[id], units:new Map([[7,unit],[1,commander]]),
-    mode:'INTERFACEMODE_UNIT_SELECTED', modes:[], queries:[], requests:[], moves:[], errors:[], markers:[], tacticalOverlays:[], attackArrows:[],
+    mode:'INTERFACEMODE_UNIT_SELECTED', modes:[], queries:[], requests:[], moves:[], errors:[], markers:[], tacticalOverlays:[], attackArrows:[], formationFrames:[], transferArrows:[], transferOverlays:[],
     commands:new Map([[REMOVE,{Success:true,Plots:[2]}]]), operations:new Map(),
     reachable:[], visible:true, atWar:true, atPlot:new Map([[1,[commander.id]]]),
     allowed:true, districtOwner:null, targetAllowed:true, notices:[], gamepad:false, settingsOpen:false,
     focus:'world', cameras:[], elements:[], selections:[], radius:[0,1,2,3,4], definitions:new Map([['ARCHER',{CoreClass:'CORE_CLASS_RANGED'}]])
   };
   const listeners = new Map(), windowListeners = new Map(), raised = new Set(), frames = new Map(), timers = new Map();
-  let stored = initialConfig ? JSON.stringify({'civ7-war-controls':{config:initialConfig}}) : null;
+  let stored = initialConfig ? JSON.stringify({'civ7-war-controls':{version:2,config:initialConfig}}) : null;
   let serial=0;
   const match=(a,b)=>a&&b&&a.owner===b.owner&&a.id===b.id&&a.type===b.type;
   const api = (kind, results) => ({
@@ -61,10 +62,10 @@ export async function fixture(initialConfig, { nativeArmyPanelSource } = {}) {
     updateArmyPanel = () => {this.clearArmyUnits();this.setupArmy();};
   }
   let ArmyPanel = CachedArmyPanel;
-  const nativeModes = new Map(['INTERFACEMODE_FOCUSED_ATTACK_LAND_RANGED','INTERFACEMODE_FOCUSED_ATTACK_SEA_RANGED'].map(name=>[name,{Context:{UnitID:commander.id},decorate(){},reset(){},decorateHover(){},selectPlot(){},commitPlot(){}}]));
+  const nativeModes = new Map(['INTERFACEMODE_FOCUSED_ATTACK_LAND_RANGED','INTERFACEMODE_FOCUSED_ATTACK_SEA_RANGED'].map(name=>[name,{Context:{UnitID:commander.id},decorate(){},reset(){},decorateHover(){},selectPlot(plot){this.commitPlot(plot);},commitPlot(plot){context.Game.UnitCommands.sendRequest(this.Context.UnitID,name.replace('INTERFACEMODE_','UNITCOMMAND_'),{X:plot.x,Y:plot.y});}}]));
   const handlers = {switchToActionInterfaceMode(type,args){state.modes.push({type,args});state.mode='INTERFACEMODE_'+type.replace(/^UNITCOMMAND_|^UNITOPERATION_/,'');state.focus='world';}};
   const context = vm.createContext({
-    installTacticalControls, createSelectionAssist, installCommandHooks, installAutoTargetFocus, createSettingsStore, normalizeConfig,
+    installQuickTransfer, installTacticalControls, createSelectionAssist, installCommandHooks, installAutoTargetFocus, installAutoTargetSwitching, createSettingsStore, normalizeConfig,
     CommanderInteract, ActionHandler:{get isGamepadActive(){return state.gamepad;}},
     Controls:{getDefinition:name=>name==='unit-actions'?{createInstance:UnitActions}:name==='army-panel'?{createInstance:ArmyPanel}:undefined},
     localStorage:{getItem:()=>stored,setItem:(_key,value)=>{stored=value;}},
@@ -78,18 +79,24 @@ export async function fixture(initialConfig, { nativeArmyPanelSource } = {}) {
     ViewManager:{get isWorldInputAllowed(){return state.allowed;},isUnitSelectingAllowed:true},
     UnitSelection:{onRaise:{on:f=>raised.add(f),off:f=>raised.delete(f)},onLower:{on(){},off(){}}},
     UnitActionHandlers:handlers, WorldInput:world, OVERLAY_PRIORITY:{PLOT_HIGHLIGHT:4},
-    PlacementMode:{TERRAIN:0},
-    WorldUI:{getPlotLocation:p=>({x:p.x,y:p.y,z:0}),createModelGroup:()=>({clear(){state.attackArrows=[];},addVFXAtPlot:(...args)=>state.attackArrows.push(args)}),createOverlayGroup:name=>({reset(){if(name==='WarControlsEmptyCommanders')state.markers=[];if(name==='WarControlsTactical')state.tacticalOverlays=[];},destroy(){if(name==='WarControlsEmptyCommanders')state.markers=[];if(name==='WarControlsTactical')state.tacticalOverlays=[];},addPlotOverlay:()=>({addPlots:(plots,style)=>{if(name==='WarControlsEmptyCommanders')state.markers.push(...plots);if(name==='WarControlsTactical')state.tacticalOverlays.push({plots,style});}})})},
+    PlacementMode:{TERRAIN:0,FIXED:1},
+    DirectionTypes:{DIRECTION_EAST:0,DIRECTION_SOUTHEAST:1,DIRECTION_SOUTHWEST:2,DIRECTION_WEST:3,DIRECTION_NORTHWEST:4,DIRECTION_NORTHEAST:5},
+    UnitOperationTypes:unitOperationTypes,
+    UnitOperationMoveModifiers:{NONE:0,ATTACK:1,MOVE_IGNORE_UNEXPLORED_DESTINATION:2},CombatTypes:{COMBAT_RANGED:2},
+    WorldUI:{getPlotLocation:p=>({x:p.x,y:p.y,z:0}),createModelGroup:name=>{
+      const field=name==='WarControlsQuickTransferPath'?'transferArrows':name==='WarControlsFormationFrames'?'formationFrames':'attackArrows';
+      return {clear(){state[field]=[];},destroy(){state[field]=[];},addVFXAtPlot:(...args)=>state[field].push(args)};
+    },createOverlayGroup:name=>({reset(){if(name==='WarControlsEmptyCommanders')state.markers=[];if(name==='WarControlsTactical')state.tacticalOverlays=[];if(name==='WarControlsQuickTransfer')state.transferOverlays=[];},destroy(){if(name==='WarControlsEmptyCommanders')state.markers=[];if(name==='WarControlsTactical')state.tacticalOverlays=[];if(name==='WarControlsQuickTransfer')state.transferOverlays=[];},addPlotOverlay:()=>({addPlots:(plots,style)=>{if(name==='WarControlsEmptyCommanders')state.markers.push(...plots);if(name==='WarControlsTactical')state.tacticalOverlays.push({plots,style});if(name==='WarControlsQuickTransfer')state.transferOverlays.push({plots,style});}})})},
     UI:{Player:{getHeadSelectedUnit:()=>state.head,selectUnit:id=>{state.selections.push(id);select(id);}}},
     Units:{restoreMovement:id=>{state.costRequests??=[];state.costRequests.push(id);state.units.get(id.id).Movement.movementMovesRemaining=Math.max(0,state.units.get(id.id).Movement.maxMoves);},getCommandRadiusPlots:()=>state.radius,get:id=>state.units.get(id?.id),getReachableTargets:()=>state.reachable},
     Armies:{get:()=>({getUnitIds:()=>state.members})},
     Players:{get:()=>({Identity:{getNarrativeTagPoints:i=>state.tags.get(i)??0,changeNarrativeTagPoints:(i,n)=>{state.tags.set(i,(state.tags.get(i)??0)+n);if(i===103)for(const u of state.units.values())if(u.isCommanderUnit)u.Movement.maxMoves=state.tags.get(i)?-998:2;}},Diplomacy:{isAtWarWith:()=>state.atWar},Units:{getUnitIds:()=>[...state.units.values()].filter(u=>u.owner===0).map(u=>u.id)}})},
-    MapUnits:{getUnits:x=>state.atPlot.get(x)??[]},
+    MapUnits:{getUnits:x=>state.atPlot.get(x)??[...state.units.values()].filter(u=>u.location.x===x && u.location.y===0).map(u=>u.id)},
     MapCities:{getDistrict:()=>state.districtOwner!==null?{}:null},
     Districts:{get:()=>({owner:state.districtOwner})},
-    GameplayMap:{getLocationFromIndex:x=>({x,y:0}),getIndexFromLocation:p=>p.x,getPlotDistance:(x,y,a,b)=>Math.abs(x-a)+Math.abs(y-b),getRevealedState:()=>state.visible?1:0},
+    GameplayMap:{getPlotIndicesInRadius:(x,y,r)=>Array.from({length:2*r+1},(_,i)=>x-r+i).filter(x=>x>=0),getLocationFromIndex:x=>({x,y:0}),getIndexFromLocation:p=>p.x,getPlotDistance:(x,y,a,b)=>Math.abs(x-a)+Math.abs(y-b),getRevealedState:()=>state.visible?1:0},
     RevealedStates:{VISIBLE:1}, GameContext:{localPlayerID:0,localObserverID:0},
-    Game:{UnitCommands:api('command',state.commands),UnitOperations:api('operation',state.operations)},
+    Game:{UnitCommands:api('command',state.commands),UnitOperations:api('operation',state.operations),Combat:{testAttackInto:()=>2}},
     document:{querySelectorAll:()=>state.elements.filter(e=>e.attrs?.['data-war-controls-unit']!==undefined&&!e.removed),querySelector:()=>state.settingsOpen?{}:null,createElement:()=>{const e={style:{},classList:{add(){}},children:[],attrs:{},events:{},remove(){this.removed=true;},setAttribute(k,v){this.attrs[k]=v;},getAttribute(k){return this.attrs[k];},removeAttribute(k){delete this.attrs[k];},addEventListener(n,f){this.events[n]=f;},appendChild(c){this.children.push(c);},set textContent(value){this.text=value;state.notices.push(value);}};state.elements.push(e);return e;},body:{appendChild(){}}},
     engine:{whenReady:Promise.resolve(),on:(n,f)=>{if(!listeners.has(n))listeners.set(n,new Set());listeners.get(n).add(f);},off:(n,f)=>listeners.get(n)?.delete(f)},
     window:{requestAnimationFrame:f=>{frames.set(++serial,f);return serial;},cancelAnimationFrame:n=>frames.delete(n),addEventListener:(n,f)=>{if(!windowListeners.has(n))windowListeners.set(n,new Set());windowListeners.get(n).add(f);},removeEventListener:(n,f)=>windowListeners.get(n)?.delete(f)}

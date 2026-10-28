@@ -1,5 +1,5 @@
 {
-  "snapshotDate": "2026-10-17",
+  "snapshotDate": "2026-10-28",
   "mods": [
     {
       "id": "civ7-map-tools-gamepad",
@@ -15,7 +15,7 @@
     },
     {
       "id": "civ7-before-end-turn",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "manifest": "mods/civ7-auto-save-before/before-end-turn.modinfo",
       "dependencies": [
         "base-standard"

@@ -8,10 +8,11 @@ import CommanderInteract from '/base-standard/ui/commander-interact/model-comman
 import { UnitActionHandlers } from '/base-standard/ui/unit-interact/unit-action-handlers.js';
 import WorldInput from '/base-standard/ui/world-input/world-input.js';
 import { OVERLAY_PRIORITY } from '/base-standard/ui/utilities/utilities-overlay.js';
+import { installQuickTransfer } from './quick-transfer.js';
 import { installTacticalControls } from './tactical-controls.js';
 import PlotCursor from '/core/ui/input/plot-cursor.js';
 import { createSelectionAssist } from './selection-assist.js';
-import { installCommandHooks, installAutoTargetFocus } from './command-hooks.js';
+import { installCommandHooks, installAutoTargetFocus, installAutoTargetSwitching } from './command-hooks.js';
 import ActionHandler from '/core/ui/input/action-handler.js';
 import { createSettingsStore, normalizeConfig } from './settings-store.js';
 
@@ -36,6 +37,7 @@ function install() {
   let notice = null;
   let autoTarget = null;
   let tactics = null;
+  let quickTransfer = null;
   const removeFocusHook = installAutoTargetFocus({
     panelPrototype: Controls.getDefinition('unit-actions')?.createInstance?.prototype,
     preserveWorldFocus: id => activeProfile() === 'gamepad' && (tactics?.preserveWorldFocus(id) || (autoTarget !== null &&
@@ -105,13 +107,14 @@ function install() {
     headSelected: () => UI.Player.getHeadSelectedUnit(),
     nextFrame: callback => window.requestAnimationFrame(callback),
     cancelFrame: handle => window.cancelAnimationFrame(handle),
-    canUseWorld: () => !isSettingsOpen() && ViewManager.isWorldInputAllowed && ViewManager.isUnitSelectingAllowed,
+    canUseWorld: () => !quickTransfer?.busy && !isSettingsOpen() && ViewManager.isWorldInputAllowed && ViewManager.isUnitSelectingAllowed,
     mode: () => InterfaceMode.getCurrent(),
     actionFor,
     enterAction(id, action) {
       UnitActionHandlers.switchToActionInterfaceMode(action, { UnitID: id });
       const mode = InterfaceMode.getCurrent();
-      if (mode !== 'INTERFACEMODE_UNIT_SELECTED' && mode !== 'INTERFACEMODE_DEFAULT') autoTarget = { id, mode };
+      if (mode !== 'INTERFACEMODE_UNIT_SELECTED' && mode !== 'INTERFACEMODE_DEFAULT') autoTarget = { id, mode, action };
+      quickTransfer?.refresh();
     },
     reportError(error) { console.error('[War Controls] Selection assist failed: ' + String(error)); }
   });
@@ -178,10 +181,11 @@ function install() {
   const removeHooks = installCommandHooks({ worldInput: WorldInput, handlers: UnitActionHandlers, tryJoin, tryReinforce });
   try { tactics = installTacticalControls({
     InterfaceMode, ComponentID, ViewManager, UnitSelection, UnitActionHandlers, PlotCursor,
-    Game, Units, Armies, Players, GameContext, GameplayMap, MapUnits, GameInfo, GlobalParameters, Online, Configuration, UI, Camera, Locale, InputActionStatuses, OperationPlotModifiers,
+    Game, Units, Armies, Players, GameContext, GameplayMap, MapUnits, GameInfo, GlobalParameters, Online, Configuration, UI, Camera, Locale, InputActionStatuses, OperationPlotModifiers, UnitOperationTypes, UnitOperationMoveModifiers, CombatTypes,
     WorldUI, PlacementMode, OVERLAY_PRIORITY, Controls, CommanderInteract, window, document, engine,
     setTimeout, clearTimeout, enabled, localUnit, onMap, isPacked, military, ownedCommanders,
     isEnemyPlot, isSettingsOpen, showNotice,
+    isQuickTransfer: () => quickTransfer?.busy === true,
     cancelAutomaticSelection() { autoTarget = null; assist.cancelPending(); }
   }); } catch (error) {
     removeHooks();
@@ -190,6 +194,62 @@ function install() {
     assist.dispose();
     throw error;
   }
+  quickTransfer = installQuickTransfer({
+    Game,GameInfo,GameplayMap,MapUnits,Units,Armies,ComponentID,GameContext,RevealedStates,
+    InterfaceMode,UI,WorldUI,OVERLAY_PRIORITY,PlacementMode,DirectionTypes,
+    engine,window,setTimeout,clearTimeout,enabled,localUnit,onMap,isPacked,military,
+    ownedCommandersAt,Locale,showNotice,session:()=>autoTarget,
+    usable:()=>!isSettingsOpen()&&ViewManager.isWorldInputAllowed&&ViewManager.isUnitSelectingAllowed&&
+      ViewManager.isWorldSelectingAllowed!==false&&WorldInput.canUnitSelect!==false,
+    stopAutomaticSelection(){autoTarget=null;assist.cancelPending();tactics.cancel();}
+  });
+  const removeTargetSwitching = installAutoTargetSwitching({
+    interfaceMode: InterfaceMode,
+    hover(mode,handler,plot) {
+      return mode===autoTarget?.mode&&ComponentID.isMatch(handler.Context?.UnitID,autoTarget.id)&&quickTransfer.hover(plot);
+    },
+    intercept(mode,handler,plot) {
+      const session=autoTarget;
+      if (!session || mode !== session.mode || InterfaceMode.getCurrent() !== mode ||
+          !ComponentID.isMatch(session.id,UI.Player.getHeadSelectedUnit()) ||
+          !ComponentID.isMatch(session.id,handler.Context?.UnitID)) return false;
+      if (isSettingsOpen() || !ViewManager.isWorldInputAllowed || !ViewManager.isUnitSelectingAllowed ||
+          ViewManager.isWorldSelectingAllowed === false || WorldInput.canUnitSelect === false) return true;
+      if (!plot || plot.x < 0 || plot.y < 0) return true;
+      const unit=localUnit(session.id);
+      if (!unit) return true;
+      const visible=GameplayMap.getRevealedState(GameContext.localObserverID,plot.x,plot.y) === RevealedStates.VISIBLE;
+      const occupants=visible ? MapUnits.getUnits(plot.x,plot.y) : [];
+      const others=occupants.filter(id=>!ComponentID.isMatch(id,session.id));
+      const index=GameplayMap.getIndexFromLocation(plot), args={X:plot.x,Y:plot.y};
+      const isCommand=[ADD,REMOVE].includes(session.action);
+      const result=isCommand ? command(session.id,session.action) : operation(session.id,session.action);
+      let valid=result.Success && result.Plots?.includes(index);
+      if (session.action===ADD) valid=valid && others.some(id=>localUnit(id)?.isCommanderUnit);
+      else if (!isCommand) {
+        valid=valid && visible && isEnemyPlot(unit,index);
+        if(session.action==='UNITOPERATION_RANGE_ATTACK') {
+          const n=result.Plots?.indexOf(index) ?? -1;
+          valid=valid && n>=0 && result.Modifiers?.length===result.Plots?.length && result.Modifiers[n]!==OperationPlotModifiers.NONE;
+        }
+      }
+      if(valid) valid=(isCommand ? command(session.id,session.action,args) : operation(session.id,session.action,args)).Success;
+      // Native legality wins over unit selection, including legal stacked
+      // deployment tiles. Only fall back to selection when this action fails.
+      if(valid) return false;
+      if(session.action===ADD&&others.length===0&&quickTransfer.intercept(plot))return true;
+      autoTarget=null;
+      assist.cancelPending();
+      tactics.cancel();
+      // Clear the old head first: native controller selection would otherwise
+      // interpret the new hex as a movement order for the old unit.
+      InterfaceMode.switchToDefault();
+      const next=others.find(id=>localUnit(id));
+      if(next) UI.Player.selectUnit(next);
+      else WorldInput.handleSelectedPlot(plot,null);
+      return true;
+    }
+  });
   function refreshMarkers() {
     markerFrame = null;
     if (disposed) return;
@@ -203,7 +263,10 @@ function install() {
       const army = Armies.get(unit.armyId);
       if (army && army.getUnitIds().length === 0) plots.add(GameplayMap.getIndexFromLocation(unit.location));
     }
-    if (plots.size) markerGroup.addPlotOverlay().addPlots([...plots], { fillColor: { x: 1, y: 0.32, z: 0.58, w: 0.22 } });
+    if (plots.size) markerGroup.addPlotOverlay().addPlots([...plots], {
+      fillColor: { x: 1, y: 0.20, z: 0.48, w: 0.46 },
+      edgeColor: { x: 1, y: 0.28, z: 0.55, w: 0.9 }
+    });
   }
   const scheduleMarkers = () => {
     if (!disposed && markerFrame === null) markerFrame = window.requestAnimationFrame(refreshMarkers);
@@ -240,6 +303,8 @@ function install() {
     assist.dispose();
     autoTarget = null;
     removeFocusHook();
+    removeTargetSwitching();
+    quickTransfer.dispose();
     tactics.dispose();
     removeHooks();
     if (markerFrame !== null) window.cancelAnimationFrame(markerFrame);

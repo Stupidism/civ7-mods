@@ -113,7 +113,7 @@ class RestController {
     }
     if (session.night && !session.loading && !session.night.save) {
       session.night.save = newRestSave('night', current.turn);
-    } else if (!session.night && (pending || session.isIdleBreak) && !session.loading && !session.restSave) {
+    } else if (!session.night && (pending || (session.isIdleBreak && this.store.data.config.idleSaveEnabled)) && !session.loading && !session.restSave) {
       session.restSave = newRestSave(pending?.reason ?? 'idle', current.turn);
     }
     const save = session.night ? session.night.save : session.restSave;

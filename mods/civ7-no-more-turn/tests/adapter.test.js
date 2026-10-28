@@ -10,7 +10,7 @@ import { activityActive } from '../ui/rest-activity.js';
 const source = fs.readFileSync(new URL('../ui/rest-guard.js', import.meta.url), 'utf8')
   .replace(/^import .*;\r?\n/gm, '');
 
-function harness({ turn = 5, multiplayer = false, readonlyNative = false, storage, savedSession, playedTurns = 0, autoSave = true, nightEnabled = false, startTime = 100000 } = {}) {
+function harness({ turn = 5, multiplayer = false, readonlyNative = false, storage, savedSession, playedTurns = 0, autoSave = true, idleSaveEnabled = false, nightEnabled = false, startTime = 100000 } = {}) {
   const calls = { restSaves: [], submits: 0, panelEffects: 0, inputs: 0, navigation: 0, writes: 0, exitPrompts: 0, exits: [] };
   const clock = { now: startTime };
   const session = new RestSession(savedSession);
@@ -89,7 +89,7 @@ function harness({ turn = 5, multiplayer = false, readonlyNative = false, storag
       off(name, fn) { saveEvents.get(name)?.delete(fn); } },
     Network: { saveGame(params) {
       calls.restSaves.push(params); emitSave('StartSaveRequest');
-      if (autoSave) emitSave('SaveComplete', { options: 1, result: 0 });
+      if (autoSave) emitSave('SaveComplete', { options: params.LocationCategories, result: 0 });
       return true;
     } },
     GameStateStorage: { getGameConfigurationSaveType: () => 1, querySaveGameList: () => 99, closeFileListQuery() {} },
@@ -112,6 +112,7 @@ function harness({ turn = 5, multiplayer = false, readonlyNative = false, storag
   // Fixed short intervals keep interaction scenarios independent of product defaults.
   sandbox.settingsStore.data.config.intervals = [5, 4, 3, 2, 1];
   sandbox.settingsStore.data.config.nightEnabled = nightEnabled;
+  sandbox.settingsStore.data.config.idleSaveEnabled = idleSaveEnabled;
   const retentionSource = fs.readFileSync(new URL('../ui/rest-retention.js', import.meta.url), 'utf8').replace(/^export /gm, '');
   vm.runInNewContext(retentionSource + '\n' + saveSource + '\n' + source, sandbox);
   timers[0](); // The bootstrap interval observes an already attached panel.
@@ -438,9 +439,9 @@ test('a loaded turn number alone never counts; panel and native hooks count one 
 });
 
 
-test('forced and voluntary breaks each save once; refresh/input never creates another file', () => {
+test('forced and opted-in voluntary breaks each save once; refresh/input never creates another file', () => {
   for (const mode of ['turn', 'time', 'idle']) {
-    const h = harness({ playedTurns: mode === 'turn' ? 4 : 0 });
+    const h = harness({ playedTurns: mode === 'turn' ? 4 : 0, idleSaveEnabled: mode === 'idle' });
     if (mode === 'turn') h.panel.sendEndTurn();
     else if (mode === 'time') {
       for (let i = 0; i < 25; i++) { h.clock.now += 60000; h.input('mousebutton-left'); }
@@ -449,20 +450,20 @@ test('forced and voluntary breaks each save once; refresh/input never creates an
     assert.equal(h.calls.restSaves.length, 1);
     assert.match(h.calls.restSaves[0].FileName, /^RestGuard_(Turn|Time|Idle)_T/);
     assert.equal(h.calls.restSaves[0].Overwrite, false);
-    assert.equal(h.calls.restSaves[0].LocationCategories, 1);
+    assert.equal(h.calls.restSaves[0].LocationCategories, 4);
     assert.equal(h.view().saveState.status, 'saved');
     assert.equal(h.calls.submits, 0);
   }
 });
 
 test('idle continue and exit remain usable during saving; later break gets a different file', () => {
-  const h = harness({ autoSave: false });
+  const h = harness({ autoSave: false, idleSaveEnabled: true });
   h.clock.now += 60000; h.timers[0]();
   assert.equal(h.view().saveState.status, 'saving');
   h.view().callbacks.quit(); h.input('cancel');
   h.input('mousebutton-left', 'continue');
   assert.equal(h.view().mode, null);
-  h.emitSave('SaveComplete', { options: 1, result: 0 });
+  h.emitSave('SaveComplete', { options: 4, result: 0 });
   h.clock.now += 60000; h.timers[0]();
   assert.equal(h.calls.restSaves.length, 2);
   assert.notEqual(h.calls.restSaves[0].FileName, h.calls.restSaves[1].FileName);
@@ -478,15 +479,15 @@ test('rest handoff never saves the same break again', () => {
 });
 
 
-test('only a matching normal game save completion confirms the rest snapshot', () => {
-  const h = harness({ autoSave: false });
+test('only a matching autosave completion confirms the rest snapshot', () => {
+  const h = harness({ autoSave: false, idleSaveEnabled: true });
   h.clock.now += 60000; h.timers[0]();
-  for (const result of [{ options: 4 }, { options: 2 }, { options: 1, fileType: 9 },
-    { options: 1, type: 9 }, { options: 1, fileName: 'BeforeEndTurn' }]) {
+  for (const result of [{ options: 1 }, { options: 2 }, { options: 0 }, { options: 5 }, { options: 4, fileType: 9 },
+    { options: 4, type: 9 }, { options: 4, fileName: 'AutoSave_00_0001' }]) {
     h.emitSave('SaveComplete', { ...result, result: 0 });
     assert.equal(h.session.restSave.status, 'saving');
   }
-  h.emitSave('SaveComplete', { options: 1, type: 1, fileType: 0,
+  h.emitSave('SaveComplete', { options: 4, type: 1, fileType: 0,
     fileName: h.calls.restSaves[0].FileName, result: 0 });
   assert.equal(h.session.restSave.status, 'saved');
 });
@@ -575,4 +576,21 @@ test('controller direction steps once on release and stays behind native dialogs
   send(1);assert.equal(h.calls.lastNavigationStep,1);assert.equal(h.calls.navigation,0);
   h.showNativeScreen('screen-dialog-box');h.calls.lastNavigationStep=null;
   send(1);assert.equal(h.calls.lastNavigationStep,null);assert.equal(h.calls.navigation,1);
+});
+
+test('default idle breaks never autosave, and Continue restores native manual-save input', () => {
+  const h = harness();
+  h.clock.now += 60000;
+  for (let i = 0; i < 10; i++) h.timers[0]();
+  assert.equal(h.view().mode, 'idle');
+  assert.equal(h.session.restSave, null);
+  assert.equal(h.view().saveState, null);
+  assert.equal(h.calls.restSaves.length, 0);
+  h.view().callbacks.resume();
+  assert.equal(h.view().mode, null);
+  assert.equal(h.input('quicksave'), true);
+  assert.equal(h.calls.restSaves.length, 0);
+  assert.equal(h.calls.submits, 0);
+  h.clock.now += 60000; h.timers[0]();
+  assert.equal(h.calls.restSaves.length, 0, 'later idle breaks also stay unsaved');
 });

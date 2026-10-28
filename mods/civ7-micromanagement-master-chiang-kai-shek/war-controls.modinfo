@@ -18,7 +18,7 @@
         <UpdateDatabase><Item>data/focus-bonus.xml</Item><Item>data/focus-bonus-effects.xml</Item><Item>data/focus-cost.xml</Item><Item>data/focus-cost-effects.xml</Item></UpdateDatabase>
         <UpdateText><Item>text/settings.xml</Item></UpdateText>
         <UIScripts><Item>ui/settings-ui.js</Item><Item>ui/war-controls.js</Item></UIScripts>
-        <ImportFiles><Item>ui/focus-bonus.js</Item><Item>ui/focus-cost.js</Item><Item>ui/tactical-controls.js</Item><Item>ui/selection-assist.js</Item><Item>ui/command-hooks.js</Item><Item>ui/settings-store.js</Item><Item>ui/native-options.js</Item><Item>ui/settings-layout.js</Item><Item>ui/settings.css</Item></ImportFiles>
+        <ImportFiles><Item>ui/quick-transfer.js</Item><Item>ui/focus-bonus.js</Item><Item>ui/focus-cost.js</Item><Item>ui/tactical-controls.js</Item><Item>ui/selection-assist.js</Item><Item>ui/command-hooks.js</Item><Item>ui/settings-store.js</Item><Item>ui/native-options.js</Item><Item>ui/settings-layout.js</Item><Item>ui/settings.css</Item></ImportFiles>
       </Actions>
     </ActionGroup>
     <ActionGroup id="war-controls-shell" scope="shell" criteria="always">

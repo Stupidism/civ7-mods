@@ -10,10 +10,10 @@ function harness() {
     save: name => { h.writes.push(name); if (h.throws) throw Error('disk unavailable'); return h.accepted; },
     isPending: result => result?.result === 1,
     succeeded: result => result?.result === 0,
-    matches: result => result?.options === 1,
+    matches: result => result?.options === 4,
   });
   h.poll = () => h.saver.poll(h.state, h.current);
-  h.complete = result => h.saver.onComplete({ options: 1, result });
+  h.complete = result => h.saver.onComplete({ options: 4, result });
   return h;
 }
 
@@ -68,12 +68,12 @@ for (const reason of ['rejected', 'throws', 'failed', 'timeout', 'unavailable', 
   });
 }
 
-test('autosave/quick-save callbacks and completions without a start cannot confirm success', () => {
+test('manual/quick-save callbacks and completions without a start cannot confirm success', () => {
   const h = harness();
   h.poll(); h.complete(0);
   assert.equal(h.state.status, 'saving');
   h.saver.onStart();
-  for (const options of [2, 4]) h.saver.onComplete({ options, result: 0 });
+  for (const options of [1, 2]) h.saver.onComplete({ options, result: 0 });
   assert.equal(h.state.status, 'saving');
   h.complete(0);
   assert.equal(h.state.status, 'saved');
