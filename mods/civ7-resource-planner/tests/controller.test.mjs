@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 import {useGameLanguage} from './locale-fixture.mjs';
 import {t,errorMessage} from '../ui/rp-l10n.js';
+import {finishResourceRun} from '../../civ7-garbage-time/ui/resource-model.js';
 
 const source=readFileSync(new URL('../ui/rp-controller.js',import.meta.url),'utf8')
   .replace(/^import .*;\n/gm,'').replace(/export /g,'');
@@ -25,10 +26,14 @@ function fixture(options={}){
     gameScope:()=> 'test-map',resourceCatalog:()=>new Map(),
     GameContext:{localPlayerID:0},Game:{turn:1,age:1},
     Players:{get:()=>({Resources:{isResourceAssignmentLocked:()=>!!options.locked}})},
-    snapshot:()=>({cities:[{key:'city',tendency:options.noPreference?undefined:'YIELD_CULTURE'}],resources:[{key:'resource'}]}),
+    snapshot:()=>({cities:[{key:'city',tendency:options.noPreference?undefined:'YIELD_CULTURE'},{key:'old'}],
+      resources:[{key:'resource',original:options.restoreError?'old':undefined}]}),
     planAllocationAsync:async()=>{if(options.error)throw Error(options.error);return options.noChanges?{}:{resource:'city'};},
-    findAssignment:()=>undefined,sendOperation:async()=>{assignments++;},
-    setTimeout,console:{log(){},error:message=>{if(!options.error&&!options.settingsError)throw Error(message);}}
+    findAssignment:()=>undefined,sendOperation:async(_resource,_city,remove)=>{
+      if(options.restoreError&&!remove)throw Error('LOC_RP_OPERATION_TIMEOUT');
+      assignments++;
+    },
+    setTimeout,console:{log(){},error:message=>{if(!options.error&&!options.settingsError&&!options.restoreError)throw Error(message);}}
   });
   return {model,get sorts(){return sorts;},get assignments(){return assignments;},
     open(){const p=create(model);mounts.splice(0).forEach(fn=>fn());return p;},
@@ -78,4 +83,24 @@ test('completing an allocation never requests a resource or settlement re-sort',
   assert.equal(f.assignments,1);
   assert.equal(f.sorts,1,'only the initial opening sorts; allocation preserves order');
   f.close();
+});
+
+for(const language of ['en_US','zh_Hans_CN','fr_FR'])test(`Garbage Time acknowledges only successful planner results in ${language}`,async()=>{
+  for(const [options,code,success] of [
+    [{error:'LOC_RP_OPERATION_TIMEOUT'},'ROLLED_BACK',false],
+    [{restoreError:true},'RESTORE_INCOMPLETE',false],
+    [{locked:true},'LOCKED',false],
+    [{noPreference:true},'CHOOSE_PREFERENCE',false],
+    [{},'COMPLETED',true],
+    [{noChanges:true},'NO_CHANGES',true]
+  ]){
+    const f=fixture({...options,language}),p=f.open();
+    let acknowledgements=0;
+    p.run();
+    const result=await finishResourceRun(p,()=>f.close(),()=>true,()=>acknowledgements++,
+      ()=>new Promise(resolve=>setTimeout(resolve,0)));
+    assert.equal(acknowledgements,Number(success),`${code}: ${p.status()}`);
+    assert.equal(result.error,!success,code);
+    assert.equal(p.statusCode(),code);
+  }
 });

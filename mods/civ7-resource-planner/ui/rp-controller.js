@@ -13,6 +13,8 @@ export function createPlanner(model) {
   const [camels,setCamels]=createSignal(false),[assigned,setAssigned]=createSignal(false);
   const [busy,setBusy]=createSignal(false),[statusData,setStatusData]=createSignal({key:'HINT',args:[]});
   const status=()=>t(statusData().key,...statusData().args);
+  // Stable result code for integrations; status() is display-only and localized.
+  const statusCode=()=>statusData().key;
   const setStatus=(key,...args)=>setStatusData({key,args});
   let alive=true;
   const persist=()=>{
@@ -24,7 +26,7 @@ export function createPlanner(model) {
     model.toggleSelectedSortDirection(saved.preferences?.direction??-1);
   });
   createEffect(()=>{model.selectedSettlementSortType();model.selectedSortDirection();untrack(persist);});
-  const p={camels,assigned,busy,status,tendencies,setCamels,setAssigned,
+  const p={camels,assigned,busy,status,statusCode,tendencies,setCamels,setAssigned,
     sort(type){if(model.selectedSettlementSortType()===type)model.toggleSelectedSortDirection();else{model.setSelectedSettlementSortType(type);model.toggleSelectedSortDirection(-1);}persist();},
     tendency(id){const c=Cities.get(id);return c?tendencies()[preferenceKey(c)]:undefined;},
     clear(id){const c=Cities.get(id);if(!c)return;const next={...tendencies()};delete next[preferenceKey(c)];setTendencies(next);persist();},
