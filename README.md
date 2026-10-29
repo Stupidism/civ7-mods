@@ -17,7 +17,7 @@ Stupidism 的文明7 Mod 开发合集。收录已发布 Mod 与独立开发项�
 
 ## Mac 启动组件（开发中）
 
-[Mac Mod 启动器](mods/civ7-mac-launcher/) 将 Steam 启动接入抽成独立项目；[原版 DebugPanel 输入修复](tools/civ7-native-debug-input/) 复用它，[你的神图很好，现在是我的了](mods/civ7-play-again/) 提供首个辅助服务适配器。新版仅离线验证，完整存档导入仍依赖已有游戏通信桥，尚未发布。
+[更好的Mod支持](mods/civ7-mac-launcher/) 将 Steam 启动接入抽成独立项目；[原版 DebugPanel 输入修复](tools/civ7-native-debug-input/) 复用它，[你的神图很好，现在是我的了](mods/civ7-play-again/) 提供首个辅助服务适配器。新版仅离线验证，完整存档导入仍依赖已有游戏通信桥，尚未发布。
 
 ## Steam 创意工坊
 

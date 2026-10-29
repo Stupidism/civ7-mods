@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
 <EnglishText>
-<Row Tag="LOC_C7ML_NAME"><Text>Mac Mod Launcher</Text></Row>
+<Row Tag="LOC_C7ML_NAME"><Text>Better Mod Support</Text></Row>
 <Row Tag="LOC_C7ML_DESCRIPTION"><Text>Start native mod components with Civilization VII through Steam Launch Options. One-time setup required; enabling this entry alone does not run the launcher. Read the bundled guide.</Text></Row>
 </EnglishText>
 <LocalizedText>
-<Row Tag="LOC_C7ML_NAME" Language="zh_Hans_CN"><Text>Mac Mod 启动器</Text></Row>
+<Row Tag="LOC_C7ML_NAME" Language="zh_Hans_CN"><Text>更好的Mod支持</Text></Row>
 <Row Tag="LOC_C7ML_DESCRIPTION" Language="zh_Hans_CN"><Text>通过 Steam 启动选项，让 Mod 的本机组件随文明7启动。需要一次设置；仅启用此条目不会运行启动器。详见随包说明。</Text></Row>
 </LocalizedText>
 </Database>

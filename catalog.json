@@ -72,8 +72,8 @@
       "manifest": "mods/civ7-mac-launcher/launcher.modinfo",
       "dependencies": [],
       "name": {
-        "zh_Hans_CN": "Mac Mod 启动器",
-        "en_US": "Mac Mod Launcher"
+        "zh_Hans_CN": "更好的Mod支持",
+        "en_US": "Better Mod Support"
       }
     },
     {

@@ -121,7 +121,7 @@ function selectedSource(selected) {
   return { fileName: selected.fileName, locationCategories: selected.locationCategories, contentType: selected.contentType };
 }
 function service(route, data) {
-  if (!connection) return Promise.reject(new Error('请通过 Mac Mod 启动器启用 --play-again 后启动游戏。 / Launch with --play-again enabled.'));
+  if (!connection) return Promise.reject(new Error('请通过 更好的Mod支持启用 --play-again 后启动游戏。 / Launch with --play-again enabled.'));
   return new Promise((resolve, reject) => {
     if (pendingBridge) { reject(new Error('上一次转换仍在进行')); return; }
     const id = Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);

@@ -39,7 +39,7 @@ static BOOL gameRunning() {
 
 @implementation Launcher
 - (void)message:(NSString *)message {
-    NSAlert *alert = [NSAlert new]; alert.messageText = @"文明7 Mod 启动器 / Civ VII Mod Launcher";
+    NSAlert *alert = [NSAlert new]; alert.messageText = @"更好的Mod支持 / Better Mod Support";
     alert.informativeText = message; [alert addButtonWithTitle:@"好 / OK"];
     [NSApp activateIgnoringOtherApps:YES]; [alert runModal];
 }
@@ -111,7 +111,7 @@ static BOOL gameRunning() {
     _plan=C7LaunchPlan(NSProcessInfo.processInfo.arguments, [NSBundle.mainBundle.infoDictionary[@"DefaultNativeInput"] boolValue], &problem);
     if (!_plan) { [self fail:problem]; return; }
     _window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0,0,480,110) styleMask:NSWindowStyleMaskTitled backing:NSBackingStoreBuffered defer:NO];
-    _window.title = @"启动文明7 · Mod 启动器 / Launch Civ VII";
+    _window.title = @"更好的Mod支持 · 启动文明7 / Better Mod Support";
     _status = [NSTextField labelWithString:@"正在寻找游戏并检查版本… / Checking your game…"];
     _status.frame=NSMakeRect(20,25,440,60); [_window.contentView addSubview:_status]; [_window center]; [_window makeKeyAndOrderFront:nil];
     _support = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Application Support/Civ7 Native Debug Input"];

@@ -21,7 +21,7 @@ stage=out/('stage-'+uuid.uuid4().hex[:8]); payload=stage/'civ7-mac-launcher'; pa
 app=payload/'Civ7 Mod Launcher.app'; contents=app/'Contents'; resources=contents/'Resources'
 for d in ['MacOS','Resources','Frameworks']: (contents/d).mkdir(parents=True)
 subprocess.run(['/usr/bin/clang++','-arch','arm64','-mmacosx-version-min=11.0','-std=c++17','-fobjc-arc','-O2','-Wall','-Wextra','-framework','Cocoa',str(ROOT/'src/launcher.mm'),'-o',str(contents/'MacOS/Civ7ModLauncher')],check=True)
-info={'CFBundleExecutable':'Civ7ModLauncher','CFBundleIdentifier':'org.stupidism.civ7-mod-launcher','CFBundleName':'Civ7 Mod Launcher','CFBundlePackageType':'APPL','CFBundleShortVersionString':'0.1.0','CFBundleVersion':'1','LSMinimumSystemVersion':'14.0' if a.node else '11.0','NSHighResolutionCapable':True}
+info={'CFBundleExecutable':'Civ7ModLauncher','CFBundleIdentifier':'org.stupidism.civ7-mod-launcher','CFBundleName':'Better Mod Support','CFBundleDisplayName':'更好的Mod支持','CFBundlePackageType':'APPL','CFBundleShortVersionString':'0.1.0','CFBundleVersion':'1','LSMinimumSystemVersion':'14.0' if a.node else '11.0','NSHighResolutionCapable':True}
 if a.native_input:
     native=REPO/'tools/civ7-native-debug-input'
     subprocess.run(['/bin/sh',str(native/'build.sh')],check=True)

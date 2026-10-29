@@ -1,4 +1,4 @@
-# Mac Mod 启动器 / Mac Mod Launcher
+# 更好的Mod支持 / Better Mod Support
 
 独立 Mod 项目，0.1.0-dev。把原来 DebugPanel 输入修复启动器中的 Steam 查找、参数传递、进程管理和设置恢复抽成共享实现。DebugPanel 输入修复仍是独立可选功能，不是其他辅助组件的前提。
 
