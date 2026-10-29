@@ -1,0 +1,188 @@
+{
+  "modDirectory": "civ7-micromanagement-master-chiang-kai-shek",
+  "archivedAt": "2026-10-29T10:48:04.375435+08:00",
+  "archiveScope": "已发布平台版本的 Markdown 归档；不是最新代码的功能说明，也未向社交平台提交新内容。",
+  "publications": [
+    {
+      "platform": "bilibili",
+      "status": "published",
+      "title": "《文明7拯救计划》｜微操大师常凯申",
+      "url": "https://www.bilibili.com/opus/1262974101687894032",
+      "file": "article-zh.md",
+      "sha256": "79337580dfae6ec2a7d7d735e178dae8f0f2ab70d12949c895387bdb5fc39cc5",
+      "imageCount": 9,
+      "images": [
+        "assets/zh-01-ranged-targeting.jpg",
+        "assets/zh-02-auto-join-preview.jpg",
+        "assets/zh-02-right-click-joined.jpg",
+        "assets/zh-03-deployment-preview.jpg",
+        "assets/zh-default-eligible.jpg",
+        "assets/zh-cancel-button.jpg",
+        "assets/zh-cancel-right.jpg",
+        "assets/zh-05-empty-base.jpg",
+        "assets/zh-05-empty-roster.jpg"
+      ],
+      "sourceDocument": "work/mod-editorial/20261024-steam-rewrite/civ7-micromanagement-master-chiang-kai-shek/publication-20261025/article-zh.md",
+      "sourceDocumentSha256": "4ca890ecbcd73d815ca640012dedd9455997aee9c1f3958ee31abbedb7da4166",
+      "normalization": [
+        "图片引用改为仓库内相对路径；保留已发表版本的正文、图注和历史验证范围。",
+        "标题同步 2026-10-29 06:05:21 +08:00 官方文章列表中的已发布短标题。",
+        "依据本轮公开正文读回，去掉本地快照中未出现在当前 B站正文的键盘/手柄限制句。B站正文链接被平台去除，归档保留原稿的工坊链接。"
+      ],
+      "verification": {
+        "verifiedAt": "2026-10-29T10:48:04.375435+08:00",
+        "method": "公开文章正文读回并与发布快照逐段核对",
+        "articleId": "cv53596214"
+      },
+      "cover": {
+        "file": "assets/bilibili-cover.png",
+        "sha256": "d5d119c57e4edeb2c6a3bcd518b0ea7f3249fe50237c67cb26cc190d3797e33f",
+        "sourceUrl": "https://i0.hdslb.com/bfs/new_dyn/05e8c59e583e4657d1547f5095d9a3477247306.png",
+        "sourceCollectedAt": "2026-10-29T06:05:21.980460+08:00",
+        "downloadedAt": "2026-10-29T10:48:04.375435+08:00"
+      }
+    },
+    {
+      "platform": "civfanatics",
+      "status": "published",
+      "title": "Micromanagement Master Chiang Kai-shek — fewer clicks for ranged units and commanders",
+      "url": "https://forums.civfanatics.com/threads/705247/",
+      "file": "article-en.md",
+      "sha256": "1c7e7978b5679e28710926d2d8fab015dc4dd06446334d9084020ed66b57d37e",
+      "imageCount": 9,
+      "images": [
+        "assets/cover.png",
+        "assets/en-01-ranged-targeting.jpg",
+        "assets/en-02-auto-join-preview.jpg",
+        "assets/en-right-click-joined.jpg",
+        "assets/en-03-deployment-preview.jpg",
+        "assets/en-default-eligible.jpg",
+        "assets/en-cancel-button.jpg",
+        "assets/en-cancel-right.jpg",
+        "assets/en-05-empty-base.jpg"
+      ],
+      "sourceDocument": "work/mod-editorial/20261024-steam-rewrite/civ7-micromanagement-master-chiang-kai-shek/style-20261025/publication/article-en.md",
+      "sourceDocumentSha256": "27d774e13d433ee4eb945fe862377b00186c0e7d931c226aca3e0cf099d32491",
+      "normalization": [
+        "图片引用改为仓库内相对路径；保留已发表版本的正文、图注和历史验证范围。"
+      ],
+      "verification": {
+        "verifiedAt": "2026-10-29T10:48:04.375435+08:00",
+        "method": "未登录浏览器显示 Log in，完整正文及配图可见，无待审核提示",
+        "guestVerified": true,
+        "threadId": 705247
+      }
+    }
+  ],
+  "excluded": [
+    {
+      "platform": "reddit",
+      "url": "https://www.reddit.com/r/CivVII/comments/1xeritc/war_controls_fewer_clicks_for_ranged_targeting/",
+      "status": "filtered",
+      "reason": "原帖曾发布，后续编辑后的当前版本被 Reddit 过滤；未将该修订正文当作公开文案收录。",
+      "lastEvidenceAt": "2026-10-29T06:09:54+08:00"
+    },
+    {
+      "platform": "bilibili",
+      "status": "unpublished_revision",
+      "reason": "诸位请看开头的战报风格中文改稿未成功发布，本次收录线上实际正文。"
+    }
+  ],
+  "assets": {
+    "assets/zh-01-ranged-targeting.jpg": {
+      "sha256": "6a26a0629acca0360c5e5ed8efc3f4f3319d21a21fd44143df2ab5265f13c787",
+      "bytes": 2242066,
+      "source": "capture-20261024/zh-01-ranged-targeting.jpg"
+    },
+    "assets/zh-02-auto-join-preview.jpg": {
+      "sha256": "4f3f3729c94e395e5e5f73740d1eb3349e1c7941a58eecd83c71ae873e405ffd",
+      "bytes": 2203442,
+      "source": "capture-20261024/zh-02-auto-join-preview.jpg"
+    },
+    "assets/zh-02-right-click-joined.jpg": {
+      "sha256": "0912505a0d19164000134d122848b8dc53bc9024b3da15c45123145a085fa6d3",
+      "bytes": 2097078,
+      "source": "capture-20261024/zh-02-right-click-joined.jpg"
+    },
+    "assets/zh-03-deployment-preview.jpg": {
+      "sha256": "aa1fe5475289282c5990f996730e32d738ed278c9ab4f3d33d87e5c79cbce8ff",
+      "bytes": 2164937,
+      "source": "capture-20261024/zh-03-deployment-preview.jpg"
+    },
+    "assets/zh-default-eligible.jpg": {
+      "sha256": "8d15a77301d957dfc1a5c20bb2fe47b41617b18f45e417b3dd9fdb89db9c980e",
+      "bytes": 2160507,
+      "source": "capture-reinforcement-060-fix-20261024/zh-default-eligible.jpg"
+    },
+    "assets/zh-cancel-button.jpg": {
+      "sha256": "aa86f5ec960b7c8e24509006f0cca6faa79a1efe9493f74fe277a093998b78be",
+      "bytes": 2398973,
+      "source": "capture-reinforcement-060-fix-20261024/zh-cancel-button.jpg"
+    },
+    "assets/zh-cancel-right.jpg": {
+      "sha256": "b8d96f7cd41af740b575c3420ae56e7e0346bb44d814a2bab7c4f734050aecbd",
+      "bytes": 2402010,
+      "source": "capture-reinforcement-060-fix-20261024/zh-cancel-right.jpg"
+    },
+    "assets/zh-05-empty-base.jpg": {
+      "sha256": "5d69548a6e3f7e7f1e7a6e53d0fd8056be4305aa2ca60ed6db9bb3eb17c584a9",
+      "bytes": 2142898,
+      "source": "capture-20261024/zh-05-empty-base.jpg"
+    },
+    "assets/zh-05-empty-roster.jpg": {
+      "sha256": "593258bc4f9d8e6bed6b4a29d075abeb1d532b9045022480679c917dd7b91275",
+      "bytes": 2064488,
+      "source": "capture-20261024/zh-05-empty-roster.jpg"
+    },
+    "assets/cover.png": {
+      "sha256": "0f7ab70b349b79b737992d6aadd13f8434e13374478175995f44ac84e042baf9",
+      "bytes": 1592260,
+      "source": "style-20261025/cover.png"
+    },
+    "assets/en-01-ranged-targeting.jpg": {
+      "sha256": "1eba296f08b03e6f704c6068e1d092f639dbd10406a796eb911d92bc67120eb2",
+      "bytes": 2251564,
+      "source": "capture-20261024/en-01-ranged-targeting.jpg"
+    },
+    "assets/en-02-auto-join-preview.jpg": {
+      "sha256": "c77664d73d5a9b2dce2656b9052efb6717bc1ab95c5424d160210757cdec7a4a",
+      "bytes": 2222128,
+      "source": "capture-20261024/en-02-auto-join-preview.jpg"
+    },
+    "assets/en-right-click-joined.jpg": {
+      "sha256": "5a2ef81087f8dd4c7965d10b367b3905e492b0b558b27f3e7e23c2f5bdd47099",
+      "bytes": 2076317,
+      "source": "capture-right-join-060-20261024/en-right-click-joined.jpg"
+    },
+    "assets/en-03-deployment-preview.jpg": {
+      "sha256": "e039dbdcc375e2028168501802447c3c52bd686cf1ff6b7b3f791780cced5ff9",
+      "bytes": 2198436,
+      "source": "capture-20261024/en-03-deployment-preview.jpg"
+    },
+    "assets/en-default-eligible.jpg": {
+      "sha256": "45613bb7e9b786b6c4985e0ffe3e5f5e29f0504c01dae07bfb965dd42c17ba31",
+      "bytes": 2190188,
+      "source": "capture-reinforcement-060-fix-20261024/en-default-eligible.jpg"
+    },
+    "assets/en-cancel-button.jpg": {
+      "sha256": "543f4150ff74030abd00618a6935941738ece7d8101bbac8b11821972bf04ee2",
+      "bytes": 2409058,
+      "source": "capture-reinforcement-060-fix-20261024/en-cancel-button.jpg"
+    },
+    "assets/en-cancel-right.jpg": {
+      "sha256": "28652eb14d3e4e0382b9421b121b168d0540495f9f8625aea17162089e6d997d",
+      "bytes": 2403918,
+      "source": "capture-reinforcement-060-fix-20261024/en-cancel-right.jpg"
+    },
+    "assets/en-05-empty-base.jpg": {
+      "sha256": "22c91f6eb11a837cb301a685c6b883c6092a351ba8de0269a876a1b0742f4467",
+      "bytes": 2381227,
+      "source": "capture-20261024/en-05-empty-base.jpg"
+    },
+    "assets/bilibili-cover.png": {
+      "sha256": "d5d119c57e4edeb2c6a3bcd518b0ea7f3249fe50237c67cb26cc190d3797e33f",
+      "bytes": 2523308,
+      "sourceUrl": "https://i0.hdslb.com/bfs/new_dyn/05e8c59e583e4657d1547f5095d9a3477247306.png"
+    }
+  }
+}
