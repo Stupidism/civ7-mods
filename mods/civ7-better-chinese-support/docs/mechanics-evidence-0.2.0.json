@@ -1,0 +1,164 @@
+[
+  {
+    "group": "unique-resources",
+    "file": "Base/modules/base-standard/data/leaders-gameeffects.xml",
+    "sha256": "8c630db439d0a163a0453d11683cb83b6e8db9c9b2b7ff6527ca697ddfd89c34",
+    "anchor": "HATSHEPSUT_MOD_CULTURE_FROM_RESOURCES",
+    "lines": [
+      435
+    ]
+  },
+  {
+    "group": "serpent-mound",
+    "file": "DLC/shawnee-tecumseh/modules/data/constructibles.xml",
+    "sha256": "6d6fc44ab3404e620d83eae3bbaa149b16839eb8a83d10f674081dbba4ac4ba9",
+    "anchor": "WONDER_SERPENT_MOUND",
+    "lines": [
+      7,
+      10,
+      16,
+      23,
+      29,
+      32,
+      37,
+      43,
+      49,
+      55,
+      68
+    ]
+  },
+  {
+    "group": "brihadeeswarar",
+    "file": "Base/modules/age-exploration/data/constructibles.xml",
+    "sha256": "cc8f1b983f71d0017e81883d4234d44c3395a3b0e263fcbd2cd4f4aad065df4d",
+    "anchor": "WONDER_BRIHADEESWARAR_TEMPLE",
+    "lines": [
+      56,
+      70,
+      134,
+      196,
+      293,
+      383,
+      492,
+      858,
+      973,
+      974
+    ]
+  },
+  {
+    "group": "nan-madol",
+    "file": "DLC/water-wonders/modules/data/constructibles-exploration.xml",
+    "sha256": "8a7f6506385b7c750b931d060d84074778251714e611ad3dcef12c41a3ef2920",
+    "anchor": "WONDER_NAN_MADOL",
+    "lines": [
+      7,
+      10,
+      13,
+      16,
+      19,
+      22,
+      25,
+      28,
+      31,
+      32
+    ]
+  },
+  {
+    "group": "han-population",
+    "file": "Base/modules/age-antiquity/data/civilizations-shared-gameeffects.xml",
+    "sha256": "b29f3b1304e3edba2b7138dcdc755cf2821c2736413423f46296364f8046ecd5",
+    "anchor": "TRAIT_MOD_NINE_PROVINCES_POP",
+    "lines": [
+      154,
+      162,
+      171
+    ]
+  },
+  {
+    "group": "great-wall-cost",
+    "file": "Base/modules/age-antiquity/data/constructibles.xml",
+    "sha256": "a5b4661748f1badefd18dc739e59eac3b3065631064abc02e806d0127573eb97",
+    "anchor": "IMPROVEMENT_HAN_GREAT_WALL",
+    "lines": [
+      37,
+      138,
+      208,
+      305,
+      306,
+      307,
+      308,
+      309,
+      422,
+      528,
+      661,
+      868,
+      1054,
+      1055,
+      1056,
+      1113
+    ]
+  },
+  {
+    "group": "norman-coast",
+    "file": "Base/modules/age-exploration/data/civilizations-shared-gameeffects.xml",
+    "sha256": "f1073af4e1af997b433ada2603b89e546153a3c66c4fa1195bab27c2e6d05c6a",
+    "anchor": "TRAIT_MOD_ADJACENT_TO_COAST_COMBAT",
+    "lines": [
+      284,
+      291,
+      293
+    ]
+  },
+  {
+    "group": "friedrich",
+    "file": "Base/modules/base-standard/data/leaders-gameeffects.xml",
+    "sha256": "8c630db439d0a163a0453d11683cb83b6e8db9c9b2b7ff6527ca697ddfd89c34",
+    "anchor": "FRIEDRICH_MOD_INFANTRY_CONSTRUCT_SCIENCE",
+    "lines": [
+      368
+    ]
+  },
+  {
+    "group": "assyria-conquest",
+    "file": "DLC/assyria/modules/data/civilizations-shared-gameeffects.xml",
+    "sha256": "ebda0f2b028c2611baf186796e101dd791357d9b89a549c2b6b0b7965e299f06",
+    "anchor": "MOD_CIV_FIRST_TIME_CONQUER",
+    "lines": [
+      3,
+      12,
+      20,
+      28
+    ]
+  },
+  {
+    "group": "ekallu",
+    "file": "DLC/assyria/modules/data/constructibles-gameeffects.xml",
+    "sha256": "095975e45b107b3df2e8c50e8a789cfaa933582da7906f62e3919025d18ae717",
+    "anchor": "MOD_ASSYRIA_GREAT_WORKS_PRODUCTION",
+    "lines": [
+      15
+    ]
+  },
+  {
+    "group": "forbidden-city",
+    "file": "Base/modules/age-exploration/data/constructibles-gameeffects.xml",
+    "sha256": "a47d03ba3a3c2fb9ddcb9c4687024c033d1a3e01f866f8c1e63186fc331d3366",
+    "anchor": "MOD_FORBIDDEN_CITY_FORTIFICATION",
+    "lines": [
+      195,
+      207
+    ]
+  },
+  {
+    "group": "clan-society",
+    "file": "Base/modules/age-modern/data/traditions-tot-gameeffects.xml",
+    "sha256": "f652e49b8dcf5b894b96fadf7a3ac253d12ae74a8ba745d82d9e95d0127ce98d",
+    "anchor": "ATTACH_MOD_CLAN_SOCIETY",
+    "lines": [
+      267,
+      269,
+      281,
+      283
+    ]
+  }
+]

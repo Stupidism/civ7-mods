@@ -1,0 +1,40 @@
+{
+  "version": "0.2.0",
+  "verified": true,
+  "path": "~/Library/Application Support/Civilization VII/Mods/civ7-better-chinese-support",
+  "files": {
+    "better-chinese-support.modinfo": {
+      "size": 1359,
+      "sha256": "1669c4b80ea94bb646bc1424c3e3f660956b7d7c342350150af6627417754577"
+    },
+    "VALIDATION.md": {
+      "size": 4378,
+      "sha256": "5564746c654c65fca376852e8da38a6d44a3c83f9457d31b95cb2a047d5bc09e"
+    },
+    "README.md": {
+      "size": 4006,
+      "sha256": "f4b6bf24f31cd80cf35f1020a8214cb7f1f4fe09a83c984cba56c27a788b13d8"
+    },
+    "NOTICE.md": {
+      "size": 1328,
+      "sha256": "a71723a078ba45cebe8501cabba30d5c2a15491f08253bf64c52a2ba27d188cc"
+    },
+    "text/metadata.xml": {
+      "size": 1017,
+      "sha256": "55257fc69114d10e9a0eee528da9c8c462b1d064024219eba077a5374ea3644b"
+    },
+    "text/mechanics.sql": {
+      "size": 7519,
+      "sha256": "042b87d31b53e068ed8e955dc1f8fd3c972f20adf05c4cfb39ced375b26f14e8"
+    },
+    "text/functional.sql": {
+      "size": 26639,
+      "sha256": "9fefa7d8b87dd7c30bbbf0bfa85dbca97d6c5a813b53634d514386530c16420c"
+    }
+  },
+  "runtimeTextKeysMatched": 33,
+  "visualPages": [
+    "WONDER_SERPENT_MOUND",
+    "WONDER_BRIHADEESWARAR_TEMPLE"
+  ]
+}

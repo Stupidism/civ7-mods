@@ -1,0 +1,9 @@
+{
+  "name": "civ7-better-chinese-support",
+  "version": "0.2.1",
+  "private": true,
+  "scripts": {
+    "build": "python3 tools/build.py",
+    "test": "python3 -m unittest discover -s tests -v"
+  }
+}

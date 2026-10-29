@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="civ7-better-chinese-support" version="3" xmlns="ModInfo">
+  <Properties>
+    <Name>更好的中文支持</Name>
+    <Description>LOC_BCS_MOD_DESCRIPTION</Description>
+    <Authors>Stupidism；社区修订参考：徂川</Authors>
+    <Version>0.2.1</Version>
+    <Package>Mod</Package>
+    <AffectsSavedGames>0</AffectsSavedGames>
+    <ShowInBrowser>1</ShowInBrowser>
+    <EnabledByDefault>0</EnabledByDefault>
+  </Properties>
+  <Dependencies><Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME" /></Dependencies>
+  <ActionCriteria><Criteria id="always"><AlwaysMet /></Criteria></ActionCriteria>
+  <ActionGroups>
+    <ActionGroup id="better-chinese-shell" scope="shell" criteria="always">
+      <Properties><LoadOrder>10000</LoadOrder></Properties>
+      <Actions><UpdateText>
+        <Item>text/metadata.xml</Item>
+        <Item>text/functional.sql</Item>
+        <Item>text/mechanics.sql</Item>
+      </UpdateText></Actions>
+    </ActionGroup>
+    <ActionGroup id="better-chinese-game" scope="game" criteria="always">
+      <Properties><LoadOrder>10000</LoadOrder></Properties>
+      <Actions><UpdateText>
+        <Item>text/metadata.xml</Item>
+        <Item>text/functional.sql</Item>
+        <Item>text/mechanics.sql</Item>
+      </UpdateText></Actions>
+    </ActionGroup>
+  </ActionGroups>
+</Mod>

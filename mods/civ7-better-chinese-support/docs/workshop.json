@@ -1,0 +1,82 @@
+{
+  "modId": "civ7-better-chinese-support",
+  "version": "0.2.1",
+  "publishedFileId": "3829402170",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3829402170",
+  "visibility": "public",
+  "title": "更好的中文支持 / Better Chinese Support",
+  "publishedAt": "2026-10-29T18:27:46.864947+08:00",
+  "ownerAccountVerified": true,
+  "anonymousApiVerified": true,
+  "publicTitleDescriptionMatch": true,
+  "previewHashesVerified": true,
+  "downloadHashesVerified": true,
+  "downloadedFiles": {
+    "better-chinese-support.modinfo": {
+      "size": 1359,
+      "sha256": "174825df7c1c4bd313bcfb38ee7ced4109529ab84d4f27a918b1b279c96f981b"
+    },
+    "VALIDATION.md": {
+      "size": 5499,
+      "sha256": "65681cea48174fe15be7adc7b7224ff4292c58ea4b94f15f36bffc5b91d2ce3f"
+    },
+    "README.md": {
+      "size": 3893,
+      "sha256": "40fc6eedfd93223f982d0b5a0b07473115711079dd889bb832564edd99d75673"
+    },
+    "NOTICE.md": {
+      "size": 1360,
+      "sha256": "03d89659b6deedecec4d125da94fd6be9bc8ff89c8e8eb2f7b30daefa30e54f6"
+    },
+    "text/metadata.xml": {
+      "size": 1017,
+      "sha256": "55257fc69114d10e9a0eee528da9c8c462b1d064024219eba077a5374ea3644b"
+    },
+    "text/mechanics.sql": {
+      "size": 5281,
+      "sha256": "52b2068525b30f2386093e14eee6881c5e385a6f22ec82f177d96d12f5018ecb"
+    },
+    "text/functional.sql": {
+      "size": 24652,
+      "sha256": "eba3a31f63d1d710b3d0ab97b5ffe962182b62db3f24fc26fa2edebafb28f000"
+    }
+  },
+  "download": {
+    "id": "3829402170",
+    "bytes": 43061,
+    "state": 4
+  },
+  "validation": {
+    "offlineTestsPassed": 10,
+    "textKeys": 29,
+    "currentVersionLiveTested": false
+  },
+  "installation": "Downloaded to Steam cache for verification without subscription. Existing local Mods copy unchanged.",
+  "gameInteraction": false,
+  "savesSettingsRestGuard": "Untouched; no game launch, testing, or live installation",
+  "evidence": "work/better-chinese-workshop-20261029/",
+  "publicPageVerified": true,
+  "evidenceScreenshots": [
+    "steam-published.jpg",
+    "bilibili-download-link.jpg"
+  ],
+  "bilibiliUpdate": {
+    "url": "https://www.bilibili.com/opus/1264472598568239109",
+    "columnId": "53661119",
+    "status": "updated_and_visible_in_article_page",
+    "verifiedAt": "2026-10-29T18:33:32.359721+08:00",
+    "workshopUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3829402170",
+    "oldRows": 24,
+    "newRows": 24,
+    "redStrikethroughs": 27,
+    "greenChanges": 36,
+    "bodyImages": 1,
+    "coverPreserved": true,
+    "collectionPreserved": true,
+    "titleAndDownloadHeadingVerified": true,
+    "contentHash": "c1d7ae451df822bf4af4e6bef53963816d6741519ede582b47c69af5b0bd927e",
+    "imageCdnUrl": "https://i0.hdslb.com/bfs/new_dyn/c00213caef0b43bd7c9d0b1a9fead84e7247306.png",
+    "anonymousBilibiliAccess": "not independently verified"
+  },
+  "archiveNote": "Local download directory omitted from repository archive; release file hashes are unchanged."
+}

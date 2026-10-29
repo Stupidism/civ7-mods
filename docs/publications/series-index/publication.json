@@ -1,0 +1,24 @@
+{
+  "title": "《文明7拯救计划》｜Mod、图文与视频总目录",
+  "url": "https://www.bilibili.com/opus/1264182207264587776",
+  "articleId": "cv53649212",
+  "collectionUrl": "https://www.bilibili.com/read/readlist/rl1102252",
+  "status": "updated_article_page_verified",
+  "verifiedAt": "2026-10-30T00:34:09.771612+08:00",
+  "changes": [
+    "Added item 7 Better Chinese Support with Bilibili article and Steam Workshop URLs.",
+    "Changed both counts from six to seven; preserved all previous paragraphs and links."
+  ],
+  "verification": {
+    "priorParagraphsPreservedIgnoringWhitespace": true,
+    "modEntries": 7,
+    "collectionArticles": 8,
+    "anonymousAccess": "not_independently_verified"
+  },
+  "file": "article-zh.md",
+  "sha256": "88680ce74378492e792fcef5386a8719d239f2c0246d056da7665dea2022c40d",
+  "screenshot": "updated-2026-10-30.jpg",
+  "archiveAdjustments": [
+    "Native Bilibili links converted to Markdown links; editor metadata and decorative SVGs omitted."
+  ]
+}

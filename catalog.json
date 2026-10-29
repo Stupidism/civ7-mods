@@ -1,5 +1,5 @@
 {
-  "snapshotDate": "2026-10-28",
+  "snapshotDate": "2026-10-30",
   "mods": [
     {
       "id": "civ7-map-tools-gamepad",
@@ -65,6 +65,14 @@
         "zh_Hans_CN": "微操大师常凯申",
         "en_US": "Micromanagement Master Chiang Kai-shek"
       }
+    },
+    {
+      "id": "civ7-better-chinese-support",
+      "version": "0.2.1",
+      "manifest": "mods/civ7-better-chinese-support/better-chinese-support.modinfo",
+      "dependencies": [
+        "base-standard"
+      ]
     }
   ]
 }

@@ -1,0 +1,34 @@
+[h1]更好的中文支持[/h1]
+把建造条件、触发条件和加成范围写准确。仅修正简体中文玩法描述中的错误和遗漏，原本正确的句子保持原样。
+
+[h2]修正内容[/h2]
+[list]
+[*]神社（海上）：补充海岸及邻接平地的放置条件。
+[*]弥勒寺：说明古典时代幸福值建筑的分类要求，以及加成按区块计算。
+[*]巨蟒土丘：补充草原平地要求。
+[*]南马都尔：说明岛屿条件指所属定居点。
+[*]汉朝、诺曼、哈特谢普苏特、腓特烈、亚述、布干达：修正触发时机、对象和范围。
+[*]汉长城、亚述王宫、紫禁城：修正费用涨幅、巨作计数和加成范围。
+[/list]
+当前版本 0.2.1，共修正 29 个中文文本条目，覆盖相应详细说明与悬浮提示。引用这些文本的游戏界面及文明百科会一起更新。
+
+[h2]使用方法[/h2]
+订阅后，等待 Steam 下载完成，在游戏的模组列表中启用「更好的中文支持」，使用简体中文并重新启动游戏。
+仅依赖游戏基础内容；没有对应 DLC 时，不会创建或解锁 DLC 内容。没有其他必需 Mod。
+如之前手动安装过本 Mod，请退出游戏后移走旧的同名本地副本，避免与工坊版重复加载。
+
+[h2]范围与兼容[/h2]
+只改中文说明，不改变玩法规则、数值或存档。不替换译名、音译，不润色历史台词，不翻译其他 Mod。
+英文和繁体中文原版文本保持不变。补丁精确匹配文本键及原文；官方更新或其他翻译 Mod 改变了原文时，对应条目会跳过。
+不建议与整表翻译版《简中翻译修正和改进》同时启用，以免其他文字覆盖或产生超出本 Mod 范围的译名、台词变化。
+
+[h2]验证情况[/h2]
+0.2.1 已通过 10 项离线检查，验证 29 个修改键、原文保护、重复加载和真实官方文本。此前 0.2.0 已在 Mac 游戏运行环境核对全部 33 条旧版文本并检查部分百科页面。0.2.1 的收紧措辞尚未重新实机验收；Windows 和多人环境未实测。
+
+[h2]来源与感谢[/h2]
+部分功能勘误参考徂川（徂川丶）的[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3524742152]《简中翻译修正和改进》[/url]及[url=https://docs.qq.com/sheet/DWW94VHpnUFdHVmZS?tab=1nqnrb]公开修订清单[/url]，按当前游戏规则筛选、核对和补充。感谢原作者整理；本版不整合译名替换、文风润色或其他 Mod 汉化，未复制其程序实现，也不代表原作者参与或背书。
+
+[url=https://www.bilibili.com/opus/1264472598568239109]B站专栏：问题截图及逐条修改对照[/url]
+
+[h2]English[/h2]
+Better Chinese Support corrects misleading Simplified Chinese gameplay descriptions and missing conditions. Version 0.2.1 updates 29 localization keys without changing gameplay, names, narrative text, or other languages. Selected findings reference Cuchuan's public correction list, with additional Jinja and Mireuksa clarifications. Ten offline checks pass; revised 0.2.1 wording has not yet been re-tested in game.
