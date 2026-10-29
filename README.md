@@ -1,6 +1,6 @@
 # Civilization VII Mods
 
-Stupidism 的文明7 Mod 开发合集。收录本 PR 范围内的 6 个 Mod 项目，包含当前源码、测试、安装说明和各项目的验证记录。
+Stupidism 的文明7 Mod 开发合集。收录已发布 Mod 与独立开发项目，包含当前源码、测试、安装说明和各项目的验证记录。
 
 | 项目 | 当前源码版本 | 功能与状态 |
 | --- | --- | --- |
@@ -14,6 +14,10 @@ Stupidism 的文明7 Mod 开发合集。收录本 PR 范围内的 6 个 Mod 项�
 目录命名与稳定 Mod ID 对照见 [目录名称表](docs/mod-directory-names.md)。
 
 源码版本可能高于原工坊／独立仓库的已发布版本。上传本合集不代表所有开发版本已经完成实机验收，也不会自动更新工坊条目。模块、版本及依赖的机器可读索引见 [catalog.json](catalog.json)。
+
+## Mac 启动组件（开发中）
+
+[Mac Mod 启动器](mods/civ7-mac-launcher/) 将 Steam 启动接入抽成独立项目；[原版 DebugPanel 输入修复](tools/civ7-native-debug-input/) 复用它，[你的神图很好，现在是我的了](mods/civ7-play-again/) 提供首个辅助服务适配器。新版仅离线验证，完整存档导入仍依赖已有游戏通信桥，尚未发布。
 
 ## Steam 创意工坊
 

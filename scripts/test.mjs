@@ -1,7 +1,7 @@
 import {readdirSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
-const projects=['civ7-no-more-turn','civ7-auto-save-before','civ7-micromanagement-master-chiang-kai-shek','civ7-garbage-time','civ7-resource-planner','civ7-better-controller-support'];
+const projects=['civ7-no-more-turn','civ7-auto-save-before','civ7-micromanagement-master-chiang-kai-shek','civ7-garbage-time','civ7-resource-planner','civ7-better-controller-support','civ7-mac-launcher','civ7-play-again'];
 let failed=false;
 for(const name of projects){
   const cwd=fileURLToPath(new URL(`../mods/${name}/`,import.meta.url));

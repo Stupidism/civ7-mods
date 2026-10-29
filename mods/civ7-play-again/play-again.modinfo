@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="civ7-play-again" version="10" xmlns="ModInfo">
+  <Properties>
+    <Name>你的神图很好，现在是我的了</Name>
+    <Description>新建游戏读取设置文件、粘贴种子文字或 C7L1 / C7S1 / C7S2 单行复制码，填入纪念物、高级设置与玩家阵容，也可生成当前设置码。文字功能不需要辅助程序；旧存档转换仍是开发中的辅助路线。</Description>
+    <Authors>Stupidism</Authors><Version>0.3.7-dev</Version><Package>Mod</Package>
+    <AffectsSavedGames>0</AffectsSavedGames><ShowInBrowser>1</ShowInBrowser><EnabledByDefault>1</EnabledByDefault>
+  </Properties>
+  <Dependencies><Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME" /></Dependencies>
+  <ActionCriteria><Criteria id="always"><AlwaysMet /></Criteria></ActionCriteria>
+  <ActionGroups><ActionGroup id="play-again-shell" scope="shell" criteria="always">
+    <Properties><LoadOrder>2200</LoadOrder></Properties>
+    <Actions><UIScripts><Item>ui/play-again.js</Item></UIScripts><ImportFiles>
+    <Item>ui/dialog-navigation.js</Item><Item>ui/local-connection.js</Item><Item>ui/configuration-snapshot.js</Item><Item>ui/compare-configuration.js</Item><Item>ui/compare-imported.js</Item><Item>ui/content-requirements.js</Item><Item>ui/screenshot-settings.js</Item><Item>ui/setup-code.js</Item><Item>ui/setup-code-game.js</Item><Item>ui/setup-code-parameters.js</Item><Item>ui/save-reader.js</Item><Item>ui/save-configuration.js</Item>
+    </ImportFiles></Actions>
+  </ActionGroup></ActionGroups>
+</Mod>

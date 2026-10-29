@@ -65,6 +65,24 @@
         "zh_Hans_CN": "微操大师常凯申",
         "en_US": "Micromanagement Master Chiang Kai-shek"
       }
+    },
+    {
+      "id": "civ7-mac-launcher",
+      "version": "0.1.0-dev",
+      "manifest": "mods/civ7-mac-launcher/launcher.modinfo",
+      "dependencies": [],
+      "name": {
+        "zh_Hans_CN": "Mac Mod 启动器",
+        "en_US": "Mac Mod Launcher"
+      }
+    },
+    {
+      "id": "civ7-play-again",
+      "version": "0.3.7-dev",
+      "manifest": "mods/civ7-play-again/play-again.modinfo",
+      "dependencies": [
+        "base-standard"
+      ]
     }
   ]
 }

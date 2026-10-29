@@ -1,0 +1,24 @@
+0.2.0 — 验证状态 / Validation status — 2026-10-29
+
+通过 / Passed
+- 本机 Finder 双击 ZIP 解压；全部文件 SHA-256、大小和执行权限核对一致。
+- 从包含中文和空格的下载目录双击 .app；无需终端或开发工具。
+- 自动找到 Steam 游戏，确认本机 1.5.0 (1311346) ARM64 程序哈希，加载原生模块。
+- 将 EnableDebugPanels 预设为 0 后，启动器自动启用，退出后 AppOptions.txt 完整哈希恢复到启动前状态。
+- 确认游戏退出后，游戏及启动器进程均结束，没有未完成设置恢复记录。
+- 真实键盘输入 reveal all，经原版输入提交链执行；测试存档第83回合，地块 2912/4536 → 4536/4536。
+- 原版自然奇观发现流程触发；没有通过 JS 开图 API 代替。
+- 离线检查设置保留、其他设置变更、冲突拒绝、缺失键、CRLF、Steam 库路径和哈希读取失败。
+
+分发限制 / Distribution limits
+- 只有本地 ad-hoc 签名，没有 Apple Developer ID 或公证。
+- 本机 spctl 安全评估返回 rejected。下载隔离标记触发时可能需要用户在系统设置中确认打开。
+- 没有关闭 Gatekeeper，也没有自动移除隔离标记。未宣称其他 Mac 下载后无提示启动。
+- 已通过Steam 工坊真实上传、订阅与下载验收：9 个文件哈希一致，.app 执行权限保留，Finder 双击启动成功。
+- 工坊下载版逐键输入 reveal all：2912/4536 → 4536/4536，回合保持 83；使用原版处理器。
+- 点击退出后游戏报告 SIGSEGV；与修复安装前 2026-10-28 的记录前 12 个游戏调用位置一致，旧记录没有加载本模块。退出问题未在此项目修复；启动器进程已结束，设置恢复通过。
+- Steam 已登录且运行时通过；Steam 首次登录、离线、多个库、手动选路径仅实现，未在本机逐项实测。
+- 只覆盖本机兼容版本、单人测试副本和英文命令；中文 IME、手柄、多人、Intel 及其他版本未验收。
+
+本包只包含启动器、辅助模块、说明和工坊信息占位，不包含游戏程序、存档、私人日志或开发机路径。
+The app bytes are identical to the Finder-tested candidate. Workshop subscription, download hashes, executable permissions, Finder launch and native reveal all input passed on this Mac. A game exit crash matches a pre-existing report without this module; it remains unresolved.
