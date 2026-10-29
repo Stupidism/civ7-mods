@@ -4,6 +4,7 @@ import { readFile, writeFile, readdir, mkdir, stat, realpath } from 'node:fs/pro
 import { homedir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { writeExclusiveConfiguration } from './atomic-config.mjs';
 import { exportConfiguration } from './export-config.mjs';
 import { parseNativeSave } from './native-save.mjs';
 import { expectedConfiguration } from './expected-configuration.mjs';
@@ -87,7 +88,7 @@ export async function createLocalService({ savesRoot = DEFAULT_SAVES, token, uiM
       const content = inventory ? verifyRequiredMods(expected, inventory) : undefined;
       const safeName = entry.name.replace(/[\\/:*?"<>|\x00-\x1f]/g, '_').slice(0, 32);
       const fileName = `重开-${safeName}-${randomUUID().slice(0, 8)}.Civ7Cfg`;
-      await writeFile(path.join(single, fileName), result.bytes, { flag: 'wx', mode: 0o600 });
+      await writeExclusiveConfiguration(path.join(single, fileName), result.bytes);
       return { fileName, displayName: fileName.slice(0, -8), sourceName: entry.name, sourceSha256: result.sourceSha256, seeds: result.seeds, changes: result.changes, expected, content };
     } catch (error) {
       if (/current age setup/.test(error.message)) throw new Error('这个存档已跨时代，无法保证还原整场游戏的开局。请选择最初时代的存档。');
