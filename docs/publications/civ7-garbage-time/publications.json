@@ -1,0 +1,163 @@
+{
+  "modDirectory": "civ7-garbage-time",
+  "archivedAt": "2026-10-29T10:48:04.375435+08:00",
+  "archiveScope": "已发布平台版本的 Markdown 归档；不是最新代码的功能说明，也未向社交平台提交新内容。",
+  "publications": [
+    {
+      "platform": "bilibili",
+      "status": "published",
+      "title": "《文明7拯救计划》｜垃圾时间",
+      "url": "https://www.bilibili.com/read/cv53595560",
+      "file": "article-zh.md",
+      "sha256": "d856bdac5502e700997db2e3f70fa464d07e080c02f38f0b79baa2c432cdb06b",
+      "imageCount": 9,
+      "images": [
+        "assets/military-arrived-zh.png",
+        "assets/global-weights.png",
+        "assets/city-weights.png",
+        "assets/city-project-after.png",
+        "assets/treasure-triumph.png",
+        "assets/religion-after.png",
+        "assets/technology-started-zh.png",
+        "assets/research-after.png",
+        "assets/resources-after.png"
+      ],
+      "sourceDocument": "work/mod-editorial/20261024-steam-rewrite/civ7-garbage-time/article-zh.md",
+      "sourceDocumentSha256": "de79c8c1c6ade6f2361e3d4624349935a9822f3115a323f22227936b3604a311",
+      "normalization": [
+        "图片引用改为仓库内相对路径；保留已发表版本的正文、图注和历史验证范围。",
+        "标题同步 2026-10-29 06:05:21 +08:00 官方文章列表中的已发布短标题。"
+      ],
+      "verification": {
+        "verifiedAt": "2026-10-29T06:05:21.980460+08:00",
+        "method": "官方作者文章列表 state=0/check_state=0；原发布回执及正文快照交叉核对",
+        "articleId": "cv53595560"
+      },
+      "cover": {
+        "file": "assets/bilibili-cover.png",
+        "sha256": "24d45bf79bce0950d7ca254a9ac585f826c52e6ae14776b39ffb91dac87a9045",
+        "sourceUrl": "https://i0.hdslb.com/bfs/new_dyn/2d130a2b3bf7077c05b1c9266fc8d84f7247306.png",
+        "sourceCollectedAt": "2026-10-29T06:05:21.980460+08:00",
+        "downloadedAt": "2026-10-29T10:48:04.375435+08:00"
+      }
+    },
+    {
+      "platform": "civfanatics",
+      "status": "published",
+      "title": "Garbage Time — delegate the repetitive parts of late-game Civ VII",
+      "url": "https://forums.civfanatics.com/threads/705244/",
+      "file": "article-en.md",
+      "sha256": "d175dd963e6f1ca2857833fd205a68e9ef3c5cad4afadc9e8c6b69fe164ea875",
+      "imageCount": 9,
+      "images": [
+        "assets/military-arrived-en.png",
+        "assets/global-weights.png",
+        "assets/city-weights.png",
+        "assets/city-project-after.png",
+        "assets/treasure-triumph.png",
+        "assets/religion-after.png",
+        "assets/technology-started-en.png",
+        "assets/research-after.png",
+        "assets/resources-after.png"
+      ],
+      "sourceDocument": "work/mod-editorial/20261024-steam-rewrite/civ7-garbage-time/article-en.md",
+      "sourceDocumentSha256": "bb465146d72b68aaf4c8201a64b3d541b5f4a37dad11d6bdf0c3d80c454ca34b",
+      "normalization": [
+        "图片引用改为仓库内相对路径；保留已发表版本的正文、图注和历史验证范围。"
+      ],
+      "verification": {
+        "verifiedAt": "2026-10-29T10:48:04.375435+08:00",
+        "method": "未登录浏览器显示 Log in，完整正文及配图可见，无待审核提示",
+        "guestVerified": true,
+        "threadId": 705244
+      }
+    },
+    {
+      "platform": "reddit",
+      "status": "published",
+      "title": "Garbage Time: opt-in late-game chores automation for single-player Civ VII",
+      "url": "https://www.reddit.com/r/CivVII/comments/1xeq6pd/garbage_time_optin_lategame_chores_automation_for/",
+      "file": "reddit-en.md",
+      "sha256": "666cdf198d47f6d04d001d7be0715b432d6620f90bd8113aeca1d3ffdb20bef6",
+      "imageCount": 3,
+      "images": [
+        "assets/military-arrived-en.png",
+        "assets/technology-started-en.png",
+        "assets/resources-after.png"
+      ],
+      "sourceDocument": "work/mod-editorial/20261024-steam-rewrite/civ7-garbage-time/reddit-en.md",
+      "sourceDocumentSha256": "6eaeaa7178659926a5e3ea6e74319b8dd48672bff329a9997fa752511f00e920",
+      "normalization": [
+        "图片引用改为仓库内相对路径；保留已发表版本的正文、图注和历史验证范围。"
+      ],
+      "verification": {
+        "verifiedAt": "2026-10-25T02:04:45.752Z",
+        "method": "既有发布回执及公开页面证据；本轮未重新访问 Reddit",
+        "postId": "1xeq6pd"
+      }
+    }
+  ],
+  "excluded": [],
+  "assets": {
+    "assets/military-arrived-zh.png": {
+      "sha256": "aad72294f0100f183da2ec1b35d4453fd3379ed8f7880c7ab93775c4f81e230e",
+      "bytes": 15818937,
+      "source": "capture-followup-20261024/military-arrived-zh.png"
+    },
+    "assets/global-weights.png": {
+      "sha256": "6d690e6bbddfa810dc3a697aae359d7e01140868cecf0a8645b8f91c5634437e",
+      "bytes": 783763,
+      "source": "capture-settings-20261024/global-weights.png"
+    },
+    "assets/city-weights.png": {
+      "sha256": "9a282fc53a13e81b1d2511f2a96ccc7d56adbf104b10f38efd8db8f3307798b9",
+      "bytes": 1466080,
+      "source": "capture-settings-20261024/city-weights.png"
+    },
+    "assets/city-project-after.png": {
+      "sha256": "f0d7f1ec40927c6a377eb6f75b7d8a04f7dfed43818c482a9cc9d3398c9cd9fa",
+      "bytes": 2743391,
+      "source": "capture-20261024/city-project-after.png"
+    },
+    "assets/treasure-triumph.png": {
+      "sha256": "012a8819ab46f4e4d4937d2663543563381ec3eb87f7a877a054e97ff0838e4b",
+      "bytes": 1701783,
+      "source": "capture-20261024/treasure-triumph.png"
+    },
+    "assets/religion-after.png": {
+      "sha256": "bfaa608c9e62c70ebe146b65a0a1144edcdc27b4114080e8aa8e64a717c03ebb",
+      "bytes": 2757584,
+      "source": "capture-20261024/religion-after.png"
+    },
+    "assets/technology-started-zh.png": {
+      "sha256": "bb808b74ea754520251313bf7023deaec50ca4a9b18ff5b487b73246a461ee3b",
+      "bytes": 16550555,
+      "source": "capture-followup-20261024/technology-started-zh.png"
+    },
+    "assets/research-after.png": {
+      "sha256": "dc339afe13d48bc80acd7c91207abed288f650b7e2546e2d7f01dc28704c079f",
+      "bytes": 3132979,
+      "source": "capture-20261024/research-after.png"
+    },
+    "assets/resources-after.png": {
+      "sha256": "bb490e333b729ab5425ef690beb64117561956c38db878d8f9504e8c449904aa",
+      "bytes": 1193240,
+      "source": "capture-20261024/resources-after.png"
+    },
+    "assets/military-arrived-en.png": {
+      "sha256": "5e7a8c71bf27a44adc8f6a17da0b775768fa2315db19636ec83e7b80272e53e6",
+      "bytes": 15842711,
+      "source": "capture-followup-20261024/military-arrived-en.png"
+    },
+    "assets/technology-started-en.png": {
+      "sha256": "7f2202ff9b15913df0d75d5b93d5508a09ed8f999d2369bbba612feaf9741ae4",
+      "bytes": 16496795,
+      "source": "capture-followup-20261024/technology-started-en.png"
+    },
+    "assets/bilibili-cover.png": {
+      "sha256": "24d45bf79bce0950d7ca254a9ac585f826c52e6ae14776b39ffb91dac87a9045",
+      "bytes": 1970889,
+      "sourceUrl": "https://i0.hdslb.com/bfs/new_dyn/2d130a2b3bf7077c05b1c9266fc8d84f7247306.png"
+    }
+  }
+}
