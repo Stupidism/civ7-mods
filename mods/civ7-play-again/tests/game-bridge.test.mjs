@@ -74,3 +74,16 @@ test('launcher handshake only supplies session token in idle shell and preserves
   b.request={id:'one',token,route:'/convert',data:{}};
   await bridge.poll();assert.equal(converted,1);bridge.stop();
 });
+
+test('shutdown drains an accepted conversion and does not send a late game response',async()=>{
+  let finish,started,delivered=0;
+  const entered=new Promise(resolve=>started=resolve);
+  const work=new Promise(resolve=>finish=resolve);
+  const state={request:{id:'active',token:'token',route:'/convert',data:{}},complete(){delivered++}};
+  const context=vm.createContext({__civ7PlayAgainBridge:state,UI:{isInShell:()=>true},Configuration:{getGame:()=>({isGameStarted:false})}});
+  const bridge=createGameBridge({convert:async()=>{started();await work;return {fileName:'complete.Civ7Cfg'}}},'token',code=>vm.runInContext(code,context));
+  const poll=bridge.poll();await entered;
+  const overlap=bridge.poll();let stopped=false;
+  const stop=bridge.stop().then(()=>stopped=true);await Promise.resolve();assert.equal(stopped,false);
+  finish();await Promise.all([poll,overlap,stop]);assert.equal(stopped,true);assert.equal(delivered,0);
+});

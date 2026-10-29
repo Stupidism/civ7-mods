@@ -12,7 +12,7 @@ export async function startLauncherService({ create = createLocalService, bridge
   catch (error) { service.server.close(); throw error; }
   console.log('Play Again helper ready; conversion requires an explicit idle-menu request.');
   return async () => {
-    stopBridge();
+    await stopBridge();
     await new Promise(resolve => { service.server.close(resolve); service.server.closeAllConnections(); });
   };
 }

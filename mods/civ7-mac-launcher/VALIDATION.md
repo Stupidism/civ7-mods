@@ -3,7 +3,7 @@
 Scope: isolated checkout; no game launch, UI/CDP access, installation changes, Workshop upload, or real Saves access.
 
 - User reported that the existing 0.2.0 DebugPanel app works through Steam Launch Options. This evidence belongs to the old app, not this extraction.
-- 140 Node tests pass (0 skipped): existing Play Again parser/import/UI fixtures plus launcher provider rollback, readiness failures, parent loss, session handshake and a real isolated supervisor subprocess SIGTERM/cleanup test.
+- 141 Node tests pass (0 skipped): existing Play Again parser/import/UI fixtures plus launcher provider rollback, readiness failures, parent loss, session handshake, draining an in-flight conversion on shutdown, and a real isolated supervisor subprocess SIGTERM/cleanup test.
 - Three native test executables pass: settings preservation/conflict refusal/CRLF/Steam paths; launch-option parsing and argument preservation/path refusal; ARM64 branch redirection and mismatch refusal.
 - Shared Cocoa launcher compiled for ARM64 with warnings enabled. Package construction validates bundled Node architecture/version/system-library dependencies and includes its license. Bundle signature integrity and file-hash manifests are checked during packaging; this is not notarization.
 - Readiness proves helper startup only. Play Again still uses its existing loopback Cohtml debugger bridge. No clean-install end-to-end save import, new launch flow, crash recovery, alternate Steam library, or cross-Mac acceptance is claimed by this PR.

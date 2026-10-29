@@ -28,9 +28,9 @@ async function evaluate(expression) {
 }
 
 export function createGameBridge(service, token, run = evaluate, { connect = false } = {}) {
-  let stopped = false, running = false;
+  let stopped = false, running = false, pending = Promise.resolve();
   const completed = new Map();
-  async function poll() {
+  async function perform() {
     if (stopped || running) return; running = true;
     try {
       if (connect) await run(`(()=>{const b=globalThis.__civ7PlayAgainBridge;if(b&&UI.isInShell()&&!Configuration.getGame().isGameStarted&&typeof b.connect==='function')b.connect(${JSON.stringify({token})});return true;})()`);
@@ -46,15 +46,19 @@ export function createGameBridge(service, token, run = evaluate, { connect = fal
         completed.set(request.id, response);
         if (completed.size > 128) completed.delete(completed.keys().next().value);
       }
+      if (stopped) return;
       await run(`(()=>{const b=globalThis.__civ7PlayAgainBridge;if(b&&UI.isInShell()&&!Configuration.getGame().isGameStarted)b.complete(${JSON.stringify(response)});return true;})()`);
     } catch { /* Game closed, debugger unavailable, or changing screen: wait. */ }
     finally { running = false; }
   }
-  return { poll, stop() { stopped = true; } };
+  return {
+    poll() { if (stopped || running) return pending; pending = perform(); return pending; },
+    stop() { stopped = true; return pending; },
+  };
 }
 
 export function startGameBridge(service, token, options = {}) {
   const bridge = createGameBridge(service, token, evaluate, options);
   const timer = setInterval(() => bridge.poll(), 1000);
-  return () => { bridge.stop(); clearInterval(timer); };
+  return async () => { clearInterval(timer); await bridge.stop(); };
 }
