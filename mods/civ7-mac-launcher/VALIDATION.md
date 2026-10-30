@@ -1,3 +1,7 @@
+# 0.2.0 registry and in-game input
+
+[Separate live report and screenshots](../../../docs/validation/better-mod-support-registry-20261030/README.md): fixed Steam executable, independent registration, preference persistence, in-game keyboard input and Return executing original `reveal all`, and 834-value registered save import passed. Full backup and restoration verified 405 baseline saves; T30 recovery retained. Exit code 11 and existing debugger-bridge dependency remain unresolved. Agent verification is not user acceptance.
+
 # 2026-10-30 — shared launcher validation
 
 Initial offline scope: isolated checkout. A separate authorized live round was completed afterward; see the live results below. No Workshop upload occurred.
@@ -23,6 +27,6 @@ clang++ -std=c++17 tools/civ7-native-debug-input/tests/patch-test.cpp -o /tmp/c7
 
 ## Subsequent live acceptance
 
-[Full report and screenshots](../../docs/validation/better-mod-support-20261030/README.md): Steam launch passed with the shared package; actual native input submitted `reveal all` and revealed 2912 → 4536/4536 plots; explicit Play Again import matched all 834 values and opened the stock setup editor after removing Fenhe's additional defaults for the test. With those defaults present, import was safely rejected. All original 401 saves and prior settings/install state were preserved/restored.
+[Full report and screenshots](../../../docs/validation/better-mod-support-20261030/README.md): Steam launch passed with the shared package; actual native input submitted `reveal all` and revealed 2912 → 4536/4536 plots; explicit Play Again import matched all 834 values and opened the stock setup editor after removing Fenhe's additional defaults for the test. With those defaults present, import was safely rejected. All original 401 saves and prior settings/install state were preserved/restored.
 
 Launcher/helper cleanup passed, but **both game exits returned code 11**. This remains unresolved and blocks claiming normal-exit acceptance. The full-save route still depends on the existing Cohtml bridge. Controlled missing-bridge and corrupt-bundle live cases, clean-machine delivery, direct start of the imported campaign and cross-Mac acceptance remain untested. The PR stays draft.

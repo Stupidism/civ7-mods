@@ -1,11 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Database>
-<EnglishText>
-<Row Tag="LOC_C7ML_NAME"><Text>Better Mod Support</Text></Row>
-<Row Tag="LOC_C7ML_DESCRIPTION"><Text>Start native mod components with Civilization VII through Steam Launch Options. One-time setup required; enabling this entry alone does not run the launcher. Read the bundled guide.</Text></Row>
-</EnglishText>
-<LocalizedText>
-<Row Tag="LOC_C7ML_NAME" Language="zh_Hans_CN"><Text>更好的Mod支持</Text></Row>
-<Row Tag="LOC_C7ML_DESCRIPTION" Language="zh_Hans_CN"><Text>通过 Steam 启动选项，让 Mod 的本机组件随文明7启动。需要一次设置；仅启用此条目不会运行启动器。详见随包说明。</Text></Row>
-</LocalizedText>
+  <EnglishText>
+    <Row Tag="LOC_C7ML_NAME">
+      <Text>Better Mod Support</Text>
+    </Row>
+    <Row Tag="LOC_C7ML_DESCRIPTION">
+      <Text>A shared host for registered enhanced mods. Configure once in Steam, then manage extensions in Options → Enhanced Mods.</Text>
+    </Row>
+    <Row Tag="LOC_BMS_TAB">
+      <Text>Enhanced Mods</Text>
+    </Row>
+    <Row Tag="LOC_BMS_TAB_DESCRIPTION">
+      <Text>Extensions register their own settings here. Confirm to apply; Cancel discards changes.</Text>
+    </Row>
+    <Row Tag="LOC_BMS_CONNECTION">
+      <Text>Support service</Text>
+    </Row>
+    <Row Tag="LOC_BMS_CONNECTION_DESCRIPTION">
+      <Text>Launch through the installed Better Mod Support entry. If disconnected, check the launcher and the game communication bridge.</Text>
+    </Row>
+    <Row Tag="LOC_BMS_STATE">
+      <Text>Status</Text>
+    </Row>
+    <Row Tag="LOC_BMS_STATE_DESCRIPTION">
+      <Text>Status of the registered local component. Enabling a component runs its installed auxiliary code on this Mac.</Text>
+    </Row>
+    <Row Tag="LOC_BMS_RUNNING">
+      <Text>Running</Text>
+    </Row>
+    <Row Tag="LOC_BMS_DISABLED">
+      <Text>Disabled</Text>
+    </Row>
+    <Row Tag="LOC_BMS_DISCONNECTED">
+      <Text>Not connected</Text>
+    </Row>
+    <Row Tag="LOC_BMS_CONNECTED">
+      <Text>Connected</Text>
+    </Row>
+    <Row Tag="LOC_BMS_ERROR">
+      <Text>Unavailable — check component logs</Text>
+    </Row>
+    <Row Tag="LOC_BMS_NOT_INSTALLED">
+      <Text>Component declaration not found</Text>
+    </Row>
+  </EnglishText>
+  <LocalizedText>
+    <Row Tag="LOC_C7ML_NAME" Language="zh_Hans_CN">
+      <Text>更好的Mod支持</Text>
+    </Row>
+    <Row Tag="LOC_C7ML_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>为注册的增强 Mod 提供通用支持。Steam 一次设置后，在选项 → 增强 Mod 中管理。</Text>
+    </Row>
+    <Row Tag="LOC_BMS_TAB" Language="zh_Hans_CN">
+      <Text>增强 Mod</Text>
+    </Row>
+    <Row Tag="LOC_BMS_TAB_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>增强 Mod 自行注册到此处。确认后应用，取消则放弃修改。</Text>
+    </Row>
+    <Row Tag="LOC_BMS_CONNECTION" Language="zh_Hans_CN">
+      <Text>支持服务</Text>
+    </Row>
+    <Row Tag="LOC_BMS_CONNECTION_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>请通过已安装的更好的Mod支持入口启动。若未连接，请检查启动器及游戏通信桥。</Text>
+    </Row>
+    <Row Tag="LOC_BMS_STATE" Language="zh_Hans_CN">
+      <Text>状态</Text>
+    </Row>
+    <Row Tag="LOC_BMS_STATE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>已注册本机组件的状态。启用组件将运行该 Mod 安装的辅助程序。</Text>
+    </Row>
+    <Row Tag="LOC_BMS_RUNNING" Language="zh_Hans_CN">
+      <Text>运行中</Text>
+    </Row>
+    <Row Tag="LOC_BMS_DISABLED" Language="zh_Hans_CN">
+      <Text>已停用</Text>
+    </Row>
+    <Row Tag="LOC_BMS_DISCONNECTED" Language="zh_Hans_CN">
+      <Text>未连接</Text>
+    </Row>
+    <Row Tag="LOC_BMS_CONNECTED" Language="zh_Hans_CN">
+      <Text>已连接</Text>
+    </Row>
+    <Row Tag="LOC_BMS_ERROR" Language="zh_Hans_CN">
+      <Text>不可用，请检查组件日志</Text>
+    </Row>
+    <Row Tag="LOC_BMS_NOT_INSTALLED" Language="zh_Hans_CN">
+      <Text>未找到组件注册文件</Text>
+    </Row>
+  </LocalizedText>
 </Database>

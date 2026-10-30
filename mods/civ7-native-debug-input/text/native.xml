@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_NDI_NAME">
+      <Text>DebugPanel input</Text>
+    </Row>
+    <Row Tag="LOC_NDI_DESCRIPTION">
+      <Text>Type commands inside the game and submit them to the original DebugPanel. Requires the supported Mac game build.</Text>
+    </Row>
+    <Row Tag="LOC_NDI_TITLE">
+      <Text>Original DebugPanel command</Text>
+    </Row>
+    <Row Tag="LOC_NDI_HINT">
+      <Text>Enter a command such as reveal all. The original DebugPanel owns execution, history and output. Close and reopen DebugPanel to show this input again.</Text>
+    </Row>
+    <Row Tag="LOC_NDI_RUN">
+      <Text>Run command</Text>
+    </Row>
+    <Row Tag="LOC_NDI_INVALID">
+      <Text>Enter 1–254 printable ASCII characters on one line.</Text>
+    </Row>
+    <Row Tag="LOC_NDI_PENDING">
+      <Text>Waiting for the original input…</Text>
+    </Row>
+    <Row Tag="LOC_NDI_SUBMITTED">
+      <Text>Submitted. Check the original DebugPanel output.</Text>
+    </Row>
+    <Row Tag="LOC_NDI_FAILED">
+      <Text>Not confirmed. Check the service and reopen DebugPanel before retrying.</Text>
+    </Row>
+  </EnglishText>
+  <LocalizedText>
+    <Row Tag="LOC_NDI_NAME" Language="zh_Hans_CN">
+      <Text>DebugPanel 输入</Text>
+    </Row>
+    <Row Tag="LOC_NDI_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在游戏内输入命令，交给原版 DebugPanel 执行。需要受支持的 Mac 游戏版本。</Text>
+    </Row>
+    <Row Tag="LOC_NDI_TITLE" Language="zh_Hans_CN">
+      <Text>原版 DebugPanel 命令</Text>
+    </Row>
+    <Row Tag="LOC_NDI_HINT" Language="zh_Hans_CN">
+      <Text>输入命令，例如 reveal all。执行、历史和输出由原版 DebugPanel 处理。关闭后重新打开 DebugPanel 可再次显示输入框。</Text>
+    </Row>
+    <Row Tag="LOC_NDI_RUN" Language="zh_Hans_CN">
+      <Text>执行命令</Text>
+    </Row>
+    <Row Tag="LOC_NDI_INVALID" Language="zh_Hans_CN">
+      <Text>请输入 1–254 个单行英文命令字符。</Text>
+    </Row>
+    <Row Tag="LOC_NDI_PENDING" Language="zh_Hans_CN">
+      <Text>等待原版输入框接收……</Text>
+    </Row>
+    <Row Tag="LOC_NDI_SUBMITTED" Language="zh_Hans_CN">
+      <Text>已提交，请查看原版 DebugPanel 输出。</Text>
+    </Row>
+    <Row Tag="LOC_NDI_FAILED" Language="zh_Hans_CN">
+      <Text>未确认提交，请检查支持服务并重新打开 DebugPanel 后再试。</Text>
+    </Row>
+  </LocalizedText>
+</Database>

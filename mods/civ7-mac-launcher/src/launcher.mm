@@ -23,6 +23,7 @@ static BOOL gameRunning() {
 
 @interface Launcher : NSObject <NSApplicationDelegate>
 @property NSDictionary *plan;
+@property BOOL registryMode;
 @property NSTask *helper;
 @property BOOL helperFailed;
 @property NSWindow *window;
@@ -126,6 +127,13 @@ static BOOL gameRunning() {
     NSURL *app = _plan[@"game"] ? [NSURL fileURLWithPath:((NSString *)_plan[@"game"]).stringByDeletingLastPathComponent.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent] : [self findGame]; if (!app) { [NSApp terminate:nil]; return; }
     NSString *exe = [app.path stringByAppendingPathComponent:@"Contents/MacOS/CivilizationVII"];
     NSString *bridge = [NSBundle.mainBundle.bundlePath stringByAppendingPathComponent:@"Contents/Frameworks/libCiv7NativeInput.dylib"];
+    _registryMode=[NSBundle.mainBundle.infoDictionary[@"RegistryMode"] boolValue];
+    if (_registryMode) {
+        NSMutableDictionary *automatic=[_plan mutableCopy];
+        automatic[@"playAgain"]=@([NSFileManager.defaultManager fileExistsAtPath:[NSBundle.mainBundle.resourcePath stringByAppendingPathComponent:@"node"]]);
+        automatic[@"native"]=@([C7Hash(exe) isEqualToString:ExpectedGame] && [NSFileManager.defaultManager fileExistsAtPath:bridge]);
+        _plan=automatic;
+    }
     if ([_plan[@"native"] boolValue] && ![C7Hash(exe) isEqualToString:ExpectedGame]) { [self fail:@"这个版本暂不兼容：需要 Steam Apple Silicon 版 1.5.0 (1311346)。没有启动游戏或更改设置。\nUnsupported game build. Requires Steam Apple Silicon 1.5.0 (1311346). No game or settings changes."]; return; }
     if ([_plan[@"native"] boolValue] && ![C7Hash(bridge) isEqualToString:[NSBundle.mainBundle objectForInfoDictionaryKey:@"BridgeSHA256"]]) { [self fail:@"启动器文件不完整，请重新解压。\nLauncher files are incomplete. Extract the package again."]; return; }
     if ([NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.valvesoftware.steam"].count == 0) {
@@ -151,6 +159,10 @@ static BOOL gameRunning() {
     _helper.arguments=@[[resources stringByAppendingPathComponent:@"supervisor.mjs"],_runFolder,[NSString stringWithFormat:@"%d",getpid()]];
     NSMutableDictionary *environment=[NSProcessInfo.processInfo.environment mutableCopy];
     for (NSString *key in @[@"NODE_OPTIONS",@"NODE_PATH",@"DYLD_INSERT_LIBRARIES"]) [environment removeObjectForKey:key];
+    if (_registryMode) {
+        environment[@"CIV7_EXTENSION_MODE"]=@"1";
+        environment[@"CIV7_NATIVE_AVAILABLE"]=[_plan[@"native"] boolValue] ? @"1" : @"0";
+    }
     _helper.environment=environment;
     NSString *output=[_runFolder stringByAppendingPathComponent:@"helpers.log"]; [NSData.data writeToFile:output atomically:YES];
     _helper.standardOutput=[NSFileHandle fileHandleForWritingAtPath:output]; _helper.standardError=_helper.standardOutput;
@@ -184,6 +196,7 @@ static BOOL gameRunning() {
     env[@"DYLD_INSERT_LIBRARIES"]=existing.length ? [existing stringByAppendingFormat:@":%@",bridge] : bridge;
     } env[@"SteamAppId"]=@"1295660"; env[@"SteamGameId"]=@"1295660";
     if ([_plan[@"native"] boolValue]) {
+    if (_registryMode) env[@"CIV7_ENHANCED_NATIVE_DIR"]=_runFolder;
     env[@"CIV7_NATIVE_INPUT_ENABLE"]=@"1"; env[@"CIV7_NATIVE_INPUT_LOG"]=[_runFolder stringByAppendingPathComponent:@"native-input.log"];
     }
     _game.arguments=_plan[@"arguments"];

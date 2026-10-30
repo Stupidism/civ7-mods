@@ -1,55 +1,44 @@
 # 更好的Mod支持 / Better Mod Support
 
-独立 Mod 项目，0.1.0-dev。把原来 DebugPanel 输入修复启动器中的 Steam 查找、参数传递、进程管理和设置恢复抽成共享实现。DebugPanel 输入修复仍是独立可选功能，不是其他辅助组件的前提。
+0.2.0-dev：一次配置启动，在游戏 **选项 → 增强 Mod** 中管理。增强 Mod 自行注册名称、开关、设置和辅助程序；框架不内置可用 Mod 名单。
 
-## 使用
+## 玩家使用
 
-构建包解压后，将 `civ7-mac-launcher` 放在 Mods 目录。包含“神图”组件的构建另有 `civ7-play-again`，安装并在游戏中启用它。已有版本不要同时安装两份。启动器的 `.modinfo` 仅提供说明；仅订阅或启用条目不能自动运行本机程序。
-
-Steam → 文明7 → 属性 → 通用 → 启动选项，一次填写：
+退出游戏后，解压包并双击 `Install.command`。安装器保留旧版本备份，将启动入口放到固定英文目录；输出一行可复制的 Steam 启动选项。在 Steam → 文明VII → 属性 → 通用填写一次：
 
 ```text
-"实际路径/civ7-mac-launcher/Civ7 Mod Launcher.app/Contents/MacOS/Civ7ModLauncher" --native-input --play-again %command%
+"/Users/你的账户/Library/Application Support/BetterModSupport/Current/civ7-mac-launcher/Civ7 Mod Launcher.app/Contents/MacOS/Civ7ModLauncher" %command%
 ```
 
-将“实际路径”替换为本机解压位置。工坊发布后也可用工坊下载目录中的相同可执行文件；本独立条目尚未发布，没有新的工坊 ID。可只保留一个功能参数，或都不选。参数必须放在 `%command%` 前；游戏自身的参数放在它后。以后直接点 Steam 的“开始游戏”，不再另开辅助软件。删除启动选项即可恢复普通启动。
+请直接复制安装器按本机账户生成的路径，不要照抄上面的账户占位符。当前账户 `sunmer` 的完整路径不含中文。以后更新版本或启停增强 Mod 都无需改参数，也无需单独打开辅助软件。旧 `--native-input` / `--play-again` 不再是新版的功能开关。
 
-- `--native-input`：需要包含输入修复的构建。仍使用原版 DebugPanel 命令处理器，不逐条映射命令。仅支持已验证 SHA-256 的 Steam Apple Silicon 1.5.0 (1311346)。临时开启 DebugPanel，游戏退出后恢复自己改过的那一行。
-- `--play-again`：需要包含存档组件和 Node 的构建。自动启动“你的神图很好，现在是我的了”的辅助服务，游戏退出时一起停止。运行库在包内，玩家无需另装 Node / Python / Xcode。首次启动不转换存档、不写连接令牌到安装目录、不编译 OCR。
-- 双击 app 不带参数时只启动游戏；原 DebugPanel 专用 app 保留默认启用输入修复的行为。
+在游戏附加内容里启用框架和依赖它的 Mod，然后进入 **选项 → 增强 Mod**。组件默认关闭，点确认后运行，取消会放弃修改；其他 Mod 也可注册自己的开关和下拉设置。启动状态在同一页显示。启用本机组件会运行该 Mod 安装的辅助代码。
 
-**“神图”的边界：** 此 PR 解决辅助组件的随游戏启动与结束，提供内存中会话令牌握手。当前存档导入仍复用该 Mod 既有的本机 Cohtml 调试桥（127.0.0.1:9444）；启动器没有擅自修改游戏调试配置，也不自动开放端口。干净环境若未启用该通信通道，完整存档导入仍不可用。纯文字/C7S2 导入不受影响。无调试端口的原生文件通信路线尚待开发；不能把本 PR 称为完整恢复任意存档或订阅即全自动可用。
+- DebugPanel 输入是独立注册者：启用后，打开原版 DebugPanel，点击游戏内文本框，逐键输入命令，回车或点击执行。原版仍负责执行、历史和输出。新的注册式启动不创建 macOS 输入窗口。
+- “神图是我的”也是注册者：在选项中启用存档转换服务。纯配置文字不需要运行此服务。
+- 安装其他注册 Mod 后重启游戏即可发现，不修改框架或启动参数。卸载/关闭组件后框架停止其服务。
 
-## 平台与验证
+## 当前边界
 
-- 构建目标：Apple Silicon Mac，Steam Civilization VII。Intel、Windows、Linux 未实现。
-- 仅启动器/输入修复构建最低系统声明为 macOS 11；包含 Node 的包保守声明 macOS 14。实际支持须以所捆绑 Node 与游戏自身要求的交集为准；没有跨系统实测。
-- 2026-10-30 用户确认旧 0.2.0 输入修复启动器通过 Steam 启动选项可用。这是拆分前的实测，不能代替本版验收。
-- 2026-10-30 新版已在本机通过 Steam 启动、原版 `reveal all`（2912 → 4536 格）以及匹配 Mod 环境下的存档导入（834 项核对一致）。额外启用《分合》会因新增字段被安全拒绝；退出时辅助进程已清理，但游戏退出码 `11` 仍待排查。存档及测试前安装、设置已恢复。
-- app 是 ad-hoc 签名，未 Developer ID 公证。不能承诺首次互联网下载在所有 Mac 上无 Gatekeeper 提示。
-- 尚未更新既有公开工坊条目。验收记录见 [VALIDATION.md](VALIDATION.md)。
+Apple Silicon / Steam 开发版本。包含 Node 的包要求 macOS 14 或更高；原生输入补丁只接受已核验的 1.5.0 (1311346) 游戏二进制。其他版本仍可运行普通注册组件，但原生输入组件会报告不可用。
 
-## 构建
+目前游戏 UI 与辅助服务依赖既有 Cohtml 本机调试桥（127.0.0.1:9444）。启动器不自动启用调试端口；没有该通道时会显示未连接。因此尚不能承诺全新环境“订阅即用”。app 使用 ad-hoc 签名，未 Developer ID 公证。
 
-开发者需要 Apple Command Line Tools 和 Python 3；这些不是玩家依赖：
+本版已完成代理实测：独立注册、设置跨重启保留、游戏内键盘输入并回车执行 `reveal all`、存档导入 834 项核对一致。尚未获用户验收；粘贴、输入法和实体手柄未验收。游戏退出码 11 仍是待排查项。参见 [VALIDATION.md](VALIDATION.md)。未发布新工坊条目。
+
+## 开发者
+
+[注册协议及完整示例](EXTENSIONS.md)。包可携带任意声明式扩展，不需要修改构建器里的功能名单：
 
 ```sh
-python3 mods/civ7-mac-launcher/package.py /tmp/c7-launcher-build --native-input \
-  --node /path/to/official-node-arm64/bin/node --node-license /path/to/official-node-arm64/LICENSE
+python3 mods/civ7-mac-launcher/package.py /tmp/bms-build --native-input \
+  --node /path/to/official-arm64-node --node-license /path/to/LICENSE \
+  --extension-dir mods/civ7-native-debug-input \
+  --extension-dir mods/civ7-play-again
 ```
 
-不传 `--node` 则不捆绑“神图”；不传 `--native-input` 则不捆绑原生输入库。只接受 ARM64 Node 22+、系统动态库依赖及明确提供的 Node LICENSE，不下载或依赖开发机缓存。输出 ZIP 同时携带文件大小/哈希清单、组件许可证和执行权限。Node 的体积使组合包明显大于旧输入修复包。
+`--native-input` 在这里是构建时携带原生桥，不是玩家日常启动参数。`--extension-dir` 可重复指定任意符合协议的 Mod。没有 Node 的构建仅用于旧启动器兼容/编译检查，不提供注册式辅助服务。
 
-## 给其他 Mod 开发者
+## English
 
-公共 Cocoa 启动器在 `src/`；`runtime/supervisor-core.mjs` 管理辅助组件生命周期，`providers.mjs` 读取构建时放入已校验包内的 `providers.json`。组件模块导出 `async startLauncherService()`，完成准备后返回异步关闭函数；启动失败会逆序关闭已经启动的组件。构建器必须一起打包依赖和许可证，把所有运行资源纳入 `helper-manifest.json`。
-
-当前 `--play-again` 是第一个辅助组件组合；后续增加组合需要显式打包与启动选项，不能靠订阅目录扫描执行任意脚本。宿主关闭、启动失败、正常退出均负责清理。该接口只负责进程启动，游戏通信 API 由各 Mod 自己实现。
-
-保留旧 `Civ7 Native Debug Input` 内部数据目录用于单实例锁与未完成设置恢复日志兼容。全新运行日志按 UUID 隔离。设置冲突拒绝覆盖；备份保留供排查。
-
-## English quick start
-
-Extract the build, install its mod folders, then set Steam Launch Options to the quoted absolute path to `Civ7ModLauncher`, followed by `--native-input` and/or `--play-again`, then `%command%`. Launch through Steam thereafter. Providers must be included in that build. No separate runtime installation is needed by players.
-
-The Play Again provider starts automatically, but full save import still requires its existing localhost Cohtml debugger bridge. This launcher does not enable that debugger. The split was live-tested on macOS 27.0.1: Steam startup, native reveal all and 834-value save import passed in a matching mod environment. Extra Fenhe configuration fields are rejected. Helper cleanup passed, but game exit code 11 remains unresolved. Apple Silicon only; no Intel or non-Mac claim, no notarization, no new Workshop release.
+Run `Install.command` once with the game closed. Copy its generated fixed Steam launch option, ending in `%command%`. Subsequent releases use the same entry path. Manage independently registered components in **Options → Enhanced Mods**, using native Confirm/Cancel. New components are off by default. Installed native helpers are trusted code; enabling one runs its auxiliary service. The existing Cohtml communication channel is still required. The new registry, keyboard entry/Return and registered save import passed an agent-run live test; user acceptance, paste/IME, physical controllers and clean-machine delivery remain pending. Game exit code 11 remains unresolved.

@@ -1,3 +1,4 @@
+import {enhancedRequest} from './enhanced-registration.js';
 import { FocusManager } from '/core/ui-next/services/focus-manager.js';
 import { bindDialogNavigation } from './dialog-navigation.js';
 import { ContextManager } from '/core/ui/context-manager/context-manager.js';
@@ -9,35 +10,18 @@ import DialogBoxManager from '/core/ui/dialog-box/manager-dialog-box.js';
 import SaveLoadData, { QueryDoneEventName } from '/core/ui/save-load/model-save-load.js';
 import { captureConfiguration } from './configuration-snapshot.js';
 import { compareImportedConfiguration } from './compare-imported.js';
-import { connection as installedConnection } from './local-connection.js';
 import { requirementsFromSave, checkContent, renderContentReport } from './content-requirements.js';
 import { screenshotCatalog, parseSingleImport, applyScreenshot, setScreenshotPlayerCount } from './screenshot-settings.js';
 import { isSetupCode, parseSetupCode } from './setup-code.js';
 import { createSetupCodeAdapter } from './setup-code-game.js';
 
 const runtime = { UI, Configuration, Database };
-let connection = installedConnection;
 let busy = false, unresolvedLoad = false, showHubNext = false, earlyLoadPending = false;
 let modal, lastStatus = { phase: 'idle' };
-let pendingBridge;
 let contentView;
 let pasteInput;
 let dialogSerial = 0;
 const dialogViews = new Map();
-globalThis.__civ7PlayAgainBridge = {
-  request: null,
-  connect(value) {
-    if (!UI.isInShell() || Configuration.getGame().isGameStarted || pendingBridge || !/^[a-f0-9]{64}$/.test(value?.token ?? '')) return;
-    connection = { token: value.token };
-  },
-  complete(response) {
-    if (!pendingBridge || response.token !== connection?.token || response.id !== pendingBridge.id) return;
-    const pending = pendingBridge; pendingBridge = undefined;
-    this.request = null; clearTimeout(pending.timer);
-    if (response.error) { const error = new Error(response.error); error.content = response.content; pending.reject(error); }
-    else pending.resolve(response.result);
-  },
-};
 const idleShell = () => UI.isInShell() && !Configuration.getGame().isGameStarted;
 const requireShell = () => { if (!idleShell()) throw new Error('请回到主菜单后使用此功能'); };
 export const getPlayAgainStatus = () => lastStatus;
@@ -120,19 +104,6 @@ function checkAfterFailure(error, selected) {
 function selectedSource(selected) {
   return { fileName: selected.fileName, locationCategories: selected.locationCategories, contentType: selected.contentType };
 }
-function service(route, data) {
-  if (!connection) return Promise.reject(new Error('请通过 更好的Mod支持启用 --play-again 后启动游戏。 / Launch with --play-again enabled.'));
-  return new Promise((resolve, reject) => {
-    if (pendingBridge) { reject(new Error('上一次转换仍在进行')); return; }
-    const id = Date.now().toString(36) + '-' + Math.random().toString(36).slice(2);
-    const timer = setTimeout(() => {
-      pendingBridge = undefined; globalThis.__civ7PlayAgainBridge.request = null;
-      reject(new Error('未连接到存档工具，请检查启动记录和游戏通信设置。 / Save helper unavailable. Check launcher logs and game bridge settings.'));
-    }, route === '/ocr/clipboard' ? 60000 : 20000);
-    pendingBridge = { id, timer, resolve, reject };
-    globalThis.__civ7PlayAgainBridge.request = { id, route, data, token: connection.token };
-  });
-}
 function findConfig(fileName) {
   return new Promise((resolve, reject) => {
     let queryId;
@@ -195,6 +166,8 @@ function openHub() {
   ContextManager.push('create-game-sp', { singleton: true, createMouseGuard: true, attributes: { shouldDarken: false } });
   Network.setMainMenuInviteReady(false);
 }
+function service(route, data) { return enhancedRequest(route, data); }
+
 async function handleSave(control) {
   if (busy || !idleShell() || control.currentPanelOperation !== 0) return;
   const selected = control.getSelectedSaveGameInfo();

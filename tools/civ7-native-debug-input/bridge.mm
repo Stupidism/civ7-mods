@@ -107,15 +107,45 @@ static CivNativeInput *controller;
 }
 @end
 
+// Shared-launcher mode has no Cocoa input window. A private, per-run file
+// mailbox is fed by the registered in-game UI through the framework host.
+static NSString *enhancedFolder;
+static double lastStatusWrite=0, lastRequestRead=0;
+static void writeMailbox(NSString *name, NSDictionary *value) {
+    NSData *data=[NSJSONSerialization dataWithJSONObject:value options:0 error:nullptr];
+    [data writeToFile:[enhancedFolder stringByAppendingPathComponent:name] atomically:YES];
+}
+static std::string enhancedCommand(double t) {
+    if (t-lastStatusWrite>0.25) { lastStatusWrite=t; writeMailbox(@"native-status.json",@{@"time":@(NSDate.date.timeIntervalSince1970)}); }
+    if (t-lastRequestRead<0.05) return {}; lastRequestRead=t;
+    NSString *file=[enhancedFolder stringByAppendingPathComponent:@"native-request.json"];
+    NSData *data=[NSData dataWithContentsOfFile:file];
+    if (!data) return {};
+    [NSFileManager.defaultManager removeItemAtPath:file error:nullptr];
+    if (data.length>2048) return {};
+    NSDictionary *r=[NSJSONSerialization JSONObjectWithData:data options:0 error:nullptr];
+    if (![r isKindOfClass:NSDictionary.class] || ![r[@"id"] isKindOfClass:NSString.class] ||
+        ![[NSUUID alloc] initWithUUIDString:r[@"id"]]) return {};
+    NSString *command=r[@"command"]; NSNumber *timestamp=r[@"time"];
+    if (![command isKindOfClass:NSString.class] || ![timestamp isKindOfClass:NSNumber.class]) return {};
+    double age=NSDate.date.timeIntervalSince1970-timestamp.doubleValue;
+    NSData *bytes=[command dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:NO];
+    BOOL valid=bytes && bytes.length>=1 && bytes.length<=254 && age>=0 && age<2.0;
+    for (NSUInteger i=0;valid && i<bytes.length;i++) { unsigned char c=((const unsigned char *)bytes.bytes)[i]; if(c<32||c>126)valid=NO; }
+    if (!valid) { writeMailbox(@"native-result.json",@{@"id":r[@"id"],@"error":@"invalid-or-expired-command"}); return {}; }
+    writeMailbox(@"native-result.json",@{@"id":r[@"id"],@"submitted":@YES});
+    return std::string((const char *)bytes.bytes,bytes.length);
+}
+
 static bool replacementInput(const char *label, char *buffer, size_t size, int flags, void *callback, void *user) {
     bool result = originalInput(label, buffer, size, flags, callback, user);
     if (buffer != nativeBuffer || size != 512 || strcmp(label, "##Input")) return result;
     double t = now(); double previous = lastDraw.exchange(t);
-    if (!uiScheduled.exchange(true)) dispatch_async(dispatch_get_main_queue(), ^{ controller = [[CivNativeInput alloc] init]; });
-    else if (t - previous > 2.0) dispatch_async(dispatch_get_main_queue(), ^{
+    if (!enhancedFolder && !uiScheduled.exchange(true)) dispatch_async(dispatch_get_main_queue(), ^{ controller = [[CivNativeInput alloc] init]; });
+    else if (!enhancedFolder && t - previous > 2.0) dispatch_async(dispatch_get_main_queue(), ^{
         [controller.panel makeKeyAndOrderFront:nil]; [controller.panel makeFirstResponder:controller.field];
     });
-    std::string command;
+    std::string command=enhancedFolder ? enhancedCommand(t) : std::string();
     { std::lock_guard<std::mutex> guard(queueMutex);
       if (!pending.empty() && t - pendingAt <= 2.0) command.swap(pending);
     }
@@ -142,6 +172,12 @@ __attribute__((constructor)) static void install() {
         for (unsigned char byte : digest) [hex appendFormat:@"%02x", byte];
         if (![hex isEqualToString:@"55642f4d349a617242e5610d3458341b7af254a9eecb4eb2955d0cbc097c5ac7"]) {
             logLine(@"refused: binary hash mismatch"); return;
+        }
+        const char *folder=getenv("CIV7_ENHANCED_NATIVE_DIR");
+        if (folder) {
+            NSString *candidate=[NSString stringWithUTF8String:folder]; BOOL directory=NO;
+            if (!candidate.isAbsolutePath || ![NSFileManager.defaultManager fileExistsAtPath:candidate isDirectory:&directory] || !directory) { logLine(@"refused: invalid enhanced session"); return; }
+            enhancedFolder=candidate;
         }
         intptr_t slide = _dyld_get_image_vmaddr_slide(index);
         originalInput = reinterpret_cast<Input>(0x10198f090 + slide);

@@ -57,7 +57,11 @@ function harness({ mismatch = false, loadResult = 0, content, nativeMods = [], m
     enabledMods: (content?.requirements ?? []).map(m => ({ ID: m.id, version: m.version, title: m.name })),
     requiredMods: (content?.requirements ?? []).filter(m => m.required).map(m => ({ ID: m.id, version: m.version, title: m.name })) };
   const control = { Root: new Element(), actionButtonsContainer: new Element(), currentPanelOperation: 0, getSelectedSaveGameInfo: () => save, updateLoadButton() {} };
+  let resolveRequest;
+  const bridge = {request:null,complete(response){const resolve=resolveRequest;this.request=null;resolve(response.result);}};
+  const enhancedRequest=(route,data)=>new Promise(resolve=>{resolveRequest=resolve;bridge.request={id:'fixture-request',route,data};});
   const context = vm.createContext({
+    enhancedRequest,
     UI: { isInShell: () => state.shell }, Configuration: { getGame: () => ({ isGameStarted: state.started }), getMap: () => ({ maxMajorPlayers: 8 }), getPlayer: id => ({ slotStatus: state.players[id].status }),
       editPlayer: id => ({ setSlotStatus: value => { state.players[id].status = value; }, setAsMajorCiv() {} }) }, Database: {},
     installedConnection: { token: 'private' }, captureConfiguration: () => actual, compareImportedConfiguration,
@@ -111,7 +115,6 @@ function harness({ mismatch = false, loadResult = 0, content, nativeMods = [], m
   const adapter = context.testAdapter;
   async function importSave() {
     const pending = adapter.handleSave(control);
-    const bridge = context.__civ7PlayAgainBridge;
     bridge.complete({ token: 'private', id: bridge.request.id, result: { expected, fileName: 'new.Civ7Cfg', sourceName: 'test' } });
     for (let i = 0; i < 30; i++) {
       await Promise.resolve();
@@ -125,7 +128,7 @@ function harness({ mismatch = false, loadResult = 0, content, nativeMods = [], m
   function flushActions(delay = 0) {
     for (const [id, timer] of timers) if (timer.delay === delay) { timers.delete(id); timer.fn(); }
   }
-  return { state, adapter, control, importSave, flushActions, events, bridge: context.__civ7PlayAgainBridge };
+  return { state, adapter, control, importSave, flushActions, events, bridge };
 }
 
 test('shipped one-click adapter verifies settings and starts only once after an explicit choice', async () => {
