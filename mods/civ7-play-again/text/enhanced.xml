@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_PA_ENHANCED_NAME">
+      <Text>Play Again — save import</Text>
+    </Row>
+    <Row Tag="LOC_PA_ENHANCED_DESCRIPTION">
+      <Text>Enable the local save converter. Conversion occurs only when you choose a save to import; text setup codes do not need this service.</Text>
+    </Row>
+  </EnglishText>
+  <LocalizedText>
+    <Row Tag="LOC_PA_ENHANCED_NAME" Language="zh_Hans_CN">
+      <Text>神图是我的 · 存档导入</Text>
+    </Row>
+    <Row Tag="LOC_PA_ENHANCED_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用本机存档转换服务。仅在你选择存档导入时转换；配置文字功能不依赖此服务。</Text>
+    </Row>
+  </LocalizedText>
+</Database>

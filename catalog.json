@@ -65,6 +65,39 @@
         "zh_Hans_CN": "微操大师常凯申",
         "en_US": "Micromanagement Master Chiang Kai-shek"
       }
+    },
+    {
+      "id": "civ7-mac-launcher",
+      "version": "0.2.0-dev",
+      "manifest": "mods/civ7-mac-launcher/launcher.modinfo",
+      "dependencies": [
+        "base-standard"
+      ],
+      "name": {
+        "zh_Hans_CN": "更好的Mod支持",
+        "en_US": "Better Mod Support"
+      }
+    },
+    {
+      "id": "civ7-play-again",
+      "version": "0.4.0-dev",
+      "manifest": "mods/civ7-play-again/play-again.modinfo",
+      "dependencies": [
+        "base-standard",
+        "civ7-mac-launcher"
+      ]
+    },
+    {
+      "id": "civ7-native-debug-input",
+      "version": "0.4.0-dev",
+      "manifest": "mods/civ7-native-debug-input/native-debug-input.modinfo",
+      "dependencies": [
+        "civ7-mac-launcher"
+      ],
+      "name": {
+        "zh_Hans_CN": "DebugPanel 输入",
+        "en_US": "DebugPanel input"
+      }
     }
   ]
 }

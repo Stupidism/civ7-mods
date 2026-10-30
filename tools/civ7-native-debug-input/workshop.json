@@ -1,0 +1,59 @@
+{
+  "itemId": "3829280398",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3829280398",
+  "title": "Mac DebugPanel 输入修复 / Native Input Launcher",
+  "version": "0.2.0",
+  "visibility": "public",
+  "verifiedAt": "2026-10-29T08:15:07.858421+00:00",
+  "ownerAccountVerified": true,
+  "anonymousSteamApiVerified": true,
+  "anonymousTitleDescriptionMatch": true,
+  "webPageCheck": "Steam HTTP 429; public visibility independently verified by unauthenticated Steam API",
+  "previewSha256": "c9c5d8a3942c60a2066e4f2cb77b8e8c9c1014d02ea477dc374f97308d1873eb",
+  "descriptionSha256": "b91bc7697444677004fb6de7cd7a181d64ab9c7a30107ea5410c85adf0262798",
+  "downloadFilesVerified": {
+    "native-debug-input.modinfo": {
+      "size": 665,
+      "sha256": "bf90986f41d80fe631378fb86737290f654174151c3180e7e222e0d36076b43a"
+    },
+    "VALIDATION.txt": {
+      "size": 2435,
+      "sha256": "2917e137c69f04015add503f17acdb9e3992880d03e804f700d47d9e6e26fa9b"
+    },
+    "manifest.json": {
+      "size": 1542,
+      "sha256": "06ffb8bde225ec754eeb854a90aa841a8da30c62716f8b00e6b71e7266fce1d9"
+    },
+    "使用说明 Read Me.txt": {
+      "size": 4397,
+      "sha256": "6bfb9230ab1ba78f571a9b0a1d9d8d803e29ca1c2b373e5c22ff8a1adf738042"
+    },
+    "启动文明7（输入修复）.app/Contents/Info.plist": {
+      "size": 867,
+      "sha256": "2bb22eb3abd20b3b5ebe1b10f19a028ca736d3b2da8308a3ae1881868d32be08"
+    },
+    "启动文明7（输入修复）.app/Contents/_CodeSignature/CodeResources": {
+      "size": 2447,
+      "sha256": "29715b9a3fb52bdd5f80749144231997bd5c0616e5cce0354cc073c78c49b59b"
+    },
+    "启动文明7（输入修复）.app/Contents/MacOS/Civ7InputLauncher": {
+      "size": 99328,
+      "sha256": "7e53516c4693cb2773f2d7e928d054bea6b88d62e9ff091d88eb7c9beaeb3203"
+    },
+    "启动文明7（输入修复）.app/Contents/Frameworks/libCiv7NativeInput.dylib": {
+      "size": 77520,
+      "sha256": "6205b81a5ec9004bafe1dc1a7d081e3278cae4696d7b2fd999e762d68c2c9dd4"
+    },
+    "text/launcher.xml": {
+      "size": 683,
+      "sha256": "3c072a65e9effee3b75fe7c4c2b9ea3126562b64fd4bffb25406d27dc3b3684b"
+    }
+  },
+  "downloadExecutableMode": "0o755",
+  "appBytesUnchangedFromLiveTests": true,
+  "gameInteractionThisPublication": false,
+  "savesOrRestGuardChangedThisPublication": false,
+  "archive": "/Users/sunmer/Documents/civ7-mods/dist/civ7-native-debug-input/0.2.0-public/civ7-native-debug-input-0.2.0-macos-arm64.zip",
+  "archiveSha256": "9214893eef6eb3e4becac5298e916b641425d2f2899b54f748c0d7d2e916d172",
+  "evidenceDirectory": "/Users/sunmer/Documents/civ7-mods/work/native-launcher-public-20261029"
+}

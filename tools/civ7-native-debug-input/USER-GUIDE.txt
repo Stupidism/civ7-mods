@@ -1,0 +1,56 @@
+文明7 · Mac 原版调试输入修复 0.2.0
+
+使用
+1. 退出正在运行的文明7，确认 Steam 已登录。
+2. 双击“启动文明7（输入修复）.app”。
+3. 进入游戏后按键盘左上角的反引号键（通常在 Esc 下方）。
+4. 在弹出的 Mac 小输入框输入 reveal all 等原版命令，按 Return。
+5. 原版 Output 显示输入回显；命令是否生效以游戏结果为准。
+6. 退出时先关闭小输入窗，再确认游戏的退出提示。
+
+无需复制到 Mods，无需终端、Python、Node 或 Xcode。游戏位于其他 Steam 库时会自动查找；找不到时请选择 CivilizationVII.app。
+以后需要修复时从这个启动器进入。直接点击 Steam 的“开始游戏”不会加载本修复。
+
+兼容范围
+仅支持 Steam / Apple Silicon（M 系列）/ 文明7 1.5.0 (1311346) 的已校验程序版本。
+不兼容版本会停止启动，不能靠更改版本文字强行启用。Intel、Mac App Store、Windows、多人及其他游戏版本未支持或未验收。
+建议使用 ABC 输入法；命令限 1–254 个可打印 ASCII 字符。
+这不是命令映射表：输入交给原版 DebugPanel 执行。并非所有原版按钮都有文本命令，也并非所有命令都经过逐项测试。
+小输入窗暂未嵌入原版蓝色输入栏，暂不提供自己的上下键历史导航。
+
+文件及设置
+不修改游戏程序、签名、Steam 启动参数或存档。命令本身可能改变当前游戏并随存档保留。
+若调试面板原本关闭，启动器仅暂时启用 EnableDebugPanels；正常退出后恢复该行，保留其他设置。
+启动记录和设置备份在：
+~/Library/Application Support/Civ7 Native Debug Input/
+如果启动器意外结束，先退出游戏，再次打开启动器可尝试恢复该项设置。
+删除本下载目录即可停止使用；日志目录可以自行保留或移除。
+
+首次从互联网下载
+当前包为本地 ad-hoc 签名，未获得 Apple Developer ID 签名和公证。
+其他 Mac 首次打开可能被 Gatekeeper 拦截，不能保证“零提示”。
+若确认包来自可信来源，可按 Apple 官方说明在系统设置 → 隐私与安全中确认打开：
+https://support.apple.com/102445
+启动器不会关闭系统安全保护，也不会自动清除下载隔离标记。
+
+Steam 工坊
+工坊可作为文件下载渠道；订阅不会自动加载这个原生模块。
+本机已实测：订阅后打开工坊下载目录，双击同一个 .app 即可。
+工坊条目：3829280398。订阅后等待 Steam 下载完成，在 Finder 按 Command + Shift + G，粘贴以下默认目录并回车：
+~/Library/Application Support/Steam/steamapps/workshop/content/1295660/3829280398/
+如果游戏位于其他 Steam 库：在 Steam 右键文明 VII → 管理 → 浏览本地文件，从游戏文件夹向上返回两级到 steamapps，然后打开 workshop/content/1295660/3829280398。找不到时请先检查下载是否完成及游戏库位置。
+每次需要修复时均从此 .app 启动；不用在游戏附加内容里启用此说明条目。
+
+English
+Quit Civilization VII and sign into Steam. Double-click the bundled app.
+Press the backtick key in game, then type a native command such as reveal all and press Return.
+Use this launcher each time you want the input fix. Launching from Steam normally does not load it.
+Steam Apple Silicon build 1.5.0 (1311346) only. Unknown builds are refused.
+No Python, Node, Xcode or terminal commands are required.
+The original DebugPanel handles commands and output. The small Mac input window is separate.
+Close the input window before confirming game exit.
+The launcher temporarily enables EnableDebugPanels if needed and restores that setting after exit.
+Downloaded copies are not Developer ID signed/notarized and may require one-time approval in macOS Privacy & Security.
+Workshop subscription is a file-delivery channel, not automatic native-module loading.
+
+Find the Workshop folder: in Finder press Command + Shift + G and paste ~/Library/Application Support/Steam/steamapps/workshop/content/1295660/3829280398/ . For another Steam library, use Steam → Civilization VII → Manage → Browse local files, go up twice to steamapps, then open workshop/content/1295660/3829280398. Wait for the subscription download to finish first. Double-click 启动文明7（输入修复）.app; Finder may hide .app.

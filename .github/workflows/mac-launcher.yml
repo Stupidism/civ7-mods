@@ -1,0 +1,30 @@
+name: Mac launcher
+on:
+  pull_request:
+    paths:
+      - 'mods/civ7-mac-launcher/**'
+      - 'mods/civ7-play-again/**'
+      - 'tools/civ7-native-debug-input/**'
+      - '.github/workflows/mac-launcher.yml'
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test mods/civ7-mac-launcher/tests/*.test.mjs mods/civ7-play-again/tests/*.test.mjs
+      - name: Native logic and ARM64 package (does not launch game)
+        shell: bash
+        run: |
+          set -euo pipefail
+          clang++ -std=c++17 -fobjc-arc -framework Foundation mods/civ7-mac-launcher/tests/core.mm -o "$RUNNER_TEMP/c7-core"
+          "$RUNNER_TEMP/c7-core"
+          clang++ -std=c++17 -fobjc-arc -framework Foundation mods/civ7-mac-launcher/tests/plan.mm -o "$RUNNER_TEMP/c7-plan"
+          "$RUNNER_TEMP/c7-plan"
+          clang++ -std=c++17 tools/civ7-native-debug-input/tests/patch-test.cpp -o "$RUNNER_TEMP/c7-patch"
+          "$RUNNER_TEMP/c7-patch"
+          python3 mods/civ7-mac-launcher/package.py "$RUNNER_TEMP/c7-package" --native-input

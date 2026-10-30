@@ -1,0 +1,61 @@
+[h1]Mac 原版 DebugPanel 输入修复[/h1]
+Mac 上能打开调试面板，却打不了命令？这个启动器提供一个能正常输入的 Mac 小窗口，把命令交回原版 DebugPanel。命令解析、历史记录和执行仍由游戏处理，无需为每条命令单独适配。本机已实测输入并执行 reveal all。
+
+[b]这是需要双击运行的 Mac 启动器。订阅只下载文件；在游戏“附加内容”里启用条目不会自动加载修复。[/b]
+
+[h2]支持范围[/h2]
+[list]
+[*]Steam 版《文明 VII》，游戏版本 [b]1.5.0 (1311346)[/b]，已核验的 ARM64 程序。
+[*][b]Apple Silicon：M 系列芯片的 Mac[/b]。在苹果菜单 → 关于本机查看芯片；Intel Mac 不支持。
+[*]启动器版本 0.2.0。游戏更新后，若程序校验不匹配，启动器会停止，请等待适配版本。
+[*]Mac App Store 版、Windows、Intel 和其他游戏版本不支持。仅验证单人游戏；多人游戏未验证。
+[/list]
+
+[h2]订阅后怎么找到文件夹[/h2]
+[olist]
+[*]点击“订阅”，打开 Steam 并等待工坊下载完成。
+[*]打开 Finder（访达），按 [b]Command + Shift + G[/b]，粘贴以下路径并回车：
+[/olist]
+[code]~/Library/Application Support/Steam/steamapps/workshop/content/1295660/3829280398/[/code]
+这是默认 Steam 库的位置。若提示找不到文件夹，先检查下载是否完成；如果游戏装在其他磁盘，请在 Steam 库中右键《文明 VII》→ 管理 → 浏览本地文件，从游戏文件夹向上返回两级到 steamapps，再打开 [b]workshop → content → 1295660 → 3829280398[/b]。
+
+[h2]双击启动与输入命令[/h2]
+[olist]
+[*]先退出正在运行的《文明 VII》，保持 Steam 已登录并运行。
+[*]在上述文件夹中双击 [b]“启动文明7（输入修复）.app”[/b]。Finder 可能隐藏 .app 后缀。
+[*]启动器会寻找 Steam 游戏；若找不到，按提示选择 CivilizationVII.app。无需复制到 Mods，也无需终端、Python、Node 或 Xcode。
+[*]进入游戏后，按反引号键 [b]`[/b]（通常在 Esc 下方），打开原版 DebugPanel 和 Mac 输入小窗。
+[*]切换到 ABC/英文输入法，输入 [b]reveal all[/b]，按 Return，或点“执行 / Run”。在原版 Output 和游戏画面中查看结果。
+[/olist]
+以后每次需要输入修复，都从这个 .app 启动；直接点击 Steam“开始游戏”不会加载修复。可以将启动器所在文件夹加入 Finder 边栏，方便下次打开。退出时先关闭小输入窗，再确认游戏退出。
+
+[h2]首次打开与已知限制[/h2]
+[list]
+[*]当前未进行 Apple Developer ID 签名和公证。首次打开可能被 macOS 拦截；确认来源可信后，可依 [url=https://support.apple.com/102445]Apple 官方说明[/url]在“系统设置 → 隐私与安全”中确认打开。启动器不会关闭系统安全保护。
+[*]小输入窗独立于原版蓝色输入栏；接受 1–254 个可打印 ASCII 字符，暂不提供自己的上下键历史导航。不是每个原版按钮都有文本命令，也没有逐项验证全部命令。
+[*]需要时自动暂时启用 DebugPanel，游戏退出后恢复该设置。不修改游戏程序或 Steam 全局启动参数。命令可能改变当前游戏并随保存保留，使用前请备份存档。
+[*]本机已通过真实工坊订阅、下载和 Finder 双击验收；reveal all 将探索地块从 2912/4536 提升至 4536/4536。退出游戏时出现过与安装本修复前调用栈一致的崩溃；此退出问题尚未修复，启动器清理和配置恢复已验证。
+[/list]
+
+[h1]Mac Native DebugPanel Input Launcher[/h1]
+A small Mac text window forwards commands to the original DebugPanel. Parsing, history and execution stay in the game; there is no per-command mapping. Native reveal all has been tested.
+
+[b]Requires Steam Civilization VII 1.5.0 (1311346), ARM64, on an Apple Silicon / M-series Mac. Intel, Mac App Store, Windows and other game builds are unsupported. Single-player tested; multiplayer unverified. Launcher version: 0.2.0. Unknown game binaries are refused after updates.[/b]
+
+[h2]Find the subscribed files[/h2]
+Subscribe and let Steam finish downloading. In Finder, press [b]Command + Shift + G[/b], paste this path and press Return:
+[code]~/Library/Application Support/Steam/steamapps/workshop/content/1295660/3829280398/[/code]
+For another Steam library: right-click Civilization VII in Steam → Manage → Browse local files. Go up two folders to steamapps, then open [b]workshop/content/1295660/3829280398[/b]. If the folder is missing, check Steam downloads and the selected library.
+
+[h2]Launch and use[/h2]
+[olist]
+[*]Quit Civilization VII. Keep Steam running and signed in.
+[*]Double-click [b]启动文明7（输入修复）.app[/b] in the downloaded folder; Finder may hide the .app suffix. Select CivilizationVII.app if automatic discovery fails.
+[*]In game, press the backtick key [b]`[/b]. Type a command such as [b]reveal all[/b] in the Mac input window, then press Return. Check the original Output panel and game state for results.
+[*]Use this launcher every time you want the fix. Subscription or enabling the Mod entry alone does not load it. No terminal, Python, Node, Xcode or copying into Mods is required.
+[/olist]
+Use an English/ABC input source. Commands accept 1–254 printable ASCII characters. The window is separate from the native blue bar and has no separate Up/Down history navigation. Close the input window before confirming game exit.
+
+The app is not Developer ID signed/notarized. macOS may require one-time approval in Privacy & Security; see the Apple link above. DebugPanel is temporarily enabled when needed and that setting is restored after exit. Game files and global Steam launch options are not changed. Commands can affect your save, so back up first.
+
+Workshop download, executable permissions, Finder launch and native reveal all passed on the tested Mac. A game exit crash matched a report from before this helper was installed; that issue remains unresolved. Launcher cleanup and setting restoration passed. Other hardware and Steam library layouts have not all been tested.
