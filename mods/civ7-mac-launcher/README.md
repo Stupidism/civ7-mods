@@ -25,7 +25,7 @@ Steam → 文明7 → 属性 → 通用 → 启动选项，一次填写：
 - 构建目标：Apple Silicon Mac，Steam Civilization VII。Intel、Windows、Linux 未实现。
 - 仅启动器/输入修复构建最低系统声明为 macOS 11；包含 Node 的包保守声明 macOS 14。实际支持须以所捆绑 Node 与游戏自身要求的交集为准；没有跨系统实测。
 - 2026-10-30 用户确认旧 0.2.0 输入修复启动器通过 Steam 启动选项可用。这是拆分前的实测，不能代替本版验收。
-- 新版只运行隔离离线测试、编译、签名完整性与打包检查；没有启动游戏、连接游戏端点、更新安装目录或读取/写入真实 Saves。
+- 2026-10-30 新版已在本机通过 Steam 启动、原版 `reveal all`（2912 → 4536 格）以及匹配 Mod 环境下的存档导入（834 项核对一致）。额外启用《分合》会因新增字段被安全拒绝；退出时辅助进程已清理，但游戏退出码 `11` 仍待排查。存档及测试前安装、设置已恢复。
 - app 是 ad-hoc 签名，未 Developer ID 公证。不能承诺首次互联网下载在所有 Mac 上无 Gatekeeper 提示。
 - 尚未更新既有公开工坊条目。验收记录见 [VALIDATION.md](VALIDATION.md)。
 
@@ -52,4 +52,4 @@ python3 mods/civ7-mac-launcher/package.py /tmp/c7-launcher-build --native-input 
 
 Extract the build, install its mod folders, then set Steam Launch Options to the quoted absolute path to `Civ7ModLauncher`, followed by `--native-input` and/or `--play-again`, then `%command%`. Launch through Steam thereafter. Providers must be included in that build. No separate runtime installation is needed by players.
 
-The Play Again provider starts automatically, but full save import still requires its existing localhost Cohtml debugger bridge. This launcher does not enable that debugger. The new split has only offline validation; the user's successful Steam test covered the previous 0.2.0 input launcher. Apple Silicon only; no Intel or non-Mac claim, no notarization, no new Workshop release.
+The Play Again provider starts automatically, but full save import still requires its existing localhost Cohtml debugger bridge. This launcher does not enable that debugger. The split was live-tested on macOS 27.0.1: Steam startup, native reveal all and 834-value save import passed in a matching mod environment. Extra Fenhe configuration fields are rejected. Helper cleanup passed, but game exit code 11 remains unresolved. Apple Silicon only; no Intel or non-Mac claim, no notarization, no new Workshop release.
