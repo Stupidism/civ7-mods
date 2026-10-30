@@ -1,0 +1,200 @@
+{
+  "version": "0.2.1",
+  "testedAt": "2026-10-30",
+  "gameVersion": "1.5.0 (1311346) Metal",
+  "locale": "zh_Hans_CN",
+  "sourceCommit": "03810c93a947f64c9d2e62f55b25cf0df69d74ae",
+  "runtimeChecks": [
+    {
+      "evidence": "runtime-latest.json",
+      "turn": 30,
+      "age": "AGE_ANTIQUITY",
+      "changedKeysMatched": 29,
+      "unchangedControlsMatched": 4,
+      "mismatches": []
+    },
+    {
+      "evidence": "runtime-exploration.json",
+      "turn": 1,
+      "age": "AGE_EXPLORATION",
+      "changedKeysMatched": 29,
+      "unchangedControlsMatched": 4,
+      "mismatches": []
+    }
+  ],
+  "visuallyVerifiedCivilopediaPages": [
+    "IMPROVEMENT_JINJA_SEA",
+    "IMPROVEMENT_JINJA_LAND",
+    "WONDER_MIREUKSA",
+    "WONDER_SERPENT_MOUND",
+    "WONDER_BRIHADEESWARAR_TEMPLE",
+    "WONDER_NAN_MADOL",
+    "WONDER_FORBIDDEN_CITY",
+    "LEADER_HATSHEPSUT",
+    "LEADER_FRIEDRICH",
+    "LEADER_FRIEDRICH_ALT",
+    "CIVILIZATION_HAN",
+    "CIVILIZATION_ASSYRIA",
+    "CIVILIZATION_NORMAN",
+    "QUARTER_EKALLU",
+    "IMPROVEMENT_HAN_GREAT_WALL"
+  ],
+  "productionTooltip": {
+    "type": "IMPROVEMENT_JINJA_SEA",
+    "trigger": "Focus event on the actual production row via game CDP; native game tooltip rendered and screenshot inspected. Not a physical mouse-hover test.",
+    "expected": "Coast adjacent to flat terrain; hills and mountains do not qualify.",
+    "result": "pass; original yields, icons and added condition visible without clipping"
+  },
+  "placementReadback": {
+    "legal": {
+      "x": 19,
+      "y": 29,
+      "terrain": "TERRAIN_COAST"
+    },
+    "neighbors": [
+      {
+        "x": 20,
+        "y": 29,
+        "terrain": "TERRAIN_FLAT"
+      },
+      {
+        "x": 20,
+        "y": 30,
+        "terrain": "TERRAIN_MOUNTAIN"
+      },
+      {
+        "x": 19,
+        "y": 30,
+        "terrain": "TERRAIN_MOUNTAIN"
+      },
+      {
+        "x": 20,
+        "y": 28,
+        "terrain": "TERRAIN_COAST"
+      },
+      {
+        "x": 19,
+        "y": 28,
+        "terrain": "TERRAIN_COAST"
+      },
+      {
+        "x": 18,
+        "y": 29,
+        "terrain": "TERRAIN_COAST"
+      }
+    ]
+  },
+  "mireuksaCityReadback": {
+    "save": "prior named T83 test copy",
+    "expected": {
+      "production": 1,
+      "culture": 2
+    },
+    "actual": {
+      "production": 1,
+      "culture": 2
+    },
+    "evidence": "sea-tooltip-text.json bodyTail; city-display.json full city text",
+    "note": "Existing yield-breakdown data; no controlled before/after build experiment."
+  },
+  "limitations": [
+    "No production order, construction, end-turn, physical mouse-hover or controller input test.",
+    "Illegal-tile placement and cross-era Mireuksa effect combinations were not exercised.",
+    "Clan Society I/II did not resolve to exact Civilopedia search pages in this scene; their runtime strings matched.",
+    "Mireuksa city-building tooltip did not open through the legacy tooltip manager with the current city UI mods; encyclopedia verified, this tooltip path remains unverified.",
+    "15 visible pages do not represent all age variants or all 29 tooltip layouts."
+  ],
+  "installation": {
+    "installedVersion": "0.2.1",
+    "filesMatchPublishedPackage": true,
+    "fileHashes": {
+      "better-chinese-support.modinfo": {
+        "size": 1359,
+        "sha256": "174825df7c1c4bd313bcfb38ee7ced4109529ab84d4f27a918b1b279c96f981b"
+      },
+      "VALIDATION.md": {
+        "size": 5499,
+        "sha256": "65681cea48174fe15be7adc7b7224ff4292c58ea4b94f15f36bffc5b91d2ce3f"
+      },
+      "README.md": {
+        "size": 3893,
+        "sha256": "40fc6eedfd93223f982d0b5a0b07473115711079dd889bb832564edd99d75673"
+      },
+      "NOTICE.md": {
+        "size": 1360,
+        "sha256": "03d89659b6deedecec4d125da94fd6be9bc8ff89c8e8eb2f7b30daefa30e54f6"
+      },
+      "text/metadata.xml": {
+        "size": 1017,
+        "sha256": "55257fc69114d10e9a0eee528da9c8c462b1d064024219eba077a5374ea3644b"
+      },
+      "text/mechanics.sql": {
+        "size": 5281,
+        "sha256": "52b2068525b30f2386093e14eee6881c5e385a6f22ec82f177d96d12f5018ecb"
+      },
+      "text/functional.sql": {
+        "size": 24652,
+        "sha256": "eba3a31f63d1d710b3d0ab97b5ffe962182b62db3f24fc26fa2edebafb28f000"
+      }
+    },
+    "oldLocalVersion": "0.2.0 preserved outside game",
+    "workshopCache": "Downloaded cache alone was not registered; verified local package used."
+  },
+  "safety": {
+    "fullPreActionBackups": 5,
+    "fullPostTestBackup": true,
+    "originalFilesVerified": 401,
+    "originalDirectoriesVerified": 6,
+    "restGuardManifestsRestored": true,
+    "settingsDatabasesRestored": [
+      "Mods.sqlite",
+      "LocalStorage.sqlite"
+    ],
+    "modSettingsUnchanged": true,
+    "activityMarkersAbsent": true,
+    "gameExitedNormally": true,
+    "lockReleased": true,
+    "testCopyPreserved": true
+  },
+  "screenshots": {
+    "sea-production-tooltip.jpg": {
+      "sha256": "717f7375988f4e1f948b7cefdbc103a50c0b378a4fc3a6c87743c0f25fcf5f0d",
+      "rawPngSHA256": "c6e089e1ad3f645d86d5fe40106fa00b1e0a0aabe56ab8bba425b4b943577fca"
+    },
+    "mireuksa-pedia.jpg": {
+      "sha256": "9fd62d50106751445629e37cadfbfc46abe3dc4064969dbc3c39ab11b458dc70",
+      "rawPngSHA256": "996bb5c0e4b826fa20de1e06e64f81faed7a9e58f34fad4522245a28607869fb"
+    },
+    "serpent-pedia.jpg": {
+      "sha256": "f25b04a63c446bbebd47cc5afbff1693447e96388f50bb596871e50f35043062",
+      "rawPngSHA256": "f751af39070a2c3296c4800af509f29121dc3202dbaf0a8a83e7d15db2ae0457"
+    },
+    "temple-pedia.jpg": {
+      "sha256": "6f3c51eeb0ed644af92c2190b272b2d4818ebb6c83d14c496d4b3933d933cd53",
+      "rawPngSHA256": "966f847708b7b11c5514745626ef7fb7f80ab2e4b34ab9cab8c52457ac1b6010"
+    }
+  },
+  "localRawEvidenceDirectory": "work/better-chinese-021-live-20261030",
+  "rawScreenshots": {
+    "city-production.png": "b47af3556d4a14a8d1f243f1bd2d6a2f29513eed4416fdc872be9d96b5595a96",
+    "city-yields.png": "62f6b10d071b4c44f396cbbd6fe7faec6e1f818bbb11fc99a347ff5e30069b90",
+    "civilization_assyria.png": "0c659c5ea26fa4e4a79595ed10612599851308a14e6758ea08b9a65d36139cb2",
+    "civilization_han.png": "e1a33f843d3ae53118cae2f2fbc22433a2edcd2d9d01471ee4a79dbcf0df3cb4",
+    "civilization_norman.png": "acdd0c9f4824a00621d5031557d80879895b56f3c3714177d4d9906e001ac03a",
+    "improvement_han_great_wall.png": "e97729a46703008b7a9466166d00a77773bfe85c775f02f034c41d7cefea8f79",
+    "land-pedia.png": "d29814b426f0544bc72b2374ab74d3f9a5d02a08468b442a1c2f97cc137370e3",
+    "leader_friedrich.png": "15ef3cf7abf50b650bf24aac381361aefd93d339aad6e520c763d2d3b898785a",
+    "leader_friedrich_alt.png": "9a12a42168e3cdfb548deab00c3e789c048e030a177f7078a05f539c7e34736b",
+    "leader_hatshepsut.png": "a6c71ec2b2f454ce7eb13aac4f3d4b949290f86fb48d18d76dcf21e09408e92d",
+    "mireuksa-pedia.png": "996bb5c0e4b826fa20de1e06e64f81faed7a9e58f34fad4522245a28607869fb",
+    "quarter_ekallu.png": "34b02d93f298625ebb1c32840230af0aba1cad4c4cf15f1b76ef581615216c51",
+    "sea-pedia.png": "9036d303077fa66da3fd180b35835299a3729863258880f43a8b8ef24610a837",
+    "sea-production-tooltip.png": "c6e089e1ad3f645d86d5fe40106fa00b1e0a0aabe56ab8bba425b4b943577fca",
+    "serpent-pedia.png": "f751af39070a2c3296c4800af509f29121dc3202dbaf0a8a83e7d15db2ae0457",
+    "temple-pedia.png": "966f847708b7b11c5514745626ef7fb7f80ab2e4b34ab9cab8c52457ac1b6010",
+    "wonder_forbidden_city.png": "79a14e60a7c3f7533665a627525ea1b4bd09aabb7fd67f224bcc1607ce9883ba",
+    "wonder_nan_madol.png": "1f3a559cbbe05a2e0c836f3009d3f8d03ef8fb3942bffd0da56d2989f44db6ef"
+  },
+  "runtimeCodeChanges": false,
+  "newPublication": false
+}

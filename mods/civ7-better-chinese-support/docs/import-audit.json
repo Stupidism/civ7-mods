@@ -1,0 +1,1945 @@
+{
+  "scope": "gameplay-description-corrections-only",
+  "version": "0.2.1",
+  "source_url": "https://docs.qq.com/sheet/DWW94VHpnUFdHVmZS?tab=1nqnrb",
+  "source_sha256": "10c523085a040e6bca7bba0b5351d43c66d933686a99fc8bff7d390481a1962e",
+  "reviewed_rules": 27,
+  "functional_tags": 24,
+  "own_tags": 5,
+  "game_text_files": [
+    {
+      "path": "Base/modules/age-antiquity/l10n/zh_Hans_CN_AgeSpecific_Text.xml",
+      "sha256": "b3e47a3788957c32195f1a3bfa59aa14888021b2b3970c91c519cd4b3ce59660"
+    },
+    {
+      "path": "Base/modules/age-antiquity/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "5dc36ca3b3b1853148f52f702bbf93c606982343f125639b9c81b798804ab963"
+    },
+    {
+      "path": "Base/modules/age-exploration/l10n/zh_Hans_CN_AgeSpecific_Text.xml",
+      "sha256": "6c0588a3ca40f2122be18e902e4c57a192126618b776819db2f66bcee3b0b2c4"
+    },
+    {
+      "path": "Base/modules/age-exploration/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "531dc6aa89fbdc8e8c4ca32d1436ce25c0db2bf25324ff6415cb45d8c377cdec"
+    },
+    {
+      "path": "Base/modules/age-modern/l10n/zh_Hans_CN_AgeSpecific_Text.xml",
+      "sha256": "0058aad8af0cbe50cdae999f7818345768254fa5b24d64afc0a02c3b65249006"
+    },
+    {
+      "path": "Base/modules/age-modern/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "3d0dab4d05f4473b773769408061756b6d95c74e6dd4710432a0d22ca38f224f"
+    },
+    {
+      "path": "Base/modules/base-standard/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "9f19405def1664205b202e85f9aed872e9fe6f1221842573a538090f83ad66d7"
+    },
+    {
+      "path": "Base/modules/core/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "eb09a9d9a065942eed0c52d7083bebafaffcc1b153db0785040668c868dbf559"
+    },
+    {
+      "path": "DLC/ada-lovelace/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "cf030446c3a80db9ec2a9dacac061678cee00323fd015a6fec81a88de4a0ab13"
+    },
+    {
+      "path": "DLC/alexander/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "ff2414f56d87d01baa7b840b97b44d3fa4bb5dc46e2509aa6092c39693e4f19d"
+    },
+    {
+      "path": "DLC/ashoka-himiko-alt/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "29387b8344d5caa3ff27a1b8e2a03126b8c57c29e6df9717211c37d33e72a619"
+    },
+    {
+      "path": "DLC/asia-wonders/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "f181c396c48289944ca1ea51b0a141ef17c6fe03dadfb2e10cf539bed19d7702"
+    },
+    {
+      "path": "DLC/assyria/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "058b2e5bc266099632936ddacf94d9341c377a3114eb6d6a6322b23a6f86613d"
+    },
+    {
+      "path": "DLC/babylon/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "c4aa4cc89edbb55fc6ef109aa1b525e8112860e1edf9bce68d12a52afed6e7a9"
+    },
+    {
+      "path": "DLC/bolivar/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "c4c44d5c76803cdf17feabd74677251c2abcf3c2d316f0ae2878ac5b26585d11"
+    },
+    {
+      "path": "DLC/bulgaria/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "33380c3f7acd077777f74641cede71a12601e8c6c3e1bedf3de7b74c84845917"
+    },
+    {
+      "path": "DLC/carthage/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "a8b940192914b691211d104b80ae4de3cb4c11a901d09a0f6095b0f4ce484c37"
+    },
+    {
+      "path": "DLC/dai-viet/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "29b002c1a03bf5f9b0830e4d898c69438b8cdb2055baf9f6be1c5039b70f62f2"
+    },
+    {
+      "path": "DLC/edward-teach/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "d678840691632df3fcfec8e1757bbe10323c20e3c8415084b5d421187064dafd"
+    },
+    {
+      "path": "DLC/elizabeth/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "c0cdb437b81ab6e302453bbe9b2978c65259c75acf4c3f88247c9ff4418a69cd"
+    },
+    {
+      "path": "DLC/england/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "e6c0ba2bc2637140c375feae4b5af8b4d3a09cb174fa8d34c2e9cdb05fc8d8c5"
+    },
+    {
+      "path": "DLC/friedrich-xerxes-alt/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "cd31d32ec028b4d496ec8da34d6af775d5339a555b7314205fbf84eab733cf5d"
+    },
+    {
+      "path": "DLC/gaul/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "0ffcf054cc1474ef4436c6eb51d83ae5cea0a78a058d3a5e79eaeb1fd8d97f41"
+    },
+    {
+      "path": "DLC/genghis-khan/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "d3dec2821951ed20fd5bfa388c507e2434aa273549427ec1e7822ec6b1ebb635"
+    },
+    {
+      "path": "DLC/gilgamesh/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "57851d6f414f8586c30acff624dee5245f63ea9219fc9a21a4e6faa29f3f94aa"
+    },
+    {
+      "path": "DLC/goryeo/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "719aa32a70238394c34e9ea2a24cc55d7c955af5493fa3e2ace8dcf320fe3355"
+    },
+    {
+      "path": "DLC/great-britain/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "7e1e0317440e4315f58979627d96a3996ea19a4fde4749391fd9823568d50250"
+    },
+    {
+      "path": "DLC/heian/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "1a12fa160815115f97b0285d4b09af8c34f3598feba29769ba2f56268964970b"
+    },
+    {
+      "path": "DLC/iceland/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "df4be221b72d6880d99fe55dd0271a60bbff14566ef7813eda80304072ded824"
+    },
+    {
+      "path": "DLC/japan-korea-wonders/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "acf42d22e28449c8da40021c7c36913ebe8cd4f56795c1868fe79c28ab2e3a97"
+    },
+    {
+      "path": "DLC/joseon/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "e4e8c9be974dd048f1e497cdaa8af076314797e3e823eb82740c92d2814ae20a"
+    },
+    {
+      "path": "DLC/lakshmibai/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "738622b5d4d7f43c7219ed3bd3cb07f0e687c0c8c92eda876cdc2a056614e10a"
+    },
+    {
+      "path": "DLC/mountain-natural-wonders/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "2a33318a87464d63c5243a6f9bed7e36feb20efe4b829681790ee5016b6a4ec1"
+    },
+    {
+      "path": "DLC/napoleon/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "bbfddbe8e537a47b98b68f800bfc1da52d2bcd7d002b8f1d5f9b8207dde3a4f1"
+    },
+    {
+      "path": "DLC/napoleon-alt/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "b6c4716f7f50322e63e404932095797380b188d8c0d036ade0cffc33d40e4ff5"
+    },
+    {
+      "path": "DLC/nepal/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "c27929c4e46046cf6a6725de79c3a393a9fdc7aded263641d6caba147b4decc5"
+    },
+    {
+      "path": "DLC/ottomans/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "7652c8199725c9b6bb8f4d85222f24347affe4bae6e9f9dec9b6a85647cb9b86"
+    },
+    {
+      "path": "DLC/pirate-republic/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "6ff717919e3927a31673e53713c3410e054d67fac35a0a9230d22e1612f7e0c5"
+    },
+    {
+      "path": "DLC/qajar/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "915d2574905a7f84a41ead2e57644bd41e1690ce4edff6ccafb5ffb8c2bcdd15"
+    },
+    {
+      "path": "DLC/sayyida-al-hurra/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "f371113ee172a03e99ebc7a6669b44e50608ec8a042440fc7415412f6c5912a8"
+    },
+    {
+      "path": "DLC/sengoku/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "99ef8a95a9be9ef1431fed83aea2aed14da34dc85326329e411ab45d5b97858f"
+    },
+    {
+      "path": "DLC/shawnee-tecumseh/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "7f05969c50ac17bd47be3b453e8cdc19f8c14d900f097fa936b151413882a177"
+    },
+    {
+      "path": "DLC/silla/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "78cbdcb6881e830f7cf43ca53da28bfef4063dbffe80a620c9275cb7f8245dca"
+    },
+    {
+      "path": "DLC/tonga/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "21e152bcbda40e21fd6960e1bf6fee16ab9c92a865a0e4de8eed213f4d02659d"
+    },
+    {
+      "path": "DLC/toyotomi-hideyoshi/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "2b8167c75ba8b69b5691bfbd33a6028fa60903347888fc3d4b8d0c1eb916a721"
+    },
+    {
+      "path": "DLC/trung-nhi/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "2a091efc64c754f1da24ce1ebf858b3c1cbc5381b8917eaa55fe20f09316bfb0"
+    },
+    {
+      "path": "DLC/washington/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "0dd14146bc8f8cd85d9c594f16c835d36d56823e398c92e6a0c308bdca229573"
+    },
+    {
+      "path": "DLC/water-wonders/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "7977500e04402ab00f98ca324a27a83e83ac8426e44eeceed609dfd65766bce8"
+    },
+    {
+      "path": "DLC/yi-sun-sin/modules/l10n/zh_Hans_CN_Text.xml",
+      "sha256": "17acce827d4962a38034398af0086b24e6a97826d5016d1c349c17c6a65bb3a4"
+    }
+  ],
+  "rows": [
+    {
+      "row": 179,
+      "category": "勘误",
+      "civ": "各种",
+      "kind": "各种",
+      "before": "每有1特色",
+      "after": "每有1种不同的",
+      "english": "",
+      "tag": "LOC_LEADER_HATSHEPSUT_DESCRIPTION",
+      "group": "unique-resources",
+      "matched_tags": [
+        "LOC_LEADER_HATSHEPSUT_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 181,
+      "category": "勘误",
+      "civ": "各种",
+      "kind": "各种",
+      "before": "每有1特色",
+      "after": "每有1种不同的",
+      "english": "",
+      "tag": "LOC_TRAIT_LEADER_HATSHEPSUT_ABILITY_DESCRIPTION",
+      "group": "unique-resources",
+      "matched_tags": [
+        "LOC_TRAIT_LEADER_HATSHEPSUT_ABILITY_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 191,
+      "category": "勘误",
+      "civ": "奇观",
+      "kind": "巨蟒土丘",
+      "before": "必须放置在草原上。",
+      "after": "必须放置在草原平地上。",
+      "english": "",
+      "tag": "LOC_WONDER_SERPENT_MOUND_DESCRIPTION",
+      "group": "serpent-mound",
+      "matched_tags": [
+        "LOC_WONDER_SERPENT_MOUND_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 192,
+      "category": "勘误",
+      "civ": "奇观",
+      "kind": "巨蟒土丘(续)",
+      "before": "必须放置在草原上。",
+      "after": "必须放置在草原平地上。",
+      "english": "",
+      "tag": "LOC_WONDER_SERPENT_MOUND_TOOLTIP",
+      "group": "serpent-mound",
+      "matched_tags": [
+        "LOC_WONDER_SERPENT_MOUND_TOOLTIP"
+      ]
+    },
+    {
+      "row": 195,
+      "category": "勘误",
+      "civ": "奇观",
+      "kind": "南马都尔",
+      "before": "且此陆地必须为岛屿",
+      "after": "且此定居点必须位于岛屿上",
+      "english": "",
+      "tag": "LOC_WONDER_NAN_MADOL_DESCRIPTION",
+      "group": "nan-madol",
+      "matched_tags": [
+        "LOC_WONDER_NAN_MADOL_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 196,
+      "category": "勘误",
+      "civ": "奇观",
+      "kind": "南马都尔",
+      "before": "且此陆地必须为岛屿",
+      "after": "且此定居点必须位于岛屿上",
+      "english": "",
+      "tag": "LOC_WONDER_NAN_MADOL_TOOLTIP",
+      "group": "nan-madol",
+      "matched_tags": [
+        "LOC_WONDER_NAN_MADOL_TOOLTIP"
+      ]
+    },
+    {
+      "row": 242,
+      "category": "勘误",
+      "civ": "汉朝",
+      "kind": "文明能力",
+      "before": "[LI]建成[B][icon:YIELD_SCIENCE]科技值[TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]建筑[/TIP][/B]时，[B][icon:NOTIFICATION_SELECT_CAPITAL]首都[/B]获得1[B][icon:YIELD_POPULATION]人口[/B]。",
+      "after": "[LI][B][icon:NOTIFICATION_SELECT_CAPITAL]首都[/B]建成[B][icon:YIELD_SCIENCE]科技值[TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]建筑[/TIP][/B]时获得1[B][icon:YIELD_POPULATION]人口[/B]。",
+      "english": "",
+      "tag": "LOC_TRAIT_HAN_ABILITY_DESCRIPTION",
+      "group": "han-population",
+      "matched_tags": [
+        "LOC_TRAIT_HAN_ABILITY_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 243,
+      "category": "勘误",
+      "civ": "汉朝",
+      "kind": "文明能力",
+      "before": "[LI][B]建成[B][icon:YIELD_SCIENCE]科技值[TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]建筑[/TIP][/B]时，[icon:YIELD_CITIES][TIP:LOC_PEDIA_CONCEPTS_CITIES_TOOLTIP]城市[/TIP][/B]获得[B]1[icon:YIELD_POPULATION]人口[/B]。",
+      "after": "[LI][B][icon:YIELD_CITIES][TIP:LOC_PEDIA_CONCEPTS_CITIES_TOOLTIP]城市[/TIP][/B]建成[B][icon:YIELD_SCIENCE]科技值[TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]建筑[/TIP][/B]时获得[B]1[icon:YIELD_POPULATION]人口[/B]。",
+      "english": "",
+      "tag": "LOC_TRAIT_HAN_ABILITY_EX_DESCRIPTION",
+      "group": "han-population",
+      "matched_tags": [
+        "LOC_TRAIT_HAN_ABILITY_EX_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 244,
+      "category": "勘误",
+      "civ": "汉朝",
+      "kind": "文明能力",
+      "before": "建成[B][icon:YIELD_SCIENCE]科技值[TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]建筑[/TIP][/B]时，所有[B][TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP][/B]获得[B]1[icon:YIELD_POPULATION]人口[/B]。",
+      "after": "[B][TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP][/B]建成[B][icon:YIELD_SCIENCE]科技值[TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]建筑[/TIP][/B]时获得[B]1[icon:YIELD_POPULATION]人口[/B]。",
+      "english": "",
+      "tag": "LOC_TRAIT_HAN_ABILITY_MO_DESCRIPTION",
+      "group": "han-population",
+      "matched_tags": [
+        "LOC_TRAIT_HAN_ABILITY_MO_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 245,
+      "category": "勘误",
+      "civ": "汉朝",
+      "kind": "长城",
+      "before": "较之于其他特色改良设施，花费有所降低。",
+      "after": "较之于其他特色改良设施，花费涨幅有所降低。",
+      "english": "",
+      "tag": "LOC_IMPROVEMENT_HAN_GREAT_WALL_DESCRIPTION",
+      "group": "great-wall-cost",
+      "matched_tags": [
+        "LOC_IMPROVEMENT_HAN_GREAT_WALL_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 246,
+      "category": "勘误",
+      "civ": "汉朝",
+      "kind": "长城",
+      "before": "较之于其他特色改良设施，花费有所降低。",
+      "after": "较之于其他特色改良设施，花费涨幅有所降低。",
+      "english": "",
+      "tag": "LOC_IMPROVEMENT_HAN_GREAT_WALL_TOOLTIP",
+      "group": "great-wall-cost",
+      "matched_tags": [
+        "LOC_IMPROVEMENT_HAN_GREAT_WALL_TOOLTIP"
+      ]
+    },
+    {
+      "row": 247,
+      "category": "勘误",
+      "civ": "诺曼",
+      "kind": "文明能力",
+      "before": "[LI][TIP:LOC_PEDIA_CONCEPTS_LAND_UNITS_TOOLTIP]陆地单位[/TIP]，以及与水岸相邻的[icon:CITY_FORTIFIED][TIP:LOC_PEDIA_CONCEPTS_FORTIFIED_DISTRICTS_TOOLTIP]驻防区块[/TIP][B]+5[icon:NAR_REW_COMBAT][/B][TIP:LOC_PEDIA_CONCEPTS_COMBAT_STRENGTH_TOOLTIP]战斗力[/TIP]。",
+      "after": "[LI]与水岸相邻的[TIP:LOC_PEDIA_CONCEPTS_LAND_UNITS_TOOLTIP]陆地单位[/TIP]及[icon:CITY_FORTIFIED][TIP:LOC_PEDIA_CONCEPTS_FORTIFIED_DISTRICTS_TOOLTIP]驻防区块[/TIP][B]+5[icon:NAR_REW_COMBAT][/B][TIP:LOC_PEDIA_CONCEPTS_COMBAT_STRENGTH_TOOLTIP]战斗力[/TIP]。",
+      "english": "",
+      "tag": "LOC_TRAIT_NORMAN_ABILITY_AQ_DESCRIPTION",
+      "group": "norman-coast",
+      "matched_tags": [
+        "LOC_TRAIT_NORMAN_ABILITY_AQ_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 248,
+      "category": "勘误",
+      "civ": "诺曼",
+      "kind": "文明能力",
+      "before": "[LI][TIP:LOC_PEDIA_CONCEPTS_LAND_UNITS_TOOLTIP]陆地单位[/TIP]，以及与水岸相邻的[icon:CITY_FORTIFIED][TIP:LOC_PEDIA_CONCEPTS_FORTIFIED_DISTRICTS_TOOLTIP]驻防区块[/TIP][B]+5[icon:NAR_REW_COMBAT][/B][TIP:LOC_PEDIA_CONCEPTS_COMBAT_STRENGTH_TOOLTIP]战斗力[/TIP]。",
+      "after": "[LI]与水岸相邻的[TIP:LOC_PEDIA_CONCEPTS_LAND_UNITS_TOOLTIP]陆地单位[/TIP]及[icon:CITY_FORTIFIED][TIP:LOC_PEDIA_CONCEPTS_FORTIFIED_DISTRICTS_TOOLTIP]驻防区块[/TIP][B]+5[icon:NAR_REW_COMBAT][/B][TIP:LOC_PEDIA_CONCEPTS_COMBAT_STRENGTH_TOOLTIP]战斗力[/TIP]。",
+      "english": "",
+      "tag": "LOC_TRAIT_NORMAN_ABILITY_DESCRIPTION",
+      "group": "norman-coast",
+      "matched_tags": [
+        "LOC_TRAIT_NORMAN_ABILITY_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 249,
+      "category": "勘误",
+      "civ": "诺曼",
+      "kind": "文明能力",
+      "before": "[LI][TIP:LOC_PEDIA_CONCEPTS_LAND_UNITS_TOOLTIP]陆地单位[/TIP]，以及与水岸相邻的[icon:CITY_FORTIFIED][TIP:LOC_PEDIA_CONCEPTS_FORTIFIED_DISTRICTS_TOOLTIP]驻防区块[/TIP][B]+5[icon:NAR_REW_COMBAT][/B][TIP:LOC_PEDIA_CONCEPTS_COMBAT_STRENGTH_TOOLTIP]战斗力[/TIP]。",
+      "after": "[LI]与水岸相邻的[TIP:LOC_PEDIA_CONCEPTS_LAND_UNITS_TOOLTIP]陆地单位[/TIP]及[icon:CITY_FORTIFIED][TIP:LOC_PEDIA_CONCEPTS_FORTIFIED_DISTRICTS_TOOLTIP]驻防区块[/TIP][B]+5[icon:NAR_REW_COMBAT][/B][TIP:LOC_PEDIA_CONCEPTS_COMBAT_STRENGTH_TOOLTIP]战斗力[/TIP]。",
+      "english": "",
+      "tag": "LOC_TRAIT_NORMAN_ABILITY_MO_DESCRIPTION",
+      "group": "norman-coast",
+      "matched_tags": [
+        "LOC_TRAIT_NORMAN_ABILITY_MO_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 250,
+      "category": "勘误",
+      "civ": "腓特烈",
+      "kind": "领袖能力",
+      "before": "你建造有[icon:YIELD_SCIENCE][TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]科技值建筑[/TIP]的[TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP]中也获得一个步兵单位。",
+      "after": "建成一座[icon:YIELD_SCIENCE][TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]科技值建筑[/TIP]时，在建造它的[TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP]中获得一个步兵单位。",
+      "english": "",
+      "tag": "LOC_TRAIT_LEADER_FRIEDRICH_ABILITY_DESCRIPTION",
+      "group": "friedrich",
+      "matched_tags": [
+        "LOC_TRAIT_LEADER_FRIEDRICH_ABILITY_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 251,
+      "category": "勘误",
+      "civ": "腓特烈",
+      "kind": "领袖能力",
+      "before": "首次占领[TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP]时",
+      "after": "每座[TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP]首次被你占领时",
+      "english": "",
+      "tag": "LOC_TRAIT_LEADER_FRIEDRICH_ALT_ABILITY_DESCRIPTION",
+      "group": "friedrich",
+      "matched_tags": [
+        "LOC_TRAIT_LEADER_FRIEDRICH_ALT_ABILITY_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 252,
+      "category": "勘误",
+      "civ": "腓特烈",
+      "kind": "领袖能力",
+      "before": "你建造有[icon:YIELD_CULTURE][TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]文化值建筑[/TIP]的[TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP]中也获得一个步兵单位。",
+      "after": "建成一座[icon:YIELD_CULTURE][TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]文化值建筑[/TIP]时，在建造它的[TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP]中获得一个步兵单位。",
+      "english": "",
+      "tag": "LOC_TRAIT_LEADER_FRIEDRICH_ALT_ABILITY_DESCRIPTION",
+      "group": "friedrich",
+      "matched_tags": [
+        "LOC_TRAIT_LEADER_FRIEDRICH_ALT_ABILITY_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 253,
+      "category": "勘误",
+      "civ": "亚述",
+      "kind": "文明能力",
+      "before": "首次占领[B][TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP][/B]时",
+      "after": "每座[B][TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP][/B]被你首次占领时",
+      "english": "",
+      "tag": "LOC_TRAIT_ASSYRIA_ABILITY_DESCRIPTION",
+      "group": "assyria-conquest",
+      "matched_tags": [
+        "LOC_TRAIT_ASSYRIA_ABILITY_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 254,
+      "category": "勘误",
+      "civ": "亚述",
+      "kind": "文明能力",
+      "before": "首次占领[B][TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP][/B]时",
+      "after": "每座[B][TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP][/B]被你首次占领时",
+      "english": "",
+      "tag": "LOC_TRAIT_ASSYRIA_ABILITY_EX_DESCRIPTION",
+      "group": "assyria-conquest",
+      "matched_tags": [
+        "LOC_TRAIT_ASSYRIA_ABILITY_EX_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 255,
+      "category": "勘误",
+      "civ": "亚述",
+      "kind": "文明能力",
+      "before": "首次占领[B][TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP][/B]时",
+      "after": "每座[B][TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP][/B]被你首次占领时",
+      "english": "",
+      "tag": "LOC_TRAIT_ASSYRIA_ABILITY_MO_DESCRIPTION",
+      "group": "assyria-conquest",
+      "matched_tags": [
+        "LOC_TRAIT_ASSYRIA_ABILITY_MO_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 256,
+      "category": "勘误",
+      "civ": "亚述",
+      "kind": "亚述王宫",
+      "before": "每展示有一件[icon:NAR_REW_GREATWORK][TIP:LOC_PEDIA_CONCEPTS_GREAT_WORKS_TOOLTIP]抄本[/TIP]",
+      "after": "每展示有一件[icon:NAR_REW_GREATWORK][TIP:LOC_PEDIA_CONCEPTS_GREAT_WORKS_TOOLTIP]巨作[/TIP]",
+      "english": "",
+      "tag": "LOC_QUARTER_EKALLU_DESCRIPTION",
+      "group": "ekallu",
+      "matched_tags": [
+        "LOC_QUARTER_EKALLU_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 257,
+      "category": "勘误",
+      "civ": "明朝",
+      "kind": "紫禁城",
+      "before": "所有[icon:CITY_BUILDING_LIST][TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]防御工事建筑[/TIP]、[icon:CITY_RURAL][TIP:LOC_PEDIA_CONCEPTS_IMPROVEMENT_TOOLTIP]改良设施[/TIP]和[icon:WONDER]奇观[B]",
+      "after": "此[icon:YIELD_CITIES]城市中的[icon:CITY_BUILDING_LIST][TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]防御工事建筑[/TIP]、[icon:CITY_RURAL][TIP:LOC_PEDIA_CONCEPTS_IMPROVEMENT_TOOLTIP]改良设施[/TIP]和[icon:WONDER]奇观[B]",
+      "english": "",
+      "tag": "LOC_WONDER_FORBIDDEN_CITY_DESCRIPTION",
+      "group": "forbidden-city",
+      "matched_tags": [
+        "LOC_WONDER_FORBIDDEN_CITY_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 258,
+      "category": "勘误",
+      "civ": "明朝",
+      "kind": "紫禁城",
+      "before": "所有[icon:CITY_BUILDING_LIST][TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]防御工事建筑[/TIP]、[icon:CITY_RURAL][TIP:LOC_PEDIA_CONCEPTS_IMPROVEMENT_TOOLTIP]改良设施[/TIP]和[icon:WONDER]奇观[B]",
+      "after": "此[icon:YIELD_CITIES]城市中的[icon:CITY_BUILDING_LIST][TIP:LOC_PEDIA_CONCEPTS_BUILDINGS_TOOLTIP]防御工事建筑[/TIP]、[icon:CITY_RURAL][TIP:LOC_PEDIA_CONCEPTS_IMPROVEMENT_TOOLTIP]改良设施[/TIP]和[icon:WONDER]奇观[B]",
+      "english": "",
+      "tag": "LOC_WONDER_FORBIDDEN_CITY_TOOLTIP",
+      "group": "forbidden-city",
+      "matched_tags": [
+        "LOC_WONDER_FORBIDDEN_CITY_TOOLTIP"
+      ]
+    },
+    {
+      "row": 259,
+      "category": "勘误",
+      "civ": "明朝",
+      "kind": "紫禁城",
+      "before": "此[icon:YIELD_CITIES]城市中的[icon:Action_Fortify]防御工事",
+      "after": "己方所有[icon:Action_Fortify]防御工事",
+      "english": "",
+      "tag": "LOC_WONDER_FORBIDDEN_CITY_DESCRIPTION",
+      "group": "forbidden-city",
+      "matched_tags": [
+        "LOC_WONDER_FORBIDDEN_CITY_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 260,
+      "category": "勘误",
+      "civ": "明朝",
+      "kind": "紫禁城",
+      "before": "此[TIP:LOC_PEDIA_CONCEPTS_SETTLEMENT_TOOLTIP]定居点[/TIP]中的[icon:Action_Fortify]防御工事",
+      "after": "己方所有[icon:Action_Fortify]防御工事",
+      "english": "",
+      "tag": "LOC_WONDER_FORBIDDEN_CITY_TOOLTIP",
+      "group": "forbidden-city",
+      "matched_tags": [
+        "LOC_WONDER_FORBIDDEN_CITY_TOOLTIP"
+      ]
+    },
+    {
+      "row": 265,
+      "category": "勘误",
+      "civ": "布干达",
+      "kind": "传统",
+      "before": "6格内每有一个他人拥有的定居点",
+      "after": "6格内每有一个其他己方定居点",
+      "english": "",
+      "tag": "LOC_TRADITION_CLAN_SOCIETY_I_DESCRIPTION",
+      "group": "clan-society",
+      "matched_tags": [
+        "LOC_TRADITION_CLAN_SOCIETY_I_DESCRIPTION"
+      ]
+    },
+    {
+      "row": 266,
+      "category": "勘误",
+      "civ": "布干达",
+      "kind": "传统",
+      "before": "6格内每有一个他人拥有的定居点",
+      "after": "6格内每有一个其他己方定居点",
+      "english": "",
+      "tag": "LOC_TRADITION_CLAN_SOCIETY_II_DESCRIPTION",
+      "group": "clan-society",
+      "matched_tags": [
+        "LOC_TRADITION_CLAN_SOCIETY_II_DESCRIPTION"
+      ]
+    }
+  ],
+  "excluded_rows": [
+    {
+      "row": 18,
+      "category": "勘误",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 19,
+      "category": "替换音译",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 20,
+      "category": "替换音译",
+      "kind": "建筑",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 21,
+      "category": "勘误",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 22,
+      "category": "润色",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 23,
+      "category": "替换音译",
+      "kind": "建筑",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 24,
+      "category": "替换音译",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 25,
+      "category": "勘误",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 26,
+      "category": "替换音译",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 27,
+      "category": "勘误",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 28,
+      "category": "勘误",
+      "kind": "引言",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 29,
+      "category": "勘误",
+      "kind": "引言",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 30,
+      "category": "勘误",
+      "kind": "引言",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 31,
+      "category": "勘误",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 32,
+      "category": "替换音译",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 33,
+      "category": "润色",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 34,
+      "category": "润色",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 35,
+      "category": "替换音译",
+      "kind": "建筑",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 36,
+      "category": "替换音译",
+      "kind": "城区",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 37,
+      "category": "替换音译",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 38,
+      "category": "勘误",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 39,
+      "category": "润色",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 40,
+      "category": "润色",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 41,
+      "category": "替换音译",
+      "kind": "能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 42,
+      "category": "润色",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 43,
+      "category": "替换音译",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 44,
+      "category": "润色",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 45,
+      "category": "润色",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 46,
+      "category": "替换音译",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 47,
+      "category": "润色",
+      "kind": "能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 48,
+      "category": "勘误",
+      "kind": "能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 49,
+      "category": "润色",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 50,
+      "category": "润色",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 51,
+      "category": "勘误",
+      "kind": "能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 52,
+      "category": "润色",
+      "kind": "能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 53,
+      "category": "替换音译",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 54,
+      "category": "润色",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 55,
+      "category": "润色",
+      "kind": "城区",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 56,
+      "category": "润色",
+      "kind": "建筑",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 57,
+      "category": "润色",
+      "kind": "建筑",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 58,
+      "category": "润色",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 59,
+      "category": "替换音译",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 60,
+      "category": "润色",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 61,
+      "category": "润色",
+      "kind": "能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 62,
+      "category": "替换音译",
+      "kind": "能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 63,
+      "category": "替换音译",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 64,
+      "category": "替换音译",
+      "kind": "能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 65,
+      "category": "润色",
+      "kind": "能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 66,
+      "category": "勘误",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 67,
+      "category": "替换音译",
+      "kind": "建筑",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 68,
+      "category": "替换音译",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 69,
+      "category": "勘误",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 70,
+      "category": "勘误",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 71,
+      "category": "替换音译",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 72,
+      "category": "润色",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 73,
+      "category": "替换音译",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 74,
+      "category": "替换音译",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 75,
+      "category": "替换音译",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 76,
+      "category": "润色",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 77,
+      "category": "替换音译",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 78,
+      "category": "润色",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 79,
+      "category": "勘误",
+      "kind": "建筑",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 80,
+      "category": "勘误",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 81,
+      "category": "替换音译",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 82,
+      "category": "润色",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 83,
+      "category": "润色",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 84,
+      "category": "勘误",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 85,
+      "category": "替换音译",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 86,
+      "category": "替换音译",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 87,
+      "category": "替换音译",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 88,
+      "category": "勘误",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 89,
+      "category": "润色",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 90,
+      "category": "润色",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 91,
+      "category": "替换音译",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 92,
+      "category": "润色",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 93,
+      "category": "润色",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 94,
+      "category": "润色",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 95,
+      "category": "替换音译",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 96,
+      "category": "勘误",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 97,
+      "category": "勘误",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 98,
+      "category": "替换音译",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 99,
+      "category": "替换音译",
+      "kind": "纪念物",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 100,
+      "category": "替换音译",
+      "kind": "纪念物",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 101,
+      "category": "润色",
+      "kind": "议程",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 102,
+      "category": "润色",
+      "kind": "纪念物",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 103,
+      "category": "勘误",
+      "kind": "纪念物",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 104,
+      "category": "勘误",
+      "kind": "议程",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 105,
+      "category": "润色",
+      "kind": "名字",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 106,
+      "category": "润色",
+      "kind": "能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 107,
+      "category": "替换音译",
+      "kind": "议程",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 108,
+      "category": "勘误",
+      "kind": "议程",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 109,
+      "category": "勘误",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 110,
+      "category": "替换音译",
+      "kind": "纪念物",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 111,
+      "category": "替换音译",
+      "kind": "纪念物",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 112,
+      "category": "勘误",
+      "kind": "议程",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 113,
+      "category": "勘误",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 114,
+      "category": "润色",
+      "kind": "能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 115,
+      "category": "勘误",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 116,
+      "category": "润色",
+      "kind": "强化信仰",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 117,
+      "category": "润色",
+      "kind": "圣物箱信仰",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 118,
+      "category": "替换音译",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 119,
+      "category": "勘误",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 120,
+      "category": "替换音译",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 121,
+      "category": "替换音译",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 122,
+      "category": "替换音译",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 123,
+      "category": "润色",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 124,
+      "category": "替换音译",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 125,
+      "category": "勘误",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 126,
+      "category": "替换音译",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 127,
+      "category": "勘误",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 128,
+      "category": "勘误",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 129,
+      "category": "勘误",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 130,
+      "category": "勘误",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 131,
+      "category": "替换音译",
+      "kind": "城邦奖励",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 132,
+      "category": "勘误",
+      "kind": "古典",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 133,
+      "category": "润色",
+      "kind": "古典",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 134,
+      "category": "润色",
+      "kind": "探索",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 135,
+      "category": "润色",
+      "kind": "探索",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 136,
+      "category": "润色",
+      "kind": "探索",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 137,
+      "category": "润色",
+      "kind": "探索",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 138,
+      "category": "勘误",
+      "kind": "探索",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 139,
+      "category": "勘误",
+      "kind": "探索",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 140,
+      "category": "勘误",
+      "kind": "探索",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 141,
+      "category": "勘误",
+      "kind": "近世",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 142,
+      "category": "勘误",
+      "kind": "近世",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 143,
+      "category": "勘误",
+      "kind": "舰队指挥官",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 144,
+      "category": "润色",
+      "kind": "舰队指挥官",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 145,
+      "category": "勘误",
+      "kind": "舰队指挥官",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 146,
+      "category": "勘误",
+      "kind": "舰队指挥官",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 147,
+      "category": "润色",
+      "kind": "空军指挥官",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 148,
+      "category": "勘误",
+      "kind": "空军指挥官",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 149,
+      "category": "润色",
+      "kind": "空军指挥官",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 150,
+      "category": "勘误",
+      "kind": "空军指挥官",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 151,
+      "category": "勘误",
+      "kind": "空军指挥官",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 152,
+      "category": "勘误",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 153,
+      "category": "替换音译",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 154,
+      "category": "勘误",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 155,
+      "category": "勘误",
+      "kind": "市政",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 156,
+      "category": "勘误",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 157,
+      "category": "润色",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 158,
+      "category": "替换音译",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 159,
+      "category": "勘误",
+      "kind": "文明百科",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 160,
+      "category": "润色",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 161,
+      "category": "替换音译",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 162,
+      "category": "替换音译",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 163,
+      "category": "勘误",
+      "kind": "河流",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 164,
+      "category": "勘误",
+      "kind": "河流",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 165,
+      "category": "勘误",
+      "kind": "河流",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 166,
+      "category": "勘误",
+      "kind": "河流",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 167,
+      "category": "勘误",
+      "kind": "河流",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 168,
+      "category": "勘误",
+      "kind": "河流",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 169,
+      "category": "勘误",
+      "kind": "河流",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 170,
+      "category": "勘误",
+      "kind": "火山",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 171,
+      "category": "勘误",
+      "kind": "火山",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 172,
+      "category": "勘误",
+      "kind": "火山",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 173,
+      "category": "勘误",
+      "kind": "火山",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 174,
+      "category": "勘误",
+      "kind": "定居点",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 175,
+      "category": "润色",
+      "kind": "传统",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 176,
+      "category": "润色",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 177,
+      "category": "勘误",
+      "kind": "文明百科",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 178,
+      "category": "勘误",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 180,
+      "category": "勘误",
+      "kind": "各种",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 182,
+      "category": "勘误",
+      "kind": "各种",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 183,
+      "category": "勘误",
+      "kind": "各种",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 184,
+      "category": "勘误",
+      "kind": "各种",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 185,
+      "category": "勘误",
+      "kind": "各种",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 186,
+      "category": "勘误",
+      "kind": "各种",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 187,
+      "category": "勘误",
+      "kind": "各种",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 188,
+      "category": "勘误",
+      "kind": "各种",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 189,
+      "category": "勘误",
+      "kind": "各种",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 190,
+      "category": "勘误",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 193,
+      "category": "勘误",
+      "kind": "布里哈迪希瓦拉神庙",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 194,
+      "category": "勘误",
+      "kind": "布里哈迪希瓦拉神庙(续)",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 197,
+      "category": "勘误",
+      "kind": "台词",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 198,
+      "category": "润色",
+      "kind": "台词",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 199,
+      "category": "润色",
+      "kind": "台词",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 200,
+      "category": "润色",
+      "kind": "台词",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 201,
+      "category": "润色",
+      "kind": "台词",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 202,
+      "category": "勘误",
+      "kind": "台词",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 203,
+      "category": "润色",
+      "kind": "台词",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 204,
+      "category": "润色",
+      "kind": "台词",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 205,
+      "category": "润色",
+      "kind": "台词",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 206,
+      "category": "勘误",
+      "kind": "台词",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 207,
+      "category": "勘误",
+      "kind": "台词",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 208,
+      "category": "勘误",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 209,
+      "category": "勘误",
+      "kind": "晋升",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 210,
+      "category": "勘误",
+      "kind": "晋升",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 211,
+      "category": "勘误",
+      "kind": "晋升",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 212,
+      "category": "勘误",
+      "kind": "单位",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 213,
+      "category": "润色",
+      "kind": "探索",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 214,
+      "category": "翻译MOD",
+      "kind": "政策",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 215,
+      "category": "翻译MOD",
+      "kind": "政策",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 216,
+      "category": "翻译MOD",
+      "kind": "政策",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 217,
+      "category": "翻译MOD",
+      "kind": "政策",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 218,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 219,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 220,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 221,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 222,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 223,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 224,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 225,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 226,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 227,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 228,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 229,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 230,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 231,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 232,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 233,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 234,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 235,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 236,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 237,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 238,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 239,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 240,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 241,
+      "category": "翻译MOD",
+      "kind": "事件",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 261,
+      "category": "勘误",
+      "kind": "大海贼",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 262,
+      "category": "勘误",
+      "kind": "文明能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 263,
+      "category": "勘误",
+      "kind": "文明能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 264,
+      "category": "勘误",
+      "kind": "文明能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 267,
+      "category": "勘误",
+      "kind": "文明能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 268,
+      "category": "勘误",
+      "kind": "文明能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 269,
+      "category": "勘误",
+      "kind": "领袖能力",
+      "reason": "not-in-reviewed-functional-allowlist"
+    },
+    {
+      "row": 270,
+      "category": "勘误",
+      "kind": "计谋策略I",
+      "reason": "not-in-reviewed-functional-allowlist"
+    }
+  ]
+}

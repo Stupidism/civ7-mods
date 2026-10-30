@@ -1,0 +1,49 @@
+{
+  "modDirectory": "civ7-better-chinese-support",
+  "publications": [
+    {
+      "platform": "bilibili",
+      "title": "《文明7拯救计划》｜更好的中文支持",
+      "url": "https://www.bilibili.com/opus/1264472598568239109",
+      "articleId": "cv53661119",
+      "status": "published_author_view_verified",
+      "publishedAtLocal": "2026-10-29T11:59:00+08:00",
+      "verifiedAt": "2026-10-30T00:34:09.771612+08:00",
+      "verifiedSignal": "Article page shows complete text, 24 original/corrected groups, workshop URL and collection membership. Anonymous access not independently verified.",
+      "file": "article-zh.md",
+      "sha256": "7bc95732974b7728ed453d025a80eb0394be3312566b2e9673dc769a24ed63dd",
+      "images": [
+        "assets/jinja-problem-annotated.png"
+      ],
+      "cover": "assets/cover.png",
+      "collection": {
+        "id": "1102252",
+        "title": "文明7拯救计划",
+        "url": "https://www.bilibili.com/read/readlist/rl1102252",
+        "status": "included_verified",
+        "position": 8,
+        "articleCount": 8
+      },
+      "archiveAdjustments": [
+        "Converted the published page to Markdown, retaining paragraph-based diffs and image-caption placeholder as actually published.",
+        "Replaced the body image CDN URL with the matching local asset.",
+        "article-zh-table.md retains the reviewed table layout; Bilibili publishes the same comparisons as stacked paragraphs.",
+        "UI-specific SVGs, classes and styles removed; red deletion and green insertion markup retained."
+      ]
+    },
+    {
+      "platform": "steam",
+      "title": "更好的中文支持 / Better Chinese Support",
+      "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3829402170",
+      "status": "published",
+      "version": "0.2.1",
+      "file": "../../../mods/civ7-better-chinese-support/docs/workshop-description.txt",
+      "receipt": "../../../mods/civ7-better-chinese-support/docs/workshop.json",
+      "verifiedAt": "2026-10-29T18:27:46.864947+08:00"
+    }
+  ],
+  "assets": {
+    "jinja-problem-annotated.png": "0c9be3e3e927f4f761e624606b05007ed24a489160b7a4b89ac997f876028a70",
+    "cover.png": "ac736bce5f7e377b07872de1b3e157c141a46965d1c6c3e5d3930366c4429579"
+  }
+}

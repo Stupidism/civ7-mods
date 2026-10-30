@@ -1,0 +1,42 @@
+{
+  "version": "0.2.1",
+  "scope": "offline source revision only",
+  "editingPolicy": "Correct errors and add missing conditions; preserve correct original wording and markup",
+  "testsPassed": 10,
+  "installed": false,
+  "liveVerified": false,
+  "mireuksa": {
+    "ageRequirement": "AGE_ANTIQUITY",
+    "buildingTag": "ANTIQUITY_HAPPINESS",
+    "numericHappinessThreshold": false,
+    "ageSwitchRuleFound": false,
+    "counterexample": {
+      "building": "BUILDING_ODEON",
+      "baseHappiness": 3,
+      "requiredTagPresent": false
+    }
+  },
+  "sources": [
+    {
+      "file": "DLC/japan-korea-wonders/modules/data/constructibles-antiquity-gameeffects.xml",
+      "sha256": "4f3722b90bf71afc4f5cc5abfb40b6387532afe78286d198baa7b0110652873d"
+    },
+    {
+      "file": "Base/modules/age-antiquity/data/constructibles.xml",
+      "sha256": "a5b4661748f1badefd18dc739e59eac3b3065631064abc02e806d0127573eb97"
+    }
+  ],
+  "textKeys": 29,
+  "withdrawnCorrection": {
+    "tags": [
+      "LOC_WONDER_BRIHADEESWARAR_TEMPLE_DESCRIPTION",
+      "LOC_WONDER_BRIHADEESWARAR_TEMPLE_TOOLTIP"
+    ],
+    "reason": "Original Chinese is correct: adjacent to a Navigable River or on a Minor River. AdjacentRiver field name alone does not establish placement semantics.",
+    "source": "Base/modules/age-exploration/text/en_us/ConstructibleText.xml:456"
+  },
+  "removedGeneralRules": [
+    "Land Jinja terrain explanation",
+    "Rural district requirement shared by improvements"
+  ]
+}

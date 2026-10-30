@@ -1,0 +1,62 @@
+{
+  "installedPath": "~/Library/Application Support/Civilization VII/Mods/civ7-better-chinese-support",
+  "enabled": true,
+  "modDatabaseRow": [
+    [
+      "civ7-better-chinese-support",
+      1,
+      0
+    ]
+  ],
+  "files": {
+    "better-chinese-support.modinfo": {
+      "size": 1451,
+      "sha256": "a3b188eed3d4b18483a60412a602edb15fe00df701f2794b95e7be8bcaa147f7"
+    },
+    "VALIDATION.md": {
+      "size": 3878,
+      "sha256": "0b96856a20293cb47f31922b3a67b5a97711abf66dcf9739c6f4f3553dc61ae8"
+    },
+    "README.md": {
+      "size": 3950,
+      "sha256": "7df0fbb1ead35798e66f05849948ae7f7c021aaf700f91123975ab75c089f025"
+    },
+    "NOTICE.md": {
+      "size": 1444,
+      "sha256": "00dfe57936ae595937b2ec8ee0f40565a78565a04357139a88a1a74abb0deecf"
+    },
+    "text/official-samples.xml": {
+      "size": 4793,
+      "sha256": "1ab272dd3eb78347d242c90d26546df236b031d48b82808d3e4f4c677bcc19f1"
+    },
+    "text/metadata.xml": {
+      "size": 817,
+      "sha256": "2c1dd74d69f6bdd8391b21b8856f4762b5cce274c901a792db4f849928bca829"
+    },
+    "text/mechanics.sql": {
+      "size": 6129,
+      "sha256": "38d3fbcf47b4ea16f0ce09c6ca676e85ec21d12b6c9ad606d48c2fdf5954b135"
+    },
+    "text/community.sql": {
+      "size": 358171,
+      "sha256": "ea1f977cb6b75cc0d0dd2cea2d9cedc94cd6311e7e0e5a3cccac7c2b015ce5cb"
+    }
+  },
+  "liveVerification": "Civilopedia: Jinja sea, Jinja land, Mireuksa; city yield breakdown +1 production/+2 culture",
+  "restoration": {
+    "gameExited": true,
+    "originalSaveFilesVerified": 390,
+    "restoredSavePaths": [
+      "Single/auto/AutoSave_00_0083.Civ7Save"
+    ],
+    "baseline": "~/Documents/Civ7-Save-Backups/better-chinese-20261028T022546.539313Z/manifest.json",
+    "finalPreservationBackup": "~/Documents/Civ7-Test-Backups/better-chinese-final-20261028-103615-014761/manifest.json",
+    "restGuardManifestsRestored": true,
+    "modSettingsUnchanged": true,
+    "activityMarkersAbsent": true,
+    "restoredPreferences": [
+      "UserOptions.txt"
+    ],
+    "testCopyPreserved": "~/Library/Application Support/Civilization VII/Saves/Single/BCS_ChineseValidation_T83_20261028.Civ7Save"
+  }
+}
