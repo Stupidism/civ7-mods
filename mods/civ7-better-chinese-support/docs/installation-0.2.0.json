@@ -1,0 +1,46 @@
+{
+  "version": "0.2.0",
+  "installedPath": "~/Library/Application Support/Civilization VII/Mods/civ7-better-chinese-support",
+  "verified": true,
+  "backup": "~/Documents/Civ7-Mod-Backups/better-chinese-scope-20261028T072827.041459Z/manifest.json",
+  "files": {
+    "better-chinese-support.modinfo": {
+      "size": 1359,
+      "sha256": "1669c4b80ea94bb646bc1424c3e3f660956b7d7c342350150af6627417754577"
+    },
+    "README.md": {
+      "size": 3910,
+      "sha256": "3a3d0fe3d82b195ecc84cf7892879220f1a13936ea6ae0eddd76860ff7ba7df8"
+    },
+    "NOTICE.md": {
+      "size": 1328,
+      "sha256": "a71723a078ba45cebe8501cabba30d5c2a15491f08253bf64c52a2ba27d188cc"
+    },
+    "VALIDATION.md": {
+      "size": 2438,
+      "sha256": "6f8405a23bb231555e7718592c759cefbf90451875bc8c062b0e34b404613fa7"
+    },
+    "text/metadata.xml": {
+      "size": 1017,
+      "sha256": "55257fc69114d10e9a0eee528da9c8c462b1d064024219eba077a5374ea3644b"
+    },
+    "text/functional.sql": {
+      "size": 26639,
+      "sha256": "9fefa7d8b87dd7c30bbbf0bfa85dbca97d6c5a813b53634d514386530c16420c"
+    },
+    "text/mechanics.sql": {
+      "size": 6129,
+      "sha256": "38d3fbcf47b4ea16f0ce09c6ca676e85ec21d12b6c9ad606d48c2fdf5954b135"
+    }
+  },
+  "removedObsoletePayloads": [
+    "text/community.sql",
+    "text/official-samples.xml"
+  ],
+  "gameWasClosed": true,
+  "gameStarted": false,
+  "savesAccessed": false,
+  "settingsChanged": false,
+  "restGuardChanged": false,
+  "liveVerification": "not-run-for-0.2.0"
+}

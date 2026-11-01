@@ -1,0 +1,42 @@
+{
+  "version": "0.2.1",
+  "scope": "仅离线修改源码",
+  "editingPolicy": "只纠正错误、补充遗漏条件；保留原本正确的措辞和标记。",
+  "testsPassed": 10,
+  "installed": false,
+  "liveVerified": false,
+  "mireuksa": {
+    "ageRequirement": "AGE_ANTIQUITY",
+    "buildingTag": "ANTIQUITY_HAPPINESS",
+    "numericHappinessThreshold": false,
+    "ageSwitchRuleFound": false,
+    "counterexample": {
+      "building": "BUILDING_ODEON",
+      "baseHappiness": 3,
+      "requiredTagPresent": false
+    }
+  },
+  "sources": [
+    {
+      "file": "DLC/japan-korea-wonders/modules/data/constructibles-antiquity-gameeffects.xml",
+      "sha256": "4f3722b90bf71afc4f5cc5abfb40b6387532afe78286d198baa7b0110652873d"
+    },
+    {
+      "file": "Base/modules/age-antiquity/data/constructibles.xml",
+      "sha256": "a5b4661748f1badefd18dc739e59eac3b3065631064abc02e806d0127573eb97"
+    }
+  ],
+  "textKeys": 29,
+  "withdrawnCorrection": {
+    "tags": [
+      "LOC_WONDER_BRIHADEESWARAR_TEMPLE_DESCRIPTION",
+      "LOC_WONDER_BRIHADEESWARAR_TEMPLE_TOOLTIP"
+    ],
+    "reason": "原中文说明正确：位于可航行河流旁或小型河流之上。不能仅凭 AdjacentRiver 字段名推断放置规则。",
+    "source": "Base/modules/age-exploration/text/en_us/ConstructibleText.xml:456"
+  },
+  "removedGeneralRules": [
+    "陆地神社的地形说明",
+    "改良设施共有的乡村地块要求"
+  ]
+}

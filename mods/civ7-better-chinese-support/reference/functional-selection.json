@@ -1,0 +1,139 @@
+[
+  {
+    "id": "unique-resources",
+    "rows": [
+      179,
+      181
+    ],
+    "reason": "哈特谢普苏特按不同资源种类计数，不是文明特色资源。",
+    "evidence": {
+      "file": "Base/modules/base-standard/data/leaders-gameeffects.xml",
+      "anchor": "HATSHEPSUT_MOD_CULTURE_FROM_RESOURCES"
+    }
+  },
+  {
+    "id": "serpent-mound",
+    "rows": [
+      191,
+      192
+    ],
+    "reason": "草原生物群系且为平地；草原丘陵不满足条件。",
+    "evidence": {
+      "file": "DLC/shawnee-tecumseh/modules/data/constructibles.xml",
+      "anchor": "WONDER_SERPENT_MOUND"
+    }
+  },
+  {
+    "id": "nan-madol",
+    "rows": [
+      195,
+      196
+    ],
+    "reason": "岛屿限制作用于所属定居点。",
+    "evidence": {
+      "file": "DLC/water-wonders/modules/data/constructibles-exploration.xml",
+      "anchor": "WONDER_NAN_MADOL"
+    }
+  },
+  {
+    "id": "han-population",
+    "rows": [
+      242,
+      243,
+      244
+    ],
+    "reason": "科技建筑建成的所在地获得人口；古典限首都，探索限城市，近世为定居点。",
+    "evidence": {
+      "file": "Base/modules/age-antiquity/data/civilizations-shared-gameeffects.xml",
+      "anchor": "TRAIT_MOD_NINE_PROVINCES_POP"
+    }
+  },
+  {
+    "id": "great-wall-cost",
+    "rows": [
+      245,
+      246
+    ],
+    "reason": "长城降低的是同城已有同类改良导致的费用涨幅。",
+    "evidence": {
+      "file": "Base/modules/age-antiquity/data/constructibles.xml",
+      "anchor": "IMPROVEMENT_HAN_GREAT_WALL"
+    }
+  },
+  {
+    "id": "norman-coast",
+    "rows": [
+      247,
+      248,
+      249
+    ],
+    "reason": "陆地单位和驻防区块都受邻接水岸条件限制。",
+    "evidence": {
+      "file": "Base/modules/age-exploration/data/civilizations-shared-gameeffects.xml",
+      "anchor": "TRAIT_MOD_ADJACENT_TO_COAST_COMBAT"
+    }
+  },
+  {
+    "id": "friedrich",
+    "rows": [
+      250,
+      251,
+      252
+    ],
+    "reason": "建成指定建筑时当地获步兵；每座定居点首次被你占领时分别触发奖励。",
+    "evidence": {
+      "file": "Base/modules/base-standard/data/leaders-gameeffects.xml",
+      "anchor": "FRIEDRICH_MOD_INFANTRY_CONSTRUCT_SCIENCE"
+    }
+  },
+  {
+    "id": "assyria-conquest",
+    "rows": [
+      253,
+      254,
+      255
+    ],
+    "reason": "首次占领按每座定居点判定。",
+    "evidence": {
+      "file": "DLC/assyria/modules/data/civilizations-shared-gameeffects.xml",
+      "anchor": "MOD_CIV_FIRST_TIME_CONQUER"
+    }
+  },
+  {
+    "id": "ekallu",
+    "rows": [
+      256
+    ],
+    "reason": "亚述王宫按巨作计数，不仅限抄本。",
+    "evidence": {
+      "file": "DLC/assyria/modules/data/constructibles-gameeffects.xml",
+      "anchor": "MOD_ASSYRIA_GREAT_WORKS_PRODUCTION"
+    }
+  },
+  {
+    "id": "forbidden-city",
+    "rows": [
+      257,
+      258,
+      259,
+      260
+    ],
+    "reason": "产出加成为所在城市；防御工事旅游收益为玩家范围。",
+    "evidence": {
+      "file": "Base/modules/age-exploration/data/constructibles-gameeffects.xml",
+      "anchor": "MOD_FORBIDDEN_CITY_FORTIFICATION"
+    }
+  },
+  {
+    "id": "clan-society",
+    "rows": [
+      265,
+      266
+    ],
+    "reason": "6格内其他己方定居点，不是他人定居点。",
+    "evidence": {
+      "file": "Base/modules/age-modern/data/traditions-tot-gameeffects.xml",
+      "anchor": "ATTACH_MOD_CLAN_SOCIETY"
+    }
+  }
+]

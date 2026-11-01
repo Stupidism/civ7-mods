@@ -1,6 +1,6 @@
 # Civilization VII Mods
 
-Stupidism 的文明7 Mod 开发合集。收录本 PR 范围内的 6 个 Mod 项目，包含当前源码、测试、安装说明和各项目的验证记录。
+Stupidism 的文明7 Mod 开发合集。收录 7 个 Mod 项目，包含当前源码、测试、安装说明和各项目的验证记录。
 
 | 项目 | 当前源码版本 | 功能与状态 |
 | --- | --- | --- |
@@ -10,6 +10,7 @@ Stupidism 的文明7 Mod 开发合集。收录本 PR 范围内的 6 个 Mod 项�
 | [微操大师常凯申](mods/civ7-micromanagement-master-chiang-kai-shek/README-zh-CN.txt) | 0.6.0 | 连续部署、原地齐射与增援切换；当前源码另含自动选敌及快速转移开发改动，未全部进入工坊包 |
 | [垃圾时间 · Garbage Time](mods/civ7-garbage-time/README-zh-CN.txt) | 0.1.4 | 主动开启军队、定居点、宝藏、传教、科技、市政及资源自动化；宝藏船自动兑现已实测 |
 | [资源规划 · Resource Planner](mods/civ7-resource-planner/) | 1.1.0 | 资源排序、分组、幸福度填充和定居点倾向分配；需要 Resource Re-sorts |
+| [更好的中文支持 · Better Chinese Support](mods/civ7-better-chinese-support/) | 0.2.1 | 29 个简体中文功能说明纠错与条件补充；仅修改文本 |
 
 目录命名与稳定 Mod ID 对照见 [目录名称表](docs/mod-directory-names.md)。
 
@@ -17,7 +18,7 @@ Stupidism 的文明7 Mod 开发合集。收录本 PR 范围内的 6 个 Mod 项�
 
 ## Steam 创意工坊
 
-截至 2026-10-28 收集的发布记录如下；发行包与上表源码的验证范围分开记录。
+截至 2026-10-30 收集的发布记录如下；发行包与上表源码的验证范围分开记录。
 
 | 模组 | 工坊版本 | 订阅 |
 | --- | --- | --- |
@@ -27,6 +28,7 @@ Stupidism 的文明7 Mod 开发合集。收录本 PR 范围内的 6 个 Mod 项�
 | 垃圾时间 · Garbage Time | 0.1.4 | [Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=3822254009) |
 | 资源规划 · Resource Planner | 1.1.0 | [Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182) |
 | No More Turn（不再来一回合） | 1.8.6（默认值及说明更新） | [Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=3815557333) |
+| 更好的中文支持 · Better Chinese Support | 0.2.1（7 文件哈希核验回执） | [Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=3829402170) |
 
 历史发行包下载核验见各条目记录；更好的手柄支持 0.3.0 本轮只做离线验证，未强制下载或安装。资源规划在工坊关联了 Resource Re-sorts 必需项。发布回执在各模组的 `docs/workshop.json` 和 `docs/release-*.json`（较新发行以对应 release 回执为准）；资源规划 1.1.0 已完成中英文及资源交互的 Mac 对局验收，见 [模块记录](mods/civ7-resource-planner/VALIDATION.md)；其余历史范围见 [Mac 验证记录](docs/validation-macos-2026-10-18.md)。
 
@@ -49,14 +51,14 @@ macOS 手动安装目录：`~/Library/Application Support/Civilization VII/Mods/
 
 ## 开发与检查
 
-Node.js 22+，无需安装 npm 依赖。在仓库根目录执行：
+Node.js 22+、Python 3，无需安装 npm 依赖。在仓库根目录执行：
 
 ```sh
 npm run check
 npm test
 ```
 
-测试按 6 个包含自动测试的项目分别运行。回合前存档中读取原版游戏源码的集成检查，在没有本机游戏时会跳过；可用 `CIV7_GAME_DIR` 指定游戏根目录。自动测试不替代实机测试，历史证据的版本与范围以各项目验证文档为准。
+测试按 7 个包含自动测试的项目分别运行。中文支持的官方资产集成检查需要本机游戏，缺少时跳过；通用清单与 SQL 检查照常运行。回合前存档中读取原版游戏源码的集成检查，在没有本机游戏时会跳过；可用 `CIV7_GAME_DIR` 指定游戏根目录。自动测试不替代实机测试，历史证据的版本与范围以各项目验证文档为准。
 
 ## 原项目与权利说明
 

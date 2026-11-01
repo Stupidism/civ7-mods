@@ -12,4 +12,10 @@ for(const name of projects){
   console.log(`\n${name}:\n`+result.stdout.split(/\r?\n/).filter(l=>/^# (tests|pass|fail|skipped|duration_ms) /.test(l)).join('\n'));
   if(result.status!==0){failed=true;console.error(result.stdout,result.stderr);}
 }
+const localization=spawnSync(process.env.PYTHON || 'python3',['-m','unittest','discover','-s','tests','-v'],{
+  cwd:fileURLToPath(new URL('../mods/civ7-better-chinese-support/',import.meta.url)),encoding:'utf8',maxBuffer:10*1024*1024
+});
+if(localization.error)throw localization.error;
+console.log('\nciv7-better-chinese-support:\n'+localization.stdout+localization.stderr);
+if(localization.status!==0)failed=true;
 if(failed)process.exitCode=1;

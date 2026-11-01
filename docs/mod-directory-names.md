@@ -10,6 +10,7 @@
 | 更好的手柄支持 · Better Controller Support | `mods/civ7-better-controller-support` | `civ7-map-tools-gamepad` |
 | 垃圾时间 · Garbage Time | `mods/civ7-garbage-time` | 不变 |
 | 资源规划 · Resource Planner | `mods/civ7-resource-planner` | 不变 |
+| 更好的中文支持 · Better Chinese Support | `mods/civ7-better-chinese-support` | `civ7-better-chinese-support` |
 
 ## 安装与历史引用
 
