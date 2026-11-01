@@ -1,11 +1,11 @@
 {
   "scope": "gameplay-description-corrections-only",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "source_url": "https://docs.qq.com/sheet/DWW94VHpnUFdHVmZS?tab=1nqnrb",
   "source_sha256": "10c523085a040e6bca7bba0b5351d43c66d933686a99fc8bff7d390481a1962e",
   "reviewed_rules": 27,
   "functional_tags": 24,
-  "own_tags": 5,
+  "own_tags": 6,
   "game_text_files": [
     {
       "path": "Base/modules/age-antiquity/l10n/zh_Hans_CN_AgeSpecific_Text.xml",

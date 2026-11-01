@@ -95,7 +95,7 @@ class LocalizationTests(unittest.TestCase):
         allowed = {r["tag"] for r in build.read_rules()} | set(build.additions())
         actual = {k for k in originals if originals[k] != changed[k]}
         self.assertEqual(actual, allowed)
-        self.assertEqual(len(actual), 29)
+        self.assertEqual(len(actual), 30)
         # Names, narrative/history text, and other mods stay byte-identical.
         for key in originals.keys() - allowed:
             self.assertEqual(originals[key], changed[key], key)
@@ -120,7 +120,7 @@ class LocalizationTests(unittest.TestCase):
             if "JINJA" in tag:
                 original = next(iter(texts[tag])).strip()
                 self.assertTrue(revised.startswith(original + "[n]"), tag)
-            else:
+            elif "MIREUKSA" in tag:
                 self.assertIn("古典时代[icon:YIELD_HAPPINESS]幸福值", revised)
                 self.assertNotIn("祭坛、竞技场", revised)
                 self.assertNotIn("至少1[icon:YIELD_HAPPINESS]", revised)
@@ -214,6 +214,15 @@ class LocalizationTests(unittest.TestCase):
         node = effect("Base/modules/age-modern/data/traditions-tot-gameeffects.xml", "ATTACH_MOD_CLAN_SOCIETY_FOOD_ON_FRIENDLY_SETTLEMENTS")
         self.assertEqual(node.get("collection"), "COLLECTION_PLAYER_CITIES")
         self.assertEqual(node.find("g:SubjectRequirements/g:Requirement/g:Argument[@name='MaxDistance']",ns).text, "6")
+        file = "Base/modules/age-exploration/data/golden-ages-gameeffects.xml"
+        for kind, effect_type, argument, target in (
+            ("TEMPLE", "EFFECT_ADJUST_PLAYER_OR_CITY_BUILDING_PURCHASE_EFFICIENCY", "BuildingType", "BUILDING_TEMPLE"),
+            ("MISSIONARY", "EFFECT_ADJUST_PLAYER_OR_CITY_UNIT_PURCHASE_EFFICIENCY", "UnitTag", "UNIT_CLASS_RELIGIOUS"),
+        ):
+            node = effect(file, f"MOD_THEOCRACY_PASSIVE_{kind}_PURCHASING")
+            self.assertEqual(node.get("effect"), effect_type)
+            self.assertEqual(arg(node, argument), target)
+            self.assertEqual(arg(node, "Percent"), "20")
 
 
 if __name__ == "__main__":

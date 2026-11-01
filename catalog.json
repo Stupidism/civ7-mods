@@ -68,7 +68,7 @@
     },
     {
       "id": "civ7-better-chinese-support",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "manifest": "mods/civ7-better-chinese-support/better-chinese-support.modinfo",
       "dependencies": [
         "base-standard"

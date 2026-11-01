@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="civ7-better-chinese-support" version="3" xmlns="ModInfo">
+<Mod id="civ7-better-chinese-support" version="4" xmlns="ModInfo">
   <Properties>
     <Name>更好的中文支持</Name>
     <Description>LOC_BCS_MOD_DESCRIPTION</Description>
     <Authors>Stupidism；社区修订参考：徂川</Authors>
-    <Version>0.2.1</Version>
+    <Version>0.2.2</Version>
     <Package>Mod</Package>
     <AffectsSavedGames>0</AffectsSavedGames>
     <ShowInBrowser>1</ShowInBrowser>

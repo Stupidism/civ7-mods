@@ -1,40 +1,34 @@
 {
   "modId": "civ7-better-chinese-support",
-  "version": "0.2.1",
+  "version": "0.2.2",
+  "status": "published-and-installed",
+  "verifiedAt": "2026-11-01T03:47:24.189904+00:00",
   "publishedFileId": "3829402170",
   "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3829402170",
-  "visibility": "public",
-  "title": "更好的中文支持 / Better Chinese Support",
-  "publishedAt": "2026-10-29T18:27:46.864947+08:00",
-  "ownerAccountVerified": true,
-  "anonymousApiVerified": true,
-  "publicTitleDescriptionMatch": true,
-  "previewHashesVerified": true,
-  "downloadHashesVerified": true,
   "downloadedFiles": {
     "better-chinese-support.modinfo": {
       "size": 1359,
-      "sha256": "174825df7c1c4bd313bcfb38ee7ced4109529ab84d4f27a918b1b279c96f981b"
+      "sha256": "6d2f1199c96ab7bcc5b64c3ea87ec0e9748d3dc8d04720ba505a7016f447f06f"
     },
     "VALIDATION.md": {
-      "size": 5499,
-      "sha256": "65681cea48174fe15be7adc7b7224ff4292c58ea4b94f15f36bffc5b91d2ce3f"
+      "size": 9918,
+      "sha256": "eead3d588aa3f094e6ce7a12daec91b6a68762a29351e92f9ba2cad958202721"
     },
     "README.md": {
-      "size": 3893,
-      "sha256": "40fc6eedfd93223f982d0b5a0b07473115711079dd889bb832564edd99d75673"
+      "size": 4606,
+      "sha256": "cfacf6b9e62152375e4520fd8390a36ce10d583b7df7abba51dd817f740858ea"
     },
     "NOTICE.md": {
-      "size": 1360,
-      "sha256": "03d89659b6deedecec4d125da94fd6be9bc8ff89c8e8eb2f7b30daefa30e54f6"
+      "size": 1483,
+      "sha256": "74d114468ced656f3b8ab8154a40aab2ce001b2ba66399acd2929e3b6ca581f6"
     },
     "text/metadata.xml": {
       "size": 1017,
       "sha256": "55257fc69114d10e9a0eee528da9c8c462b1d064024219eba077a5374ea3644b"
     },
     "text/mechanics.sql": {
-      "size": 5281,
-      "sha256": "52b2068525b30f2386093e14eee6881c5e385a6f22ec82f177d96d12f5018ecb"
+      "size": 5702,
+      "sha256": "e52b2c0baf21773431217e9911498c03857c3fe119d48e5d7612f469fdec1bb8"
     },
     "text/functional.sql": {
       "size": 24652,
@@ -43,40 +37,46 @@
   },
   "download": {
     "id": "3829402170",
-    "bytes": 43061,
-    "state": 4
+    "bytes": 48737,
+    "state": 5
   },
+  "metadata": {
+    "title": "更好的中文支持 / Better Chinese Support",
+    "visibility": 0,
+    "updated": 1793504680,
+    "bytes": 48737,
+    "tags": "Mod,UI",
+    "previewUrl": "https://images.steamusercontent.com/ugc/15936661246147980010/E78FC86ED4E18AFD1302F899F2255D658D9798B8/"
+  },
+  "descriptionSha256": "d3fa50f7aa6713b551735634425fbbd90934d823132ea0b766db3df39e13850c",
+  "previewHashesVerified": true,
+  "downloadHashesVerified": true,
+  "publicTitleDescriptionMatch": true,
+  "installationChannel": "Steam Workshop subscription",
+  "localDuplicateAbsent": true,
+  "gameClosedAtPreflight": true,
+  "gameRunningAtFinish": true,
+  "gameInteraction": false,
+  "savesSettingsRestGuard": "Not touched by this session; no game launch, load, UI or CDP. Game started externally during publication; no runtime validation or restart performed.",
   "validation": {
     "offlineTestsPassed": 10,
-    "textKeys": 29,
+    "textKeys": 30,
     "currentVersionLiveTested": false
   },
-  "installation": "Downloaded to Steam cache for verification without subscription. Existing local Mods copy unchanged.",
-  "gameInteraction": false,
-  "savesSettingsRestGuard": "Untouched; no game launch, testing, or live installation",
-  "evidence": "work/better-chinese-workshop-20261029/",
-  "publicPageVerified": true,
-  "evidenceScreenshots": [
-    "steam-published.jpg",
-    "bilibili-download-link.jpg"
-  ],
   "bilibiliUpdate": {
     "url": "https://www.bilibili.com/opus/1264472598568239109",
     "columnId": "53661119",
-    "status": "updated_and_visible_in_article_page",
-    "verifiedAt": "2026-10-29T18:33:32.359721+08:00",
-    "workshopUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3829402170",
-    "oldRows": 24,
-    "newRows": 24,
-    "redStrikethroughs": 27,
-    "greenChanges": 36,
-    "bodyImages": 1,
-    "coverPreserved": true,
-    "collectionPreserved": true,
-    "titleAndDownloadHeadingVerified": true,
-    "contentHash": "c1d7ae451df822bf4af4e6bef53963816d6741519ede582b47c69af5b0bd927e",
-    "imageCdnUrl": "https://i0.hdslb.com/bfs/new_dyn/c00213caef0b43bd7c9d0b1a9fead84e7247306.png",
-    "anonymousBilibiliAccess": "not independently verified"
+    "type": "update-comment",
+    "text": "0.2.2 更新｜2026-11-01\n神权政治的常驻说明补明购买对象：\n原文：购买时 +20% 金币效用。\n修改后：购买寺庙、传教士时 +20% 金币效用。\n只补上遗漏的对象，其余措辞和数值不变，不改变游戏规则。现在共修正 30 个中文文本条目。\n10 项离线检查通过；此次新增文本尚未实机验证。工坊已更新：\nhttps://steamcommunity.com/sharedfiles/filedetails/?id=3829402170",
+    "status": "public-visible",
+    "authorUid": "7247306",
+    "anonymousPageVerified": true,
+    "commentId": null,
+    "commentIdNote": "Comment ID not exposed by visible UI; one comment present on original article.",
+    "screenshot": "work/release-0.2.2/bilibili-comment.png"
   },
-  "archiveNote": "Local download directory omitted from repository archive; release file hashes are unchanged."
+  "otherPlatforms": "No Reddit or CivFanatics original; excluded by user",
+  "evidence": "work/release-0.2.2/",
+  "archiveNote": "0.2.1 release metadata preserved separately; no gameplay behavior changes.",
+  "anonymousApiVerified": true
 }

@@ -134,6 +134,12 @@ def additions(texts=None):
         original = originals.pop()
         assert original.count(before) == 1, tag
         result[tag] = original.replace(before, after) + note
+    tag = "LOC_GOVERNMENT_THEOCRACY_PASSIVE_DESCRIPTION"
+    originals = {v.strip() for v in texts[tag]}
+    assert len(originals) == 1, (tag, originals)
+    original = originals.pop()
+    assert original.count("；购买时") == 1, tag
+    result[tag] = original.replace("；购买时", "；购买寺庙、传教士时")
     return result
 
 
@@ -161,7 +167,7 @@ def build(game):
             extra.append((tag, before, after))
     write_patches(ROOT / "text/mechanics.sql", extra)
     selected = {r["row"] for r in rules}
-    report = dict(scope="gameplay-description-corrections-only", version="0.2.1",
+    report = dict(scope="gameplay-description-corrections-only", version="0.2.2",
                   source_url="https://docs.qq.com/sheet/DWW94VHpnUFdHVmZS?tab=1nqnrb",
                   source_sha256=hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
                   reviewed_rules=len(rules), functional_tags=len({p[0] for p in patches}),
