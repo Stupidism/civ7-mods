@@ -2,6 +2,10 @@
 
 Snapshot: 2026-11-01 (UTC+08:00). Acceptance records are maintained in English. Original game screenshots, raw output, identifiers and reproduction strings retain their original language.
 
+[Current version and QA Project](https://github.com/users/Stupidism/projects/5)
+
+Publication-state correction: the latest recorded Micromanagement Master publishing turn is interrupted. No new release receipt is available; public version remains 0.6.1.
+
 ## How to read these records
 
 - Public release, development version, installed build and tested build are separate facts. Equal version numbers do not imply equal bytes.
@@ -76,7 +80,7 @@ All game/control processes exited and were awaited. The complete original Saves 
 
 - Published: 0.6.1 — [Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3822253543)
 - Development: 0.6.1 + post-release fixes
-- Release state: Publishing; QA state: Partial live
+- Release state: Unreleased; QA state: Partial live
 - Evidence checked: 2026-11-01
 
 ### Verified scope
@@ -87,7 +91,7 @@ All game/control processes exited and were awaited. The complete original Saves 
 ### Remaining coverage
 
 - The T53 run did not repeat movement, attacks, quick transfer or physical controller checks.
-- Publication was requested in the owning chat; no completed receipt was available at this checkpoint.
+- Publication was requested, but the latest recorded attempt is interrupted and no completion receipt is available. Public release remains 0.6.1.
 
 ### Recorded defects
 

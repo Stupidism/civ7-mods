@@ -1,0 +1,384 @@
+[
+  {
+    "id": "civ7-better-settlement-ui",
+    "name": "Better Settlement UI",
+    "localName": "更好的定居点界面",
+    "developmentVersion": "0.1.10",
+    "publishedVersion": "Not released",
+    "publishedUrl": null,
+    "releaseStatus": "Unreleased",
+    "qaStatus": "Partial live",
+    "checkedAt": "2026-11-01",
+    "passed": [
+      "65 offline checks passed.",
+      "T53 market, lighthouse, bath and monument scores and native tooltip content matched real city data. Resource slots use 12 points per turn; Influence uses weight 8.",
+      "Production/purchase mode switching and insufficient-gold disabling passed."
+    ],
+    "gaps": [
+      "Actual purchasing, completion, overbuilding and repairs.",
+      "Physical controller input."
+    ],
+    "screenshots": [
+      "04-market-small.jpg",
+      "05-bath-small.jpg"
+    ]
+  },
+  {
+    "id": "civ7-war-controls",
+    "name": "Micromanagement Master",
+    "localName": "微操大师",
+    "developmentVersion": "0.6.1 + post-release fixes",
+    "publishedVersion": "0.6.1",
+    "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3822253543",
+    "releaseStatus": "Unreleased",
+    "qaStatus": "Partial live",
+    "checkedAt": "2026-11-01",
+    "passed": [
+      "T53 badges 3/3, 1/2 and 0/2 matched native movement values; zero was red, empty slots had no badge, health bars remained visible.",
+      "Earlier T44 quick-transfer and LB/RB results retain their original scope."
+    ],
+    "gaps": [
+      "The T53 run did not repeat movement, attacks, quick transfer or physical controller checks.",
+      "Publication was requested, but the latest recorded attempt is interrupted and no completion receipt is available. Public release remains 0.6.1."
+    ],
+    "screenshots": [
+      "06-movement-fractions-small.jpg"
+    ]
+  },
+  {
+    "id": "civ7-resource-planner",
+    "name": "Resource Planner",
+    "localName": "资源规划",
+    "developmentVersion": "1.3.1",
+    "publishedVersion": "1.1.0",
+    "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182",
+    "releaseStatus": "Unreleased",
+    "qaStatus": "Partial live",
+    "checkedAt": "2026-11-01",
+    "passed": [
+      "Installed triangle-centering CSS matched source. Negative red and positive green markers were centered inside the edges.",
+      "Native focus/input changed preferences. Exactly one defer control existed; activation closed the screen and set deferred.",
+      "Garbage Time integration returned no changes with error=false; all seven cities retained their assignments."
+    ],
+    "gaps": [
+      "Actual resource reassignment/COMPLETED path, failure rollback and physical controller."
+    ],
+    "screenshots": [
+      "07-resource-markers-small.jpg"
+    ]
+  },
+  {
+    "id": "civ7-rest-guard",
+    "name": "No More Turn",
+    "localName": "不再来一回合",
+    "developmentVersion": "1.8.7-dev.1101-1438-315f6449",
+    "publishedVersion": "1.8.7",
+    "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3815557333",
+    "releaseStatus": "Unreleased",
+    "qaStatus": "Partial live",
+    "checkedAt": "2026-11-01",
+    "passed": [
+      "Natural one-minute forced break, without debug exemption, left all 423 save files unchanged.",
+      "Native quick save succeeded with 56.298 seconds remaining and after the deadline; the overlay returned without resetting the deadline.",
+      "Continue did not submit a turn. Original settings and quicksave were restored."
+    ],
+    "gaps": [
+      "Night limits, turn thresholds, exit confirmation and physical controller were not rerun.",
+      "Public 1.8.7 retains the old behavior; the development build is a different implementation."
+    ],
+    "screenshots": [
+      "10-rest-forced-small.jpg",
+      "11-rest-menu-small.jpg"
+    ]
+  },
+  {
+    "id": "civ7-garbage-time",
+    "name": "Garbage Time",
+    "localName": "垃圾时间",
+    "developmentVersion": "0.1.4 + unpublished UI/resource patches",
+    "publishedVersion": "0.1.4",
+    "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3822254009",
+    "releaseStatus": "Unreleased",
+    "qaStatus": "Needs retest",
+    "checkedAt": "2026-11-01",
+    "passed": [
+      "74 offline checks passed. Native accept START/FINISH opened city configuration, changed gold weight 4 to 5, saved and closed the page.",
+      "Actual resource bridge returned no changes/error=false without changing seven cities. Two temporary installed files were restored after testing."
+    ],
+    "gaps": [
+      "IT-02: controller hints remain hidden.",
+      "Actual resource reassignment, rollback, older planners without statusCode and physical controller."
+    ],
+    "screenshots": [
+      "12-garbage-city-small.jpg"
+    ]
+  },
+  {
+    "id": "civ7-play-again",
+    "name": "Play Again / Your Great Map",
+    "localName": "你的神图很好，现在是我的了",
+    "developmentVersion": "0.4.0-dev (installed); 0.3.6-dev (main source)",
+    "publishedVersion": "Not released",
+    "publishedUrl": null,
+    "releaseStatus": "Unreleased",
+    "qaStatus": "Needs retest",
+    "checkedAt": "2026-11-01",
+    "passed": [
+      "C7S2 exported 73 fields. Preview and apply succeeded with 74 accepted fields, zero skipped; the extra field was player count.",
+      "Both seeds and NoCivUnlocks changed in real GameSetup. No new world was started."
+    ],
+    "gaps": [
+      "IT-01: raw team and difficulty localization keys.",
+      "Physical clipboard paste, nonempty memento replacement, invalid rosters, historical save import and new-world generation.",
+      "The main source must not overwrite the newer installed build."
+    ],
+    "screenshots": [
+      "02-code-export-preview.png",
+      "03-code-preview-small.jpg"
+    ]
+  },
+  {
+    "id": "civ7-better-policy-ui",
+    "name": "Better Policy UI",
+    "localName": "更好的政策界面",
+    "developmentVersion": "0.1.2-dev.1031-1947-19381774",
+    "publishedVersion": "Not released",
+    "publishedUrl": null,
+    "releaseStatus": "Unreleased",
+    "qaStatus": "Partial live",
+    "checkedAt": "2026-11-01",
+    "passed": [
+      "T53 had 16 cards and 8 slots; all 120 animation frames shared one layout.",
+      "Filled slots correctly displayed no skip control. Earlier 0.1.2 installed-process checks verified stable geometry with LF previews."
+    ],
+    "gaps": [
+      "Empty-slot drafts, confirmation, force-turn and physical controller were not repeated in the latest combination.",
+      "Other resolutions and all Mod combinations are not accepted by this evidence."
+    ],
+    "screenshots": [
+      "08-policy-layout-small.jpg"
+    ]
+  },
+  {
+    "id": "civ7-action-order",
+    "name": "Action Order Adjustments",
+    "localName": "行动顺序调整",
+    "developmentVersion": "0.1.0",
+    "publishedVersion": "Not released",
+    "publishedUrl": null,
+    "releaseStatus": "Unreleased",
+    "qaStatus": "Partial live",
+    "checkedAt": "2026-11-01",
+    "passed": [
+      "Installed runtime matched source. Shared service and production/card providers were present.",
+      "Resource Planner owned the only defer control; no duplicate AO/old-BCS control appeared. Seven cities retained queues and resources.",
+      "Earlier T38-to-T39 actual-save/single-submit evidence remains separately scoped."
+    ],
+    "gaps": [
+      "Full three-stage ordering, empty drafts and physical controller were not repeated in this run."
+    ],
+    "screenshots": [
+      "07-resource-markers-small.jpg"
+    ]
+  },
+  {
+    "id": "civ7-map-tools-gamepad",
+    "name": "Better Controller Support",
+    "localName": "更好的手柄支持",
+    "developmentVersion": "0.10.0-dev.1031-2359-31e6fd3f",
+    "publishedVersion": "0.3.0",
+    "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3825193325",
+    "releaseStatus": "Unreleased",
+    "qaStatus": "Partial live",
+    "checkedAt": "2026-11-01",
+    "passed": [
+      "Combined BSU/Policy/AO/Resource Planner screenshots and native input paths passed the recorded checks.",
+      "Exactly one resource defer control. Policy geometry was stable for 120 frames."
+    ],
+    "gaps": [
+      "No new physical-stick/button acceptance. Previously accepted stick code remains unchanged.",
+      "Companion IT-02 belongs to Garbage Time, not automatically to BCS."
+    ],
+    "screenshots": [
+      "07-resource-markers-small.jpg",
+      "08-policy-layout-small.jpg",
+      "04-market-small.jpg"
+    ]
+  },
+  {
+    "id": "civ7-better-chinese-support",
+    "name": "Better Chinese Support",
+    "localName": "更好的中文支持",
+    "developmentVersion": "0.2.2 (release worktree); main source 0.2.1",
+    "publishedVersion": "0.2.2",
+    "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3829402170",
+    "releaseStatus": "Published",
+    "qaStatus": "Offline only",
+    "checkedAt": "2026-11-01",
+    "passed": [
+      "10 offline checks passed. Seven downloaded release files matched the release manifest.",
+      "0.2.2 explicitly names temples and missionaries as the Theocracy purchase-bonus targets."
+    ],
+    "gaps": [
+      "New 0.2.2 text has not been checked in the live game. Older 0.2.1 screenshots do not validate the new wording."
+    ],
+    "screenshots": []
+  },
+  {
+    "id": "civ7-before-end-turn",
+    "name": "Auto-save Before...",
+    "localName": "行动前自动存档",
+    "developmentVersion": "Public 1.1.2; main source 1.1.1 + fixes",
+    "publishedVersion": "1.1.2",
+    "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3815596737",
+    "releaseStatus": "Published",
+    "qaStatus": "Partial live",
+    "checkedAt": "2026-11-01",
+    "passed": [
+      "Workshop 1.1.2 is installed; redundant manual copy was removed by its owner.",
+      "Earlier T38 save-start/save-complete/single-submit then T39 evidence is retained."
+    ],
+    "gaps": [
+      "Main-source/release mapping must be reconciled. Latest integration did not rerun the save chain."
+    ],
+    "screenshots": []
+  },
+  {
+    "id": "civ7-command-console",
+    "name": "Command Console",
+    "localName": "命令控制台",
+    "developmentVersion": "0.1.0",
+    "publishedVersion": "Not released",
+    "publishedUrl": null,
+    "releaseStatus": "Unreleased",
+    "qaStatus": "Partial live",
+    "checkedAt": "2026-10-28",
+    "passed": [
+      "18 offline checks and native macOS input automation: js Game.turn returned 83; reveal all increased discovered plots from 2912 to 4536/4536.",
+      "Backspace, history and Escape passed for ABC/English input."
+    ],
+    "gaps": [
+      "Final installed copy was not cold-started after the last fixes. Chinese IME, clipboard and physical keyboard/controller were not accepted."
+    ],
+    "screenshots": [],
+    "historicalScreenshots": [
+      "historical-console-20261028.jpg"
+    ]
+  },
+  {
+    "id": "fenhe",
+    "name": "Fenhe (gameplay + UI)",
+    "localName": "分合（两模块合计）",
+    "developmentVersion": "0.2.0-alpha + controller UI",
+    "publishedVersion": "No release evidence",
+    "publishedUrl": null,
+    "releaseStatus": "Unreleased",
+    "qaStatus": "Needs live test",
+    "checkedAt": "2026-10-30",
+    "passed": [
+      "Historical 36 offline checks; one Mac world Exploration Age integration/save/reload path passed."
+    ],
+    "gaps": [
+      "New controller UI, English coverage, multiple maps/DLC/ages and local adapter distribution."
+    ],
+    "screenshots": []
+  },
+  {
+    "id": "civ7-autosave-limit",
+    "name": "Autosave Limit 150",
+    "localName": "自动存档上限150",
+    "developmentVersion": "1.0.0",
+    "publishedVersion": "No release evidence",
+    "publishedUrl": null,
+    "releaseStatus": "Unreleased",
+    "qaStatus": "Needs live test",
+    "checkedAt": "2026-10-30",
+    "passed": [
+      "Archived records describe a Mac native slider from 1 to 150. This run did not independently repeat it."
+    ],
+    "gaps": [
+      "Version-specific acceptance evidence and bilingual metadata; no Workshop publication receipt."
+    ],
+    "screenshots": []
+  },
+  {
+    "id": "civ7-native-debug-input",
+    "name": "Mac DebugPanel Input Fix (public launcher)",
+    "localName": "Mac DebugPanel 输入修复（启动器）",
+    "developmentVersion": "0.2.0 public launcher",
+    "publishedVersion": "0.2.0",
+    "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3829280398",
+    "releaseStatus": "Published",
+    "qaStatus": "Partial live",
+    "checkedAt": "2026-10-29",
+    "passed": [
+      "Apple Silicon / Steam Civ VII 1.5.0: Finder-extracted and Workshop-downloaded launcher paths were checked.",
+      "Native DebugPanel reveal all increased discovered plots from 2912 to 4536."
+    ],
+    "gaps": [
+      "QA-EXIT-11: exit crash remains unresolved; a similar pre-install stack means cause is not established.",
+      "Other game versions/Intel/Chinese IME are not accepted. Internal native-input 0.4.0-dev is not this public launcher version."
+    ],
+    "screenshots": [],
+    "historicalScreenshots": [
+      "historical-native-reveal-20261029.jpg"
+    ]
+  },
+  {
+    "id": "civ7-mac-launcher",
+    "name": "Better Mod Support",
+    "localName": "更好的Mod支持（Better Mod Support）",
+    "developmentVersion": "0.2.0-dev",
+    "publishedVersion": "Not released",
+    "publishedUrl": null,
+    "releaseStatus": "Unreleased",
+    "qaStatus": "Needs retest",
+    "checkedAt": "2026-10-30",
+    "passed": [
+      "Historical checks cover enhanced Mod registry/persistence, native reveal all and Play Again save 834 import.",
+      "155 Node checks plus three native program checks were reported; draft PR #6."
+    ],
+    "gaps": [
+      "QA-EXIT-11: exit code 11 unresolved.",
+      "Clean-machine release, Intel, physical controller and IME; Cohtml debug bridge dependency remains."
+    ],
+    "screenshots": [],
+    "historicalScreenshots": [
+      "historical-bms-reveal-20261029.jpg"
+    ]
+  },
+  {
+    "id": "civ7-controller-bridge",
+    "name": "Mac Controller Support Fix (retired)",
+    "localName": "Mac 手柄支持修复",
+    "developmentVersion": "Retired; merged into BCS",
+    "publishedVersion": "0.1.5 (unlisted)",
+    "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3825119575",
+    "releaseStatus": "Retired",
+    "qaStatus": "Not applicable",
+    "checkedAt": "2026-10-24",
+    "passed": [
+      "Retirement receipt records unlisted visibility; independent code was removed."
+    ],
+    "gaps": [
+      "Not an active development/release target."
+    ],
+    "screenshots": []
+  },
+  {
+    "id": "civ7-assistant",
+    "name": "Civ VII Assistant (auxiliary app)",
+    "localName": "文明7小助手（辅助应用）",
+    "developmentVersion": "0.1.0 scaffold",
+    "publishedVersion": "Not released",
+    "publishedUrl": null,
+    "releaseStatus": "Paused",
+    "qaStatus": "Not tested",
+    "checkedAt": "2026-10-30",
+    "passed": [],
+    "gaps": [
+      "Paused as a fallback approach; no runnable acceptance deliverable."
+    ],
+    "screenshots": []
+  }
+]
