@@ -1,18 +1,21 @@
-# Mod release and acceptance tracking
+# Mod 版本与验收跟踪
 
-Project: [Civilization VII — Releases & QA](https://github.com/users/Stupidism/projects/5) (owner-private, linked to Stupidism/civ7-mods).
+看板：[文明 VII — 版本与验收](https://github.com/users/Stupidism/projects/5)（所有者私有，关联 Stupidism/civ7-mods）。
 
-Use the Mod registry for the current public/development version, bounded QA state, known bugs and screenshot links. Keep separate bug records for affected/fixed versions and acceptance tasks for untested paths. Do not describe an untested path as a confirmed defect.
+版本总表记录公开版本、开发版本、测试覆盖范围、已知 Bug 和截图。Bug 单独记录影响版本与修复版本；未测路径单独列入待验收任务，不能直接视为已确认缺陷。
 
-All acceptance records are written in English. Preserve exact source strings and screenshot language when needed for reproduction. The language of product interfaces, promotion and user conversations is unchanged.
+用户已更正此前的笔误：所有验收记录统一使用中文，原英文要求已撤销。保留用于复现的原始字符串、截图语言、版本号、标识符和机器输出。
 
-For every update:
+每次更新时：
 
-1. Identify the Mod and exact build. A repeated semantic version may contain different bytes.
-2. Update Published version only from a publication receipt. Preserve the prior release while publication is in progress.
-3. Record actual tests, platform, input method and evidence. Separate offline, native-event and physical-device results.
-4. Add screenshot links tied to the tested build. Label historical screenshots; say when none are available.
-5. Record confirmed affected builds and verified fixed builds for bugs. Keep uncertain boundaries explicit.
-6. Close an acceptance task only when its listed checks are complete, or replace its scope with an explicit reviewed decision. Preserve old test history when a new build is created.
+1. 确认 Mod 和精确构建。同一个语义版本号可能对应不同文件。
+2. 只有核实发布回执后才能更新公开版本。发布过程中保留上一个正式版本。
+3. 记录实际测试、平台、输入方式和证据，区分离线检查、原生输入事件和实体设备测试。
+4. 截图关联到实际测试构建。历史截图明确标注；没有截图时如实记录。
+5. Bug 只填写已确认的影响构建和已验证的修复构建，保留未知边界。
+6. 验收任务只有在所列检查完成，或范围经明确审阅调整后才关闭。新构建不得覆盖历史测试记录。
+7. 「你的神图很好，现在是我的了」（`civ7-play-again`）开发已长期停滞，暂不通知、催办或唤醒其会话。保留 Bug 和验收缺口，不把停滞视为修复或通过；由用户明确恢复通知后再联系。
 
-The initial payload and idempotent creation receipts are under `work/mod-status-project/`. The import scripts create this reviewed snapshot; they are not an unattended synchronization job. Review updated facts before any subsequent remote change. The existing game-lock, full Saves preservation and Rest Guard rules apply to any future live test. Tracking entries alone do not grant game control or publication permission.
+初始数据和远端操作回执位于 `work/mod-status-project/`。导入脚本只用于建立经审阅的快照，不是无人值守同步任务；旧英文初始化脚本不得覆盖当前中文记录。更新事实后须先审阅再修改远端。
+
+未来实机测试继续遵守游戏锁、完整 Saves 备份和 Rest Guard 规则。看板条目本身不授予新的游戏控制或发布权限。

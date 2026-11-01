@@ -4,19 +4,19 @@
     "name": "Better Settlement UI",
     "localName": "更好的定居点界面",
     "developmentVersion": "0.1.10",
-    "publishedVersion": "Not released",
+    "publishedVersion": "未发布",
     "publishedUrl": null,
-    "releaseStatus": "Unreleased",
-    "qaStatus": "Partial live",
+    "releaseStatus": "未发布",
+    "qaStatus": "部分实机验证",
     "checkedAt": "2026-11-01",
     "passed": [
-      "65 offline checks passed.",
-      "T53 market, lighthouse, bath and monument scores and native tooltip content matched real city data. Resource slots use 12 points per turn; Influence uses weight 8.",
-      "Production/purchase mode switching and insufficient-gold disabling passed."
+      "65 项离线检查通过。",
+      "T53 市场、灯塔、浴场和纪念碑的评分与原生提示内容符合真实城市数据。资源槽位按每回合 12 点计值，影响力权重为 8。",
+      "生产／购买模式切换和金币不足时禁用购买的检查通过。"
     ],
     "gaps": [
-      "Actual purchasing, completion, overbuilding and repairs.",
-      "Physical controller input."
+      "实际购买、完工、覆盖建造和修复。",
+      "实体手柄输入。"
     ],
     "screenshots": [
       "04-market-small.jpg",
@@ -27,19 +27,19 @@
     "id": "civ7-war-controls",
     "name": "Micromanagement Master",
     "localName": "微操大师",
-    "developmentVersion": "0.6.1 + post-release fixes",
+    "developmentVersion": "0.6.1 + 发布后修复",
     "publishedVersion": "0.6.1",
     "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3822253543",
-    "releaseStatus": "Unreleased",
-    "qaStatus": "Partial live",
+    "releaseStatus": "未发布",
+    "qaStatus": "部分实机验证",
     "checkedAt": "2026-11-01",
     "passed": [
-      "T53 badges 3/3, 1/2 and 0/2 matched native movement values; zero was red, empty slots had no badge, health bars remained visible.",
-      "Earlier T44 quick-transfer and LB/RB results retain their original scope."
+      "T53 的 3/3、1/2、0/2 徽标与原生移动力一致；零移动力为红色，空槽位不显示徽标，生命条保持可见。",
+      "此前 T44 快速转移和 LB/RB 的结果保留原有验证范围。"
     ],
     "gaps": [
-      "The T53 run did not repeat movement, attacks, quick transfer or physical controller checks.",
-      "Publication was requested, but the latest recorded attempt is interrupted and no completion receipt is available. Public release remains 0.6.1."
+      "T53 本轮没有重复验证移动、攻击、快速转移或实体手柄。",
+      "虽已收到发布请求，但最近一次有记录的发布尝试已中断，尚无完成回执；公开版本仍为 0.6.1。"
     ],
     "screenshots": [
       "06-movement-fractions-small.jpg"
@@ -52,16 +52,16 @@
     "developmentVersion": "1.3.1",
     "publishedVersion": "1.1.0",
     "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182",
-    "releaseStatus": "Unreleased",
-    "qaStatus": "Partial live",
+    "releaseStatus": "未发布",
+    "qaStatus": "部分实机验证",
     "checkedAt": "2026-11-01",
     "passed": [
-      "Installed triangle-centering CSS matched source. Negative red and positive green markers were centered inside the edges.",
-      "Native focus/input changed preferences. Exactly one defer control existed; activation closed the screen and set deferred.",
-      "Garbage Time integration returned no changes with error=false; all seven cities retained their assignments."
+      "已安装的三角标记居中 CSS 与源码一致，红色负值和绿色正值标记均位于边缘内侧的居中位置。",
+      "原生焦点／输入可以修改偏好。仅存在一个暂缓控件；触发后关闭界面并设置 deferred。",
+      "与垃圾时间联调时返回无变更且 error=false，七座城市均保留原资源分配。"
     ],
     "gaps": [
-      "Actual resource reassignment/COMPLETED path, failure rollback and physical controller."
+      "实际资源重新分配／COMPLETED 路径、失败回滚和实体手柄。"
     ],
     "screenshots": [
       "07-resource-markers-small.jpg"
@@ -74,17 +74,17 @@
     "developmentVersion": "1.8.7-dev.1101-1438-315f6449",
     "publishedVersion": "1.8.7",
     "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3815557333",
-    "releaseStatus": "Unreleased",
-    "qaStatus": "Partial live",
+    "releaseStatus": "未发布",
+    "qaStatus": "部分实机验证",
     "checkedAt": "2026-11-01",
     "passed": [
-      "Natural one-minute forced break, without debug exemption, left all 423 save files unchanged.",
-      "Native quick save succeeded with 56.298 seconds remaining and after the deadline; the overlay returned without resetting the deadline.",
-      "Continue did not submit a turn. Original settings and quicksave were restored."
+      "在没有调试豁免的情况下自然触发一分钟强制休息，全部 423 个存档文件保持不变。",
+      "剩余 56.298 秒以及截止时间之后，原生快速存档均成功；返回时遮罩恢复，截止时间没有重置。",
+      "继续按钮没有提交回合。原设置与快速存档均已恢复。"
     ],
     "gaps": [
-      "Night limits, turn thresholds, exit confirmation and physical controller were not rerun.",
-      "Public 1.8.7 retains the old behavior; the development build is a different implementation."
+      "本轮未重测夜间限制、回合阈值、退出确认和实体手柄。",
+      "公开版 1.8.7 仍为旧行为；开发构建采用不同实现。"
     ],
     "screenshots": [
       "10-rest-forced-small.jpg",
@@ -95,19 +95,19 @@
     "id": "civ7-garbage-time",
     "name": "Garbage Time",
     "localName": "垃圾时间",
-    "developmentVersion": "0.1.4 + unpublished UI/resource patches",
+    "developmentVersion": "0.1.4 + 未发布的界面／资源补丁",
     "publishedVersion": "0.1.4",
     "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3822254009",
-    "releaseStatus": "Unreleased",
-    "qaStatus": "Needs retest",
+    "releaseStatus": "未发布",
+    "qaStatus": "待复测",
     "checkedAt": "2026-11-01",
     "passed": [
-      "74 offline checks passed. Native accept START/FINISH opened city configuration, changed gold weight 4 to 5, saved and closed the page.",
-      "Actual resource bridge returned no changes/error=false without changing seven cities. Two temporary installed files were restored after testing."
+      "74 项离线检查通过。原生 accept START/FINISH 可打开城市配置、将金币权重从 4 改为 5、保存并关闭页面。",
+      "实际资源桥接返回无变更且 error=false，七座城市的分配均未改变。测试后已恢复临时安装的两个文件。"
     ],
     "gaps": [
-      "IT-02: controller hints remain hidden.",
-      "Actual resource reassignment, rollback, older planners without statusCode and physical controller."
+      "IT-02：手柄按键提示仍被隐藏。",
+      "实际资源重新分配、回滚、不提供 statusCode 的旧资源规划版本，以及实体手柄。"
     ],
     "screenshots": [
       "12-garbage-city-small.jpg"
@@ -117,43 +117,45 @@
     "id": "civ7-play-again",
     "name": "Play Again / Your Great Map",
     "localName": "你的神图很好，现在是我的了",
-    "developmentVersion": "0.4.0-dev (installed); 0.3.6-dev (main source)",
-    "publishedVersion": "Not released",
+    "developmentVersion": "0.4.0-dev（已安装）；0.3.6-dev（主目录源码）",
+    "publishedVersion": "未发布",
     "publishedUrl": null,
-    "releaseStatus": "Unreleased",
-    "qaStatus": "Needs retest",
+    "releaseStatus": "已暂停",
+    "qaStatus": "待复测",
     "checkedAt": "2026-11-01",
     "passed": [
-      "C7S2 exported 73 fields. Preview and apply succeeded with 74 accepted fields, zero skipped; the extra field was player count.",
-      "Both seeds and NoCivUnlocks changed in real GameSetup. No new world was started."
+      "C7S2 导出 73 个字段；预览和应用成功，接受 74 个字段、跳过 0 个；新增字段为玩家数量。",
+      "真实 GameSetup 中的两个种子及 NoCivUnlocks 已改变。未创建新世界。"
     ],
     "gaps": [
-      "IT-01: raw team and difficulty localization keys.",
-      "Physical clipboard paste, nonempty memento replacement, invalid rosters, historical save import and new-world generation.",
-      "The main source must not overwrite the newer installed build."
+      "IT-01：队伍与难度显示原始本地化键。",
+      "实体剪贴板粘贴、替换非空纪念物、非法玩家列表、历史存档导入和新世界生成。",
+      "不得用主目录源码覆盖更新的已安装构建。",
+      "用户确认开发已长期停滞，暂不通知、催办或唤醒开发会话；保留既有 Bug 与验收缺口，等待用户明确恢复通知。"
     ],
     "screenshots": [
       "02-code-export-preview.png",
       "03-code-preview-small.jpg"
-    ]
+    ],
+    "notificationPolicy": "开发长期停滞，暂不通知；等待用户明确恢复通知。"
   },
   {
     "id": "civ7-better-policy-ui",
     "name": "Better Policy UI",
     "localName": "更好的政策界面",
     "developmentVersion": "0.1.2-dev.1031-1947-19381774",
-    "publishedVersion": "Not released",
+    "publishedVersion": "未发布",
     "publishedUrl": null,
-    "releaseStatus": "Unreleased",
-    "qaStatus": "Partial live",
+    "releaseStatus": "未发布",
+    "qaStatus": "部分实机验证",
     "checkedAt": "2026-11-01",
     "passed": [
-      "T53 had 16 cards and 8 slots; all 120 animation frames shared one layout.",
-      "Filled slots correctly displayed no skip control. Earlier 0.1.2 installed-process checks verified stable geometry with LF previews."
+      "T53 有 16 张卡牌和 8 个槽位；连续 120 个动画帧布局完全一致。",
+      "槽位已满时正确地不显示跳过控件。此前对已安装 0.1.2 进程的检查确认，带 LF 预览时几何布局稳定。"
     ],
     "gaps": [
-      "Empty-slot drafts, confirmation, force-turn and physical controller were not repeated in the latest combination.",
-      "Other resolutions and all Mod combinations are not accepted by this evidence."
+      "最新组合没有重测空槽位草稿、确认、强制结束回合和实体手柄。",
+      "这些证据不覆盖其他分辨率及全部 Mod 组合。"
     ],
     "screenshots": [
       "08-policy-layout-small.jpg"
@@ -164,18 +166,18 @@
     "name": "Action Order Adjustments",
     "localName": "行动顺序调整",
     "developmentVersion": "0.1.0",
-    "publishedVersion": "Not released",
+    "publishedVersion": "未发布",
     "publishedUrl": null,
-    "releaseStatus": "Unreleased",
-    "qaStatus": "Partial live",
+    "releaseStatus": "未发布",
+    "qaStatus": "部分实机验证",
     "checkedAt": "2026-11-01",
     "passed": [
-      "Installed runtime matched source. Shared service and production/card providers were present.",
-      "Resource Planner owned the only defer control; no duplicate AO/old-BCS control appeared. Seven cities retained queues and resources.",
-      "Earlier T38-to-T39 actual-save/single-submit evidence remains separately scoped."
+      "已安装运行代码与源码一致，共享服务及生产／卡牌提供器均存在。",
+      "唯一暂缓控件归资源规划所有，未出现重复的 AO／旧 BCS 控件。七座城市均保留原队列和资源。",
+      "此前 T38→T39 的实际保存／单次提交证据保留独立验证范围。"
     ],
     "gaps": [
-      "Full three-stage ordering, empty drafts and physical controller were not repeated in this run."
+      "本轮未重测完整三阶段顺序、空草稿及实体手柄。"
     ],
     "screenshots": [
       "07-resource-markers-small.jpg"
@@ -188,16 +190,16 @@
     "developmentVersion": "0.10.0-dev.1031-2359-31e6fd3f",
     "publishedVersion": "0.3.0",
     "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3825193325",
-    "releaseStatus": "Unreleased",
-    "qaStatus": "Partial live",
+    "releaseStatus": "未发布",
+    "qaStatus": "部分实机验证",
     "checkedAt": "2026-11-01",
     "passed": [
-      "Combined BSU/Policy/AO/Resource Planner screenshots and native input paths passed the recorded checks.",
-      "Exactly one resource defer control. Policy geometry was stable for 120 frames."
+      "BSU／政策界面／AO／资源规划组合的截图和原生输入路径通过已记录的检查。",
+      "资源暂缓控件恰好一个；政策界面连续 120 帧几何布局稳定。"
     ],
     "gaps": [
-      "No new physical-stick/button acceptance. Previously accepted stick code remains unchanged.",
-      "Companion IT-02 belongs to Garbage Time, not automatically to BCS."
+      "本轮未新增实体摇杆／按键验收；此前通过验收的摇杆代码未改变。",
+      "组合中的 IT-02 属于垃圾时间，不能自动归因于 BCS。"
     ],
     "screenshots": [
       "07-resource-markers-small.jpg",
@@ -209,18 +211,18 @@
     "id": "civ7-better-chinese-support",
     "name": "Better Chinese Support",
     "localName": "更好的中文支持",
-    "developmentVersion": "0.2.2 (release worktree); main source 0.2.1",
+    "developmentVersion": "0.2.2（发布工作树）；主目录源码 0.2.1",
     "publishedVersion": "0.2.2",
     "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3829402170",
-    "releaseStatus": "Published",
-    "qaStatus": "Offline only",
+    "releaseStatus": "已发布",
+    "qaStatus": "仅离线检查",
     "checkedAt": "2026-11-01",
     "passed": [
-      "10 offline checks passed. Seven downloaded release files matched the release manifest.",
-      "0.2.2 explicitly names temples and missionaries as the Theocracy purchase-bonus targets."
+      "10 项离线检查通过。下载的七个发布文件与发布清单一致。",
+      "0.2.2 明确将神权制购买加成的对象写为神庙和传教士。"
     ],
     "gaps": [
-      "New 0.2.2 text has not been checked in the live game. Older 0.2.1 screenshots do not validate the new wording."
+      "0.2.2 新文案尚未进行游戏内检查。旧版 0.2.1 截图不能验证新措辞。"
     ],
     "screenshots": []
   },
@@ -228,18 +230,18 @@
     "id": "civ7-before-end-turn",
     "name": "Auto-save Before...",
     "localName": "行动前自动存档",
-    "developmentVersion": "Public 1.1.2; main source 1.1.1 + fixes",
+    "developmentVersion": "公开版 1.1.2；主目录源码 1.1.1 + 修复",
     "publishedVersion": "1.1.2",
     "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3815596737",
-    "releaseStatus": "Published",
-    "qaStatus": "Partial live",
+    "releaseStatus": "已发布",
+    "qaStatus": "部分实机验证",
     "checkedAt": "2026-11-01",
     "passed": [
-      "Workshop 1.1.2 is installed; redundant manual copy was removed by its owner.",
-      "Earlier T38 save-start/save-complete/single-submit then T39 evidence is retained."
+      "已安装工坊 1.1.2；负责人已移除重复的手动副本。",
+      "保留此前 T38 的 save-start／save-complete／单次提交及随后进入 T39 的证据。"
     ],
     "gaps": [
-      "Main-source/release mapping must be reconciled. Latest integration did not rerun the save chain."
+      "仍需核对主目录源码与发布版本的对应关系；最新统合测试没有重跑存档链路。"
     ],
     "screenshots": []
   },
@@ -248,17 +250,17 @@
     "name": "Command Console",
     "localName": "命令控制台",
     "developmentVersion": "0.1.0",
-    "publishedVersion": "Not released",
+    "publishedVersion": "未发布",
     "publishedUrl": null,
-    "releaseStatus": "Unreleased",
-    "qaStatus": "Partial live",
+    "releaseStatus": "未发布",
+    "qaStatus": "部分实机验证",
     "checkedAt": "2026-10-28",
     "passed": [
-      "18 offline checks and native macOS input automation: js Game.turn returned 83; reveal all increased discovered plots from 2912 to 4536/4536.",
-      "Backspace, history and Escape passed for ABC/English input."
+      "18 项离线检查及原生 macOS 自动输入检查：js Game.turn 返回 83；reveal all 将已发现地块从 2912 增至 4536/4536。",
+      "ABC／英文输入下的退格、历史命令和 Escape 检查通过。"
     ],
     "gaps": [
-      "Final installed copy was not cold-started after the last fixes. Chinese IME, clipboard and physical keyboard/controller were not accepted."
+      "最后修复后的最终安装副本未进行冷启动。中文输入法、剪贴板、实体键盘／手柄尚未验收。"
     ],
     "screenshots": [],
     "historicalScreenshots": [
@@ -269,17 +271,17 @@
     "id": "fenhe",
     "name": "Fenhe (gameplay + UI)",
     "localName": "分合（两模块合计）",
-    "developmentVersion": "0.2.0-alpha + controller UI",
-    "publishedVersion": "No release evidence",
+    "developmentVersion": "0.2.0-alpha + 手柄界面",
+    "publishedVersion": "暂无发布证据",
     "publishedUrl": null,
-    "releaseStatus": "Unreleased",
-    "qaStatus": "Needs live test",
+    "releaseStatus": "未发布",
+    "qaStatus": "待实机测试",
     "checkedAt": "2026-10-30",
     "passed": [
-      "Historical 36 offline checks; one Mac world Exploration Age integration/save/reload path passed."
+      "历史记录包含 36 项离线检查；一局 Mac 世界的探索时代集成、保存和重新加载路径通过。"
     ],
     "gaps": [
-      "New controller UI, English coverage, multiple maps/DLC/ages and local adapter distribution."
+      "新手柄界面、英文覆盖、多地图／DLC／时代及本地适配器分发。"
     ],
     "screenshots": []
   },
@@ -288,16 +290,16 @@
     "name": "Autosave Limit 150",
     "localName": "自动存档上限150",
     "developmentVersion": "1.0.0",
-    "publishedVersion": "No release evidence",
+    "publishedVersion": "暂无发布证据",
     "publishedUrl": null,
-    "releaseStatus": "Unreleased",
-    "qaStatus": "Needs live test",
+    "releaseStatus": "未发布",
+    "qaStatus": "待实机测试",
     "checkedAt": "2026-10-30",
     "passed": [
-      "Archived records describe a Mac native slider from 1 to 150. This run did not independently repeat it."
+      "归档记录描述 Mac 原生滑块可在 1～150 间调整。本轮未独立复测。"
     ],
     "gaps": [
-      "Version-specific acceptance evidence and bilingual metadata; no Workshop publication receipt."
+      "缺少对应具体版本的验收证据与双语元数据；没有工坊发布回执。"
     ],
     "screenshots": []
   },
@@ -305,19 +307,19 @@
     "id": "civ7-native-debug-input",
     "name": "Mac DebugPanel Input Fix (public launcher)",
     "localName": "Mac DebugPanel 输入修复（启动器）",
-    "developmentVersion": "0.2.0 public launcher",
+    "developmentVersion": "0.2.0 公开启动器",
     "publishedVersion": "0.2.0",
     "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3829280398",
-    "releaseStatus": "Published",
-    "qaStatus": "Partial live",
+    "releaseStatus": "已发布",
+    "qaStatus": "部分实机验证",
     "checkedAt": "2026-10-29",
     "passed": [
-      "Apple Silicon / Steam Civ VII 1.5.0: Finder-extracted and Workshop-downloaded launcher paths were checked.",
-      "Native DebugPanel reveal all increased discovered plots from 2912 to 4536."
+      "Apple Silicon／Steam 文明 VII 1.5.0：已检查 Finder 解压和工坊下载两条启动器路径。",
+      "原生 DebugPanel 的 reveal all 将已发现地块从 2912 增至 4536。"
     ],
     "gaps": [
-      "QA-EXIT-11: exit crash remains unresolved; a similar pre-install stack means cause is not established.",
-      "Other game versions/Intel/Chinese IME are not accepted. Internal native-input 0.4.0-dev is not this public launcher version."
+      "QA-EXIT-11：退出崩溃仍未解决；安装前已有类似堆栈，尚不能确认因果关系。",
+      "未验收其他游戏版本、Intel 或中文输入法；内部 native-input 0.4.0-dev 不等于此公开启动器版本。"
     ],
     "screenshots": [],
     "historicalScreenshots": [
@@ -329,18 +331,18 @@
     "name": "Better Mod Support",
     "localName": "更好的Mod支持（Better Mod Support）",
     "developmentVersion": "0.2.0-dev",
-    "publishedVersion": "Not released",
+    "publishedVersion": "未发布",
     "publishedUrl": null,
-    "releaseStatus": "Unreleased",
-    "qaStatus": "Needs retest",
+    "releaseStatus": "未发布",
+    "qaStatus": "待复测",
     "checkedAt": "2026-10-30",
     "passed": [
-      "Historical checks cover enhanced Mod registry/persistence, native reveal all and Play Again save 834 import.",
-      "155 Node checks plus three native program checks were reported; draft PR #6."
+      "历史检查覆盖增强 Mod 注册／持久化、原生 reveal all 和神图存档 834 导入。",
+      "已有记录报告 155 项 Node 检查及三项原生程序检查；对应草稿 PR #6。"
     ],
     "gaps": [
-      "QA-EXIT-11: exit code 11 unresolved.",
-      "Clean-machine release, Intel, physical controller and IME; Cohtml debug bridge dependency remains."
+      "QA-EXIT-11：退出码 11 尚未解决。",
+      "干净机器发布、Intel、实体手柄和输入法尚待验收；仍依赖 Cohtml 调试桥。"
     ],
     "screenshots": [],
     "historicalScreenshots": [
@@ -351,17 +353,17 @@
     "id": "civ7-controller-bridge",
     "name": "Mac Controller Support Fix (retired)",
     "localName": "Mac 手柄支持修复",
-    "developmentVersion": "Retired; merged into BCS",
-    "publishedVersion": "0.1.5 (unlisted)",
+    "developmentVersion": "已退役；并入 BCS",
+    "publishedVersion": "0.1.5（不公开列出）",
     "publishedUrl": "https://steamcommunity.com/sharedfiles/filedetails/?id=3825119575",
-    "releaseStatus": "Retired",
-    "qaStatus": "Not applicable",
+    "releaseStatus": "已退役",
+    "qaStatus": "不适用",
     "checkedAt": "2026-10-24",
     "passed": [
-      "Retirement receipt records unlisted visibility; independent code was removed."
+      "退役回执记录为不公开列出，独立代码已移除。"
     ],
     "gaps": [
-      "Not an active development/release target."
+      "不再作为活跃开发／发布目标。"
     ],
     "screenshots": []
   },
@@ -369,15 +371,15 @@
     "id": "civ7-assistant",
     "name": "Civ VII Assistant (auxiliary app)",
     "localName": "文明7小助手（辅助应用）",
-    "developmentVersion": "0.1.0 scaffold",
-    "publishedVersion": "Not released",
+    "developmentVersion": "0.1.0 项目骨架",
+    "publishedVersion": "未发布",
     "publishedUrl": null,
-    "releaseStatus": "Paused",
-    "qaStatus": "Not tested",
+    "releaseStatus": "已暂停",
+    "qaStatus": "未测试",
     "checkedAt": "2026-10-30",
     "passed": [],
     "gaps": [
-      "Paused as a fallback approach; no runnable acceptance deliverable."
+      "作为备用方案已暂停，没有可运行的验收交付物。"
     ],
     "screenshots": []
   }
