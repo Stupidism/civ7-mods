@@ -1,0 +1,202 @@
+{
+  "purchase": true,
+  "before": {
+    "gold": 233.88671875,
+    "queue": []
+  },
+  "after": {
+    "gold": 233.88671875,
+    "queue": []
+  },
+  "rows": [
+    {
+      "type": "BUILDING_MARKET",
+      "cost": 468,
+      "metric": {
+        "cost": 117,
+        "turns": 2,
+        "pinned": false,
+        "breakdown": {
+          "cost": 468,
+          "weight": 1,
+          "costScore": 468,
+          "benefit": 17,
+          "contributions": {
+            "YIELD_FOOD": 0,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": 5,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 0,
+            "YIELD_HAPPINESS": 0,
+            "YIELD_DIPLOMACY": 0
+          },
+          "delta": {
+            "YIELD_FOOD": 0,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": 5,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 0,
+            "YIELD_HAPPINESS": -2,
+            "YIELD_DIPLOMACY": 0
+          },
+          "extra": {
+            "resourceSlots": 1,
+            "slotWeight": 12,
+            "slotScore": 12,
+            "growthPercent": 0,
+            "food": 24,
+            "equivalentFood": 0,
+            "foodWeight": 2,
+            "growthScore": 0
+          },
+          "purchase": true,
+          "turns": 27.529411764705884
+        },
+        "payback": 27.529411764705884
+      },
+      "rendered": "市场国库金币不足+5-211746827.5468"
+    },
+    {
+      "type": "BUILDING_BATH",
+      "cost": 936,
+      "metric": {
+        "cost": 234,
+        "turns": 4,
+        "pinned": false,
+        "breakdown": {
+          "cost": 936,
+          "weight": 1,
+          "costScore": 936,
+          "benefit": 14.8,
+          "contributions": {
+            "YIELD_FOOD": 12,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": -2,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 0,
+            "YIELD_HAPPINESS": 0,
+            "YIELD_DIPLOMACY": 0
+          },
+          "delta": {
+            "YIELD_FOOD": 6,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": -2,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 0,
+            "YIELD_HAPPINESS": -2,
+            "YIELD_DIPLOMACY": 0
+          },
+          "extra": {
+            "resourceSlots": 0,
+            "slotWeight": 12,
+            "slotScore": 0,
+            "growthPercent": 10,
+            "food": 24,
+            "equivalentFood": 2.4,
+            "foodWeight": 2,
+            "growthScore": 4.8
+          },
+          "purchase": true,
+          "turns": 63.24324324324324
+        },
+        "payback": 63.24324324324324
+      },
+      "rendered": "浴场国库金币不足+6-2-223493663.2936"
+    },
+    {
+      "type": "BUILDING_LIGHTHOUSE",
+      "cost": 936,
+      "metric": {
+        "cost": 234,
+        "turns": 4,
+        "pinned": false,
+        "breakdown": {
+          "cost": 936,
+          "weight": 1,
+          "costScore": 936,
+          "benefit": 31,
+          "contributions": {
+            "YIELD_FOOD": 0,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": 7,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 0,
+            "YIELD_HAPPINESS": 0,
+            "YIELD_DIPLOMACY": 0
+          },
+          "delta": {
+            "YIELD_FOOD": 0,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": 7,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 0,
+            "YIELD_HAPPINESS": -2,
+            "YIELD_DIPLOMACY": 0
+          },
+          "extra": {
+            "resourceSlots": 2,
+            "slotWeight": 12,
+            "slotScore": 24,
+            "growthPercent": 0,
+            "food": 24,
+            "equivalentFood": 0,
+            "foodWeight": 2,
+            "growthScore": 0
+          },
+          "purchase": true,
+          "turns": 30.193548387096776
+        },
+        "payback": 30.193548387096776
+      },
+      "rendered": "灯塔国库金币不足+7-223493630.2936"
+    },
+    {
+      "type": "BUILDING_MONUMENT",
+      "cost": 468,
+      "metric": {
+        "cost": 117,
+        "turns": 2,
+        "pinned": false,
+        "breakdown": {
+          "cost": 468,
+          "weight": 1,
+          "costScore": 468,
+          "benefit": 44,
+          "contributions": {
+            "YIELD_FOOD": 2,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": -2,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 28,
+            "YIELD_HAPPINESS": 0,
+            "YIELD_DIPLOMACY": 16
+          },
+          "delta": {
+            "YIELD_FOOD": 1,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": -2,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 7,
+            "YIELD_HAPPINESS": -2,
+            "YIELD_DIPLOMACY": 2
+          },
+          "extra": {
+            "resourceSlots": 0,
+            "slotWeight": 12,
+            "slotScore": 0,
+            "growthPercent": 0,
+            "food": 24,
+            "equivalentFood": 0,
+            "foodWeight": 2,
+            "growthScore": 0
+          },
+          "purchase": true,
+          "turns": 10.636363636363637
+        },
+        "payback": 10.636363636363637
+      },
+      "rendered": "纪念碑国库金币不足+7+2+1-2-211746810.6468"
+    }
+  ],
+  "tabs": "<fxs-tab-bar class=\"flex-auto max-h-12 mb-1 relative flex justify-center h-16 uppercase font-title text-base text-accent-2 tracking-150 mx-1\\.5\" tab-style=\"flat\" nav-help-left-class=\"pl-2\" nav-help-right-class=\"pr-2\" tab-items=\"[{&quot;id&quot;:&quot;production-chooser-tab-production&quot;,&quot;label&quot;:&quot;LOC_UI_PRODUCTION_TAB&quot;,&quot;className&quot;:&quot;px-2 text-sm tracking-100&quot;},{&quot;id&quot;:&quot;production-chooser-tab-purchase&quot;,&quot;label&quot;:&quot;LOC_UI_PURCHASE_TAB&quot;,&quot;className&quot;:&quot;px-2 text-sm tracking-100&quot;}]\" tab-for=\".panel-production__frame\" alt-controls=\"false\" selected-tab-index=\"1\" data-slot=\"header\" data-audio-group-ref=\"city-actions\" data-audio-tab-selected=\"none\" data-audio-activate-ref=\"data-audio-tab-selected\" data-audio-focus-ref=\"none\"><div class=\"absolute inset-0 img-tab-bar-flat pointer-events-none\"></div><div cl"
+}

@@ -1,0 +1,166 @@
+{
+  "turn": 53,
+  "before": {
+    "military": false,
+    "treasure": false,
+    "religion": false,
+    "technology": false,
+    "culture": false,
+    "resources": false,
+    "resourceTurn": -1,
+    "rallyCity": "",
+    "cities": {
+      "0:196610:20,27": {
+        "enabled": false,
+        "override": true,
+        "weights": {
+          "gold": 5,
+          "food": 2,
+          "science": 4,
+          "culture": 4,
+          "production": 4,
+          "happiness": 8
+        },
+        "minHappiness": 0
+      }
+    },
+    "projects": {},
+    "orders": {}
+  },
+  "buttons": [
+    {
+      "caption": "科研城",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "金币城",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "文化城",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "−",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "+",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "−",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "+",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "−",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "+",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "−",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "+",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "−",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "+",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "−",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "+",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "−",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "+",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "保存",
+      "action": "inline-accept"
+    },
+    {
+      "caption": "取消",
+      "action": "inline-accept"
+    }
+  ],
+  "preset": {
+    "summary": "金 / 粮 / 科 / 文 / 锤 / 笑脸：4 / 2 / 4 / 4 / 4 / 8",
+    "draft": {
+      "enabled": false,
+      "override": true,
+      "weights": {
+        "gold": 4,
+        "food": 2,
+        "science": 4,
+        "culture": 4,
+        "production": 4,
+        "happiness": 8
+      },
+      "minHappiness": 0
+    }
+  },
+  "adjusted": {
+    "enabled": false,
+    "override": true,
+    "weights": {
+      "gold": 5,
+      "food": 2,
+      "science": 4,
+      "culture": 4,
+      "production": 4,
+      "happiness": 8
+    },
+    "minHappiness": 0
+  },
+  "after": {
+    "military": false,
+    "treasure": false,
+    "religion": false,
+    "technology": false,
+    "culture": false,
+    "resources": false,
+    "resourceTurn": -1,
+    "rallyCity": "",
+    "cities": {
+      "0:196610:20,27": {
+        "enabled": false,
+        "override": true,
+        "weights": {
+          "gold": 5,
+          "food": 2,
+          "science": 4,
+          "culture": 4,
+          "production": 4,
+          "happiness": 8
+        },
+        "minHappiness": 0
+      }
+    },
+    "projects": {},
+    "orders": {}
+  },
+  "closed": true,
+  "restPresent": false
+}

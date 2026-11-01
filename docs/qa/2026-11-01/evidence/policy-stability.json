@@ -1,0 +1,351 @@
+{
+  "turn": 53,
+  "frameCount": 120,
+  "distinctLayouts": 1,
+  "first": [
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 404.0667419433594,
+      "y": 344.3999938964844,
+      "w": 184.2132873535156,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 599.080078125,
+      "y": 344.3999938964844,
+      "w": 184.21331787109375,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 404.0667419433594,
+      "y": 523.2000122070312,
+      "w": 184.2132873535156,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 599.080078125,
+      "y": 523.2000122070312,
+      "w": 184.21331787109375,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 404.0667419433594,
+      "y": 702,
+      "w": 184.2132873535156,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 599.080078125,
+      "y": 702,
+      "w": 184.21331787109375,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 404.0667419433594,
+      "y": 880.800048828125,
+      "w": 184.2132873535156,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 tradition-base-bg disabled cursor-not-allowed",
+      "x": 822.7333984375,
+      "y": 344.3999938964844,
+      "w": 184.21331787109375,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 tradition-base-bg cursor-pointer",
+      "x": 1297.4000244140625,
+      "y": 344.3999938964844,
+      "w": 184.2132568359375,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 tradition-base-bg cursor-pointer",
+      "x": 1492.413330078125,
+      "y": 344.3999938964844,
+      "w": 184.21337890625,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 policy-base-bg cursor-pointer",
+      "x": 1687.4266357421875,
+      "y": 344.3999938964844,
+      "w": 184.2132568359375,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 tradition-base-bg cursor-pointer",
+      "x": 1882.43994140625,
+      "y": 344.3999938964844,
+      "w": 184.21337890625,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 policy-base-bg cursor-pointer",
+      "x": 1297.4000244140625,
+      "y": 523.2000122070312,
+      "w": 184.2132568359375,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 policy-base-bg cursor-pointer",
+      "x": 1492.413330078125,
+      "y": 523.2000122070312,
+      "w": 184.21337890625,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 policy-base-bg cursor-pointer",
+      "x": 1687.4266357421875,
+      "y": 523.2000122070312,
+      "w": 184.2132568359375,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 policy-base-bg cursor-pointer",
+      "x": 1882.43994140625,
+      "y": 523.2000122070312,
+      "w": 184.21337890625,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1297.4000244140625,
+      "y": 344.3999938964844,
+      "w": 184.2132568359375,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1492.413330078125,
+      "y": 344.3999938964844,
+      "w": 184.21337890625,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1687.4266357421875,
+      "y": 344.3999938964844,
+      "w": 184.2132568359375,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1882.43994140625,
+      "y": 344.3999938964844,
+      "w": 184.21337890625,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1297.4000244140625,
+      "y": 523.2000122070312,
+      "w": 184.2132568359375,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1492.413330078125,
+      "y": 523.2000122070312,
+      "w": 184.21337890625,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1687.4266357421875,
+      "y": 523.2000122070312,
+      "w": 184.2132568359375,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1882.43994140625,
+      "y": 523.2000122070312,
+      "w": 184.21337890625,
+      "h": 168
+    }
+  ],
+  "last": [
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 404.0667419433594,
+      "y": 344.3999938964844,
+      "w": 184.2132873535156,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 599.080078125,
+      "y": 344.3999938964844,
+      "w": 184.21331787109375,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 404.0667419433594,
+      "y": 523.2000122070312,
+      "w": 184.2132873535156,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 599.080078125,
+      "y": 523.2000122070312,
+      "w": 184.21331787109375,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 404.0667419433594,
+      "y": 702,
+      "w": 184.2132873535156,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 599.080078125,
+      "y": 702,
+      "w": 184.21331787109375,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 policy-base-bg disabled cursor-not-allowed",
+      "x": 404.0667419433594,
+      "y": 880.800048828125,
+      "w": 184.2132873535156,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-2 tradition-base-bg disabled cursor-not-allowed",
+      "x": 822.7333984375,
+      "y": 344.3999938964844,
+      "w": 184.21331787109375,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 tradition-base-bg cursor-pointer",
+      "x": 1297.4000244140625,
+      "y": 344.3999938964844,
+      "w": 184.2132568359375,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 tradition-base-bg cursor-pointer",
+      "x": 1492.413330078125,
+      "y": 344.3999938964844,
+      "w": 184.21337890625,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 policy-base-bg cursor-pointer",
+      "x": 1687.4266357421875,
+      "y": 344.3999938964844,
+      "w": 184.2132568359375,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 tradition-base-bg cursor-pointer",
+      "x": 1882.43994140625,
+      "y": 344.3999938964844,
+      "w": 184.21337890625,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 policy-base-bg cursor-pointer",
+      "x": 1297.4000244140625,
+      "y": 523.2000122070312,
+      "w": 184.2132568359375,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 policy-base-bg cursor-pointer",
+      "x": 1492.413330078125,
+      "y": 523.2000122070312,
+      "w": 184.21337890625,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 policy-base-bg cursor-pointer",
+      "x": 1687.4266357421875,
+      "y": 523.2000122070312,
+      "w": 184.2132568359375,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-auto flex flex-col my-1 relative text-accent-1 policy-base-card ml-4 policy-base-bg cursor-pointer",
+      "x": 1882.43994140625,
+      "y": 523.2000122070312,
+      "w": 184.21337890625,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1297.4000244140625,
+      "y": 344.3999938964844,
+      "w": 184.2132568359375,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1492.413330078125,
+      "y": 344.3999938964844,
+      "w": 184.21337890625,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1687.4266357421875,
+      "y": 344.3999938964844,
+      "w": 184.2132568359375,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1882.43994140625,
+      "y": 344.3999938964844,
+      "w": 184.21337890625,
+      "h": 168.00003051757812
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1297.4000244140625,
+      "y": 523.2000122070312,
+      "w": 184.2132568359375,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1492.413330078125,
+      "y": 523.2000122070312,
+      "w": 184.21337890625,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1687.4266357421875,
+      "y": 523.2000122070312,
+      "w": 184.2132568359375,
+      "h": 168
+    },
+    {
+      "class": "pointer-events-none my-1 ml-4 relative empty-base-card opacity-50 empty-base-bg",
+      "x": 1882.43994140625,
+      "y": 523.2000122070312,
+      "w": 184.21337890625,
+      "h": 168
+    }
+  ],
+  "skipButtons": 0,
+  "oldButtons": 0,
+  "viewport": {
+    "w": 2560,
+    "h": 1080
+  }
+}

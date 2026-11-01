@@ -1,0 +1,106 @@
+{
+  "device": 4,
+  "hints": [
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-scroll-pan",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_right_stick); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden bottom-7 absolute\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    },
+    {
+      "key": "inline-accept",
+      "display": "none",
+      "html": "<div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div>"
+    }
+  ],
+  "focus": "<fxs-button class=\"fxs-button pointer-events-auto cursor-pointer z-0 relative flex min-h-11\\.5 items-center justify-center leading-none px-4 py-1 font-title text-base text-accent-1 uppercase tracking-150 text-center text-shadow-subtle no-pan\" caption=\"科研城\" action-key=\"inline-accept\" tabindex=\"-1\" data-audio-press-ref=\"data-audio-primary-button-press\" data-audio-focus-ref=\"data-audio-primary-button-focus\"><fxs-nav-help class=\"mr-2 fxs-nav-help relative hidden flex-row items-center justify-center pointer-events-none\" action-key=\"inline-accept\" is-icon-text-space=\"true\"><div class=\"relative size-8 bg-no-repeat bg-contain bg-center justify-center\" style=\"background-image: url(icon_button_bottom); display: flex;\"></div><div class=\"mx-1 hidden\"></div><div class=\"text-accent-1 text-shadow text-2xs hidden relative\"></div></fxs-nav-help><div class=\"-z-1 absolute inset-0\"><div class=\"absolute inset-0 fxs-button__bg fxs-button__bg--base\"></div><div class=\"absolute inset-0 opacity-0 fxs-button__bg fxs-button__bg--focus\"></div><div class=\"absolute inset-0 opacity-0 fxs-button__bg fxs-button__bg--active\"></div><div class=\"absolute inset-0 opacity-0 fxs-button__bg fxs-button__bg--disabled\"></div></div><div data-l10n-id=\"科研城\">科研城</div></fxs-button>"
+}

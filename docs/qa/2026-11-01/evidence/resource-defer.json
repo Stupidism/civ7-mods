@@ -1,0 +1,10 @@
+{
+  "turn": 53,
+  "buttons": {
+    "ao": 0,
+    "old": 0,
+    "defer": 1
+  },
+  "closed": true,
+  "mode": "deferred"
+}

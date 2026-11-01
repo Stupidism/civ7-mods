@@ -1,0 +1,460 @@
+{
+  "turn": 53,
+  "selected": {
+    "owner": 0,
+    "id": 196609,
+    "type": 26
+  },
+  "commanders": [
+    {
+      "id": {
+        "owner": 0,
+        "id": 196609,
+        "type": 26
+      },
+      "army": {
+        "owner": 0,
+        "id": 65536,
+        "type": 29
+      },
+      "xy": {
+        "x": 18,
+        "y": 34
+      }
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 1638413,
+        "type": 26
+      },
+      "army": {
+        "owner": 0,
+        "id": 131073,
+        "type": 29
+      },
+      "xy": {
+        "x": 31,
+        "y": 22
+      }
+    }
+  ],
+  "units": [
+    {
+      "id": {
+        "owner": 0,
+        "id": 131072,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_SCOUT",
+      "remaining": 0,
+      "max": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 196609,
+        "type": 26
+      },
+      "army": {
+        "owner": 0,
+        "id": 65536,
+        "type": 29
+      },
+      "type": "UNIT_ARMY_COMMANDER",
+      "remaining": 0,
+      "max": 4
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 262146,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_SCOUT",
+      "remaining": 3,
+      "max": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 327683,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_SCOUT",
+      "remaining": 3,
+      "max": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 393220,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_SCOUT",
+      "remaining": 3,
+      "max": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 458757,
+        "type": 26
+      },
+      "army": {
+        "owner": 0,
+        "id": 65536,
+        "type": 29
+      },
+      "type": "UNIT_SCOUT",
+      "remaining": 3,
+      "max": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 524294,
+        "type": 26
+      },
+      "army": {
+        "owner": 0,
+        "id": 65536,
+        "type": 29
+      },
+      "type": "UNIT_ARCHER",
+      "remaining": 1,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 589831,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_WARRIOR",
+      "remaining": 2,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 1572872,
+        "type": 26
+      },
+      "army": {
+        "owner": 0,
+        "id": 131073,
+        "type": 29
+      },
+      "type": "UNIT_SLINGER",
+      "remaining": 2,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 1310729,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_GALLEY",
+      "remaining": 3,
+      "max": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 1507338,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_GALLEY",
+      "remaining": 3,
+      "max": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 851979,
+        "type": 26
+      },
+      "army": {
+        "owner": 0,
+        "id": 65536,
+        "type": 29
+      },
+      "type": "UNIT_SLINGER",
+      "remaining": 0,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 917516,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_SLINGER",
+      "remaining": 0,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 1638413,
+        "type": 26
+      },
+      "army": {
+        "owner": 0,
+        "id": 131073,
+        "type": 29
+      },
+      "type": "UNIT_ARMY_COMMANDER",
+      "remaining": 4,
+      "max": 4
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 1376270,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_TRADE_SHIP",
+      "remaining": 0,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 1114127,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_GALLEY",
+      "remaining": 3,
+      "max": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 1441808,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_GALLEY",
+      "remaining": 3,
+      "max": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 2359313,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_SLINGER",
+      "remaining": 2,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 1769490,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_SLINGER",
+      "remaining": 2,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 2293779,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_SLINGER",
+      "remaining": 2,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 1900564,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_SLINGER",
+      "remaining": 2,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 1966101,
+        "type": 26
+      },
+      "army": {
+        "owner": 0,
+        "id": 131073,
+        "type": 29
+      },
+      "type": "UNIT_SLINGER",
+      "remaining": 2,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 2031638,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_SLINGER",
+      "remaining": 0,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 2097175,
+        "type": 26
+      },
+      "army": {
+        "owner": 0,
+        "id": 65536,
+        "type": 29
+      },
+      "type": "UNIT_SLINGER",
+      "remaining": 0,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 2162712,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_SLINGER",
+      "remaining": 0,
+      "max": 2
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 2228249,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "type": "UNIT_SLINGER",
+      "remaining": 0,
+      "max": 2
+    }
+  ],
+  "badges": [
+    {
+      "text": "3/3",
+      "label": "移动力（剩余／最大）：3/3",
+      "color": "rgba(255, 241, 194, 1)",
+      "parent": "<div class=\"army-panel__unit-portrait-container flex relative pointer-events-none center p-0\\.5 w-21 h-21\"><div class=\"army-panel__unit-portrait-bg flex\"><div class=\"army-panel__unit-portrait-image w-20 h-20 border border-primary-2\" style=\"background-image: url(live:/UNIT_SCOUT);\"><div class=\"army-panel__unit-health-bar-container size-full flex self-end items-center pb-1 px-0\\.5\"><div class=\"army-panel__unit-health-bar-bg h-3 w-full flex self-end p-0\\.5\"><div class=\"army-panel__unit-health-bar-fill self-center h-full\" style=\"--health-percentage: 83%;\"></div></div></div></div><div class=\"army-panel__turn-counter-container flex absolute items-end justify-end w-full bottom-0\"><div class=\"step-turn-container\"><div class=\"step-turn-icon\"></div><div class=\"step-turn-number font-body-base font-bold text-shadow-br\"></div></div></div><div class=\"army-panel__lock-container size-full flex absolute items-center justify-center\"><div class=\"army-panel__lock-icon self-center size-12\"></div></div></div><div class=\"war-controls-portrait-movement font-body text-sm\" style=\"position: absolute; left: 0.25rem; bottom: 1.2rem; display: flex; align-items: center; background-color: rgba(12, 18, 26, 0.9); p"
+    },
+    {
+      "text": "0/2",
+      "label": "移动力（剩余／最大）：0/2",
+      "color": "rgba(244, 163, 154, 1)",
+      "parent": "<div class=\"army-panel__unit-portrait-container flex relative pointer-events-none center p-0\\.5 w-21 h-21\"><div class=\"army-panel__unit-portrait-bg flex\"><div class=\"army-panel__unit-portrait-image w-20 h-20 border border-primary-2\" style=\"background-image: url(live:/UNIT_SLINGER);\"><div class=\"army-panel__unit-health-bar-container size-full flex self-end items-center pb-1 px-0\\.5\"><div class=\"army-panel__unit-health-bar-bg h-3 w-full flex self-end p-0\\.5\"><div class=\"army-panel__unit-health-bar-fill self-center h-full army-panel__low-health-bar\" style=\"--health-percentage: 17%;\"></div></div></div></div><div class=\"army-panel__turn-counter-container flex absolute items-end justify-end w-full bottom-0\"><div class=\"step-turn-container\"><div class=\"step-turn-icon\"></div><div class=\"step-turn-number font-body-base font-bold text-shadow-br\"></div></div></div><div class=\"army-panel__lock-container size-full flex absolute items-center justify-center\"><div class=\"army-panel__lock-icon self-center size-12\"></div></div></div><div class=\"war-controls-portrait-movement font-body text-sm\" style=\"position: absolute; left: 0.25rem; bottom: 1.2rem; display: flex; align-items: center; background-co"
+    },
+    {
+      "text": "1/2",
+      "label": "移动力（剩余／最大）：1/2",
+      "color": "rgba(255, 241, 194, 1)",
+      "parent": "<div class=\"army-panel__unit-portrait-container flex relative pointer-events-none center p-0\\.5 w-21 h-21\"><div class=\"army-panel__unit-portrait-bg flex\"><div class=\"army-panel__unit-portrait-image w-20 h-20 border border-primary-2\" style=\"background-image: url(live:/UNIT_ARCHER);\"><div class=\"army-panel__unit-health-bar-container size-full flex self-end items-center pb-1 px-0\\.5\"><div class=\"army-panel__unit-health-bar-bg h-3 w-full flex self-end p-0\\.5\"><div class=\"army-panel__unit-health-bar-fill self-center h-full\" style=\"--health-percentage: 92%;\"></div></div></div></div><div class=\"army-panel__turn-counter-container flex absolute items-end justify-end w-full bottom-0\"><div class=\"step-turn-container\"><div class=\"step-turn-icon\"></div><div class=\"step-turn-number font-body-base font-bold text-shadow-br\"></div></div></div><div class=\"army-panel__lock-container size-full flex absolute items-center justify-center\"><div class=\"army-panel__lock-icon self-center size-12\"></div></div></div><div class=\"war-controls-portrait-movement font-body text-sm\" style=\"position: absolute; left: 0.25rem; bottom: 1.2rem; display: flex; align-items: center; background-color: rgba(12, 18, 26, 0.9); "
+    },
+    {
+      "text": "0/2",
+      "label": "移动力（剩余／最大）：0/2",
+      "color": "rgba(244, 163, 154, 1)",
+      "parent": "<div class=\"army-panel__unit-portrait-container flex relative pointer-events-none center p-0\\.5 w-21 h-21\"><div class=\"army-panel__unit-portrait-bg flex\"><div class=\"army-panel__unit-portrait-image w-20 h-20 border border-primary-2\" style=\"background-image: url(live:/UNIT_SLINGER);\"><div class=\"army-panel__unit-health-bar-container size-full flex self-end items-center pb-1 px-0\\.5\"><div class=\"army-panel__unit-health-bar-bg h-3 w-full flex self-end p-0\\.5\"><div class=\"army-panel__unit-health-bar-fill self-center h-full army-panel__low-health-bar\" style=\"--health-percentage: 37%;\"></div></div></div></div><div class=\"army-panel__turn-counter-container flex absolute items-end justify-end w-full bottom-0\"><div class=\"step-turn-container\"><div class=\"step-turn-icon\"></div><div class=\"step-turn-number font-body-base font-bold text-shadow-br\"></div></div></div><div class=\"army-panel__lock-container size-full flex absolute items-center justify-center\"><div class=\"army-panel__lock-icon self-center size-12\"></div></div></div><div class=\"war-controls-portrait-movement font-body text-sm\" style=\"position: absolute; left: 0.25rem; bottom: 1.2rem; display: flex; align-items: center; background-co"
+    }
+  ]
+}

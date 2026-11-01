@@ -1,0 +1,16 @@
+{
+  "classes": "mr-2 fxs-nav-help relative hidden flex-row items-center justify-center pointer-events-none",
+  "display": "none",
+  "rule": [],
+  "ancestors": [
+    {
+      "class": "fxs-button pointer-events-auto cursor-pointer z-0 relative flex min-h-11\\.5 items-center justify-center leading-none px-4 py-1 font-title text-base text-accent-1 uppercase tracking-150 text-center text-shadow-subtle no-pan",
+      "display": "flex"
+    },
+    {
+      "class": "gt-presets fxs-hslot",
+      "display": "flex"
+    }
+  ],
+  "device": 4
+}

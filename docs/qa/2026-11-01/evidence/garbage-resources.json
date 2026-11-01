@@ -1,0 +1,379 @@
+{
+  "before": {
+    "turn": 53,
+    "complete": false,
+    "locked": false,
+    "assignments": [
+      {
+        "id": {
+          "owner": 0,
+          "id": 65536,
+          "type": 1
+        },
+        "resources": [
+          {
+            "uniqueResource": {
+              "resource": 1479152311,
+              "prestigeCivilization": -1
+            },
+            "value": 1874,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": -1530260464,
+              "prestigeCivilization": -1
+            },
+            "value": 1885,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": 1525054127,
+              "prestigeCivilization": -1
+            },
+            "value": 2054,
+            "isOffMap": false
+          }
+        ]
+      },
+      {
+        "id": {
+          "owner": 0,
+          "id": 131073,
+          "type": 1
+        },
+        "resources": [
+          {
+            "uniqueResource": {
+              "resource": -1746324013,
+              "prestigeCivilization": -1
+            },
+            "value": 2362,
+            "isOffMap": false
+          }
+        ]
+      },
+      {
+        "id": {
+          "owner": 0,
+          "id": 196610,
+          "type": 1
+        },
+        "resources": []
+      },
+      {
+        "id": {
+          "owner": 0,
+          "id": 262147,
+          "type": 1
+        },
+        "resources": [
+          {
+            "uniqueResource": {
+              "resource": -1746324013,
+              "prestigeCivilization": -1
+            },
+            "value": 2969,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": 915726565,
+              "prestigeCivilization": -1
+            },
+            "value": 3054,
+            "isOffMap": false
+          }
+        ]
+      },
+      {
+        "id": {
+          "owner": 0,
+          "id": 327684,
+          "type": 1
+        },
+        "resources": [
+          {
+            "uniqueResource": {
+              "resource": -2017998680,
+              "prestigeCivilization": -1
+            },
+            "value": 1281,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": 1079613569,
+              "prestigeCivilization": -1
+            },
+            "value": 1448,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": 934194841,
+              "prestigeCivilization": -1
+            },
+            "value": 1957,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": 934194841,
+              "prestigeCivilization": -1
+            },
+            "value": 1961,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": 1479152311,
+              "prestigeCivilization": -1
+            },
+            "value": 1967,
+            "isOffMap": false
+          }
+        ]
+      },
+      {
+        "id": {
+          "owner": 0,
+          "id": 393221,
+          "type": 1
+        },
+        "resources": [
+          {
+            "uniqueResource": {
+              "resource": -1746324013,
+              "prestigeCivilization": -1
+            },
+            "value": 1798,
+            "isOffMap": false
+          }
+        ]
+      },
+      {
+        "id": {
+          "owner": 0,
+          "id": 458758,
+          "type": 1
+        },
+        "resources": [
+          {
+            "uniqueResource": {
+              "resource": 915726565,
+              "prestigeCivilization": -1
+            },
+            "value": 3378,
+            "isOffMap": false
+          }
+        ]
+      }
+    ]
+  },
+  "result": {
+    "message": "无需调整：没有可用资源、空槽或更高收益的分配",
+    "error": false
+  },
+  "after": {
+    "turn": 53,
+    "complete": false,
+    "locked": false,
+    "assignments": [
+      {
+        "id": {
+          "owner": 0,
+          "id": 65536,
+          "type": 1
+        },
+        "resources": [
+          {
+            "uniqueResource": {
+              "resource": 1479152311,
+              "prestigeCivilization": -1
+            },
+            "value": 1874,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": -1530260464,
+              "prestigeCivilization": -1
+            },
+            "value": 1885,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": 1525054127,
+              "prestigeCivilization": -1
+            },
+            "value": 2054,
+            "isOffMap": false
+          }
+        ]
+      },
+      {
+        "id": {
+          "owner": 0,
+          "id": 131073,
+          "type": 1
+        },
+        "resources": [
+          {
+            "uniqueResource": {
+              "resource": -1746324013,
+              "prestigeCivilization": -1
+            },
+            "value": 2362,
+            "isOffMap": false
+          }
+        ]
+      },
+      {
+        "id": {
+          "owner": 0,
+          "id": 196610,
+          "type": 1
+        },
+        "resources": []
+      },
+      {
+        "id": {
+          "owner": 0,
+          "id": 262147,
+          "type": 1
+        },
+        "resources": [
+          {
+            "uniqueResource": {
+              "resource": -1746324013,
+              "prestigeCivilization": -1
+            },
+            "value": 2969,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": 915726565,
+              "prestigeCivilization": -1
+            },
+            "value": 3054,
+            "isOffMap": false
+          }
+        ]
+      },
+      {
+        "id": {
+          "owner": 0,
+          "id": 327684,
+          "type": 1
+        },
+        "resources": [
+          {
+            "uniqueResource": {
+              "resource": -2017998680,
+              "prestigeCivilization": -1
+            },
+            "value": 1281,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": 1079613569,
+              "prestigeCivilization": -1
+            },
+            "value": 1448,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": 934194841,
+              "prestigeCivilization": -1
+            },
+            "value": 1957,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": 934194841,
+              "prestigeCivilization": -1
+            },
+            "value": 1961,
+            "isOffMap": false
+          },
+          {
+            "uniqueResource": {
+              "resource": 1479152311,
+              "prestigeCivilization": -1
+            },
+            "value": 1967,
+            "isOffMap": false
+          }
+        ]
+      },
+      {
+        "id": {
+          "owner": 0,
+          "id": 393221,
+          "type": 1
+        },
+        "resources": [
+          {
+            "uniqueResource": {
+              "resource": -1746324013,
+              "prestigeCivilization": -1
+            },
+            "value": 1798,
+            "isOffMap": false
+          }
+        ]
+      },
+      {
+        "id": {
+          "owner": 0,
+          "id": 458758,
+          "type": 1
+        },
+        "resources": [
+          {
+            "uniqueResource": {
+              "resource": 915726565,
+              "prestigeCivilization": -1
+            },
+            "value": 3378,
+            "isOffMap": false
+          }
+        ]
+      }
+    ]
+  },
+  "automation": {
+    "military": false,
+    "treasure": false,
+    "religion": false,
+    "technology": false,
+    "culture": false,
+    "resources": false,
+    "resourceTurn": -1,
+    "rallyCity": "",
+    "cities": {
+      "0:196610:20,27": {
+        "enabled": false,
+        "override": true,
+        "weights": {
+          "gold": 5,
+          "food": 2,
+          "science": 4,
+          "culture": 4,
+          "production": 4,
+          "happiness": 8
+        },
+        "minHappiness": 0
+      }
+    },
+    "projects": {},
+    "orders": {}
+  }
+}

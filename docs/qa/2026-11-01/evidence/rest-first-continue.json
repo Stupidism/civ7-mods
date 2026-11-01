@@ -1,0 +1,20 @@
+{
+  "now": 1793519794821,
+  "session": {
+    "version": 2,
+    "startedAt": 1793519794496,
+    "suspendedAt": null,
+    "lastInputAt": 1793519794496,
+    "idleRested": false,
+    "loading": false,
+    "turnCount": 0,
+    "idleBreakStartedAt": null,
+    "countedToken": "game:-526700269:player:0:age:2077444219:turn:53",
+    "night": null,
+    "paidToken": "game:-526700269:player:0:age:2077444219:turn:53",
+    "pending": null
+  },
+  "turn": 53,
+  "turnComplete": false,
+  "modal": false
+}

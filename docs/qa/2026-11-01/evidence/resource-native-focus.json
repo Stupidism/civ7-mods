@@ -1,0 +1,18 @@
+{
+  "before": {
+    "class": "pointer-events-auto fxs-button fxs-button-small rp-button rp-yield rp-active cursor-pointer rp-controller-focus",
+    "tip": "食物：当前为倾向（评分×2）。确认后改为避免（评分×0）。可多选；点击按倾向分配后应用，不会立即移动资源。手动修改后，默认倾向停止更新，直到重置。"
+  },
+  "after": {
+    "class": "pointer-events-auto fxs-button fxs-button-small rp-button rp-yield rp-avoid rp-controller-focus",
+    "tip": "食物：当前为避免（评分×0）。确认后改为普通（评分×1）。可多选；点击按倾向分配后应用，不会立即移动资源。手动修改后，默认倾向停止更新，直到重置。",
+    "fill": "rgba(232, 200, 122, 0.24)"
+  },
+  "turn": 53,
+  "zoneEntries": [
+    "actions",
+    "tools",
+    "preferences",
+    "resources"
+  ]
+}

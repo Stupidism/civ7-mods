@@ -1,0 +1,355 @@
+{
+  "city": "霍拉尔",
+  "yields": {
+    "YIELD_FOOD": 24,
+    "YIELD_PRODUCTION": 48,
+    "YIELD_GOLD": 3,
+    "YIELD_SCIENCE": 4,
+    "YIELD_CULTURE": 34,
+    "YIELD_HAPPINESS": 11,
+    "YIELD_DIPLOMACY": 0
+  },
+  "rows": [
+    {
+      "item": {
+        "sortTier": 0,
+        "sortValue": 7,
+        "name": "LOC_BUILDING_LIGHTHOUSE_NAME",
+        "description": "",
+        "type": "BUILDING_LIGHTHOUSE",
+        "cost": 936,
+        "productionCost": 234,
+        "productionPercent": 19,
+        "productionProgress": 0,
+        "isInProgress": false,
+        "category": "buildings",
+        "ageless": false,
+        "turns": 4,
+        "showTurns": true,
+        "showCost": true,
+        "insufficientFunds": false,
+        "locations": "位置：2",
+        "interfaceMode": "INTERFACEMODE_PLACE_BUILDING",
+        "secondaryDetails": "<div class=\"flex items-center mr-2\"><img aria-label=\"[icon:YIELD_GOLD]金币\" src=\"blp:Yield_Gold\" class=\"size-6 mr-0\" />+7</div><div class=\"flex items-center mr-2\"><img aria-label=\"[icon:YIELD_HAPPINESS]幸福值\" src=\"blp:Yield_Happiness\" class=\"size-6 mr-0\" /><span class=\"text-negative\">-2</span></div>",
+        "repairDamaged": false,
+        "tags": [
+          "金币",
+          "水上"
+        ],
+        "baseYields": [
+          {
+            "yieldType": "YIELD_GOLD",
+            "value": 4
+          }
+        ],
+        "infoDisplayType": "yield-preview",
+        "canGetWarehouseBonuses": false,
+        "warehouseCount": 0,
+        "canGetAdjacencyBonuses": true,
+        "highestAdjacency": 3,
+        "recommendations": []
+      },
+      "metric": {
+        "cost": 234,
+        "turns": 4,
+        "pinned": false,
+        "breakdown": {
+          "cost": 234,
+          "weight": 4,
+          "costScore": 936,
+          "benefit": 31,
+          "contributions": {
+            "YIELD_FOOD": 0,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": 7,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 0,
+            "YIELD_HAPPINESS": 0,
+            "YIELD_DIPLOMACY": 0
+          },
+          "delta": {
+            "YIELD_FOOD": 0,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": 7,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 0,
+            "YIELD_HAPPINESS": -2,
+            "YIELD_DIPLOMACY": 0
+          },
+          "extra": {
+            "resourceSlots": 2,
+            "slotWeight": 12,
+            "slotScore": 24,
+            "growthPercent": 0,
+            "food": 24,
+            "equivalentFood": 0,
+            "foodWeight": 2,
+            "growthScore": 0
+          },
+          "purchase": false,
+          "turns": 30.193548387096776
+        },
+        "payback": 30.193548387096776
+      },
+      "tooltip": "[icon:BSU_HOURGLASS] 回本：936 ÷ 31 ＝ 30.19 回合[N][icon:BSU_SCORE] 花费评分：[icon:YIELD_PRODUCTION] 234 × 4 ＝ 936[N][icon:BSU_SCORE] 每回合新增综合收益评分：31 分[N][icon:YIELD_GOLD] 每回合净变化 7 → 评分 7 分/回合[N][icon:YIELD_HAPPINESS] 每回合净变化 -2 → 评分 0 分/回合[N][icon:RADIAL_RESOURCES] 净增资源槽 2 × 12 ＝ 24 分/回合（灵活度估值，不要求已有可用资源）[N][icon:BSU_SCORE] 综合评分：[icon:YIELD_FOOD] 食物×2，[icon:YIELD_PRODUCTION] 生产/[icon:YIELD_SCIENCE] 科研/[icon:YIELD_CULTURE] 文化×4，[icon:YIELD_GOLD] 金币×1；[icon:YIELD_HAPPINESS] 幸福度仅负值部分×8，[icon:YIELD_DIPLOMACY] 影响力×8。[N]采用原版预览位置，包含维护费及被替换建筑的收益。资源槽与发展率是折算估值，并非实际新增产出。幸福度仅计算负值改善部分；无正收益显示 ∞。",
+      "rendered": "灯塔+7-2234430.22344"
+    },
+    {
+      "item": {
+        "sortTier": 0,
+        "sortValue": 7,
+        "name": "LOC_BUILDING_MONUMENT_NAME",
+        "description": "",
+        "type": "BUILDING_MONUMENT",
+        "cost": 468,
+        "productionCost": 117,
+        "productionPercent": 39,
+        "productionProgress": 0,
+        "isInProgress": false,
+        "category": "buildings",
+        "ageless": false,
+        "turns": 2,
+        "showTurns": true,
+        "showCost": true,
+        "insufficientFunds": false,
+        "locations": "位置：6",
+        "interfaceMode": "INTERFACEMODE_PLACE_BUILDING",
+        "secondaryDetails": "<div class=\"flex items-center mr-2\"><img aria-label=\"[icon:YIELD_CULTURE]文化值\" src=\"blp:Yield_Culture\" class=\"size-6 mr-0\" />+7</div><div class=\"flex items-center mr-2\"><img aria-label=\"[icon:YIELD_DIPLOMACY]影响力\" src=\"blp:yield_influence\" class=\"size-6 mr-0\" />+2</div><div class=\"flex items-center mr-2\"><img aria-label=\"[icon:YIELD_FOOD]食物\" src=\"blp:Yield_Food\" class=\"size-6 mr-0\" />+1</div><div class=\"flex items-center mr-2\"><img aria-label=\"[icon:YIELD_GOLD]金币\" src=\"blp:Yield_Gold\" class=\"size-6 mr-0\" /><span class=\"text-negative\">-2</span></div><div class=\"flex items-center mr-2\"><img aria-label=\"[icon:YIELD_HAPPINESS]幸福值\" src=\"blp:Yield_Happiness\" class=\"size-6 mr-0\" /><span class=\"text-negative\">-2</span></div>",
+        "repairDamaged": false,
+        "tags": [
+          "文化值",
+          "外交"
+        ],
+        "baseYields": [
+          {
+            "yieldType": "YIELD_CULTURE",
+            "value": 3
+          },
+          {
+            "yieldType": "YIELD_DIPLOMACY",
+            "value": 2
+          }
+        ],
+        "infoDisplayType": "yield-preview",
+        "canGetWarehouseBonuses": false,
+        "warehouseCount": 0,
+        "canGetAdjacencyBonuses": true,
+        "highestAdjacency": 2,
+        "recommendations": []
+      },
+      "metric": {
+        "cost": 117,
+        "turns": 2,
+        "pinned": false,
+        "breakdown": {
+          "cost": 117,
+          "weight": 4,
+          "costScore": 468,
+          "benefit": 44,
+          "contributions": {
+            "YIELD_FOOD": 2,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": -2,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 28,
+            "YIELD_HAPPINESS": 0,
+            "YIELD_DIPLOMACY": 16
+          },
+          "delta": {
+            "YIELD_FOOD": 1,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": -2,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 7,
+            "YIELD_HAPPINESS": -2,
+            "YIELD_DIPLOMACY": 2
+          },
+          "extra": {
+            "resourceSlots": 0,
+            "slotWeight": 12,
+            "slotScore": 0,
+            "growthPercent": 0,
+            "food": 24,
+            "equivalentFood": 0,
+            "foodWeight": 2,
+            "growthScore": 0
+          },
+          "purchase": false,
+          "turns": 10.636363636363637
+        },
+        "payback": 10.636363636363637
+      },
+      "tooltip": "[icon:BSU_HOURGLASS] 回本：468 ÷ 44 ＝ 10.64 回合[N][icon:BSU_SCORE] 花费评分：[icon:YIELD_PRODUCTION] 117 × 4 ＝ 468[N][icon:BSU_SCORE] 每回合新增综合收益评分：44 分[N][icon:YIELD_FOOD] 每回合净变化 1 → 评分 2 分/回合[N][icon:YIELD_GOLD] 每回合净变化 -2 → 评分 -2 分/回合[N][icon:YIELD_CULTURE] 每回合净变化 7 → 评分 28 分/回合[N][icon:YIELD_HAPPINESS] 每回合净变化 -2 → 评分 0 分/回合[N][icon:YIELD_DIPLOMACY] 每回合净变化 2 → 评分 16 分/回合[N][icon:BSU_SCORE] 综合评分：[icon:YIELD_FOOD] 食物×2，[icon:YIELD_PRODUCTION] 生产/[icon:YIELD_SCIENCE] 科研/[icon:YIELD_CULTURE] 文化×4，[icon:YIELD_GOLD] 金币×1；[icon:YIELD_HAPPINESS] 幸福度仅负值部分×8，[icon:YIELD_DIPLOMACY] 影响力×8。[N]采用原版预览位置，包含维护费及被替换建筑的收益。资源槽与发展率是折算估值，并非实际新增产出。幸福度仅计算负值改善部分；无正收益显示 ∞。",
+      "rendered": "纪念碑+7+2+1-2-2117210.61172"
+    },
+    {
+      "item": {
+        "sortTier": 0,
+        "sortValue": 6,
+        "name": "LOC_BUILDING_BATH_NAME",
+        "description": "",
+        "type": "BUILDING_BATH",
+        "cost": 936,
+        "productionCost": 234,
+        "productionPercent": 19,
+        "productionProgress": 0,
+        "isInProgress": false,
+        "category": "buildings",
+        "ageless": false,
+        "turns": 4,
+        "showTurns": true,
+        "showCost": true,
+        "insufficientFunds": false,
+        "locations": "位置：4",
+        "interfaceMode": "INTERFACEMODE_PLACE_BUILDING",
+        "secondaryDetails": "<div class=\"flex items-center mr-2\"><img aria-label=\"[icon:YIELD_FOOD]食物\" src=\"blp:Yield_Food\" class=\"size-6 mr-0\" />+6</div><div class=\"flex items-center mr-2\"><img aria-label=\"[icon:YIELD_GOLD]金币\" src=\"blp:Yield_Gold\" class=\"size-6 mr-0\" /><span class=\"text-negative\">-2</span></div><div class=\"flex items-center mr-2\"><img aria-label=\"[icon:YIELD_HAPPINESS]幸福值\" src=\"blp:Yield_Happiness\" class=\"size-6 mr-0\" /><span class=\"text-negative\">-2</span></div>",
+        "repairDamaged": false,
+        "tags": [
+          "食物",
+          "水上"
+        ],
+        "baseYields": [
+          {
+            "yieldType": "YIELD_FOOD",
+            "value": 4
+          }
+        ],
+        "infoDisplayType": "yield-preview",
+        "canGetWarehouseBonuses": false,
+        "warehouseCount": 0,
+        "canGetAdjacencyBonuses": true,
+        "highestAdjacency": 2,
+        "recommendations": []
+      },
+      "metric": {
+        "cost": 234,
+        "turns": 4,
+        "pinned": false,
+        "breakdown": {
+          "cost": 234,
+          "weight": 4,
+          "costScore": 936,
+          "benefit": 14.8,
+          "contributions": {
+            "YIELD_FOOD": 12,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": -2,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 0,
+            "YIELD_HAPPINESS": 0,
+            "YIELD_DIPLOMACY": 0
+          },
+          "delta": {
+            "YIELD_FOOD": 6,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": -2,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 0,
+            "YIELD_HAPPINESS": -2,
+            "YIELD_DIPLOMACY": 0
+          },
+          "extra": {
+            "resourceSlots": 0,
+            "slotWeight": 12,
+            "slotScore": 0,
+            "growthPercent": 10,
+            "food": 24,
+            "equivalentFood": 2.4,
+            "foodWeight": 2,
+            "growthScore": 4.8
+          },
+          "purchase": false,
+          "turns": 63.24324324324324
+        },
+        "payback": 63.24324324324324
+      },
+      "tooltip": "[icon:BSU_HOURGLASS] 回本：936 ÷ 14.8 ＝ 63.24 回合[N][icon:BSU_SCORE] 花费评分：[icon:YIELD_PRODUCTION] 234 × 4 ＝ 936[N][icon:BSU_SCORE] 每回合新增综合收益评分：14.8 分[N][icon:YIELD_FOOD] 每回合净变化 6 → 评分 12 分/回合[N][icon:YIELD_GOLD] 每回合净变化 -2 → 评分 -2 分/回合[N][icon:YIELD_HAPPINESS] 每回合净变化 -2 → 评分 0 分/回合[N][icon:GROWTH_RATE] 发展率净增：当前[icon:YIELD_FOOD] 粮食 24 × 10% ＝ 等效粮食 2.4 × 2 ＝ 4.8 分/回合[N][icon:BSU_SCORE] 综合评分：[icon:YIELD_FOOD] 食物×2，[icon:YIELD_PRODUCTION] 生产/[icon:YIELD_SCIENCE] 科研/[icon:YIELD_CULTURE] 文化×4，[icon:YIELD_GOLD] 金币×1；[icon:YIELD_HAPPINESS] 幸福度仅负值部分×8，[icon:YIELD_DIPLOMACY] 影响力×8。[N]采用原版预览位置，包含维护费及被替换建筑的收益。资源槽与发展率是折算估值，并非实际新增产出。幸福度仅计算负值改善部分；无正收益显示 ∞。",
+      "rendered": "浴场+6-2-2234463.22344"
+    },
+    {
+      "item": {
+        "sortTier": 0,
+        "sortValue": 5,
+        "name": "LOC_BUILDING_MARKET_NAME",
+        "description": "",
+        "type": "BUILDING_MARKET",
+        "cost": 468,
+        "productionCost": 117,
+        "productionPercent": 39,
+        "productionProgress": 0,
+        "isInProgress": false,
+        "category": "buildings",
+        "ageless": false,
+        "turns": 2,
+        "showTurns": true,
+        "showCost": true,
+        "insufficientFunds": false,
+        "locations": "位置：6",
+        "interfaceMode": "INTERFACEMODE_PLACE_BUILDING",
+        "secondaryDetails": "<div class=\"flex items-center mr-2\"><img aria-label=\"[icon:YIELD_GOLD]金币\" src=\"blp:Yield_Gold\" class=\"size-6 mr-0\" />+5</div><div class=\"flex items-center mr-2\"><img aria-label=\"[icon:YIELD_HAPPINESS]幸福值\" src=\"blp:Yield_Happiness\" class=\"size-6 mr-0\" /><span class=\"text-negative\">-2</span></div>",
+        "repairDamaged": false,
+        "tags": [
+          "金币"
+        ],
+        "baseYields": [
+          {
+            "yieldType": "YIELD_GOLD",
+            "value": 3
+          }
+        ],
+        "infoDisplayType": "yield-preview",
+        "canGetWarehouseBonuses": false,
+        "warehouseCount": 0,
+        "canGetAdjacencyBonuses": true,
+        "highestAdjacency": 2,
+        "recommendations": []
+      },
+      "metric": {
+        "cost": 117,
+        "turns": 2,
+        "pinned": false,
+        "breakdown": {
+          "cost": 117,
+          "weight": 4,
+          "costScore": 468,
+          "benefit": 17,
+          "contributions": {
+            "YIELD_FOOD": 0,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": 5,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 0,
+            "YIELD_HAPPINESS": 0,
+            "YIELD_DIPLOMACY": 0
+          },
+          "delta": {
+            "YIELD_FOOD": 0,
+            "YIELD_PRODUCTION": 0,
+            "YIELD_GOLD": 5,
+            "YIELD_SCIENCE": 0,
+            "YIELD_CULTURE": 0,
+            "YIELD_HAPPINESS": -2,
+            "YIELD_DIPLOMACY": 0
+          },
+          "extra": {
+            "resourceSlots": 1,
+            "slotWeight": 12,
+            "slotScore": 12,
+            "growthPercent": 0,
+            "food": 24,
+            "equivalentFood": 0,
+            "foodWeight": 2,
+            "growthScore": 0
+          },
+          "purchase": false,
+          "turns": 27.529411764705884
+        },
+        "payback": 27.529411764705884
+      },
+      "tooltip": "[icon:BSU_HOURGLASS] 回本：468 ÷ 17 ＝ 27.53 回合[N][icon:BSU_SCORE] 花费评分：[icon:YIELD_PRODUCTION] 117 × 4 ＝ 468[N][icon:BSU_SCORE] 每回合新增综合收益评分：17 分[N][icon:YIELD_GOLD] 每回合净变化 5 → 评分 5 分/回合[N][icon:YIELD_HAPPINESS] 每回合净变化 -2 → 评分 0 分/回合[N][icon:RADIAL_RESOURCES] 净增资源槽 1 × 12 ＝ 12 分/回合（灵活度估值，不要求已有可用资源）[N][icon:BSU_SCORE] 综合评分：[icon:YIELD_FOOD] 食物×2，[icon:YIELD_PRODUCTION] 生产/[icon:YIELD_SCIENCE] 科研/[icon:YIELD_CULTURE] 文化×4，[icon:YIELD_GOLD] 金币×1；[icon:YIELD_HAPPINESS] 幸福度仅负值部分×8，[icon:YIELD_DIPLOMACY] 影响力×8。[N]采用原版预览位置，包含维护费及被替换建筑的收益。资源槽与发展率是折算估值，并非实际新增产出。幸福度仅计算负值改善部分；无正收益显示 ∞。",
+      "rendered": "市场+5-2117227.51172"
+    }
+  ],
+  "tooltipText": "市场金币+3每相邻一个以下地块，便+1：• 沿岸水域地形• 可航行河流地形• 奇观效果：此定居点+1资源容量。维护费用：-2最高相邻加成地块：2  回本：468 ÷ 17 ＝ 27.53 回合 花费评分： 117 × 4 ＝ 468 每回合新增综合收益评分：17 分 每回合净变化 5 → 评分 5 分/回合 每回合净变化 -2 → 评分 0 分/回合 净增资源槽 1 × 12 ＝ 12 分/回合（灵活度估值，不要求已有可用资源） 综合评分： 食物×2， 生产/ 科研/ 文化×4， 金币×1； 幸福度仅负值部分×8， 影响力×8。采用原版预览位置，包含维护费及被替换建筑的收益。资源槽与发展率是折算估值，并非实际新增产出。幸福度仅计算负值改善部分；无正收益显示 ∞。费用：117查看隐藏（按住） ",
+  "details": " 回本：468 ÷ 17 ＝ 27.53 回合 花费评分： 117 × 4 ＝ 468 每回合新增综合收益评分：17 分 每回合净变化 5 → 评分 5 分/回合 每回合净变化 -2 → 评分 0 分/回合 净增资源槽 1 × 12 ＝ 12 分/回合（灵活度估值，不要求已有可用资源） 综合评分： 食物×2， 生产/ 科研/ 文化×4， 金币×1； 幸福度仅负值部分×8， 影响力×8。采用原版预览位置，包含维护费及被替换建筑的收益。资源槽与发展率是折算估值，并非实际新增产出。幸福度仅计算负值改善部分；无正收益显示 ∞。"
+}
