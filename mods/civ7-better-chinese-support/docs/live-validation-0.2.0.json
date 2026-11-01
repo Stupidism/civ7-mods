@@ -14,7 +14,7 @@
     "work/better-chinese-020-live-20261028/serpent-verified.png",
     "work/better-chinese-020-live-20261028/temple-verified.png"
   ],
-  "fix": "Match exact official text with or without outer whitespace stripped by native importer",
+  "fix": "精确匹配官方原文，以及经原生导入器去除首尾空白后的原文。",
   "offlineTestsPassed": 9,
   "restoration": {
     "gameExited": true,
@@ -171,8 +171,8 @@
     }
   ],
   "notVerified": [
-    "production-list mouse hover layout",
-    "actual wonder placement or yield effects"
+    "生产列表鼠标悬浮提示布局",
+    "实际奇观放置或产出效果"
   ],
   "publication": "not-published"
 }

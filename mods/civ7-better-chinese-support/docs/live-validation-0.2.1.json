@@ -41,9 +41,9 @@
   ],
   "productionTooltip": {
     "type": "IMPROVEMENT_JINJA_SEA",
-    "trigger": "Focus event on the actual production row via game CDP; native game tooltip rendered and screenshot inspected. Not a physical mouse-hover test.",
-    "expected": "Coast adjacent to flat terrain; hills and mountains do not qualify.",
-    "result": "pass; original yields, icons and added condition visible without clipping"
+    "trigger": "通过游戏 CDP 向实际生产行发送焦点事件；原生提示已显示并截图核对。这不是物理鼠标悬浮测试。",
+    "expected": "与平地相邻的海岸；丘陵和山脉不满足条件。",
+    "result": "通过；原始产出、图标和新增条件完整可见，无裁切。"
   },
   "placementReadback": {
     "legal": {
@@ -85,7 +85,7 @@
     ]
   },
   "mireuksaCityReadback": {
-    "save": "prior named T83 test copy",
+    "save": "既有的第 83 回合命名测试副本",
     "expected": {
       "production": 1,
       "culture": 2
@@ -94,15 +94,15 @@
       "production": 1,
       "culture": 2
     },
-    "evidence": "sea-tooltip-text.json bodyTail; city-display.json full city text",
-    "note": "Existing yield-breakdown data; no controlled before/after build experiment."
+    "evidence": "sea-tooltip-text.json 的 bodyTail；city-display.json 的完整城市文本",
+    "note": "读取既有产出明细数据；未进行建造前后的受控对照实验。"
   },
   "limitations": [
-    "No production order, construction, end-turn, physical mouse-hover or controller input test.",
-    "Illegal-tile placement and cross-era Mireuksa effect combinations were not exercised.",
-    "Clan Society I/II did not resolve to exact Civilopedia search pages in this scene; their runtime strings matched.",
-    "Mireuksa city-building tooltip did not open through the legacy tooltip manager with the current city UI mods; encyclopedia verified, this tooltip path remains unverified.",
-    "15 visible pages do not represent all age variants or all 29 tooltip layouts."
+    "未测试生产订单、实际建造、结束回合、物理鼠标悬浮或手柄输入。",
+    "未测试非法地块放置或跨时代弥勒寺效果组合。",
+    "此场景未检索到氏族社会 I/II 的精确百科页面；运行时文本已匹配。",
+    "当前城市界面 Mod 组合下，旧提示管理器未打开弥勒寺建筑提示；百科已验证，该提示路径仍未验收。",
+    "已查看的 15 个页面不代表全部时代变体或全部 29 个提示布局。"
   ],
   "installation": {
     "installedVersion": "0.2.1",
@@ -137,8 +137,8 @@
         "sha256": "eba3a31f63d1d710b3d0ab97b5ffe962182b62db3f24fc26fa2edebafb28f000"
       }
     },
-    "oldLocalVersion": "0.2.0 preserved outside game",
-    "workshopCache": "Downloaded cache alone was not registered; verified local package used."
+    "oldLocalVersion": "0.2.0 已保留在游戏目录外",
+    "workshopCache": "下载缓存本身未注册；使用已核验的本地安装包。"
   },
   "safety": {
     "fullPreActionBackups": 5,

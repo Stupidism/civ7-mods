@@ -51,9 +51,9 @@
     "textKeys": 29,
     "currentVersionLiveTested": false
   },
-  "installation": "Downloaded to Steam cache for verification without subscription. Existing local Mods copy unchanged.",
+  "installation": "下载到 Steam 缓存进行核验，未订阅；既有本地 Mods 副本未变。",
   "gameInteraction": false,
-  "savesSettingsRestGuard": "Untouched; no game launch, testing, or live installation",
+  "savesSettingsRestGuard": "未改动；未启动游戏、测试或替换游戏安装目录中的 Mod。",
   "evidence": "work/better-chinese-workshop-20261029/",
   "publicPageVerified": true,
   "evidenceScreenshots": [
@@ -76,7 +76,7 @@
     "titleAndDownloadHeadingVerified": true,
     "contentHash": "c1d7ae451df822bf4af4e6bef53963816d6741519ede582b47c69af5b0bd927e",
     "imageCdnUrl": "https://i0.hdslb.com/bfs/new_dyn/c00213caef0b43bd7c9d0b1a9fead84e7247306.png",
-    "anonymousBilibiliAccess": "not independently verified"
+    "anonymousBilibiliAccess": "未独立验证"
   },
-  "archiveNote": "Local download directory omitted from repository archive; release file hashes are unchanged."
+  "archiveNote": "仓库归档省略本机下载目录；发行文件哈希不变。"
 }

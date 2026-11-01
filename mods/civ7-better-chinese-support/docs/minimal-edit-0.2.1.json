@@ -1,7 +1,7 @@
 {
   "version": "0.2.1",
-  "scope": "offline source revision only",
-  "editingPolicy": "Correct errors and add missing conditions; preserve correct original wording and markup",
+  "scope": "仅离线修改源码",
+  "editingPolicy": "只纠正错误、补充遗漏条件；保留原本正确的措辞和标记。",
   "testsPassed": 10,
   "installed": false,
   "liveVerified": false,
@@ -32,11 +32,11 @@
       "LOC_WONDER_BRIHADEESWARAR_TEMPLE_DESCRIPTION",
       "LOC_WONDER_BRIHADEESWARAR_TEMPLE_TOOLTIP"
     ],
-    "reason": "Original Chinese is correct: adjacent to a Navigable River or on a Minor River. AdjacentRiver field name alone does not establish placement semantics.",
+    "reason": "原中文说明正确：位于可航行河流旁或小型河流之上。不能仅凭 AdjacentRiver 字段名推断放置规则。",
     "source": "Base/modules/age-exploration/text/en_us/ConstructibleText.xml:456"
   },
   "removedGeneralRules": [
-    "Land Jinja terrain explanation",
-    "Rural district requirement shared by improvements"
+    "陆地神社的地形说明",
+    "改良设施共有的乡村地块要求"
   ]
 }

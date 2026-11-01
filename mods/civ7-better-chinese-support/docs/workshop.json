@@ -52,12 +52,12 @@
   "previewHashesVerified": true,
   "downloadHashesVerified": true,
   "publicTitleDescriptionMatch": true,
-  "installationChannel": "Steam Workshop subscription",
+  "installationChannel": "Steam 创意工坊订阅",
   "localDuplicateAbsent": true,
   "gameClosedAtPreflight": true,
   "gameRunningAtFinish": true,
   "gameInteraction": false,
-  "savesSettingsRestGuard": "Not touched by this session; no game launch, load, UI or CDP. Game started externally during publication; no runtime validation or restart performed.",
+  "savesSettingsRestGuard": "本会话未改动存档、设置或 Rest Guard，未启动游戏、读档、操作界面或连接 CDP。发布期间游戏由外部启动；未验证运行时状态，也未重启游戏。",
   "validation": {
     "offlineTestsPassed": 10,
     "textKeys": 30,
@@ -72,11 +72,11 @@
     "authorUid": "7247306",
     "anonymousPageVerified": true,
     "commentId": null,
-    "commentIdNote": "Comment ID not exposed by visible UI; one comment present on original article.",
+    "commentIdNote": "可见界面未提供评论 ID；原专栏显示一条评论。",
     "screenshot": "work/release-0.2.2/bilibili-comment.png"
   },
-  "otherPlatforms": "No Reddit or CivFanatics original; excluded by user",
+  "otherPlatforms": "没有 Reddit 或 CivFanatics 原帖；用户已排除这两个平台。",
   "evidence": "work/release-0.2.2/",
-  "archiveNote": "0.2.1 release metadata preserved separately; no gameplay behavior changes.",
+  "archiveNote": "0.2.1 发行元数据另行保留；未改变游戏行为。",
   "anonymousApiVerified": true
 }
