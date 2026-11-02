@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_BCS_MOD_NAME"><Text>Better Chinese Support</Text></Row>
+    <Row Tag="LOC_BCS_MOD_DESCRIPTION"><Text>Corrects misleading Simplified Chinese gameplay descriptions and missing conditions. Includes Jinja, Mireuksa, Serpent Mound and Brihadeeswarar Temple. No renaming, prose localization or translations for other mods. Changes text only; selected corrections reference Cuchuan's public list.</Text></Row>
+  </EnglishText>
+  <LocalizedText>
+    <Replace Tag="LOC_BCS_MOD_NAME" Language="zh_Hans_CN"><Text>更好的中文支持</Text></Replace>
+    <Replace Tag="LOC_BCS_MOD_DESCRIPTION" Language="zh_Hans_CN"><Text>修正简体中文玩法说明中的错谬、适用范围和遗漏条件，包含神社、弥勒寺、巨蟒土丘、布里哈迪希瓦拉神庙等。部分勘误参考徂川公开清单。不改译名，不加入文风润色或其他 Mod 汉化，不改变游戏规则。</Text></Replace>
+  </LocalizedText>
+</Database>

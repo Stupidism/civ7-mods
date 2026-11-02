@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_RP_MOD_NAME"><Text>Resource Planner</Text></Row>
+    <Row Tag="LOC_RP_MOD_DESCRIPTION"><Text>An extension for Resource Re-sorts: settlement sorting, yield preferences, happiness filling and resource allocation.</Text></Row>
+    <Row Tag="LOC_RP_AUTO_ASSIGN"><Text>Assign by preference</Text></Row>
+    <Row Tag="LOC_RP_AUTO_TIP"><Text>Allocate resources by settlement preference. Compare total gains with Gold/Food/Science/Culture/Production/Happiness weights of 1/2/4/4/4/8. Happiness gains above zero add no score.</Text></Row>
+    <Row Tag="LOC_RP_INCLUDE_CAMELS"><Text>Include Camels</Text></Row>
+    <Row Tag="LOC_RP_CAMELS_TIP"><Text>Allow Camels to expand resource capacity. Also enable Include assigned resources to consider moving Camels that are already assigned.</Text></Row>
+    <Row Tag="LOC_RP_INCLUDE_ASSIGNED"><Text>Include assigned resources</Text></Row>
+    <Row Tag="LOC_RP_ASSIGNED_TIP"><Text>Allow existing assignments to be rearranged. When off, use only unassigned resources.</Text></Row>
+    <Row Tag="LOC_RP_SORT_SETTLEMENTS"><Text>Settlement order</Text></Row>
+    <Row Tag="LOC_RP_SORT_TIP"><Text>Sort by {1}; click again to reverse the order. Order stays fixed while adjusting resources.</Text></Row>
+    <Row Tag="LOC_RP_FILL"><Text>Fill</Text></Row>
+    <Row Tag="LOC_RP_FILL_TOWNS_TIP"><Text>Fill happiness resources in towns only, stopping at nonnegative happiness.</Text></Row>
+    <Row Tag="LOC_RP_FILL_CITIES_TIP"><Text>Fill happiness resources in cities first, then towns, stopping at nonnegative happiness.</Text></Row>
+    <Row Tag="LOC_RP_PLACE_TIP"><Text>Click to assign the selected resource to this settlement.</Text></Row>
+    <Row Tag="LOC_RP_PREFERENCE_TIP"><Text>Prefer {1}: click to remember this preference and allocate suitable available resources.</Text></Row>
+    <Row Tag="LOC_RP_CLEAR_PREFERENCE_TIP"><Text>Click to clear this settlement’s preference.</Text></Row>
+    <Row Tag="LOC_RP_PREFERENCE_LABEL"><Text>Preference: {1} ×</Text></Row>
+    <Row Tag="LOC_RP_CITIES"><Text>Cities</Text></Row>
+    <Row Tag="LOC_RP_TOWNS"><Text>Towns</Text></Row>
+    <Row Tag="LOC_RP_DISCONNECTED"><Text>Outside the trade network</Text></Row>
+    <Row Tag="LOC_RP_GROUP_COUNT"><Text>{1} ({2})</Text></Row>
+    <Row Tag="LOC_RP_EMPTY_GROUP"><Text>No settlements in this group.</Text></Row>
+    <Row Tag="LOC_RP_CITY_RESOURCES"><Text>City resources</Text></Row>
+    <Row Tag="LOC_RP_BONUS_RESOURCES"><Text>Bonus resources (cities and towns)</Text></Row>
+    <Row Tag="LOC_RP_HINT"><Text>Click a yield icon to set a preference and assign resources.</Text></Row>
+    <Row Tag="LOC_RP_SETTINGS_FAILED"><Text>Could not save settings: {1}</Text></Row>
+    <Row Tag="LOC_RP_LOCKED"><Text>Resource assignments are locked for this turn.</Text></Row>
+    <Row Tag="LOC_RP_COMPUTING"><Text>Calculating total gains…</Text></Row>
+    <Row Tag="LOC_RP_CHOOSE_PREFERENCE"><Text>First click a settlement’s yield icon to set a preference.</Text></Row>
+    <Row Tag="LOC_RP_NO_CHANGES"><Text>No changes: no available resources, free slots or better allocation.</Text></Row>
+    <Row Tag="LOC_RP_REALLOCATING"><Text>Reallocating: {1} / {2}</Text></Row>
+    <Row Tag="LOC_RP_ASSIGNING"><Text>Assigning: {1} / {2}</Text></Row>
+    <Row Tag="LOC_RP_COMPLETED"><Text>Done: assigned {1} resources; changed {2} assignments.</Text></Row>
+    <Row Tag="LOC_RP_ROLLED_BACK"><Text>{1} Changes from this operation have been reverted.</Text></Row>
+    <Row Tag="LOC_RP_RESTORE_INCOMPLETE"><Text>{1} Some resources could not be restored. Check unassigned resources.</Text></Row>
+    <Row Tag="LOC_RP_INVALID_SETTINGS"><Text>The modSettings data has an invalid format.</Text></Row>
+    <Row Tag="LOC_RP_CONTEXT_CHANGED"><Text>The player, turn or screen has changed.</Text></Row>
+    <Row Tag="LOC_RP_CANNOT_REMOVE"><Text>Cannot remove {2} from {1}.</Text></Row>
+    <Row Tag="LOC_RP_CANNOT_ASSIGN"><Text>Cannot assign {2} to {1}.</Text></Row>
+    <Row Tag="LOC_RP_OPERATION_TIMEOUT"><Text>The game did not confirm the resource operation. No further operations will be sent.</Text></Row>
+  </EnglishText>
+  <LocalizedText>
+    <Row Tag="LOC_RP_MOD_NAME" Language="zh_Hans_CN"><Text>资源规划</Text></Row>
+    <Row Tag="LOC_RP_MOD_DESCRIPTION" Language="zh_Hans_CN"><Text>Resource Re-sorts 扩展：分组排序、定居点倾向、幸福度填充与资源分配。</Text></Row>
+    <Row Tag="LOC_RP_AUTO_ASSIGN" Language="zh_Hans_CN"><Text>按倾向分配</Text></Row>
+    <Row Tag="LOC_RP_AUTO_TIP" Language="zh_Hans_CN"><Text>按照定居点倾向分配。按金币／粮食／科技／文化／生产力／幸福度 = 1/2/4/4/4/8 比较整体收益；幸福度补至非负后不再计分。</Text></Row>
+    <Row Tag="LOC_RP_INCLUDE_CAMELS" Language="zh_Hans_CN"><Text>包含骆驼资源</Text></Row>
+    <Row Tag="LOC_RP_CAMELS_TIP" Language="zh_Hans_CN"><Text>允许用骆驼扩展资源槽；同时勾选包含已分配资源时，也会比较移动已分配的骆驼。</Text></Row>
+    <Row Tag="LOC_RP_INCLUDE_ASSIGNED" Language="zh_Hans_CN"><Text>包含已分配资源</Text></Row>
+    <Row Tag="LOC_RP_ASSIGNED_TIP" Language="zh_Hans_CN"><Text>允许重新调配已分配资源。关闭时只使用空闲资源。</Text></Row>
+    <Row Tag="LOC_RP_SORT_SETTLEMENTS" Language="zh_Hans_CN"><Text>定居点排序</Text></Row>
+    <Row Tag="LOC_RP_SORT_TIP" Language="zh_Hans_CN"><Text>按{1}排序，再点一次切换升降序；调整资源过程中保持顺序稳定。</Text></Row>
+    <Row Tag="LOC_RP_FILL" Language="zh_Hans_CN"><Text>填充</Text></Row>
+    <Row Tag="LOC_RP_FILL_TOWNS_TIP" Language="zh_Hans_CN"><Text>自动填充幸福度资源：仅城镇，补至非负</Text></Row>
+    <Row Tag="LOC_RP_FILL_CITIES_TIP" Language="zh_Hans_CN"><Text>自动填充幸福度资源：城市优先，城镇其次，补至非负</Text></Row>
+    <Row Tag="LOC_RP_PLACE_TIP" Language="zh_Hans_CN"><Text>点击将选中的资源放入该定居点</Text></Row>
+    <Row Tag="LOC_RP_PREFERENCE_TIP" Language="zh_Hans_CN"><Text>{1}倾向：点击记住，并一次填入可用的相关资源</Text></Row>
+    <Row Tag="LOC_RP_CLEAR_PREFERENCE_TIP" Language="zh_Hans_CN"><Text>点击清除该定居点倾向</Text></Row>
+    <Row Tag="LOC_RP_PREFERENCE_LABEL" Language="zh_Hans_CN"><Text>倾向：{1} ×</Text></Row>
+    <Row Tag="LOC_RP_CITIES" Language="zh_Hans_CN"><Text>城市</Text></Row>
+    <Row Tag="LOC_RP_TOWNS" Language="zh_Hans_CN"><Text>城镇</Text></Row>
+    <Row Tag="LOC_RP_DISCONNECTED" Language="zh_Hans_CN"><Text>未连入贸易网络</Text></Row>
+    <Row Tag="LOC_RP_GROUP_COUNT" Language="zh_Hans_CN"><Text>{1}（{2}）</Text></Row>
+    <Row Tag="LOC_RP_EMPTY_GROUP" Language="zh_Hans_CN"><Text>该分组暂无定居点</Text></Row>
+    <Row Tag="LOC_RP_CITY_RESOURCES" Language="zh_Hans_CN"><Text>城市资源</Text></Row>
+    <Row Tag="LOC_RP_BONUS_RESOURCES" Language="zh_Hans_CN"><Text>城镇资源（通用）</Text></Row>
+    <Row Tag="LOC_RP_HINT" Language="zh_Hans_CN"><Text>点击产出图标：记住倾向并填充资源</Text></Row>
+    <Row Tag="LOC_RP_SETTINGS_FAILED" Language="zh_Hans_CN"><Text>设置保存失败：{1}</Text></Row>
+    <Row Tag="LOC_RP_LOCKED" Language="zh_Hans_CN"><Text>本回合资源分配已锁定</Text></Row>
+    <Row Tag="LOC_RP_COMPUTING" Language="zh_Hans_CN"><Text>正在计算整体收益…</Text></Row>
+    <Row Tag="LOC_RP_CHOOSE_PREFERENCE" Language="zh_Hans_CN"><Text>先点击定居点的产出图标，设置倾向</Text></Row>
+    <Row Tag="LOC_RP_NO_CHANGES" Language="zh_Hans_CN"><Text>无需调整：没有可用资源、空槽或更高收益的分配</Text></Row>
+    <Row Tag="LOC_RP_REALLOCATING" Language="zh_Hans_CN"><Text>正在重新调配：{1} / {2}</Text></Row>
+    <Row Tag="LOC_RP_ASSIGNING" Language="zh_Hans_CN"><Text>正在分配：{1} / {2}</Text></Row>
+    <Row Tag="LOC_RP_COMPLETED" Language="zh_Hans_CN"><Text>已完成：装入 {1} 份资源，调整 {2} 份</Text></Row>
+    <Row Tag="LOC_RP_ROLLED_BACK" Language="zh_Hans_CN"><Text>{1}；本次调整已撤回</Text></Row>
+    <Row Tag="LOC_RP_RESTORE_INCOMPLETE" Language="zh_Hans_CN"><Text>{1}；部分资源未恢复，请检查空闲资源</Text></Row>
+    <Row Tag="LOC_RP_INVALID_SETTINGS" Language="zh_Hans_CN"><Text>modSettings 格式不正确</Text></Row>
+    <Row Tag="LOC_RP_CONTEXT_CHANGED" Language="zh_Hans_CN"><Text>玩家、回合或界面已改变</Text></Row>
+    <Row Tag="LOC_RP_CANNOT_REMOVE" Language="zh_Hans_CN"><Text>{1} 无法卸下 {2}</Text></Row>
+    <Row Tag="LOC_RP_CANNOT_ASSIGN" Language="zh_Hans_CN"><Text>{1} 无法装入 {2}</Text></Row>
+    <Row Tag="LOC_RP_OPERATION_TIMEOUT" Language="zh_Hans_CN"><Text>游戏未确认资源操作，已停止继续发送</Text></Row>
+  </LocalizedText>
+</Database>

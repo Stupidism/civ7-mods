@@ -1,0 +1,16 @@
+{
+  "baseline": "/Users/sunmer/Documents/Civ7-Test-Backups/war-controls-20261022-144805-281517",
+  "time": "2026-10-22T15:46:52.431742+08:00",
+  "verifiedOriginalFiles": 395,
+  "restored": [
+    "Single/BeforeDiplomacy.Civ7Save",
+    "Single/auto/AutoSave_00_0026.Civ7Save",
+    "Single/auto/AutoSave_00_0027.Civ7Save"
+  ],
+  "preservedTestRotations": [
+    "/Users/sunmer/Library/Application Support/Civilization VII/Saves/Single/WC_RecordingRotation_20261022-154650_Single_BeforeDiplomacy.Civ7Save",
+    "/Users/sunmer/Library/Application Support/Civilization VII/Saves/Single/WC_RecordingRotation_20261022-154650_Single_auto_AutoSave_00_0026.Civ7Save",
+    "/Users/sunmer/Library/Application Support/Civilization VII/Saves/Single/WC_RecordingRotation_20261022-154650_Single_auto_AutoSave_00_0027.Civ7Save"
+  ],
+  "deletedFiles": 0
+}

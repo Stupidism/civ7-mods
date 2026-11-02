@@ -1,0 +1,4 @@
+interface:
+  display_name: "文明 VII Mod 开发"
+  short_description: "结合现有模组经验开发文明 VII 功能，覆盖离线回归、中英文界面与手柄操作"
+  default_prompt: "使用 $civ7-modding 开发或修复这个文明 VII Mod，检查功能边界、中英文、鼠标和手柄操作，并按当前授权范围验证。"

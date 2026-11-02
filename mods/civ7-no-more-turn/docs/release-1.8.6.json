@@ -1,0 +1,114 @@
+{
+  "publishedFileId": "3815557333",
+  "title": "No More Turn（不再来一回合）",
+  "version": "1.8.6",
+  "publishedAt": "2026-10-24T12:24:28+00:00",
+  "descriptionSha256": "eaf5fca7f613ba08d4cea60e0b77c0b3ee88ca23e2abf2fbad54df323a672cc9",
+  "files": {
+    "README-en.md": {
+      "size": 4601,
+      "sha256": "2f6e4d6eac969d9bb2201e3f935cee6b3f92a89fd150a9cf65200d93fcb77aff"
+    },
+    "README-zh-CN.txt": {
+      "size": 11190,
+      "sha256": "2450517d8eb3d3ea59f8676787302ed2ea2f77e821801e3089c7800a65f8e86b"
+    },
+    "README.md": {
+      "size": 14574,
+      "sha256": "0fcd8f06c3edc8ae913c798db2b945ef494997ad86b75b0120555874a14243a7"
+    },
+    "VALIDATION.txt": {
+      "size": 22304,
+      "sha256": "ab3ad6f94376e49329f0c220205168356d97c3013c12c8c4822689270f21f3a8"
+    },
+    "package.json": {
+      "size": 441,
+      "sha256": "677df015fef1e09f1b07243df9cb9bb9274b552991e4afb1a9d223c08e3edb56"
+    },
+    "rest-guard.modinfo": {
+      "size": 2094,
+      "sha256": "9f3127f482403c8ae063a5f195c836a437a3c1411bb2c60ff671e3a1946df725"
+    },
+    "text/settings.xml": {
+      "size": 17043,
+      "sha256": "100f60001c984d362108c805640d9d48384e649d50e3b8a5b1f15a96488beddb"
+    },
+    "ui/defaults.js": {
+      "size": 352,
+      "sha256": "b26cb82ecd9ce04eff95277ce941d021913509989da9bb7724246c89062704bc"
+    },
+    "ui/rest-guard.css": {
+      "size": 2331,
+      "sha256": "c6e571bf612a440b8062e2555fb77a92e46b17f95d0ab5387f2b5f38829c9fba"
+    },
+    "ui/rest-guard.js": {
+      "size": 12713,
+      "sha256": "be39ae6e14dbbbf1890e5fa75460cb383e841703a8db9dda92f15f81a2e3d8ee"
+    },
+    "ui/rest-model.js": {
+      "size": 3860,
+      "sha256": "665711331a367dca47273ea1186702bc3d187f31eb4251d7cc492a860026db37"
+    },
+    "ui/rest-options.js": {
+      "size": 9548,
+      "sha256": "d941f35413b32e21d7ad27d1737da9dd33971655caaa2fdd7c06515b131e885a"
+    },
+    "ui/rest-retention.js": {
+      "size": 5997,
+      "sha256": "b2fda1f6638fe7fc42515c2886e7a56638a2bf50424ad019e4685e9efc2f5ebf"
+    },
+    "ui/rest-runtime.js": {
+      "size": 4740,
+      "sha256": "06320b5d20244a0817740ac70ccad7474ed9d62418df7cb61b415eb17f111aee"
+    },
+    "ui/rest-save.js": {
+      "size": 4490,
+      "sha256": "3795fce94cab07f7ea1e5dd05489d636a5b0fe464ff093e5cddde1c33c44c3fa"
+    },
+    "ui/rest-session.js": {
+      "size": 8840,
+      "sha256": "83a84e011828c43998b259b9dd75b0185b9142c713e60572de5890f2f4878a08"
+    },
+    "ui/rest-settings.js": {
+      "size": 2257,
+      "sha256": "332839e0249c97f6b547e7acfdd0d0dcfaf44d495938cc3fd586861a3e72b78b"
+    },
+    "ui/rest-shell.js": {
+      "size": 694,
+      "sha256": "9abe77770e1ca70768e1f8b46d5c0a329d07f851b0a0b45f1156b1e98060a2c4"
+    },
+    "ui/rest-store.js": {
+      "size": 1476,
+      "sha256": "03877a63057775a663eb98e477517f1b6b51a964c8a10ea988568aedff802281"
+    },
+    "ui/rest-view.js": {
+      "size": 12078,
+      "sha256": "39a96dd0f97bef8518e4fe073c0f2087cf59ee47cfad56a9ee4e7005dc37459d"
+    }
+  },
+  "publishState": {
+    "id": "3815557333",
+    "version": "1.8.6",
+    "phase": "verified",
+    "result": 1,
+    "returnedId": "3815557333",
+    "legalAgreementRequired": false,
+    "metadata": {
+      "title": "No More Turn（不再来一回合）",
+      "visibility": 0,
+      "updated": 1792844668,
+      "bytes": 141623
+    },
+    "download": {
+      "id": "3815557333",
+      "folder": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3815557333",
+      "bytes": 141623,
+      "state": 4
+    },
+    "verifiedFiles": 20,
+    "downloadHashesVerified": true
+  },
+  "offlineTestsPassed": 78,
+  "liveGameTested": false,
+  "scope": "1.8.5 verified package plus defaults, localized descriptions, version and documentation only; local debug/activity/controller changes excluded."
+}

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="civ7-resource-planner" version="1.0.0" xmlns="ModInfo">
+<Mod id="civ7-resource-planner" version="1.1.0" xmlns="ModInfo">
   <Properties>
-    <Name>资源规划 · Resource Planner</Name><Version>1.0.0</Version>
-    <Description>Resource Re-sorts 扩展：分组排序、定居点倾向、幸福度填充与资源分配。</Description>
+    <Name>LOC_RP_MOD_NAME</Name><Version>1.1.0</Version>
+    <Description>LOC_RP_MOD_DESCRIPTION</Description>
     <Authors>Resource Planner; Resource Re-sorts UI by beezany</Authors>
     <AffectsSavedGames>0</AffectsSavedGames><EnabledByDefault>1</EnabledByDefault>
   </Properties>
@@ -10,10 +10,15 @@
   <ActionCriteria><Criteria id="always"><AlwaysMet/></Criteria></ActionCriteria>
   <ActionGroups><ActionGroup id="resource-planner-ui" scope="game" criteria="always">
     <Properties><LoadOrder>2000</LoadOrder></Properties>
-    <Actions><ImportFiles>
+    <Actions><UpdateText><Item>text/resource-planner.xml</Item></UpdateText><ImportFiles>
       <Item>ui-next/screens/commerce/commerce-screen-resources-tab.js</Item>
+      <Item>ui-next/screens/commerce/commerce-screen-model.js</Item>
       <Item>ui/rp-planner.js</Item><Item>ui/rp-settings.js</Item><Item>ui/rp-game-adapter.js</Item>
-      <Item>ui/rp-controller.js</Item><Item>ui/rp-ui.js</Item><Item>ui/rp-style.css</Item>
+      <Item>ui/rp-controller.js</Item><Item>ui/rp-ui.js</Item><Item>ui/rp-style.css</Item><Item>ui/rp-l10n.js</Item>
     </ImportFiles></Actions>
+  </ActionGroup>
+  <ActionGroup id="resource-planner-text-shell" scope="shell" criteria="always">
+    <Properties><LoadOrder>2000</LoadOrder></Properties>
+    <Actions><UpdateText><Item>text/resource-planner.xml</Item></UpdateText></Actions>
   </ActionGroup></ActionGroups>
 </Mod>

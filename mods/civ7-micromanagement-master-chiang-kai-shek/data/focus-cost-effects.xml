@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+  <Modifier id="MOD_WC_COST_READY" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="true" permanent="true">
+    <Argument name="Amount">1</Argument><Argument name="NarrativeTagType">NARRATIVE_TAG_WC_COST_READY</Argument>
+  </Modifier>
+  <Modifier id="MOD_WC_COST_ALLOWANCE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+    <OwnerRequirements><Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS"><Argument name="NarrativeTagType">NARRATIVE_TAG_WC_COST_ACTIVE</Argument><Argument name="Amount">1</Argument></Requirement></OwnerRequirements>
+    <SubjectRequirements><Requirement type="REQUIREMENT_UNIT_TAG_MATCHES"><Argument name="Tag">UNIT_CLASS_COMMAND</Argument></Requirement></SubjectRequirements>
+    <Argument name="Amount">-1000</Argument>
+  </Modifier>
+</GameEffects>

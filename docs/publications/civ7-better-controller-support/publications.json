@@ -1,0 +1,73 @@
+{
+  "modDirectory": "civ7-better-controller-support",
+  "publications": [
+    {
+      "platform": "bilibili",
+      "status": "published",
+      "url": "https://www.bilibili.com/opus/1262385145689669638",
+      "verifiedAt": "2026-10-23T13:01:15.796Z",
+      "file": "article-zh.md",
+      "imageCount": 7,
+      "images": [
+        "assets/01-map-tools-wheel.png",
+        "assets/02-list-scroll.png",
+        "assets/03-map-tack-icons.png",
+        "assets/04-mac-map-input.png",
+        "assets/05-r3-center.png",
+        "assets/06-controller-settings.png",
+        "assets/07-menu-stick.png"
+      ],
+      "publishedSourceSha256": "f7dcd76a2b590b84980a1813f590ddfc65499fe4d3cf45297568e244e5ad7ff9",
+      "archiveAdaptation": "Added article title and replaced hosted image URLs with matching local assets; body unchanged.",
+      "sha256": "6786d5a7d3bdc0df0c989c241a2c92a49aa447f1910195c2210229be9426acc1"
+    },
+    {
+      "platform": "reddit",
+      "status": "published",
+      "url": "https://www.reddit.com/r/CivVII/comments/1xdenjj/i_made_a_controller_support_mod_for_civ_vii_map/",
+      "verifiedAt": "2026-10-23T13:53:30.201Z",
+      "file": "reddit-en.md",
+      "imageCount": 3,
+      "images": [
+        "assets/01-map-tools-wheel.png",
+        "assets/02-list-scroll.png",
+        "assets/03-map-tack-icons.png"
+      ],
+      "sha256": "d8646855e22b516fe48865b570e34b6d93a8a064c15207e8a8daa41d1952bb57"
+    },
+    {
+      "platform": "civfanatics",
+      "status": "published",
+      "url": "https://forums.civfanatics.com/threads/better-controller-support-for-civilization-vii.705221/",
+      "threadId": "705221",
+      "postId": "17002564",
+      "author": "Stupidism",
+      "postedAt": "2026-10-23T21:45:30+0800",
+      "verifiedAt": "2026-10-24T06:13:35.283848+00:00",
+      "verifiedSignal": "帖子显示完整正文及配图，原待审核提示已消失；Released Mods 板块。",
+      "file": "article-en.md",
+      "imageCount": 7,
+      "images": [
+        "assets/01-map-tools-wheel.png",
+        "assets/02-list-scroll.png",
+        "assets/03-map-tack-icons.png",
+        "assets/04-mac-map-input.png",
+        "assets/05-r3-center.png",
+        "assets/06-controller-settings.png",
+        "assets/07-menu-stick.png"
+      ],
+      "attachmentUrls": [
+        "https://forums.civfanatics.com/attachments/01-map-tools-wheel-png.784995/",
+        "https://forums.civfanatics.com/attachments/02-list-scroll-png.784996/",
+        "https://forums.civfanatics.com/attachments/03-map-tack-icons-png.784997/",
+        "https://forums.civfanatics.com/attachments/04-mac-map-input-png.784998/",
+        "https://forums.civfanatics.com/attachments/05-r3-center-png.784999/",
+        "https://forums.civfanatics.com/attachments/06-controller-settings-png.785000/",
+        "https://forums.civfanatics.com/attachments/07-menu-stick-png.785001/"
+      ],
+      "sha256": "8488095f064a1b1e7ad6a3753857dd3c0e85d6b4d43c0b9a1d39f10a0a45e7c4",
+      "publishedSourceSha256": "5917cdea40a8c4aeaea64e0aa66832ba3d1e8275d3252047786e5a502522c9bc",
+      "archiveAdaptation": "Replaced absolute local image paths with matching archived assets; body unchanged."
+    }
+  ]
+}

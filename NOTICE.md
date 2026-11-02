@@ -6,4 +6,4 @@ Resource Planner 的资源页派生自 **beezany / Resource Re-sorts 3.0.2**，�
 
 Rest Guard 和 Auto-save Before... 的 docs 图片延续原项目素材。实机截图、功能封面及历史版本的适用范围见原 README；没有用旧图宣称新的界面已经验收。
 
-分合的用户世界数据、试玩存档、原生导出地图与 SDK 研究摘录未纳入本次源码归并。`data/calibrated.json` 是模型参数，测试内的小型世界为人工构造夹具。
+更好的中文支持的部分功能勘误参考徂川《简中翻译修正和改进》及其公开修订清单，来源、筛选范围与权利边界见 [模块 NOTICE](mods/civ7-better-chinese-support/NOTICE.md)。

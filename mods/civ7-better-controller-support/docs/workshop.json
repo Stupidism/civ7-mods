@@ -1,0 +1,124 @@
+{
+  "version": "0.3.0",
+  "publishedFileId": "3825193325",
+  "title": "更好的手柄支持 · Better Controller Support",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3825193325",
+  "modId": "civ7-map-tools-gamepad",
+  "visibility": "public",
+  "tags": [
+    "Mod",
+    "UI"
+  ],
+  "publishedDate": "2026-10-23",
+  "metadataVerified": true,
+  "previewHashesVerified": true,
+  "downloadHashesVerified": false,
+  "subscribedAndInstalledVerified": false,
+  "uploadedFiles": {
+    "map-tools-gamepad.modinfo": {
+      "size": 2521,
+      "sha256": "47085586fe4c2c1c83fe2604c8175f48f2453d68d7921ab8049a2703abb12dd9"
+    },
+    "README.md": {
+      "size": 6658,
+      "sha256": "b3e59dc1b09b28258ef8e1cd1d98d54e3931f169c67d8dbfc82bea0e0e4f85c9"
+    },
+    "README-en.md": {
+      "size": 5109,
+      "sha256": "f5dd9ef8cd5c685f6d13235247f0e3101562bb426b0ff27aad90de785bd0702b"
+    },
+    "VALIDATION.md": {
+      "size": 10789,
+      "sha256": "3710904621cd1d76292f9eaf8de631d032a78a6cdae3eb950949e6f04d6fd7a7"
+    },
+    "ui/bridge-options.js": {
+      "size": 3188,
+      "sha256": "1fd74c18382cfea77aa866590712eb722d8cd403364acbf691b95d652a74fcd2"
+    },
+    "ui/bridge-runtime.js": {
+      "size": 10783,
+      "sha256": "bfe2e2b2d215630a6de461b14c86b4ee4a965ca0bb9eae8d8bc5ccd4314568de"
+    },
+    "ui/bridge-settings.js": {
+      "size": 1687,
+      "sha256": "7e22234c29f79ff38d449021ffe2ef741fab8f1706e752706f45ba953573a75f"
+    },
+    "ui/bridge-store.js": {
+      "size": 1214,
+      "sha256": "ef70c978f1823b8733e498be4bc1b9b1455ba036e15315fb7b9c58ad7b0b29c8"
+    },
+    "ui/controller-bridge.js": {
+      "size": 7045,
+      "sha256": "8fd15862c5883814228690ca8c68ef1410ec01000d563d2c9381da57ede56c60"
+    },
+    "ui/controller-policy.js": {
+      "size": 1177,
+      "sha256": "7fe378eeedfbe3ec321cb9435b73c24c5473c7ef243c206c9b5827949f543f19"
+    },
+    "ui/map-tools-gamepad.css": {
+      "size": 267,
+      "sha256": "2b502f0e96ba18b99903118f306955165ea79a83917382be4cbfa0ef175bf928"
+    },
+    "ui/map-tools-gamepad.js": {
+      "size": 3175,
+      "sha256": "d2a4ab01502b3dd10ff81abce9c2d89dd2bc69894ab01d48af4b427f567a4390"
+    },
+    "ui/map-tools-runtime.js": {
+      "size": 11206,
+      "sha256": "753a9f2f2f3cf18c6e1151dcf619874395f398cf8f5a4d7ce4b4368e9fe3c0f6"
+    },
+    "ui/menu-navigation-adapter.js": {
+      "size": 2285,
+      "sha256": "c735c0e6328818158239e7bdef61297df1909840fd0efa1b6ea017f6106432f2"
+    },
+    "ui/menu-navigation.js": {
+      "size": 2439,
+      "sha256": "441f12b47eacd2bc2675d9cd627055ab4b8903de6f328366e06469e477c9876c"
+    },
+    "ui/navigation.js": {
+      "size": 2651,
+      "sha256": "9215acde1fb8810f6263108298963753f6a1638011b687af410e9381e23a4295"
+    },
+    "ui/plot-shortcuts-adapter.js": {
+      "size": 4249,
+      "sha256": "ec058817faa9204893a0fa60fe482a74712a6f27d11e1adae20478c70a5bfa1a"
+    },
+    "ui/plot-shortcuts-runtime.js": {
+      "size": 4225,
+      "sha256": "1e5774fc8f6fdf52fac7a5878843d5a97e9e799d876609a45408279accc5785b"
+    },
+    "ui/plot-shortcuts.js": {
+      "size": 3336,
+      "sha256": "a76189199581985ab9d8896547644d70629291c6068e735b79f0c426581ff202"
+    },
+    "ui/radial-icons.js": {
+      "size": 1478,
+      "sha256": "7a6de2153f3ae902948bf006a0cc58ff6f3056883001daefb5c816c4767aa69e"
+    },
+    "text/controller-settings.xml": {
+      "size": 6152,
+      "sha256": "ea0223e5c9ad8d82a2de5c6fa991dc1a70e2f7ea247b9afb0303db85dfad2d05"
+    },
+    "text/map-tools.xml": {
+      "size": 1897,
+      "sha256": "df0127f4d57bcb53834efcebf8e99f7aa94c42968e0ff00d4ddb350c6f904c11"
+    }
+  },
+  "preview": {
+    "path": "docs/workshop-preview.jpg",
+    "sha256": "52bc167f29498b730ef9482e0938c8880b4094ae6aeb75705d8f840ae8912a90"
+  },
+  "descriptionSha256": "1733c73bef18099008cbbad556504a64d287fcc74e7f37ff28f464143eeea2fd",
+  "manualCopyBackup": "/Users/sunmer/Documents/Civ7-Mod-Backups/better-controller-support-workshop-20261023T111133Z-444e6b7e/previous-manual-0.1.2",
+  "validation": {
+    "offlineTestsPassed": 88,
+    "offlineTestsSkipped": 0,
+    "gameTested": false
+  },
+  "updatedDate": "2026-10-24",
+  "latestReceipt": "docs/release-0.3.0.json",
+  "previousWorkshopBackup": "/Users/sunmer/Documents/Civ7-Mod-Backups/better-controller-support-20261023T113842Z-a7628a58/previous-workshop-0.1.2",
+  "previewHashesVerifiedAtVersion": "0.1.2",
+  "previewUnchangedByUpdate": true,
+  "installedVersionAtPublication": "0.2.1"
+}

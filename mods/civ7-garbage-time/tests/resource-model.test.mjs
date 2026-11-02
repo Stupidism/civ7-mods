@@ -14,7 +14,7 @@ test('background resource list matches native assignable classes and separates o
 
 test('resource success acknowledges only after all operations finish',async()=>{
   let busy=true,acks=0,cleanups=0;
-  const result=await finishResourceRun({busy:()=>busy,status:()=> '已完成：装入 2 份资源'},()=>cleanups++,()=>true,()=>{assert.equal(busy,false);acks++;},async()=>{busy=false;});
+  const result=await finishResourceRun({busy:()=>busy,status:()=> '已完成：装入 2 份资源',statusCode:()=> 'COMPLETED'},()=>cleanups++,()=>true,()=>{assert.equal(busy,false);acks++;},async()=>{busy=false;});
   assert.equal(result.error,false);assert.equal(acks,1);assert.equal(cleanups,1);
 });
 
@@ -25,9 +25,9 @@ test('interruption cancels planner and awaits rollback without acknowledging ano
 });
 
 test('failed allocation and failed rollback leave the resource decision unacknowledged',async()=>{
-  for(const message of ['城市无法装入资源；本次调整已撤回','游戏未确认资源操作；部分资源未恢复']){
+  for(const [code,message] of [['ROLLED_BACK','城市无法装入资源；本次调整已撤回'],['RESTORE_INCOMPLETE','游戏未确认资源操作；部分资源未恢复']]){
     let acks=0;
-    const result=await finishResourceRun({busy:()=>false,status:()=>message},()=>{},()=>true,()=>acks++,async()=>{});
+    const result=await finishResourceRun({busy:()=>false,status:()=>message,statusCode:()=>code},()=>{},()=>true,()=>acks++,async()=>{});
     assert.equal(result.error,true);assert.equal(acks,0);
   }
 });
@@ -36,4 +36,29 @@ test('completion after turn or menu changes never acknowledges resources',async(
   let valid=true,busy=true,acks=0;
   const result=await finishResourceRun({busy:()=>busy,status:()=> '已完成'},()=>{},()=>valid,()=>acks++,async()=>{valid=false;busy=false;});
   assert.equal(result,undefined);assert.equal(acks,0);
+});
+
+test('localized display text cannot override the structured result',async()=>{
+  for(const [code,message,error] of [
+    ['ROLLED_BACK','Changes have been reverted.',true],
+    ['RESTORE_INCOMPLETE','Some resources could not be restored.',true],
+    ['LOCKED','Resources are locked.',true],
+    ['CHOOSE_PREFERENCE','Choose a preference.',true],
+    ['COMPUTING','Computing...',true],
+    ['NEW_UNKNOWN_STATUS','Completed',true],
+    ['COMPLETED','无失败：操作完成',false],
+    ['NO_CHANGES','No changes needed.',false]
+  ]){
+    let acks=0;
+    const result=await finishResourceRun({busy:()=>false,status:()=>message,statusCode:()=>code},()=>{},()=>true,()=>acks++,async()=>{});
+    assert.equal(result.error,error,code);
+    assert.equal(acks,error?0:1,code);
+    assert.equal(result.message,message);
+  }
+});
+
+test('an older planner without a structured result cannot confirm a resource decision',async()=>{
+  let acks=0;
+  const result=await finishResourceRun({busy:()=>false,status:()=> 'Completed'},()=>{},()=>true,()=>acks++,async()=>{});
+  assert.equal(result.error,true);assert.equal(acks,0);
 });

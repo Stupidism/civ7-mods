@@ -1,0 +1,133 @@
+{
+  "modDirectory": "civ7-resource-planner",
+  "archivedAt": "2026-10-29T10:48:04.375435+08:00",
+  "archiveScope": "已发布平台版本的 Markdown 归档；不是最新代码的功能说明，也未向社交平台提交新内容。",
+  "publications": [
+    {
+      "platform": "bilibili",
+      "status": "published",
+      "title": "《文明7拯救计划》｜资源规划",
+      "url": "https://www.bilibili.com/opus/1263171240630157332",
+      "file": "article-zh.md",
+      "sha256": "021eb0e739e3f7cd1f6b21e0648ec7dd791afd19ebbda3abb87d06c4c5617cc1",
+      "imageCount": 4,
+      "images": [
+        "assets/01-chinese-overview.png",
+        "assets/zh-happiness-after.png",
+        "assets/zh-preferences-after.png",
+        "assets/resources-after.png"
+      ],
+      "sourceDocument": "work/mod-editorial/20261024-steam-rewrite/civ7-resource-planner/article-zh.md",
+      "sourceDocumentSha256": "179eb691f65270aa98002db0ce111321cd0925fd81986c38a54407ac0bfb0005",
+      "normalization": [
+        "图片引用改为仓库内相对路径；保留已发表版本的正文、图注和历史验证范围。",
+        "标题同步 2026-10-29 06:05:21 +08:00 官方文章列表中的已发布短标题。"
+      ],
+      "verification": {
+        "verifiedAt": "2026-10-29T06:05:21.980460+08:00",
+        "method": "官方作者文章列表 state=0/check_state=0；原发布回执及正文快照交叉核对",
+        "articleId": "cv53603128"
+      },
+      "cover": {
+        "file": "assets/bilibili-cover.png",
+        "sha256": "9d6c03082e124f7ef0a9f4efb8d949c11c586f64058fe2df68c5ff77b842793e",
+        "sourceUrl": "https://i0.hdslb.com/bfs/new_dyn/1981408f9eb8b21531248b1a266f0fce7247306.png",
+        "sourceCollectedAt": "2026-10-29T06:05:21.980460+08:00",
+        "downloadedAt": "2026-10-29T10:48:04.375435+08:00"
+      }
+    },
+    {
+      "platform": "civfanatics",
+      "status": "published",
+      "title": "Resource Planner — give resources a destination, not another spreadsheet",
+      "url": "https://forums.civfanatics.com/threads/705251/",
+      "file": "article-en.md",
+      "sha256": "83697702c332a1c1f09cc32b8bbeb748ccb9ca7601adbdf4887588ad6147bf70",
+      "imageCount": 4,
+      "images": [
+        "assets/03-english-overview.png",
+        "assets/en-happiness-after.png",
+        "assets/en-preferences-after.png",
+        "assets/resources-after.png"
+      ],
+      "sourceDocument": "work/mod-editorial/20261024-steam-rewrite/civ7-resource-planner/article-en.md",
+      "sourceDocumentSha256": "b515421a913c947ac30b3737f82d8e71077e3fb75faf9f06ea0a6a0d838bfea0",
+      "normalization": [
+        "图片引用改为仓库内相对路径；保留已发表版本的正文、图注和历史验证范围。"
+      ],
+      "verification": {
+        "verifiedAt": "2026-10-29T10:48:04.375435+08:00",
+        "method": "未登录浏览器显示 Log in，完整正文及配图可见，无待审核提示",
+        "guestVerified": true,
+        "threadId": 705251
+      }
+    },
+    {
+      "platform": "reddit",
+      "status": "published",
+      "title": "Resource Planner 1.1.0: happiness filling and remembered settlement roles in Civ VII",
+      "url": "https://www.reddit.com/r/CivVII/comments/1xf5wzi/resource_planner_110_happiness_filling_and/",
+      "file": "reddit-en.md",
+      "sha256": "ae8bf0ef85a302768697d1f4178b1c44c1e9c053157d61f59e9977dcc8246595",
+      "imageCount": 3,
+      "images": [
+        "assets/03-english-overview.png",
+        "assets/en-happiness-after.png",
+        "assets/en-preferences-after.png"
+      ],
+      "sourceDocument": "work/mod-editorial/20261024-steam-rewrite/civ7-resource-planner/reddit-en.md",
+      "sourceDocumentSha256": "ebd67fe4264f987a472c5ea74bd5840ddd9545774af33487b736de49af4bf904",
+      "normalization": [
+        "图片引用改为仓库内相对路径；保留已发表版本的正文、图注和历史验证范围。"
+      ],
+      "verification": {
+        "verifiedAt": "2026-10-25T15:54:56.648Z",
+        "method": "既有发布回执及公开页面证据；本轮未重新访问 Reddit",
+        "postId": "1xf5wzi"
+      }
+    }
+  ],
+  "excluded": [],
+  "assets": {
+    "assets/01-chinese-overview.png": {
+      "sha256": "76981740ee79a3d6a91cd312d937c500e2708fafccb93a0458bbd6cef7421410",
+      "bytes": 1135128,
+      "source": "capture-20261024/01-chinese-overview.png"
+    },
+    "assets/zh-happiness-after.png": {
+      "sha256": "11bad59b62f8eb60d70481b3fd851c1c3e00935151f892575c59cffc19386857",
+      "bytes": 1125226,
+      "source": "capture-20261024/zh-happiness-after.png"
+    },
+    "assets/zh-preferences-after.png": {
+      "sha256": "09bdbe1fced4e7303518a8eafc98d09185d1950ae81acca7b1204e90dee4ac5a",
+      "bytes": 1141374,
+      "source": "capture-20261024/zh-preferences-after.png"
+    },
+    "assets/resources-after.png": {
+      "sha256": "bb490e333b729ab5425ef690beb64117561956c38db878d8f9504e8c449904aa",
+      "bytes": 1193240,
+      "source": "../civ7-garbage-time/capture-20261024/resources-after.png"
+    },
+    "assets/03-english-overview.png": {
+      "sha256": "e38d14bafdf27732899d80bc46fcf318f65efd253bd6a9dfda78cf6dcb8f3c84",
+      "bytes": 1156817,
+      "source": "capture-20261024/03-english-overview.png"
+    },
+    "assets/en-happiness-after.png": {
+      "sha256": "3264618097f6a73f406791fd2e395e640720085df7a25a14ff743c6871e0387d",
+      "bytes": 1169096,
+      "source": "capture-20261024/en-happiness-after.png"
+    },
+    "assets/en-preferences-after.png": {
+      "sha256": "baa2ee6d83a6cef9426b4d6710330d08d95af80b7386b902f406a769ae038331",
+      "bytes": 1170393,
+      "source": "capture-20261024/en-preferences-after.png"
+    },
+    "assets/bilibili-cover.png": {
+      "sha256": "9d6c03082e124f7ef0a9f4efb8d949c11c586f64058fe2df68c5ff77b842793e",
+      "bytes": 1946982,
+      "sourceUrl": "https://i0.hdslb.com/bfs/new_dyn/1981408f9eb8b21531248b1a266f0fce7247306.png"
+    }
+  }
+}

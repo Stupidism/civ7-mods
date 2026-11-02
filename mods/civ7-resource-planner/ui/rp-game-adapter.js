@@ -1,3 +1,4 @@
+import {t} from './rp-l10n.js';
 import {YIELDS, cityKey, resourceKey, effectsFor} from './rp-planner.js';
 const truth=v=>v===true||v===1||v==='1'||v==='true';
 const rows=t=>{const a=[];t?.forEach(v=>a.push(v));return a;};
@@ -141,10 +142,10 @@ export function findAssignment(r,cities) {
   return cities.find(c=>Cities.get(c.id)?.Resources?.getAssignedResources().some(x=>resourceKey(x)===r.key))?.key;
 }
 export async function sendOperation(r,city,remove,cities,guard) {
-  if(!guard())throw new Error('玩家、回合或界面已改变');
+  if(!guard())throw new Error('LOC_RP_CONTEXT_CHANGED');
   const args=assignmentArgs(r,city,remove);
   const check=Game.PlayerOperations.canStart(GameContext.localPlayerID,PlayerOperationTypes.ASSIGN_RESOURCE,args,false);
-  if(!check.Success)throw new Error(`${city.name} 无法${remove?'卸下':'装入'} ${Locale.compose(r.definition.Name)}`);
+  if(!check.Success)throw new Error(t(remove?'CANNOT_REMOVE':'CANNOT_ASSIGN',city.name,Locale.compose(r.definition.Name)));
   Game.PlayerOperations.sendRequest(GameContext.localPlayerID,PlayerOperationTypes.ASSIGN_RESOURCE,args);
   const start=Date.now();
   while(Date.now()-start<4000) {
@@ -152,5 +153,5 @@ export async function sendOperation(r,city,remove,cities,guard) {
     if(remove?actual!==city.key:actual===city.key)return;
     await new Promise(resolve=>setTimeout(resolve,80));
   }
-  throw new Error('游戏未确认资源操作，已停止继续发送');
+  throw new Error('LOC_RP_OPERATION_TIMEOUT');
 }

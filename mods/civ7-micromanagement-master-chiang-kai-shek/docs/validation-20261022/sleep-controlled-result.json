@@ -1,0 +1,198 @@
+{
+  "before": [
+    {
+      "id": {
+        "owner": 0,
+        "id": 4653059,
+        "type": 26
+      },
+      "p": {
+        "x": 7,
+        "y": 26
+      },
+      "activity": 1797587246,
+      "m": 3,
+      "a": 1,
+      "eligible": false
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 2162708,
+        "type": 26
+      },
+      "p": {
+        "x": 7,
+        "y": 28
+      },
+      "activity": 1797587246,
+      "m": 3,
+      "a": 1,
+      "eligible": false
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 4980772,
+        "type": 26
+      },
+      "p": {
+        "x": 6,
+        "y": 27
+      },
+      "activity": 1797587246,
+      "m": 3,
+      "a": 1,
+      "eligible": false
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 5177383,
+        "type": 26
+      },
+      "p": {
+        "x": 7,
+        "y": 27
+      },
+      "activity": 1797587246,
+      "m": 3,
+      "a": 1,
+      "eligible": true
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 6160434,
+        "type": 26
+      },
+      "p": {
+        "x": 8,
+        "y": 26
+      },
+      "activity": 1797587246,
+      "m": 3,
+      "a": 1,
+      "eligible": true
+    }
+  ],
+  "after": [
+    {
+      "id": {
+        "owner": 0,
+        "id": 4653059,
+        "type": 26
+      },
+      "p": {
+        "x": 7,
+        "y": 26
+      },
+      "m": 3,
+      "a": 1,
+      "activity": 38434027
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 2162708,
+        "type": 26
+      },
+      "p": {
+        "x": 7,
+        "y": 28
+      },
+      "m": 3,
+      "a": 1,
+      "activity": 38434027
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 4980772,
+        "type": 26
+      },
+      "p": {
+        "x": 6,
+        "y": 27
+      },
+      "m": 3,
+      "a": 1,
+      "activity": 38434027
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 5177383,
+        "type": 26
+      },
+      "p": {
+        "x": 7,
+        "y": 27
+      },
+      "m": 0,
+      "a": 0,
+      "activity": 1797587246
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 6160434,
+        "type": 26
+      },
+      "p": {
+        "x": 8,
+        "y": 26
+      },
+      "m": 0,
+      "a": 0,
+      "activity": 1797587246
+    }
+  ],
+  "damage": 49,
+  "combats": [
+    {
+      "antiAir": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "attacker": {
+        "owner": 0,
+        "id": 5177383,
+        "type": 26
+      },
+      "defender": {
+        "owner": 2,
+        "id": 851979,
+        "type": 4
+      },
+      "interceptor": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      }
+    },
+    {
+      "antiAir": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "attacker": {
+        "owner": 0,
+        "id": 6160434,
+        "type": 26
+      },
+      "defender": {
+        "owner": 2,
+        "id": 851979,
+        "type": 4
+      },
+      "interceptor": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      }
+    }
+  ]
+}

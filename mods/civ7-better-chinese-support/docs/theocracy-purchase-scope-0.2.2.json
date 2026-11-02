@@ -1,0 +1,28 @@
+{
+  "version": "0.2.2",
+  "status": "offline-only-not-installed-not-published",
+  "date": "2026-11-01",
+  "tag": "LOC_GOVERNMENT_THEOCRACY_PASSIVE_DESCRIPTION",
+  "before": "建造寺庙、生产传教士时[B]+20%[icon:YIELD_PRODUCTION]生产力效用[/B]；购买时[B]+20%[icon:YIELD_GOLD]金币效用[/B]。",
+  "after": "建造寺庙、生产传教士时[B]+20%[icon:YIELD_PRODUCTION]生产力效用[/B]；购买寺庙、传教士时[B]+20%[icon:YIELD_GOLD]金币效用[/B]。",
+  "reason": "补足分号后购买加成的对象；不改数值、生产部分、格式或游戏规则。",
+  "classification": "政体常驻效果，不是限时庆典选项。",
+  "effects": {
+    "MOD_THEOCRACY_PASSIVE_TEMPLE_PURCHASING": {
+      "BuildingType": "BUILDING_TEMPLE",
+      "Percent": "20"
+    },
+    "MOD_THEOCRACY_PASSIVE_MISSIONARY_PURCHASING": {
+      "UnitTag": "UNIT_CLASS_RELIGIOUS",
+      "Percent": "20"
+    }
+  },
+  "religiousUnits": "包含 UNIT_MISSIONARY 及其特色替代单位 UNIT_KAHUNA / UNIT_PEDANDA；保留官方的概称。",
+  "officialFiles": {
+    "Base/modules/age-exploration/l10n/zh_Hans_CN_Text.xml": "531dc6aa89fbdc8e8c4ca32d1436ce25c0db2bf25324ff6415cb45d8c377cdec",
+    "Base/modules/age-exploration/data/governments.xml": "4da86b7a457ac2092f687ed877acfb6d0f3137c51680dd4fa1a6c876f3f7d403",
+    "Base/modules/age-exploration/data/golden-ages-gameeffects.xml": "1938ac3da994b0c604a9861a2d60f4ac64a2600f4ad52c0bd0818e369eb98efa",
+    "Base/modules/age-exploration/data/units.xml": "2d923a550623e94196725e54fd79bffe1218c9192d31136000d987ec4360ec52"
+  },
+  "offlineTestsPassed": 10
+}

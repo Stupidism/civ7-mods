@@ -29,7 +29,10 @@ export async function finishResourceRun(planner,dispose,guard,acknowledge,wait) 
     }
     if(aborted||!guard())return;
     const message=planner.status();
-    const error=/失败|无法|未确认|未恢复|已撤回/.test(message);
+    // Confirm only explicit success, never infer it from translated UI text.
+    // Older planners without this contract must leave the decision to the player.
+    const code=planner.statusCode?.();
+    const error=code!=='COMPLETED'&&code!=='NO_CHANGES';
     if(!error)acknowledge();
     return {message,error};
   } finally {dispose();}

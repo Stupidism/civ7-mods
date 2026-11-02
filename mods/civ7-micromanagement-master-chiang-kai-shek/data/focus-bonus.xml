@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Database>
+  <Types>
+    <Row Type="STORY_WC_FOCUS_INIT_V1" Kind="KIND_NARRATIVE_STORY" />
+  </Types>
+  <NarrativeTags>
+    <Row NarrativeTagType="NARRATIVE_TAG_WC_FOCUS_READY" Name="LOC_WC_FOCUS_BONUS" />
+    <Row NarrativeTagType="NARRATIVE_TAG_WC_FOCUS_1" Name="LOC_WC_FOCUS_BONUS" />
+    <Row NarrativeTagType="NARRATIVE_TAG_WC_FOCUS_2" Name="LOC_WC_FOCUS_BONUS" />
+    <Row NarrativeTagType="NARRATIVE_TAG_WC_FOCUS_4" Name="LOC_WC_FOCUS_BONUS" />
+    <Row NarrativeTagType="NARRATIVE_TAG_WC_FOCUS_8" Name="LOC_WC_FOCUS_BONUS" />
+    <Row NarrativeTagType="NARRATIVE_TAG_WC_FOCUS_16" Name="LOC_WC_FOCUS_BONUS" />
+    <Row NarrativeTagType="NARRATIVE_TAG_WC_FOCUS_32" Name="LOC_WC_FOCUS_BONUS" />
+    <Row NarrativeTagType="NARRATIVE_TAG_WC_FOCUS_64" Name="LOC_WC_FOCUS_BONUS" />
+  </NarrativeTags>
+  <NarrativeStories>
+    <Row NarrativeStoryType="STORY_WC_FOCUS_INIT_V1" Activation="AUTO" Name="LOC_WC_MOD_NAME" Description="LOC_WC_MOD_DESCRIPTION" Hidden="true" RequirementSetId="Met" StartEveryone="true" UIActivation="SYSTEMIC" />
+  </NarrativeStories>
+  <NarrativeRewards>
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_READY" ModifierID="MOD_WC_FOCUS_READY" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_1" ModifierID="MOD_WC_FOCUS_ATTACH_1" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_2" ModifierID="MOD_WC_FOCUS_ATTACH_2" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_4" ModifierID="MOD_WC_FOCUS_ATTACH_4" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_8" ModifierID="MOD_WC_FOCUS_ATTACH_8" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_16" ModifierID="MOD_WC_FOCUS_ATTACH_16" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_32" ModifierID="MOD_WC_FOCUS_ATTACH_32" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_64" ModifierID="MOD_WC_FOCUS_ATTACH_64" />
+  </NarrativeRewards>
+  <NarrativeStory_Rewards>
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_READY" NarrativeStoryType="STORY_WC_FOCUS_INIT_V1" Activation="COMPLETE" BonusEligible="false" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_1" NarrativeStoryType="STORY_WC_FOCUS_INIT_V1" Activation="COMPLETE" BonusEligible="false" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_2" NarrativeStoryType="STORY_WC_FOCUS_INIT_V1" Activation="COMPLETE" BonusEligible="false" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_4" NarrativeStoryType="STORY_WC_FOCUS_INIT_V1" Activation="COMPLETE" BonusEligible="false" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_8" NarrativeStoryType="STORY_WC_FOCUS_INIT_V1" Activation="COMPLETE" BonusEligible="false" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_16" NarrativeStoryType="STORY_WC_FOCUS_INIT_V1" Activation="COMPLETE" BonusEligible="false" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_32" NarrativeStoryType="STORY_WC_FOCUS_INIT_V1" Activation="COMPLETE" BonusEligible="false" />
+    <Row NarrativeRewardType="REWARD_WC_FOCUS_64" NarrativeStoryType="STORY_WC_FOCUS_INIT_V1" Activation="COMPLETE" BonusEligible="false" />
+  </NarrativeStory_Rewards>
+</Database>

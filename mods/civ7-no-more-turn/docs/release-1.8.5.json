@@ -1,0 +1,156 @@
+{
+  "publishedFileId": "3815557333",
+  "title": "No More Turn（不再来一回合）",
+  "version": "1.8.5",
+  "publishedAt": "2026-10-22T15:13:28+00:00",
+  "descriptionSha256": "58658a0f9fa1bd1ee862c1c264a82b5e94b6787cc07950f22815917f3379fd68",
+  "files": {
+    "README-en.md": {
+      "size": 4425,
+      "sha256": "1907d7d995ee72859a36a36d8d66acfb804ef7784f36c7bb1d612a6fad4e45ee"
+    },
+    "README-zh-CN.txt": {
+      "size": 11071,
+      "sha256": "7e499e194f13c4f9a1995b666d8ccd07d724a58b8a5a445ab1930a23ea76a4ed"
+    },
+    "README.md": {
+      "size": 13806,
+      "sha256": "b7e6d2a86b4cc3af79f877a8acbbb48e256e16a2daa8898eb5a2613f39093f09"
+    },
+    "VALIDATION.txt": {
+      "size": 21933,
+      "sha256": "c86ed265dd783b4e3aca87e07620e5c45b332a7e6c3709d84969fe9b281f2521"
+    },
+    "package.json": {
+      "size": 436,
+      "sha256": "e392e8c5d19a03a6b7e2cd9422a968bddfe16db1ef3f2573e686cca99d3d0ab6"
+    },
+    "rest-guard.modinfo": {
+      "size": 2094,
+      "sha256": "cb4e5be28f14e72cf078b4596f91c86f7e13f064f2228c97f009067200820010"
+    },
+    "text/settings.xml": {
+      "size": 17040,
+      "sha256": "5f40882a11ac66230801af7bd2c6b8f24b1fca9286a740dff001ad804022aa2c"
+    },
+    "ui/defaults.js": {
+      "size": 351,
+      "sha256": "99d47c2cb19afc44d5cf1876b5ab79d3a54469764e7d7f49ed80690fa7d51add"
+    },
+    "ui/rest-guard.css": {
+      "size": 2331,
+      "sha256": "c6e571bf612a440b8062e2555fb77a92e46b17f95d0ab5387f2b5f38829c9fba"
+    },
+    "ui/rest-guard.js": {
+      "size": 12713,
+      "sha256": "be39ae6e14dbbbf1890e5fa75460cb383e841703a8db9dda92f15f81a2e3d8ee"
+    },
+    "ui/rest-model.js": {
+      "size": 3860,
+      "sha256": "665711331a367dca47273ea1186702bc3d187f31eb4251d7cc492a860026db37"
+    },
+    "ui/rest-options.js": {
+      "size": 9548,
+      "sha256": "d941f35413b32e21d7ad27d1737da9dd33971655caaa2fdd7c06515b131e885a"
+    },
+    "ui/rest-retention.js": {
+      "size": 5997,
+      "sha256": "b2fda1f6638fe7fc42515c2886e7a56638a2bf50424ad019e4685e9efc2f5ebf"
+    },
+    "ui/rest-runtime.js": {
+      "size": 4740,
+      "sha256": "06320b5d20244a0817740ac70ccad7474ed9d62418df7cb61b415eb17f111aee"
+    },
+    "ui/rest-save.js": {
+      "size": 4490,
+      "sha256": "3795fce94cab07f7ea1e5dd05489d636a5b0fe464ff093e5cddde1c33c44c3fa"
+    },
+    "ui/rest-session.js": {
+      "size": 8840,
+      "sha256": "83a84e011828c43998b259b9dd75b0185b9142c713e60572de5890f2f4878a08"
+    },
+    "ui/rest-settings.js": {
+      "size": 2257,
+      "sha256": "332839e0249c97f6b547e7acfdd0d0dcfaf44d495938cc3fd586861a3e72b78b"
+    },
+    "ui/rest-shell.js": {
+      "size": 694,
+      "sha256": "9abe77770e1ca70768e1f8b46d5c0a329d07f851b0a0b45f1156b1e98060a2c4"
+    },
+    "ui/rest-store.js": {
+      "size": 1476,
+      "sha256": "03877a63057775a663eb98e477517f1b6b51a964c8a10ea988568aedff802281"
+    },
+    "ui/rest-view.js": {
+      "size": 12078,
+      "sha256": "39a96dd0f97bef8518e4fe073c0f2087cf59ee47cfad56a9ee4e7005dc37459d"
+    }
+  },
+  "downloadHashesVerified": true,
+  "layoutChecks": {
+    "order": [
+      "rest-guard-turn-enabled",
+      "rest-guard-interval-0",
+      "rest-guard-interval-1",
+      "rest-guard-interval-2",
+      "rest-guard-interval-3",
+      "rest-guard-interval-4",
+      "rest-guard-time-enabled",
+      "rest-guard-play-minutes",
+      "rest-guard-night-enabled",
+      "rest-guard-night-start",
+      "rest-guard-night-end",
+      "rest-guard-rest-minutes",
+      "rest-guard-save-keep-count",
+      "rest-guard-reset"
+    ],
+    "headers": 1,
+    "rules": [
+      {
+        "height": "1px",
+        "focusable": false,
+        "hidden": "true",
+        "before": "rest-guard-time-enabled"
+      },
+      {
+        "height": "1px",
+        "focusable": false,
+        "hidden": "true",
+        "before": "rest-guard-night-enabled"
+      },
+      {
+        "height": "1px",
+        "focusable": false,
+        "hidden": "true",
+        "before": "rest-guard-rest-minutes"
+      },
+      {
+        "height": "1px",
+        "focusable": false,
+        "hidden": "true",
+        "before": "rest-guard-reset"
+      }
+    ],
+    "untouched": true,
+    "removed": true,
+    "nativeOptionsCategory": true,
+    "nativeSwitchEventsAndForceRender": true,
+    "hidden": {
+      "visible": [
+        "rest-guard-turn-enabled",
+        "rest-guard-time-enabled",
+        "rest-guard-night-enabled",
+        "rest-guard-rest-minutes",
+        "rest-guard-save-keep-count",
+        "rest-guard-reset"
+      ],
+      "collapsed": true,
+      "hiddenCount": 8
+    },
+    "retained": [
+      "13",
+      "37",
+      "23:00"
+    ]
+  }
+}

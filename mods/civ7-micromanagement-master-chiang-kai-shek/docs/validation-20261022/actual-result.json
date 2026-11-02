@@ -1,0 +1,34 @@
+{
+  "unit": {
+    "p": {
+      "x": 6,
+      "y": 27
+    },
+    "moves": 0,
+    "attacks": 0
+  },
+  "combats": [
+    {
+      "antiAir": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "attacker": {
+        "owner": 0,
+        "id": 4980772,
+        "type": 26
+      },
+      "defender": {
+        "owner": 2,
+        "id": 524294,
+        "type": 4
+      },
+      "interceptor": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      }
+    }
+  ]
+}

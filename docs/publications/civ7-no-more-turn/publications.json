@@ -1,0 +1,175 @@
+{
+  "modDirectory": "civ7-no-more-turn",
+  "archivedAt": "2026-10-29T10:48:04.375435+08:00",
+  "archiveScope": "已发布平台版本的 Markdown 归档；不是最新代码的功能说明，也未向社交平台提交新内容。",
+  "publications": [
+    {
+      "platform": "bilibili",
+      "status": "published",
+      "title": "《文明7拯救计划》｜不再来一回合",
+      "url": "https://www.bilibili.com/opus/1262748079018213378",
+      "file": "article-zh.md",
+      "sha256": "5d5e2b580b576ae2d8f2261e1f2a880e37262770e19e943526cddb6e16e1c417",
+      "imageCount": 7,
+      "images": [
+        "assets/zh-time.png",
+        "assets/zh-turn.png",
+        "assets/zh-settings-turns.png",
+        "assets/zh-idle.png",
+        "assets/zh-night.png",
+        "assets/zh-settings-time-night.png",
+        "assets/zh-save-list.png"
+      ],
+      "sourceDocument": "work/mod-editorial/20261024-steam-rewrite/civ7-no-more-turn/article-zh.md",
+      "sourceDocumentSha256": "2a96f00588b526d428a0386b2592d36a4d53c025531745f093c59537f1f471ba",
+      "normalization": [
+        "图片引用改为仓库内相对路径；保留已发表版本的正文、图注和历史验证范围。",
+        "标题同步 2026-10-29 06:05:21 +08:00 官方文章列表中的已发布短标题。"
+      ],
+      "verification": {
+        "verifiedAt": "2026-10-29T06:05:21.980460+08:00",
+        "method": "官方作者文章列表 state=0/check_state=0；原发布回执及正文快照交叉核对",
+        "articleId": "cv53589822"
+      },
+      "cover": {
+        "file": "assets/bilibili-cover.png",
+        "sha256": "6b7dd4701a4fbb62c1ee6e87b419c6f9d907e2f2340340e5aff8d1805ac09977",
+        "sourceUrl": "https://i0.hdslb.com/bfs/new_dyn/c8d41cbea198eca254cad40ec84920fd7247306.png",
+        "sourceCollectedAt": "2026-10-29T06:05:21.980460+08:00",
+        "downloadedAt": "2026-10-29T10:48:04.375435+08:00"
+      }
+    },
+    {
+      "platform": "civfanatics",
+      "status": "published",
+      "title": "No More Turn — breaks that do not depend on finishing one more turn",
+      "url": "https://forums.civfanatics.com/threads/705232/",
+      "file": "article-en.md",
+      "sha256": "cf2b7fef1fb9552e5d3cbfd198636b1e23c2d810feb4b252cb64258df27ca792",
+      "imageCount": 7,
+      "images": [
+        "assets/en-time.png",
+        "assets/en-turn.png",
+        "assets/en-settings-turns.png",
+        "assets/en-idle.png",
+        "assets/en-night.png",
+        "assets/en-settings-time-night.png",
+        "assets/en-save-list.png"
+      ],
+      "sourceDocument": "work/mod-editorial/20261024-steam-rewrite/civ7-no-more-turn/article-en.md",
+      "sourceDocumentSha256": "da925575f1a158de547093e0d76836d3fa130f075154ad44a0a6289722d02a1d",
+      "normalization": [
+        "图片引用改为仓库内相对路径；保留已发表版本的正文、图注和历史验证范围。"
+      ],
+      "verification": {
+        "verifiedAt": "2026-10-25T01:58:12.653216+00:00",
+        "method": "发布回执确认待审核提示消失且已有其他读者点赞",
+        "guestVerified": false,
+        "threadId": 705232
+      }
+    },
+    {
+      "platform": "reddit",
+      "status": "published",
+      "title": "I made No More Turn: timed breaks and a nightly stopping time for Civ VII",
+      "url": "https://www.reddit.com/r/CivVII/comments/1xe7eyp/i_made_no_more_turn_timed_breaks_and_a_nightly/",
+      "file": "reddit-en.md",
+      "sha256": "1f3b532498924eef4819f2380d5249594b77a68d1e790c6229769153e9faef59",
+      "imageCount": 4,
+      "images": [
+        "assets/en-time.png",
+        "assets/en-night.png",
+        "assets/en-settings-time-night.png",
+        "assets/en-save-list.png"
+      ],
+      "sourceDocument": "work/mod-editorial/20261024-steam-rewrite/civ7-no-more-turn/reddit-en.md",
+      "sourceDocumentSha256": "b83751e88a7dd08b61d3c1dd49e3ed978032e57369768fd121f3819a371656e2",
+      "normalization": [
+        "图片引用改为仓库内相对路径；保留已发表版本的正文、图注和历史验证范围。"
+      ],
+      "verification": {
+        "verifiedAt": "2026-10-24T12:32:44.746271+00:00",
+        "method": "既有发布回执及公开页面证据；本轮未重新访问 Reddit",
+        "postId": "1xe7eyp"
+      }
+    }
+  ],
+  "excluded": [],
+  "assets": {
+    "assets/zh-time.png": {
+      "sha256": "7e3d8e8e6c4285dc4e5c61a4f56df968d494142222d6fc73e44b828cc71fa3e2",
+      "bytes": 7585137,
+      "source": "capture-20261024/zh-time.png"
+    },
+    "assets/zh-turn.png": {
+      "sha256": "c92b97bc2de479b99a26a134cc5130a5532b9582a7a06eea6750a32ac76ac862",
+      "bytes": 7557462,
+      "source": "capture-20261024/zh-turn.png"
+    },
+    "assets/zh-settings-turns.png": {
+      "sha256": "4d43f8410d1c4aec4a3e6cda649a1c758b008466153f91b3fb2fa8da06acbbb9",
+      "bytes": 6971594,
+      "source": "capture-20261024/zh-settings-turns.png"
+    },
+    "assets/zh-idle.png": {
+      "sha256": "1526d4b9eb2b9be655296786f59ea3c7ab009133454bf1d95b8a4b9aaa7ba711",
+      "bytes": 7533532,
+      "source": "capture-20261024/zh-idle.png"
+    },
+    "assets/zh-night.png": {
+      "sha256": "33bb5de18023d8da7e58db7c535276ad209616f9c6be89848d039edd4392f93c",
+      "bytes": 7576106,
+      "source": "capture-20261024/zh-night.png"
+    },
+    "assets/zh-settings-time-night.png": {
+      "sha256": "d3a73d878b3369a8b348729f3b55d2692e68a9f46bf1004368775f5c2af222a4",
+      "bytes": 7011780,
+      "source": "capture-20261024/zh-settings-time-night.png"
+    },
+    "assets/zh-save-list.png": {
+      "sha256": "5af5b2afae215f611458beb162ba7f968374d6b40790e7f365f27860628d0225",
+      "bytes": 7327083,
+      "source": "capture-20261024/zh-save-list.png"
+    },
+    "assets/en-time.png": {
+      "sha256": "207f2574ead392fb44b54a8f2d6cd4b18ca0fcdd3f994f14dd81a7d29d166722",
+      "bytes": 7648118,
+      "source": "capture-20261024/en-time.png"
+    },
+    "assets/en-turn.png": {
+      "sha256": "f8c279f6ac06817786cf29638a15ab8202cbfadc7ab35bb914aebccb30be0f9e",
+      "bytes": 7658968,
+      "source": "capture-20261024/en-turn.png"
+    },
+    "assets/en-settings-turns.png": {
+      "sha256": "15660821f2afaf35bc2b6160294ca24a3b793e36d4c0dabd88eca19c8dfc651d",
+      "bytes": 7004547,
+      "source": "capture-20261024/en-settings-turns.png"
+    },
+    "assets/en-idle.png": {
+      "sha256": "731f90dba3c4ca23cbb77078aed1c0def95baa20c9d4ffb07f1560396911139c",
+      "bytes": 7626407,
+      "source": "capture-20261024/en-idle.png"
+    },
+    "assets/en-night.png": {
+      "sha256": "343a70def60168a4a08a9688492faf95201d4445e7909495a2fbf4f1e4b93e05",
+      "bytes": 7658297,
+      "source": "capture-20261024/en-night.png"
+    },
+    "assets/en-settings-time-night.png": {
+      "sha256": "c77547ee1359194e700be66ea27a0a5a7492dd6a54a48fc8a6ec541583a54fdb",
+      "bytes": 7026812,
+      "source": "capture-20261024/en-settings-time-night.png"
+    },
+    "assets/en-save-list.png": {
+      "sha256": "170719e4f6ee24de84f4eb0e826ccc3453aef774d3e18aa8bb7f22962de480b5",
+      "bytes": 7447596,
+      "source": "capture-20261024/en-save-list.png"
+    },
+    "assets/bilibili-cover.png": {
+      "sha256": "6b7dd4701a4fbb62c1ee6e87b419c6f9d907e2f2340340e5aff8d1805ac09977",
+      "bytes": 2877939,
+      "sourceUrl": "https://i0.hdslb.com/bfs/new_dyn/c8d41cbea198eca254cad40ec84920fd7247306.png"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+/* Explicit highlight also works on third-party rows with no native focus skin. */
+.mtg-focus {
+  outline: 2px solid #f4d995;
+  outline-offset: -2px;
+  background-color: #b69b6240;
+}
+.mini-map__button-row > .mtg-focus {
+  border-radius: 50%;
+  outline-offset: 3px;
+}

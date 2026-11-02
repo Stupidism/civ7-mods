@@ -1,0 +1,116 @@
+{
+  "at": "2026-10-25T11:10:28.232957+08:00",
+  "verification": {
+    "id": "3822253543",
+    "version": "0.6.0",
+    "phase": "verified",
+    "result": 1,
+    "returnedId": "3822253543",
+    "legalAgreementRequired": false,
+    "metadata": {
+      "title": "微操大师常凯申 · War Controls",
+      "visibility": 0,
+      "updated": 1792897637,
+      "bytes": 109277
+    },
+    "download": {
+      "id": "3822253543",
+      "folder": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3822253543",
+      "bytes": 109277,
+      "state": 5
+    },
+    "verifiedFiles": 19,
+    "downloadHashesVerified": true
+  },
+  "packagePlan": {
+    "id": "3822253543",
+    "appId": 1295660,
+    "version": "0.6.0",
+    "title": "微操大师常凯申 · War Controls",
+    "content": "/Users/sunmer/Documents/civ7-mods/work/war-controls-release-20261025/content",
+    "description": "/Users/sunmer/Documents/civ7-mods/work/war-controls-release-20261025/description.txt",
+    "descriptionSha256": "ccae300411c9c60a39af53b0463dbd2b461bc1aae963243ea47e1ed8b1343c8d",
+    "files": {
+      "README-zh-CN.txt": {
+        "size": 8551,
+        "sha256": "7066661b96b1b929dbe5a1b34a79cdf4f3ced2af658ab15a2a69c37f985689bc"
+      },
+      "data/focus-bonus-effects.xml": {
+        "size": 7056,
+        "sha256": "c12b7db8bebc817ca21b2ec6221039862b3a66fc67dab47e2610b14db309178a"
+      },
+      "data/focus-bonus.xml": {
+        "size": 3039,
+        "sha256": "0af0e534bc29c5800fe4da3d0d4392621d5ce7c17c3400994042a0064d4ae344"
+      },
+      "data/focus-cost-effects.xml": {
+        "size": 929,
+        "sha256": "9d964706b2d32817b9b51c649f5289c90bbcba0c3c13b41168b655e5e844c276"
+      },
+      "data/focus-cost.xml": {
+        "size": 1360,
+        "sha256": "a1598d65be898198596125dfedffce53dccd0f4401725a044449bf5f12052336"
+      },
+      "package.json": {
+        "size": 128,
+        "sha256": "06c6d7f126f4e6c2da709a389fd96ea08d1f7bd45832fe47507e2052e11e9f4a"
+      },
+      "text/settings.xml": {
+        "size": 18024,
+        "sha256": "df5bcc6fbdef3d1c0b77bba464b49e7d3b85e31bc92612f65b767a09c0734de9"
+      },
+      "ui/command-hooks.js": {
+        "size": 2612,
+        "sha256": "296efc2c6d5ae1457a0498a0e8477abd8c8fc6bd659810bf863922d30a62968b"
+      },
+      "ui/focus-bonus.js": {
+        "size": 4597,
+        "sha256": "66a20f7818bf438e4d9e08a70bf73dc013681187a9ac37d1e6edfef76d5ffee5"
+      },
+      "ui/focus-cost.js": {
+        "size": 3710,
+        "sha256": "0fdb03c60aceb0e45bd8a2670423d92dbd07f283cea9d96fb744856c0df72b94"
+      },
+      "ui/native-options.js": {
+        "size": 4405,
+        "sha256": "b7611b1d39787fc1d3c423d2ee4586af4dea54d3ae629d904e609aaf31f70039"
+      },
+      "ui/selection-assist.js": {
+        "size": 1661,
+        "sha256": "a9c5c72641526cd89bdc66ee0899b3a53db566bccc1b354fd4b40cc751151b62"
+      },
+      "ui/settings-layout.js": {
+        "size": 3450,
+        "sha256": "a9b996e98331f8783c1e4166eb9bc6b6e31646c0f1ce958bc58c85c339a17866"
+      },
+      "ui/settings-store.js": {
+        "size": 1844,
+        "sha256": "7182403c8e1ed9cfb02bc59f34e436323daaf9b9e815764ba33b0e61be671e50"
+      },
+      "ui/settings-ui.js": {
+        "size": 1958,
+        "sha256": "133891b422705ebb4e281a0737ea0aa250a67d14daefb8693e410af8b0a6bdc8"
+      },
+      "ui/settings.css": {
+        "size": 727,
+        "sha256": "68925b4f7bc1b1013ea6b4c5e1578c7a3af70fbdd20d0fc883db1cf60ff463f3"
+      },
+      "ui/tactical-controls.js": {
+        "size": 28536,
+        "sha256": "20b2fc3fd08be147673e54aff6510b2240eb8f4e833b9400d4b1bcd77b6b10b3"
+      },
+      "ui/war-controls.js": {
+        "size": 14739,
+        "sha256": "4300139c71cbb431b1ecc804ef947dedec522474936a0260d9b8623bafc83397"
+      },
+      "war-controls.modinfo": {
+        "size": 1951,
+        "sha256": "727257ba452f5d508af818b4c7ab32ee38cb781f855878d3652b81f983b7ed2f"
+      }
+    },
+    "changeNote": "Continuous deployment and roster refresh; reinforcement picker defaults to eligible commanders and returns to the source unit on cancellation; stationary Focus Fire with unit exclusion and temporary combat bonuses. 连续展开、增援切换与取消返回、原地集中火力和参战排除。"
+  },
+  "offlineTestsPassed": 171,
+  "nativeRuntimeFilesMatched": 17,
+  "evidence": "work/war-controls-release-20261025"
+}

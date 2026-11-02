@@ -1,0 +1,176 @@
+{
+  "version": "0.2.0",
+  "completedAt": "2026-10-23T11:39:29.135238+00:00",
+  "workshop": {
+    "id": "3825193325",
+    "version": "0.2.0",
+    "phase": "verified",
+    "result": 1,
+    "returnedId": "3825193325",
+    "legalAgreementRequired": false,
+    "metadata": {
+      "title": "更好的手柄支持 · Better Controller Support",
+      "visibility": 0,
+      "updated": 1792755535,
+      "bytes": 74197
+    },
+    "download": {
+      "id": "3825193325",
+      "folder": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3825193325",
+      "bytes": 74197,
+      "state": 5
+    },
+    "verifiedFiles": 19,
+    "downloadHashesVerified": true
+  },
+  "backup": {
+    "time": "2026-10-23T11:38:42.923896+00:00",
+    "source": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3825193325",
+    "backup": "/Users/sunmer/Documents/Civ7-Mod-Backups/better-controller-support-20261023T113842Z-a7628a58/previous-workshop-0.1.2",
+    "verified": true,
+    "files": {
+      "README-en.md": {
+        "size": 2085,
+        "sha256": "ba6b2cb391e2295da18dda11f0a391d7bbd7e9888bce37a540e61d16eb0c494f"
+      },
+      "README.md": {
+        "size": 3458,
+        "sha256": "8b4b5021e71f7ca606083b923cddfbadd3f95bbe3d28782c8ff8f2d94f1bcc57"
+      },
+      "VALIDATION.md": {
+        "size": 5112,
+        "sha256": "4ef8f3fc018319635fa7c424e21e477e667f9bcd840faf70a83bd977c8e65ae6"
+      },
+      "map-tools-gamepad.modinfo": {
+        "size": 1267,
+        "sha256": "d6035bbd9705ed29b94e58e35d7555d7a6550e6c22c79e4f61d306a404b21aab"
+      },
+      "text/map-tools.xml": {
+        "size": 1815,
+        "sha256": "d29e382becfddb35c584c805af0100fac6e2d619d0334c2a566f690ad147991a"
+      },
+      "ui/map-tools-gamepad.css": {
+        "size": 267,
+        "sha256": "2b502f0e96ba18b99903118f306955165ea79a83917382be4cbfa0ef175bf928"
+      },
+      "ui/map-tools-gamepad.js": {
+        "size": 2561,
+        "sha256": "37a896e832b7244165e743d24c36c7a7e83f9ac270805d605c314eba66c685f4"
+      },
+      "ui/map-tools-runtime.js": {
+        "size": 10952,
+        "sha256": "0ce321c3eee0c2c3a0372753f2b5fac9c6dc0336f6038af42c506b08509573a3"
+      },
+      "ui/navigation.js": {
+        "size": 2651,
+        "sha256": "9215acde1fb8810f6263108298963753f6a1638011b687af410e9381e23a4295"
+      },
+      "ui/radial-icons.js": {
+        "size": 1478,
+        "sha256": "7a6de2153f3ae902948bf006a0cc58ff6f3056883001daefb5c816c4767aa69e"
+      }
+    },
+    "directories": [
+      "text",
+      "ui"
+    ],
+    "gameProcessPresent": true,
+    "gameInteracted": false,
+    "savesAccessed": false,
+    "restGuardChanged": false
+  },
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261023T113744409180Z/better-controller-support-0.2.0.zip",
+  "archiveSha256": "2a5af72ea84af06c688b99f5946a3f0d4bf79e39de07ae01ee1c1953c2ef5adf",
+  "files": {
+    "map-tools-gamepad.modinfo": {
+      "size": 2372,
+      "sha256": "26bc307a0d8ffd5e115a421cda316e28c4a870a2e5067b0df7ceb07106a7cb92"
+    },
+    "README.md": {
+      "size": 5429,
+      "sha256": "e544ff53db8376058e9ce50c253b7dcfc448c10f18c2a885cc7549c3bb91dbb2"
+    },
+    "README-en.md": {
+      "size": 3865,
+      "sha256": "7265f27772ce07c9f47f43a6e7f1be170ed1ac4170012d90f879af434fc8f035"
+    },
+    "VALIDATION.md": {
+      "size": 6841,
+      "sha256": "2762ce0d0ba568ef4d507472086d8d43caba41e4299e812fccb5aa7b99e90d37"
+    },
+    "ui/bridge-options.js": {
+      "size": 3188,
+      "sha256": "1fd74c18382cfea77aa866590712eb722d8cd403364acbf691b95d652a74fcd2"
+    },
+    "ui/bridge-runtime.js": {
+      "size": 10783,
+      "sha256": "bfe2e2b2d215630a6de461b14c86b4ee4a965ca0bb9eae8d8bc5ccd4314568de"
+    },
+    "ui/bridge-settings.js": {
+      "size": 1687,
+      "sha256": "7e22234c29f79ff38d449021ffe2ef741fab8f1706e752706f45ba953573a75f"
+    },
+    "ui/bridge-store.js": {
+      "size": 1214,
+      "sha256": "ef70c978f1823b8733e498be4bc1b9b1455ba036e15315fb7b9c58ad7b0b29c8"
+    },
+    "ui/controller-bridge.js": {
+      "size": 7045,
+      "sha256": "8fd15862c5883814228690ca8c68ef1410ec01000d563d2c9381da57ede56c60"
+    },
+    "ui/controller-policy.js": {
+      "size": 1177,
+      "sha256": "7fe378eeedfbe3ec321cb9435b73c24c5473c7ef243c206c9b5827949f543f19"
+    },
+    "ui/map-tools-gamepad.css": {
+      "size": 267,
+      "sha256": "2b502f0e96ba18b99903118f306955165ea79a83917382be4cbfa0ef175bf928"
+    },
+    "ui/map-tools-gamepad.js": {
+      "size": 2561,
+      "sha256": "582df27bf6363520483fa016ac0161681be90e4d669a6e9a06622e6a38231edd"
+    },
+    "ui/map-tools-runtime.js": {
+      "size": 10952,
+      "sha256": "0ce321c3eee0c2c3a0372753f2b5fac9c6dc0336f6038af42c506b08509573a3"
+    },
+    "ui/menu-navigation-adapter.js": {
+      "size": 2285,
+      "sha256": "c735c0e6328818158239e7bdef61297df1909840fd0efa1b6ea017f6106432f2"
+    },
+    "ui/menu-navigation.js": {
+      "size": 2439,
+      "sha256": "441f12b47eacd2bc2675d9cd627055ab4b8903de6f328366e06469e477c9876c"
+    },
+    "ui/navigation.js": {
+      "size": 2651,
+      "sha256": "9215acde1fb8810f6263108298963753f6a1638011b687af410e9381e23a4295"
+    },
+    "ui/radial-icons.js": {
+      "size": 1478,
+      "sha256": "7a6de2153f3ae902948bf006a0cc58ff6f3056883001daefb5c816c4767aa69e"
+    },
+    "text/controller-settings.xml": {
+      "size": 6152,
+      "sha256": "ea0223e5c9ad8d82a2de5c6fa991dc1a70e2f7ea247b9afb0303db85dfad2d05"
+    },
+    "text/map-tools.xml": {
+      "size": 1811,
+      "sha256": "350489d4edbfb4596e2e8eae63d1be47795605aa72fdba316dbbc41df8afaca4"
+    }
+  },
+  "descriptionSha256": "09f46a640bd681fd92218d969fe3e8d810221918e3f536486050b08534b1c442",
+  "validation": {
+    "offlineTestsPassed": 75,
+    "offlineTestsSkipped": 0,
+    "gameTested": false,
+    "combinedReleaseLiveTested": false,
+    "sourceVersion": "civ7-controller-bridge 0.1.5",
+    "sourceThread": "01a14f2b-7b7b-7c82-b926-677bfcbac1d0"
+  },
+  "gameInteracted": false,
+  "savesAccessed": false,
+  "restGuardChanged": false,
+  "oldStandaloneUnchanged": true,
+  "existingPreviewPreserved": true
+}
