@@ -2,7 +2,7 @@
 
 源码目录：`civ7-auto-save-before`。Mod ID 和手动安装目录继续使用 `civ7-before-end-turn`，保持已安装版本及设置兼容。
 
-当前源码版本：1.1.1（2026-10-20，先保存再强制休息；工坊公开预览版仍为 1.1.0）。用于 Steam《文明 VII》单人游戏。
+当前源码版本：1.1.2（2026-10-22，跟随游戏语言设置，补齐英文提示）。用于 Steam《文明 VII》单人游戏。
 
 [Steam 创意工坊订阅](https://steamcommunity.com/sharedfiles/filedetails/?id=3815596737) · [GitHub 源码](https://github.com/Stupidism/civ7-before-end-turn) · [历史版本下载](https://github.com/Stupidism/civ7-before-end-turn/releases)
 

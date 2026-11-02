@@ -1,3 +1,8 @@
+[h2]1.1.2 — English / 简体中文[/h2]
+All mod interface text follows the game language, including save progress, error messages and retry/cancel buttons. English and Simplified Chinese are supported. Save filenames stay unchanged.
+所有界面文本跟随游戏语言设置，补齐保存中提示、失败原因及重试/取消按钮的英文。存档名称保持不变。
+79 offline tests pass. This update has not been tested in a live game.
+
 [h1]Auto-save Before... · 行动前自动存档[/h1]
 在过回合前、外交行动前，分别保留一份可以回退的本地存档。两个功能独立开关，保存成功后才继续对应操作。
 
