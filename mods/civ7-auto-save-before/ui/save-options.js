@@ -32,6 +32,7 @@ export function installSaveOptions({ options, optionType, categories, store,
     entries = [];
     for (const [key, id, label] of [
       ['turnEnabled', FIRST_OPTION, 'TURN'],
+      ['perTurnEnabled', 'save-before-per-turn-enabled', 'PER_TURN'],
       ['diplomacyEnabled', 'save-before-diplomacy-enabled', 'DIPLOMACY']
     ]) {
       const entry = {

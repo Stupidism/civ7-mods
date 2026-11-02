@@ -1,0 +1,60 @@
+{
+  "version": "1.1.3",
+  "状态": "已发布并核验",
+  "publish": {
+    "id": "3815596737",
+    "version": "1.1.3",
+    "phase": "verified",
+    "result": 1,
+    "returnedId": "3815596737",
+    "legalAgreementRequired": false,
+    "metadata": {
+      "title": "Auto-save Before...",
+      "visibility": 0,
+      "updated": 1793547474,
+      "bytes": 40639
+    },
+    "download": {
+      "id": "3815596737",
+      "bytes": 40639,
+      "state": 4
+    },
+    "verifiedFiles": 8,
+    "downloadHashesVerified": true
+  },
+  "files": {
+    "before-end-turn.modinfo": {
+      "size": 1891,
+      "sha256": "dff07021a0cd9e8ce8a49ec7b3ee9b175b4b4afda1a211e7d1259935ce265563"
+    },
+    "ui/save-store.js": {
+      "size": 1414,
+      "sha256": "4c03ca3a8d4a328f644b5cf240cc793060aa6eb51580e9d7edf34c0b499271af"
+    },
+    "ui/diplomacy-hook.js": {
+      "size": 4201,
+      "sha256": "f80b370afdb91d5110cd4d6b65a829bfbd79dc26e8dfa634b1dac535a1e602cf"
+    },
+    "ui/save-settings.js": {
+      "size": 2443,
+      "sha256": "fa5925a03456173a5fba16e56a2d9a2421b3ef4b96e661e65ebaff16e2edac73"
+    },
+    "ui/save-gate.js": {
+      "size": 7675,
+      "sha256": "54436b04dada9ef0e1eb260e29aa4ec036e6c55296391001afc316f2d8b6e3f0"
+    },
+    "ui/save-options.js": {
+      "size": 4402,
+      "sha256": "fd42338f77d9468990d78fa2d5fe5c758ed53e008fea6f7a861b8b2f1c1c3c68"
+    },
+    "ui/before-end-turn.js": {
+      "size": 10142,
+      "sha256": "f133caea187653e34236a4a5b801333de2d72681bef6c6e1fefacd7dc7e9e766"
+    },
+    "text/settings.xml": {
+      "size": 8471,
+      "sha256": "3a7124a756aae71b8ade2cab0d059cf243befcc7db23371e5d201879512dc18d"
+    }
+  },
+  "验证": "86项离线通过；实机范围见VALIDATION.md"
+}

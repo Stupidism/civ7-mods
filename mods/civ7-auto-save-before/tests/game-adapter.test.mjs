@@ -366,3 +366,19 @@ for (const kind of ['turn', 'diplomacy']) {
     h.dispose();
   });
 }
+
+test('per-turn history uses distinct age/turn autosaves and waits for matching completion', { skip }, () => {
+ const h = harness(); h.context.settingsStore.data.config.perTurnEnabled = true;
+ h.context.GameInfo = { Ages: { lookup: hash => { assert.equal(hash, 2077444219); return { ChronologyIndex: 0 }; } } };
+ h.context.Game.age = 2077444219; h.context.Game.turn = 26;
+ h.panel.sendEndTurn();
+ const first = h.calls.find(x => x[0] === 'save')[1];
+ assert.equal(first.FileName, 'AutoSave_BeforeEndTurn_00_0026');
+ assert.equal(first.LocationCategories, 4);
+ h.complete(); h.flush(); assert.equal(h.calls.some(x => x[0] === 'turn'), false);
+ h.emit('SaveComplete', { options: 68, result: 0, fileName: first.FileName }); h.flush();
+ assert.equal(h.calls.filter(x => x[0] === 'turn').length, 1);
+ h.nextTurn(); h.panel.sendEndTurn();
+ assert.equal(h.calls.filter(x => x[0] === 'save').at(-1)[1].FileName, 'AutoSave_BeforeEndTurn_00_0027');
+ h.dispose();
+});

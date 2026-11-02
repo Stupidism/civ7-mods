@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="civ7-before-end-turn" version="6" xmlns="ModInfo">
+<Mod id="civ7-before-end-turn" version="7" xmlns="ModInfo">
   <Properties>
     <Name>Auto-save Before...</Name>
     <Description>LOC_SBE_MOD_DESCRIPTION</Description>
     <Authors>Stupidism</Authors>
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
     <Package>Mod</Package>
     <AffectsSavedGames>0</AffectsSavedGames>
     <ShowInBrowser>1</ShowInBrowser>
     <EnabledByDefault>1</EnabledByDefault>
   </Properties>
+  <LocalizedText><File>text/settings.xml</File></LocalizedText>
   <Dependencies><Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME" /></Dependencies>
   <ActionCriteria><Criteria id="always"><AlwaysMet /></Criteria></ActionCriteria>
   <ActionGroups>

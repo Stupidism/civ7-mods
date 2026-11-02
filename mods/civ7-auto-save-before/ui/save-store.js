@@ -3,6 +3,7 @@ const NAMESPACE = 'civ7-before-end-turn';
 
 export function normalizeConfig(value = {}) {
   return {
+    perTurnEnabled: typeof value?.perTurnEnabled === 'boolean' ? value.perTurnEnabled : false,
     turnEnabled: typeof value?.turnEnabled === 'boolean' ? value.turnEnabled : true,
     diplomacyEnabled: typeof value?.diplomacyEnabled === 'boolean' ? value.diplomacyEnabled : true
   };
