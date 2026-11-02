@@ -1,0 +1,1487 @@
+{
+  "离线回归": [
+    {
+      "module": "mods/civ7-better-settlement-ui",
+      "sourceHash": "905cde9b1416f05bc90eda7e587abadf73cd754db98a2d2b3a61fc609b19e29a",
+      "unchangedDuringRun": true,
+      "code": 0,
+      "tests": 78,
+      "pass": 78,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "module": "mods/civ7-better-policy-ui",
+      "sourceHash": "bb05413d81937ca821e6388169f50233fe5731e5f0791c428adddce23219ff13",
+      "unchangedDuringRun": true,
+      "code": 0,
+      "tests": 16,
+      "pass": 16,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "module": "mods/civ7-resource-planner",
+      "sourceHash": "48463a3ab491c52679a21fd4fa2098d2a46b9374acc7b1832fa29faf99989cef",
+      "unchangedDuringRun": true,
+      "code": 0,
+      "tests": 140,
+      "pass": 140,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "module": "mods/civ7-research-transfer",
+      "sourceHash": "596cea6aa104a41512f03ee8eb152582d4ad7e9e6a2bd131f223f1366b8a9dbb",
+      "unchangedDuringRun": true,
+      "code": 0,
+      "tests": 16,
+      "pass": 16,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "module": "mods/civ7-war-controls",
+      "sourceHash": "c8f62b1bea887141a58bbc4e70811f1d978babe224c9c5cb1ae12b2880a459d8",
+      "unchangedDuringRun": true,
+      "code": 0,
+      "tests": 412,
+      "pass": 412,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "module": "mods/civ7-before-end-turn",
+      "sourceHash": "b895fcdff903424e9a705f313b94c41aff13282e948db2dbfef5185f3fed5086",
+      "unchangedDuringRun": true,
+      "code": 0,
+      "tests": 86,
+      "pass": 86,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "module": "mods/civ7-rest-guard",
+      "sourceHash": "27ecfdd235f3d9f30ddee34c31170864c9363383fcfd51992bc407a981565e85",
+      "unchangedDuringRun": true,
+      "code": 0,
+      "tests": 124,
+      "pass": 124,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "module": "mods/civ7-action-order",
+      "sourceHash": "6296cc4dda570e4c4cfb3b6413cf0296e173b1aa2774fd0e406ed0497c2243ea",
+      "unchangedDuringRun": true,
+      "code": 0,
+      "tests": 39,
+      "pass": 39,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "module": "mods/civ7-map-tools-gamepad",
+      "sourceHash": "cd00ef4bd9705ca477ee8884a945ea52dc95edd7afe15a76942b3fed67132c55",
+      "unchangedDuringRun": true,
+      "code": 0,
+      "tests": 136,
+      "pass": 136,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    {
+      "module": "shared/action-order",
+      "sourceHash": "429899fea2ac2dbceb906dd9e7009ff19acd21631f4d900716b4ee2a1ded69e1",
+      "unchangedDuringRun": true,
+      "code": 0,
+      "tests": 92,
+      "pass": 92,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    }
+  ],
+  "构建文件摘要": {
+    "civ7-better-settlement-ui": "7f5e5e43df69456f4564a4edffa287eb07b3c3bb1cd0a531c721c143212674ae",
+    "civ7-better-policy-ui": "dd96a321e369b4f2232d03d93844e4695d97a435daf584691185e9ff8c1d72cc",
+    "civ7-resource-planner": "7e83a2da97b9af27e49a66fb567baf543dfc2f1f0fbbf81b8fdf272375ad211c"
+  },
+  "队列滚动区与命中": {
+    "q": {
+      "tag": "PANEL-BUILD-QUEUE",
+      "cls": "absolute left-3 h-full bsu-build-queue bsu-queue-mouse",
+      "y": 594,
+      "x": 1042.400146484375,
+      "h": 459,
+      "w": 327.60009765625,
+      "display": "block",
+      "visibility": "visible",
+      "height": "459px",
+      "overflow": "visible"
+    },
+    "inner": {
+      "tag": "FXS-VSLOT",
+      "cls": "fxs-scrollable-content--last fxs-vslot build-queue__item-container-queued relative mr-2\\.5 grow",
+      "y": 603,
+      "x": 1042.400146484375,
+      "h": 450,
+      "w": 327.60009765625,
+      "display": "flex",
+      "visibility": "visible",
+      "height": "450px",
+      "overflow": "visible"
+    },
+    "scroll": {
+      "tag": "DIV",
+      "cls": "flex flex-col fxs-scrollable-content-container max-w-full max-h-full overflow-y-scroll",
+      "y": 603,
+      "x": 1042.400146484375,
+      "h": 450,
+      "w": 327.60009765625,
+      "display": "flex",
+      "visibility": "visible",
+      "height": "auto",
+      "overflow": "scroll"
+    },
+    "rendered": [
+      {
+        "index": "0",
+        "row": {
+          "tag": "FXS-VSLOT",
+          "cls": "build-queue__item-container-outer fxs-vslot",
+          "y": 513,
+          "x": 1206.2001953125,
+          "h": 90,
+          "w": 163.800048828125,
+          "display": "flex",
+          "visibility": "visible",
+          "height": "5rem",
+          "overflow": "visible",
+          "inline": "--bsu-from-bottom: 0px;"
+        },
+        "button": {
+          "tag": "FXS-ACTIVATABLE",
+          "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+          "y": 538.739990234375,
+          "x": 1337.240234375,
+          "h": 27,
+          "w": 27,
+          "display": "block",
+          "visibility": "visible",
+          "height": "1.5rem",
+          "overflow": "visible"
+        },
+        "hit": {
+          "tag": "DIV",
+          "cls": "flex flex-col justify-start pointer-events-auto fxs-scrollable-content",
+          "y": 208,
+          "x": 38,
+          "h": 777.5999755859375,
+          "w": 1332.000244140625,
+          "display": "flex",
+          "visibility": "visible",
+          "height": "auto",
+          "overflow": "visible",
+          "inline": "flex-shrink: 0;"
+        },
+        "hittable": false
+      },
+      {
+        "index": "1",
+        "row": {
+          "tag": "FXS-VSLOT",
+          "cls": "build-queue__item-container-outer fxs-vslot",
+          "y": 423,
+          "x": 1206.2001953125,
+          "h": 90,
+          "w": 163.800048828125,
+          "display": "flex",
+          "visibility": "visible",
+          "height": "5rem",
+          "overflow": "visible",
+          "inline": "--bsu-from-bottom: 90px;"
+        },
+        "button": {
+          "tag": "FXS-ACTIVATABLE",
+          "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+          "y": 448.739990234375,
+          "x": 1337.240234375,
+          "h": 27,
+          "w": 27,
+          "display": "block",
+          "visibility": "visible",
+          "height": "1.5rem",
+          "overflow": "visible"
+        },
+        "hit": {
+          "tag": "DIV",
+          "cls": "flex flex-col justify-start pointer-events-auto fxs-scrollable-content",
+          "y": 208,
+          "x": 38,
+          "h": 777.5999755859375,
+          "w": 1332.000244140625,
+          "display": "flex",
+          "visibility": "visible",
+          "height": "auto",
+          "overflow": "visible",
+          "inline": "flex-shrink: 0;"
+        },
+        "hittable": false
+      },
+      {
+        "index": "2",
+        "row": {
+          "tag": "FXS-VSLOT",
+          "cls": "build-queue__item-container-outer fxs-vslot",
+          "y": 333,
+          "x": 1206.2001953125,
+          "h": 90,
+          "w": 163.800048828125,
+          "display": "flex",
+          "visibility": "visible",
+          "height": "5rem",
+          "overflow": "visible",
+          "inline": "--bsu-from-bottom: 180px;"
+        },
+        "button": {
+          "tag": "FXS-ACTIVATABLE",
+          "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+          "y": 358.739990234375,
+          "x": 1337.240234375,
+          "h": 27,
+          "w": 27,
+          "display": "block",
+          "visibility": "visible",
+          "height": "1.5rem",
+          "overflow": "visible"
+        },
+        "hit": {
+          "tag": "DIV",
+          "cls": "flex flex-row flex-auto items-center",
+          "y": 326.3999938964844,
+          "x": 1042.402099609375,
+          "h": 56,
+          "w": 327.597900390625,
+          "display": "flex",
+          "visibility": "visible",
+          "height": "auto",
+          "overflow": "visible"
+        },
+        "hittable": false
+      },
+      {
+        "index": "3",
+        "row": {
+          "tag": "FXS-VSLOT",
+          "cls": "build-queue__item-container-outer fxs-vslot",
+          "y": 243,
+          "x": 1206.2001953125,
+          "h": 90,
+          "w": 163.800048828125,
+          "display": "flex",
+          "visibility": "visible",
+          "height": "5rem",
+          "overflow": "visible",
+          "inline": "--bsu-from-bottom: 270px;"
+        },
+        "button": {
+          "tag": "FXS-ACTIVATABLE",
+          "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+          "y": 268.739990234375,
+          "x": 1337.240234375,
+          "h": 27,
+          "w": 27,
+          "display": "block",
+          "visibility": "visible",
+          "height": "1.5rem",
+          "overflow": "visible"
+        },
+        "hit": {
+          "tag": "DIV",
+          "cls": "flex flex-row flex-wrap items-center",
+          "y": 274,
+          "x": 1102.402099609375,
+          "h": 20,
+          "w": 267.597900390625,
+          "display": "flex",
+          "visibility": "visible",
+          "height": "auto",
+          "overflow": "visible"
+        },
+        "hittable": false
+      },
+      {
+        "index": "4",
+        "row": {
+          "tag": "FXS-VSLOT",
+          "cls": "build-queue__item-container-outer fxs-vslot",
+          "y": 153,
+          "x": 1206.2001953125,
+          "h": 90,
+          "w": 163.800048828125,
+          "display": "flex",
+          "visibility": "visible",
+          "height": "5rem",
+          "overflow": "visible",
+          "inline": "--bsu-from-bottom: 360px;"
+        },
+        "button": {
+          "tag": "FXS-ACTIVATABLE",
+          "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+          "y": 178.739990234375,
+          "x": 1337.240234375,
+          "h": 27,
+          "w": 27,
+          "display": "block",
+          "visibility": "visible",
+          "height": "1.5rem",
+          "overflow": "visible"
+        },
+        "hit": {
+          "tag": "DIV",
+          "cls": "inset-0 absolute frame-top-curve",
+          "y": 48,
+          "x": 16,
+          "h": 1016,
+          "w": 1376.000244140625,
+          "display": "block",
+          "visibility": "visible",
+          "height": "auto",
+          "overflow": "visible"
+        },
+        "hittable": false
+      }
+    ],
+    "actual": 5
+  },
+  "队列操作": {
+    "before": [
+      -603556809,
+      1872107673
+    ],
+    "added": [
+      {
+        "type": "UNIT_SPEARMAN",
+        "n": 2,
+        "after": 3
+      },
+      {
+        "type": "UNIT_ARCHER",
+        "n": 3,
+        "after": 4
+      },
+      {
+        "type": "UNIT_MERCHANT",
+        "n": 4,
+        "after": 5
+      },
+      {
+        "type": "UNIT_SCOUT",
+        "n": 5,
+        "after": 6
+      },
+      {
+        "type": "UNIT_SPEARMAN",
+        "n": 6,
+        "after": 7
+      }
+    ],
+    "layout": [
+      {
+        "index": "0",
+        "type": "WONDER_COLOSSUS",
+        "box": [
+          1206.2,
+          423,
+          163.8,
+          90
+        ],
+        "class": "build-queue__item-container-outer fxs-vslot",
+        "tip": "巨像[N]已在队首。[N]右键取消此项。",
+        "child": "active-title flex justify-center font-title uppercase text-sm py-2"
+      },
+      {
+        "index": "1",
+        "type": "UNIT_SCOUT",
+        "box": [
+          1206.2,
+          333,
+          163.8,
+          90
+        ],
+        "class": "build-queue__item-container-outer fxs-vslot",
+        "tip": "探路者[N]左键上移一位。[N]右键取消此项。",
+        "child": "queued-title flex justify-center font-title uppercase text-sm py-2 mt-5"
+      },
+      {
+        "index": "2",
+        "type": "UNIT_SPEARMAN",
+        "box": [
+          1206.2,
+          243,
+          163.8,
+          90
+        ],
+        "class": "build-queue__item-container-outer fxs-vslot",
+        "tip": "长枪兵[N]左键上移一位。[N]右键取消此项。",
+        "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+      },
+      {
+        "index": "3",
+        "type": "UNIT_ARCHER",
+        "box": [
+          1206.2,
+          153,
+          163.8,
+          90
+        ],
+        "class": "build-queue__item-container-outer fxs-vslot",
+        "tip": "弓箭手[N]左键上移一位。[N]右键取消此项。",
+        "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+      },
+      {
+        "index": "4",
+        "type": "UNIT_MERCHANT",
+        "box": [
+          1206.2,
+          63,
+          163.8,
+          90
+        ],
+        "class": "build-queue__item-container-outer fxs-vslot",
+        "tip": "商人[N]左键上移一位。[N]右键取消此项。",
+        "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+      },
+      {
+        "index": "5",
+        "type": "UNIT_SCOUT",
+        "box": [
+          1206.2,
+          -27,
+          163.8,
+          90
+        ],
+        "class": "build-queue__item-container-outer fxs-vslot",
+        "tip": "探路者[N]左键上移一位。[N]右键取消此项。",
+        "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+      },
+      {
+        "index": "6",
+        "type": "UNIT_SPEARMAN",
+        "box": [
+          1042.4,
+          423,
+          163.8,
+          90
+        ],
+        "class": "build-queue__item-container-outer fxs-vslot bsu-queue-second",
+        "tip": "长枪兵[N]左键上移一位。[N]右键取消此项。",
+        "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+      }
+    ],
+    "arr": [
+      -603556809,
+      1872107673,
+      777513683,
+      313932809,
+      1524084938,
+      1872107673,
+      777513683
+    ],
+    "moved": [
+      -603556809,
+      1872107673,
+      777513683,
+      313932809,
+      1524084938,
+      777513683,
+      1872107673
+    ],
+    "removed": [
+      -603556809,
+      1872107673,
+      777513683,
+      313932809,
+      1524084938,
+      777513683
+    ],
+    "afterRows": [
+      {
+        "index": "0",
+        "type": "WONDER_COLOSSUS",
+        "box": [
+          1206.2,
+          423,
+          163.8,
+          90
+        ],
+        "class": "build-queue__item-container-outer fxs-vslot",
+        "tip": "巨像[N]已在队首。[N]右键取消此项。",
+        "child": "active-title flex justify-center font-title uppercase text-sm py-2"
+      },
+      {
+        "index": "1",
+        "type": "UNIT_SCOUT",
+        "box": [
+          1206.2,
+          333,
+          163.8,
+          90
+        ],
+        "class": "build-queue__item-container-outer fxs-vslot",
+        "tip": "探路者[N]左键上移一位。[N]右键取消此项。",
+        "child": "queued-title flex justify-center font-title uppercase text-sm py-2 mt-5"
+      },
+      {
+        "index": "2",
+        "type": "UNIT_SPEARMAN",
+        "box": [
+          1206.2,
+          243,
+          163.8,
+          90
+        ],
+        "class": "build-queue__item-container-outer fxs-vslot",
+        "tip": "长枪兵[N]左键上移一位。[N]右键取消此项。",
+        "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+      },
+      {
+        "index": "3",
+        "type": "UNIT_ARCHER",
+        "box": [
+          1206.2,
+          153,
+          163.8,
+          90
+        ],
+        "class": "build-queue__item-container-outer fxs-vslot",
+        "tip": "弓箭手[N]左键上移一位。[N]右键取消此项。",
+        "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+      },
+      {
+        "index": "4",
+        "type": "UNIT_MERCHANT",
+        "box": [
+          1206.2,
+          63,
+          163.8,
+          90
+        ],
+        "class": "build-queue__item-container-outer fxs-vslot",
+        "tip": "商人[N]左键上移一位。[N]右键取消此项。",
+        "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+      },
+      {
+        "index": "5",
+        "type": "UNIT_SPEARMAN",
+        "box": [
+          1206.2,
+          -27,
+          163.8,
+          90
+        ],
+        "class": "build-queue__item-container-outer fxs-vslot",
+        "tip": "长枪兵[N]左键上移一位。[N]右键取消此项。",
+        "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+      }
+    ],
+    "queueBox": [
+      1042.4,
+      504,
+      327.6,
+      549
+    ],
+    "tabs": [
+      {
+        "box": [
+          44,
+          144,
+          662,
+          48
+        ],
+        "text": "生产"
+      },
+      {
+        "box": [
+          706,
+          144,
+          662,
+          48
+        ],
+        "text": "购买"
+      }
+    ],
+    "tabsBox": [
+      36,
+      144,
+      1340,
+      48
+    ],
+    "skip": [
+      1292,
+      52,
+      48,
+      48
+    ],
+    "icon": [
+      1301.6,
+      61.6,
+      28.8,
+      28.8
+    ],
+    "close": [
+      1340,
+      52,
+      48,
+      48
+    ],
+    "disabled": "true",
+    "skipClass": "bsu-defer-icon-button pointer-events-auto cursor-pointer disabled cursor-not-allowed",
+    "city": {
+      "owner": 0,
+      "id": 262147,
+      "type": 1
+    }
+  },
+  "单位购买": {
+    "before": {
+      "turn": 55,
+      "gold": 443.2734375,
+      "units": [
+        131072,
+        196609,
+        262146,
+        327683,
+        393220,
+        458757,
+        524294,
+        589831,
+        1572872,
+        1310729,
+        1507338,
+        851979,
+        917516,
+        1638413,
+        1376270,
+        1114127,
+        1441808,
+        2359313,
+        1769490,
+        2293779,
+        1900564,
+        1966101,
+        2031638,
+        2097175,
+        2162712,
+        2228249,
+        2424858
+      ],
+      "queue": [
+        -603556809,
+        1872107673,
+        777513683,
+        313932809,
+        1524084938,
+        777513683
+      ]
+    },
+    "after": {
+      "turn": 55,
+      "gold": 323.2734375,
+      "units": [
+        131072,
+        196609,
+        262146,
+        327683,
+        393220,
+        458757,
+        524294,
+        589831,
+        1572872,
+        1310729,
+        1507338,
+        851979,
+        917516,
+        1638413,
+        1376270,
+        1114127,
+        1441808,
+        2359313,
+        1769490,
+        2293779,
+        1900564,
+        1966101,
+        2031638,
+        2097175,
+        2162712,
+        2228249,
+        2424858,
+        2490395
+      ],
+      "queue": [
+        -603556809,
+        777513683,
+        313932809,
+        1524084938,
+        777513683
+      ]
+    },
+    "data": {
+      "type": "UNIT_SCOUT",
+      "price": 120,
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "element": "<production-chooser-item class=\"text-base production-chooser-item\" tabindex=\"-1\" data-audio-group-ref=\"city-actions\" data-audio-focus-ref=\"data-audio-city-production-focus\" data-name=\"LOC_UNIT_SCOUT_NAME\" data-type=\"UNIT_SCOUT\" data-category=\"units\" data-is-purchase=\"true\" data-is-repair=\"false\" data-is-ageless=\"false\" data-disabled=\"false\" data-disable-focus=\"false\" data-secon"
+    },
+    "open": true,
+    "dialogs": []
+  },
+  "政策页签与置灰": {
+    "result": [
+      {
+        "tab": "LOC_UI_POLICIES_OVERVIEW_TAB",
+        "skip": [
+          1765.33,
+          68,
+          48,
+          48
+        ],
+        "close": [
+          1813.33,
+          68,
+          48,
+          48
+        ],
+        "icon": [
+          1774.93,
+          77.6,
+          28.8,
+          28.8
+        ],
+        "class": "aoa-card-skip absolute top-5 right-4 size-12 pointer-events-auto cursor-pointer disabled cursor-not-allowed",
+        "tooltip": "当前没有需要跳过的空槽提醒。",
+        "cards": 0,
+        "slots": 0
+      },
+      {
+        "tab": "LOC_UI_POLICIES_POLICIES_TAB",
+        "skip": [
+          1765.33,
+          68,
+          48,
+          48
+        ],
+        "close": [
+          1813.33,
+          68,
+          48,
+          48
+        ],
+        "icon": [
+          1774.93,
+          77.6,
+          28.8,
+          28.8
+        ],
+        "class": "aoa-card-skip absolute top-5 right-4 size-12 pointer-events-auto cursor-pointer disabled cursor-not-allowed",
+        "tooltip": "当前没有需要跳过的空槽提醒。",
+        "cards": 16,
+        "slots": 8
+      },
+      {
+        "tab": "LOC_UI_POLICIES_CRISIS_TAB",
+        "skip": [
+          1765.33,
+          68,
+          48,
+          48
+        ],
+        "close": [
+          1813.33,
+          68,
+          48,
+          48
+        ],
+        "icon": [
+          1774.93,
+          77.6,
+          28.8,
+          28.8
+        ],
+        "class": "aoa-card-skip absolute top-5 right-4 size-12 pointer-events-auto cursor-pointer disabled cursor-not-allowed",
+        "tooltip": "当前没有需要跳过的空槽提醒。",
+        "cards": 0,
+        "slots": 0
+      }
+    ],
+    "disabledTested": true,
+    "before": {
+      "turn": 55,
+      "sent": false
+    },
+    "after": {
+      "turn": 55,
+      "sent": false,
+      "page": true
+    }
+  },
+  "范围开关": {
+    "saved": [
+      "true",
+      "true"
+    ],
+    "steps": [
+      [
+        "true",
+        "true"
+      ],
+      [
+        "false",
+        "true"
+      ],
+      [
+        "false",
+        "false"
+      ]
+    ],
+    "actuallyClosed": true,
+    "reopened": [
+      "false",
+      "false"
+    ],
+    "restored": [
+      "true",
+      "true"
+    ],
+    "sameCityAssignments": true,
+    "rem": [
+      {
+        "val": "true",
+        "layout": {
+          "x": 89.46681213378906,
+          "y": 596.38720703125,
+          "w": 230.40000915527344,
+          "h": 42.29998779296875,
+          "opacity": "1",
+          "aria": null,
+          "color": "rgba(232, 200, 122, 1)",
+          "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-reminder-toggle rp-option rp-action flex flex-row items-center rp-active cursor-pointer"
+        }
+      },
+      {
+        "val": "false",
+        "layout": {
+          "x": 89.46681213378906,
+          "y": 596.38720703125,
+          "w": 230.40000915527344,
+          "h": 42.29998779296875,
+          "opacity": "1",
+          "aria": null,
+          "color": "rgba(0, 0, 0, 0)",
+          "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-reminder-toggle rp-option rp-action flex flex-row items-center"
+        }
+      },
+      {
+        "val": "true",
+        "layout": {
+          "x": 89.46681213378906,
+          "y": 596.38720703125,
+          "w": 230.40000915527344,
+          "h": 42.29998779296875,
+          "opacity": "1",
+          "aria": null,
+          "color": "rgba(232, 200, 122, 1)",
+          "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-reminder-toggle rp-option rp-action flex flex-row items-center rp-active"
+        }
+      }
+    ]
+  },
+  "损坏资源": {
+    "sample": [
+      {
+        "key": "plot:2873",
+        "plot": {
+          "x": 17,
+          "y": 34
+        },
+        "type": "RESOURCE_HORSES",
+        "buildings": [
+          {
+            "type": 154488225,
+            "damaged": true
+          }
+        ]
+      },
+      {
+        "key": "plot:3044",
+        "plot": {
+          "x": 20,
+          "y": 36
+        },
+        "type": "RESOURCE_IVORY",
+        "buildings": [
+          {
+            "type": -1819558972,
+            "damaged": true
+          }
+        ]
+      },
+      {
+        "key": "plot:3212",
+        "plot": {
+          "x": 20,
+          "y": 38
+        },
+        "type": "RESOURCE_INCENSE",
+        "buildings": [
+          {
+            "type": 1523996587,
+            "damaged": true
+          }
+        ]
+      },
+      {
+        "key": "plot:3378",
+        "plot": {
+          "x": 18,
+          "y": 40
+        },
+        "type": "RESOURCE_CRABS",
+        "buildings": [
+          {
+            "type": 1543969770,
+            "damaged": true
+          }
+        ]
+      }
+    ],
+    "rawCount": 31,
+    "tabAvailable": [],
+    "plan": [
+      "plot:1885",
+      "plot:3054",
+      "plot:2969",
+      "plot:1281",
+      "plot:1448",
+      "plot:1616",
+      "plot:1874",
+      "plot:1967",
+      "plot:2054",
+      "plot:2376",
+      "plot:2872",
+      "plot:1957",
+      "plot:1961",
+      "plot:2787",
+      "plot:2705",
+      "plot:2362",
+      "plot:1798"
+    ],
+    "cities": [
+      {
+        "id": 65536,
+        "cap": 4,
+        "occupied": [
+          "plot:1885",
+          "plot:3054"
+        ]
+      },
+      {
+        "id": 131073,
+        "cap": 1,
+        "occupied": [
+          "plot:2969"
+        ]
+      },
+      {
+        "id": 196610,
+        "cap": 1,
+        "occupied": []
+      },
+      {
+        "id": 262147,
+        "cap": 8,
+        "occupied": [
+          "plot:1281",
+          "plot:1448",
+          "plot:1616",
+          "plot:1874",
+          "plot:1967",
+          "plot:2054",
+          "plot:2376",
+          "plot:2872"
+        ]
+      },
+      {
+        "id": 327684,
+        "cap": 3,
+        "occupied": [
+          "plot:1957",
+          "plot:1961",
+          "plot:2787"
+        ]
+      },
+      {
+        "id": 393221,
+        "cap": 1,
+        "occupied": []
+      },
+      {
+        "id": 458758,
+        "cap": 1,
+        "occupied": [
+          "plot:2705"
+        ]
+      },
+      {
+        "id": 524295,
+        "cap": 1,
+        "occupied": [
+          "plot:2362"
+        ]
+      },
+      {
+        "id": 589832,
+        "cap": 1,
+        "occupied": [
+          "plot:1798"
+        ]
+      }
+    ],
+    "cap": [
+      {
+        "id": 65536,
+        "remaining": 2
+      },
+      {
+        "id": 131073,
+        "remaining": 0
+      },
+      {
+        "id": 196610,
+        "remaining": 1
+      },
+      {
+        "id": 262147,
+        "remaining": 0
+      },
+      {
+        "id": 327684,
+        "remaining": 0
+      },
+      {
+        "id": 393221,
+        "remaining": 1
+      },
+      {
+        "id": 458758,
+        "remaining": 0
+      },
+      {
+        "id": 524295,
+        "remaining": 0
+      },
+      {
+        "id": 589832,
+        "remaining": 0
+      }
+    ],
+    "damagedInAvailable": [],
+    "damagedInPlan": [],
+    "slottedDamaged": [],
+    "bonuses": {
+      "0": {},
+      "1": {}
+    }
+  },
+  "重置倾向": {
+    "changedByChoice": true,
+    "changedByReset": true,
+    "unchangedAssignments": true,
+    "footer": {
+      "x": 793.5477294921875,
+      "y": 999.2999267578124,
+      "w": 111.902587890625,
+      "h": 42.300048828125,
+      "hittable": true,
+      "siblings": [
+        {
+          "text": "重置倾向",
+          "x": 793.5477294921875,
+          "y": 999.2999267578124
+        },
+        {
+          "text": "",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "text": "",
+          "x": 1048.4512939453125,
+          "y": 1006.449951171875
+        },
+        {
+          "text": "",
+          "x": 0,
+          "y": 0
+        }
+      ]
+    }
+  },
+  "按回合保存": {
+    "turn": 56,
+    "events": [
+      {
+        "at": 1793611240793,
+        "kind": "initial",
+        "turn": 55,
+        "data": {
+          "rest": false,
+          "before": true
+        }
+      },
+      {
+        "at": 1793611241508,
+        "kind": "saveRequest",
+        "turn": 55,
+        "data": {
+          "Location": 1,
+          "LocationCategories": 4,
+          "Type": 1,
+          "ContentType": 0,
+          "FileName": "AutoSave_BeforeEndTurn_00_0055",
+          "Overwrite": true
+        }
+      },
+      {
+        "at": 1793611241511,
+        "kind": "saveAccepted",
+        "turn": 55,
+        "data": true
+      },
+      {
+        "at": 1793611242095,
+        "kind": "StartSaveRequest",
+        "turn": 55,
+        "data": {
+          "saveType": 1,
+          "saveLocation": 1,
+          "saveLocationOption": 68
+        }
+      },
+      {
+        "at": 1793611242141,
+        "kind": "SaveComplete",
+        "turn": 55,
+        "data": {
+          "result": 0,
+          "type": 1,
+          "options": 68,
+          "fileType": 0
+        }
+      },
+      {
+        "at": 1793611242167,
+        "kind": "sendTurnComplete",
+        "turn": 55,
+        "data": null
+      },
+      {
+        "at": 1793611242255,
+        "kind": "LocalPlayerTurnEnd",
+        "turn": 55,
+        "data": null
+      },
+      {
+        "at": 1793611245268,
+        "kind": "StartSaveRequest",
+        "turn": 55,
+        "data": {
+          "saveType": 1,
+          "saveLocation": 1,
+          "saveLocationOption": 4
+        }
+      },
+      {
+        "at": 1793611245875,
+        "kind": "SaveComplete",
+        "turn": 55,
+        "data": {
+          "result": 0,
+          "type": 1,
+          "options": 4,
+          "fileType": 0
+        }
+      },
+      {
+        "at": 1793611245917,
+        "kind": "LocalPlayerTurnBegin",
+        "turn": 56,
+        "data": null
+      }
+    ],
+    "sent": false,
+    "busy": false,
+    "rest": false,
+    "dialogs": [
+      [
+        "LOC_TECH_CIVIC_CHANGE_POLICIES",
+        "变更政策"
+      ],
+      [
+        "LOC_GENERIC_OK",
+        "确定"
+      ]
+    ]
+  },
+  "跳过建造": {
+    "before": {
+      "id": {
+        "owner": 0,
+        "id": 65536,
+        "type": 1
+      },
+      "turn": 56,
+      "queue": [],
+      "skip": "<fxs-activatable class=\"bsu-defer-icon-button pointer-events-auto cursor-pointer\" role=\"button\" tabindex=\"0\" aria-label=\"本回合跳过建造\" disabled=\"false\" data-tooltip-content=\"[icon:BSU_SKIP] 本回合跳过这座定居点的建造，下回合重新检查。正常关闭只将它排到最后；其他必要行动仍需处理。\"><span class=\"bsu-defer-symbol\" aria-hidden=\"true\"></span></fxs-activatable>",
+      "head": {
+        "owner": 0,
+        "id": 65536,
+        "type": 1
+      },
+      "order": [
+        "version",
+        "register",
+        "dispose",
+        "unifiedActions",
+        "registerSharedCards",
+        "cardDomains"
+      ]
+    },
+    "after": {
+      "turn": 56,
+      "sent": false,
+      "queue": [],
+      "panel": false,
+      "head": null,
+      "providers": [
+        "version",
+        "register",
+        "dispose",
+        "unifiedActions",
+        "registerSharedCards",
+        "cardDomains"
+      ]
+    }
+  },
+  "归队": {
+    "before": {
+      "turn": 56,
+      "mode": "INTERFACEMODE_UNIT_SELECTED",
+      "head": {
+        "owner": 0,
+        "id": 851979,
+        "type": 26
+      },
+      "army": {
+        "owner": -1,
+        "id": -1,
+        "type": 0
+      },
+      "loc": {
+        "x": 16,
+        "y": 33
+      }
+    },
+    "after": {
+      "turn": 56,
+      "mode": "INTERFACEMODE_UNIT_SELECTED",
+      "head": null,
+      "army": {
+        "owner": 0,
+        "id": 65536,
+        "type": 29
+      },
+      "members": [
+        458757,
+        851979
+      ],
+      "loc": {
+        "x": -9999,
+        "y": -9999
+      }
+    },
+    "trace": [
+      [
+        851979,
+        "UNITCOMMAND_ADD_TO_ARMY",
+        {
+          "X": 17,
+          "Y": 33
+        }
+      ]
+    ],
+    "precondition": true
+  },
+  "自动攻击": {
+    "eligible": true,
+    "before": {
+      "turn": 27,
+      "head": {
+        "owner": 0,
+        "id": 524294,
+        "type": 26
+      },
+      "mode": "INTERFACEMODE_UNIT_SELECTED",
+      "attacks": 1,
+      "moves": 2,
+      "enemy": [
+        [
+          25,
+          262147,
+          55
+        ]
+      ],
+      "xy": {
+        "x": 10,
+        "y": 15
+      }
+    },
+    "after": {
+      "turn": 27,
+      "head": {
+        "owner": 0,
+        "id": 917516,
+        "type": 26
+      },
+      "mode": "INTERFACEMODE_UNIT_SELECTED",
+      "attacks": 0,
+      "moves": 0,
+      "enemy": [
+        [
+          25,
+          262147,
+          97
+        ]
+      ],
+      "xy": {
+        "x": 10,
+        "y": 15
+      }
+    },
+    "requests": [
+      [
+        524294,
+        164636970,
+        {
+          "X": 12,
+          "Y": 16
+        }
+      ]
+    ]
+  },
+  "等待开始": {
+    "a": {
+      "time": 1793611758154,
+      "phase": 6,
+      "elapsed": 0,
+      "loading": true,
+      "on": false,
+      "startButton": true
+    },
+    "b": {
+      "time": 1793611760772,
+      "phase": 6,
+      "elapsed": 0,
+      "loading": true,
+      "on": false,
+      "startButton": true
+    },
+    "loaded": true
+  },
+  "进入时": {
+    "t": 1793611762285,
+    "elapsed": 0,
+    "session": {
+      "version": 2,
+      "startedAt": 1793611731391,
+      "suspendedAt": null,
+      "lastInputAt": 1793611761882,
+      "idleRested": false,
+      "loading": true,
+      "loadingStartedAt": 1793611731391,
+      "turnCount": 0,
+      "idleBreakStartedAt": null,
+      "countedToken": null,
+      "night": null,
+      "paidToken": null,
+      "pending": null
+    },
+    "loadingState": 8,
+    "waiting": 7,
+    "started": 8,
+    "restEnabled": true,
+    "suspended": false,
+    "mode": "INTERFACEMODE_UNSET",
+    "deal": null,
+    "screen": [
+      [
+        "DIV",
+        "开始游戏"
+      ]
+    ]
+  },
+  "进入后": {
+    "t": 1793611962311,
+    "elapsed": 0,
+    "session": {
+      "version": 2,
+      "startedAt": 1793611731391,
+      "suspendedAt": null,
+      "lastInputAt": 1793611761882,
+      "idleRested": false,
+      "loading": true,
+      "loadingStartedAt": 1793611731391,
+      "turnCount": 0,
+      "idleBreakStartedAt": null,
+      "countedToken": null,
+      "night": null,
+      "paidToken": null,
+      "pending": null
+    },
+    "loadingState": 8,
+    "waiting": 7,
+    "started": 8,
+    "restEnabled": true,
+    "suspended": false,
+    "mode": "INTERFACEMODE_DIPLOMACY_PROJECT_REACTION",
+    "deal": null,
+    "screen": []
+  },
+  "恢复": {
+    "time": "2026-11-02T09:32:54.395952+00:00",
+    "gameClosed": true,
+    "saveFilesVerified": 427,
+    "directoriesVerified": 6,
+    "changedRestored": [
+      "Single/auto/AutoSave_00_0056.Civ7Save"
+    ],
+    "testFilesRemoved": [
+      "Single/Integration_20261102_FeatureQA.Civ7Save",
+      "Single/Integration_20261102_battle.Civ7Save",
+      "Single/Integration_20261102_peace.Civ7Save",
+      "Single/auto/AutoSave_BeforeEndTurn_00_0055.Civ7Save"
+    ],
+    "runtimeRestored": 9,
+    "flagsAndSettingsVerified": true,
+    "recoveryArchivesDeleted": 6
+  }
+}
