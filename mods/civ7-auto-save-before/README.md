@@ -2,7 +2,7 @@
 
 源码目录：`civ7-auto-save-before`。Mod ID 和手动安装目录继续使用 `civ7-before-end-turn`，保持已安装版本及设置兼容。
 
-当前源码版本：1.1.2（2026-10-22，跟随游戏语言设置，补齐英文提示）。用于 Steam《文明 VII》单人游戏。
+当前源码版本：1.1.3（2026-11-01，支持每回合独立保存）。用于 Steam《文明 VII》单人游戏。
 
 [Steam 创意工坊订阅](https://steamcommunity.com/sharedfiles/filedetails/?id=3815596737) · [GitHub 源码](https://github.com/Stupidism/civ7-before-end-turn) · [历史版本下载](https://github.com/Stupidism/civ7-before-end-turn/releases)
 
@@ -28,16 +28,17 @@
 
 **English — Reconsider a proposal before committing.** An AI may reject an offer of cooperation and relations may worsen. Influence costs, refunds and relationship effects depend on the action and outcome; current Research Collaboration and Cultural Exchange data refunds the proposer's Influence on rejection. Load `BeforeDiplomacy` to return to before the protected action and reconsider the target, timing or proposal without replaying the whole turn. The mod does not change the AI's decision or guarantee acceptance.
 
-## 两个独立开关
+## 存档设置
 
 打开 **选项 → 附加内容 → 自动存档 · Auto-save Before...**，或点击游戏右上角的 **存档** 直达本组设置。
 
-| 设置 | 固定本地存档 | 默认值 |
+| 设置 | 存档名称 | 默认值 |
 | --- | --- | --- |
-| 过回合前自动存档 | `BeforeEndTurn` | 开启 |
+| 过回合前自动存档 | `BeforeEndTurn`（默认固定槽） | 开启 |
+| 每回合独立保存 | 例如 `AutoSave_BeforeEndTurn_00_0055`，需开启过回合前自动存档 | 关闭 |
 | 外交行动前自动存档 | `BeforeDiplomacy` | 开启 |
 
-两个开关互不影响；点击原生“确认”保存，点击“取消”放弃本次修改。关闭其中一项不删除已有存档。设置与 Rest Guard 一样接入原生选项界面，并在共享存储中使用独立命名空间。
+过回合和外交存档可分别开启。点击原生“确认”保存，点击“取消”放弃本次修改。关闭其中一项不删除已有存档。设置与 Rest Guard 一样接入原生选项界面，并在共享存储中使用独立命名空间。
 
 ## 使用
 
@@ -141,3 +142,7 @@ node --test tests/*.test.mjs
 搜索 `[Before End Turn]`。加载成功时有 `Ready`，存档完成并准备推进回合时有 `Saved BeforeEndTurn at turn ...`。模组发现/加载问题可查同目录的 `Modding.log`。
 
 实现依据：游戏自带 `Base/modules/core/ui/save-load/model-save-load.js` 的覆盖保存参数和完成事件；`Base/modules/base-standard/ui/action/panel-action.js` 的过回合入口；`Base/modules/core/ui/context-manager/context-manager.js` 的可保存状态判断。发行包只包含本模组原创代码，测试从本机读取游戏文件。
+
+## 1.1.3：每回合独立保存
+
+新增原生开关，默认关闭。开启回合结束前存档及此选项后，按时代和回合保存至自动保存类别，例如 `AutoSave_BeforeEndTurn_00_0026`。时代至少两位、回合至少四位。同一时代同一回合重存会更新同名文件，不同战役相同时代及回合也可能覆盖同名文件。与原版 `AutoSave_00_0026` 分开命名。关闭后使用固定 `BeforeEndTurn` 槽，外交固定槽仍为 `BeforeDiplomacy`。

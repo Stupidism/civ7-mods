@@ -17,26 +17,26 @@ function harness() {
   return { store, storage, options, integration, calls, change, categories, raw: () => JSON.parse(raw), replace: value => { raw = value; } };
 }
 
-test('both defaults enabled and two independent native switches in a shared category', () => {
-  const h = harness(); assert.deepEqual(h.store.data.config, { turnEnabled: true, diplomacyEnabled: true });
-  assert.equal(h.options.data.size, 2); assert.equal(h.categories.mods.title, 'Shared category');
+test('fixed saves enabled by default and three native switches in a shared category', () => {
+  const h = harness(); assert.deepEqual(h.store.data.config, { perTurnEnabled: false, turnEnabled: true, diplomacyEnabled: true });
+  assert.equal(h.options.data.size, 3); assert.equal(h.categories.mods.title, 'Shared category');
   for (const entry of h.options.data.values()) { assert.equal(entry.category, 'mods'); assert.equal(entry.group, 'save_before_action'); }
   h.change('diplomacy', false); assert.equal(h.store.data.config.diplomacyEnabled, true);
   assert.equal(h.options.commitOptions(), 'native');
-  assert.deepEqual(h.store.data.config, { turnEnabled: true, diplomacyEnabled: false });
+  assert.deepEqual(h.store.data.config, { perTurnEnabled: false, turnEnabled: true, diplomacyEnabled: false });
   assert.deepEqual(h.raw()['civ7-rest-guard'], { config: { timeEnabled: false } });
 });
 
 test('cancel discards the draft without writes and repeated open does not duplicate options', () => {
   const h = harness(); h.change('turn', false); h.options.restore(); h.options.init();
   assert.equal(h.options.data.get('save-before-turn-enabled').currentValue, true);
-  assert.equal(h.options.data.size, 2); assert.equal(h.calls.writes, 0);
+  assert.equal(h.options.data.size, 3); assert.equal(h.calls.writes, 0);
 });
 
 test('configuration confirm persists across store reload; unrelated commit does not', () => {
   const h = harness(); h.change('turn', false); h.options.commitOptions('audio');
   assert.equal(h.calls.writes, 0); h.options.commitOptions('configuration');
-  assert.deepEqual(new SaveSettingsStore(h.storage).data.config, { turnEnabled: false, diplomacyEnabled: true });
+  assert.deepEqual(new SaveSettingsStore(h.storage).data.config, { perTurnEnabled: false, turnEnabled: false, diplomacyEnabled: true });
   h.options.resetOptionsToDefault(); assert.deepEqual(h.store.data.config, normalizeConfig());
 });
 
@@ -72,3 +72,11 @@ test('shortcut reuses the existing options screen and resolves Add-ons by catego
   frames.shift()(); frames.shift()();
   assert.deepEqual(calls, [['selected-tab-index', '1'], ['selected-slot', 'mods-panel'], first]);
 });
+
+ test('per-turn option confirms, cancels and resets independently', () => {
+ const h = harness(); h.change('per-turn', true); h.options.restore();
+ assert.equal(h.store.data.config.perTurnEnabled, false);
+ h.change('per-turn', true); h.options.commitOptions();
+ assert.equal(new SaveSettingsStore(h.storage).data.config.perTurnEnabled, true);
+ h.options.resetOptionsToDefault(); assert.equal(h.store.data.config.perTurnEnabled, false);
+ });

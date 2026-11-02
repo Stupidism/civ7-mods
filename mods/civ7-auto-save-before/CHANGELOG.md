@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.3 — 2026-11-01
+
+- 新增“每回合独立保存”开关，默认关闭。开启后按时代和回合保存到自动保存列表，例如 `AutoSave_BeforeEndTurn_00_0050`。
+- 同时代同回合重存会更新同名文件；不同战役相同时代和回合也可能覆盖。原版自动存档名称不受覆盖。
+- 关闭后仍使用 BeforeEndTurn 固定槽；外交固定槽不变。86 项离线检查通过；中文实机验证连续两回合保存、列表、加载及关闭后固定槽。
+
 ## 1.1.2 — 2026-10-22
 
 - Follow the game language for all save progress messages, failure reasons, retry/cancel buttons, notifications and the mod description. Supply English defaults and Simplified Chinese translations through native localization.

@@ -1,6 +1,6 @@
 {
   "modId": "civ7-before-end-turn",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "publishedFileId": "3815596737",
   "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3815596737",
   "visibility": "public",
@@ -11,46 +11,55 @@
   "publicPageVerified": false,
   "validation": {
     "gameVersion": "1.5.0 (1311346)",
-    "automatedTestsPassed": 79,
+    "automatedTestsPassed": 86,
     "automatedTestsSkipped": 0,
     "packagedFilesVerified": 8,
     "macMainMenuObserved": true,
     "nativeDiplomacySaveLoadRoundTripVerified": false,
     "nativeNewSettingsAcceptanceComplete": false,
-    "notes": "79 offline tests with installed game handlers and the current local Rest Guard development fixture. 27 English/Chinese localization entries checked. No live game test for 1.1.2."
+    "notes": "86项离线通过；中文实机验证每回合独立存档、原生列表回载及关闭选项恢复固定槽。输入为原生组件事件与调试接口，不是实体手柄。英文、跨时代、长期轮换、失败恢复及外交未在本轮实机重测。详见 VALIDATION.md。",
+    "nativePerTurnOptionChineseVerified": true
   },
   "uploadedFiles": [
     {
       "path": "before-end-turn.modinfo",
-      "sha256": "33ddc452a42e2c56a56f8891b209a3ffa60266ae42b61cf590a9195428bc86ba"
-    },
-    {
-      "path": "text/settings.xml",
-      "sha256": "0604a59689bb0e06041e4044cacf3ed9575641af11ddc399176a2c9820ff8068"
-    },
-    {
-      "path": "ui/before-end-turn.js",
-      "sha256": "d006159faeb00fdf541852cfa001e4747c8f45dc1ac6a8d49395ec4a6ff36b91"
-    },
-    {
-      "path": "ui/diplomacy-hook.js",
-      "sha256": "f80b370afdb91d5110cd4d6b65a829bfbd79dc26e8dfa634b1dac535a1e602cf"
-    },
-    {
-      "path": "ui/save-gate.js",
-      "sha256": "19c91e2ed0fa8460b968ab59739ae609273c3e5b3ca074b57fb02866e4fb112a"
-    },
-    {
-      "path": "ui/save-options.js",
-      "sha256": "cb57886d9a08ee357e9be7e2cbc6abedb1bae410fb3ef8a906679fd59f5bc4de"
-    },
-    {
-      "path": "ui/save-settings.js",
-      "sha256": "fa5925a03456173a5fba16e56a2d9a2421b3ef4b96e661e65ebaff16e2edac73"
+      "size": 1891,
+      "sha256": "dff07021a0cd9e8ce8a49ec7b3ee9b175b4b4afda1a211e7d1259935ce265563"
     },
     {
       "path": "ui/save-store.js",
-      "sha256": "d1b3dcdbfd206ffdba11788392eb6fe4f0413db4b439d6328e757c9417f5dbc6"
+      "size": 1414,
+      "sha256": "4c03ca3a8d4a328f644b5cf240cc793060aa6eb51580e9d7edf34c0b499271af"
+    },
+    {
+      "path": "ui/diplomacy-hook.js",
+      "size": 4201,
+      "sha256": "f80b370afdb91d5110cd4d6b65a829bfbd79dc26e8dfa634b1dac535a1e602cf"
+    },
+    {
+      "path": "ui/save-settings.js",
+      "size": 2443,
+      "sha256": "fa5925a03456173a5fba16e56a2d9a2421b3ef4b96e661e65ebaff16e2edac73"
+    },
+    {
+      "path": "ui/save-gate.js",
+      "size": 7675,
+      "sha256": "54436b04dada9ef0e1eb260e29aa4ec036e6c55296391001afc316f2d8b6e3f0"
+    },
+    {
+      "path": "ui/save-options.js",
+      "size": 4402,
+      "sha256": "fd42338f77d9468990d78fa2d5fe5c758ed53e008fea6f7a861b8b2f1c1c3c68"
+    },
+    {
+      "path": "ui/before-end-turn.js",
+      "size": 10142,
+      "sha256": "f133caea187653e34236a4a5b801333de2d72681bef6c6e1fefacd7dc7e9e766"
+    },
+    {
+      "path": "text/settings.xml",
+      "size": 8471,
+      "sha256": "3a7124a756aae71b8ade2cab0d059cf243befcc7db23371e5d201879512dc18d"
     }
   ],
   "title": "Auto-save Before...",
@@ -63,12 +72,13 @@
       "steamUrl": "https://images.steamusercontent.com/ugc/15615035971547493083/475D5088A6D7A546174BF6589D16A4ACA7A376CF/"
     }
   ],
-  "publishedOrUpdatedDate": "2026-10-22",
+  "publishedOrUpdatedDate": "2026-11-01",
   "downloadHashesVerified": true,
   "preview": {
     "path": "docs/workshop-preview-autosave-1.1.0.png",
     "sha256": "8cd8195e6be912a10ffddf9527483e0c0ca7d0ab99390f480bf27c5c48c001df"
   },
-  "updateScope": "1.1.2: Follow the game language for progress, errors, retry/cancel buttons and mod description. English and Simplified Chinese. Includes save-before-rest ordering from 1.1.1. 79 offline tests pass; no live game validation. 补齐英文支持，尊重游戏语言设置。",
-  "previousGitHubRelease": "https://github.com/Stupidism/civ7-before-end-turn/releases/tag/v1.0.2"
+  "updateScope": "1.1.3：新增默认关闭的每回合独立保存选项，采用 AutoSave_BeforeEndTurn_00_0050 命名；更新中英文正文日志。",
+  "previousGitHubRelease": "https://github.com/Stupidism/civ7-before-end-turn/releases/tag/v1.0.2",
+  "releaseReceipt": "release-1.1.3.json"
 }

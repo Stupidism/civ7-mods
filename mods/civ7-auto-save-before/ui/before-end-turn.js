@@ -8,7 +8,11 @@ import { installDiplomacyHooks } from './diplomacy-hook.js';
 import { settingsStore, installSettingsLauncher } from './save-settings.js';
 
 const PREFIX = '[Before End Turn]';
-const fileName = kind => kind === 'diplomacy' ? 'BeforeDiplomacy' : 'BeforeEndTurn';
+const perTurn = kind => kind !== 'diplomacy' && settingsStore.data.config.perTurnEnabled === true;
+const fileName = kind => kind === 'diplomacy' ? 'BeforeDiplomacy' : perTurn(kind)
+  ? `AutoSave_BeforeEndTurn_${String(GameInfo.Ages.lookup(Game.age).ChronologyIndex).padStart(2, '0')}_${String(Game.turn).padStart(4, '0')}`
+  : 'BeforeEndTurn';
+const category = kind => perTurn(kind) ? SaveLocationCategories.AUTOSAVE : SaveLocationCategories.NORMAL;
 const INSTANCE_KEY = '__civ7BeforeEndTurnV1';
 
 function install() {
@@ -78,7 +82,7 @@ function install() {
     notice: key => notice(Locale.compose(key)),
     save: kind => Network.saveGame({
       Location: SaveLocations.LOCAL_STORAGE,
-      LocationCategories: SaveLocationCategories.NORMAL,
+      LocationCategories: category(kind),
       Type: GameStateStorage.getGameConfigurationSaveType(),
       ContentType: SaveFileTypes.GAME_STATE,
       FileName: fileName(kind),
@@ -88,11 +92,11 @@ function install() {
     succeeded: result => result?.result === SerializerResult.RESULT_OK,
     matches: (result, kind) => {
       if (!result || typeof result.options !== 'number') return false;
-      const other = SaveLocationCategories.AUTOSAVE | SaveLocationCategories.QUICKSAVE;
+      const other = (perTurn(kind) ? SaveLocationCategories.NORMAL : SaveLocationCategories.AUTOSAVE) | SaveLocationCategories.QUICKSAVE;
       if ((result.options & other) !== 0) return false;
       // NORMAL is a bit flag in this build; also support a zero-valued NORMAL enum.
-      if (SaveLocationCategories.NORMAL !== 0 &&
-          (result.options & SaveLocationCategories.NORMAL) === 0) return false;
+      if (category(kind) !== 0 &&
+          (result.options & category(kind)) === 0) return false;
       if (result.fileName !== undefined && result.fileName !== fileName(kind)) return false;
       return (result.type === undefined || result.type === GameStateStorage.getGameConfigurationSaveType()) &&
         (result.fileType === undefined || result.fileType === SaveFileTypes.GAME_STATE);
