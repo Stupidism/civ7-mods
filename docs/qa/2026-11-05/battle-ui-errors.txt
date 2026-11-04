@@ -1,0 +1,44 @@
+[2026-11-05 03:40:38]	Unable to parse declaration: width - max-content
+[2026-11-05 03:40:39]	HTML Parser Error@:fs://game/root-game.html@1:848: Premature end of file  Currently open tags: html, div..
+ While executing JS fs://game/core/vendor/solid-js/web/dist/web.js:819:34
+[2026-11-05 03:40:39]	Failed to open file - /icon_left_bumper
+[2026-11-05 03:40:39]	ResourceRequestJob | Failed loading resource: fs://game/icon_left_bumper
+[2026-11-05 03:40:39]	Failed to open file - /icon_right_bumper
+[2026-11-05 03:40:48]	Unhandled rejection error value: ReferenceError: WorldUI is not defined
+[2026-11-05 03:40:48]	Unhandled Promise Rejection: ReferenceError: WorldUI is not defined.  Re-run with inspector attached for callstack. 
+ While executing JS :15:23
+[2026-11-05 03:40:48]	Unhandled rejection for promise
+[2026-11-05 03:40:48]	Unhandled rejection error value: ReferenceError: WorldUI is not defined
+[2026-11-05 03:40:48]	Unhandled Promise Rejection: ReferenceError: WorldUI is not defined.  Re-run with inspector attached for callstack. 
+ While executing JS :15:23
+[2026-11-05 03:40:48]	Unhandled rejection for promise
+[2026-11-05 03:40:48]	Unhandled rejection error value: ReferenceError: WorldUI is not defined
+[2026-11-05 03:40:48]	Unhandled Promise Rejection: ReferenceError: WorldUI is not defined.  Re-run with inspector attached for callstack. 
+ While executing JS :15:23
+[2026-11-05 03:40:48]	Unhandled rejection for promise
+[2026-11-05 03:40:48]	Unhandled rejection error value: ReferenceError: WorldUI is not defined
+[2026-11-05 03:40:48]	HTML Parser Error@:fs://game/root-game.html@7:5: That tag isn't allowed here  Currently open tags: html, div, div..
+ While executing JS fs://game/core/ui/component-support.js:950:32
+[2026-11-05 03:40:48]	HTML Parser Error@:fs://game/root-game.html@9:1: Premature end of file  Currently open tags: html, div..
+ While executing JS fs://game/core/ui/component-support.js:950:32
+[2026-11-05 03:40:48]	HTML Parser Error@:fs://game/root-game.html@20:5: That tag isn't allowed here  Currently open tags: html, div, div..
+ While executing JS fs://game/core/ui/component-support.js:950:32
+[2026-11-05 03:40:48]	HTML Parser Error@:fs://game/root-game.html@22:1: Premature end of file  Currently open tags: html, div..
+ While executing JS fs://game/core/ui/component-support.js:950:32
+[2026-11-05 03:40:48]	Unhandled Promise Rejection: ReferenceError: WorldUI is not defined.  Re-run with inspector attached for callstack. 
+ While executing JS :15:23
+[2026-11-05 03:40:48]	Unhandled rejection for promise
+[2026-11-05 03:40:48]	Unhandled rejection error value: ReferenceError: WorldUI is not defined
+[2026-11-05 03:40:48]	Unhandled Promise Rejection: screen-profile-page - Required component is not defined: civ-button.  Re-run with inspector attached for callstack. 
+ While executing JS :15:23
+[2026-11-05 03:40:48]	Unhandled rejection for promise
+[2026-11-05 03:40:48]	Unhandled rejection error value: screen-profile-page - Required component is not defined: civ-button
+ at rejectInitialization(fs://game/core/ui/component-support.js:700:5)
+[2026-11-05 03:40:48]	JS Error: fs://game/civ7-better-policy-ui/ui/compact-layouts.js:24: TypeError: node.matches is not a function
+[2026-11-05 03:40:48]	JS Error (Line):         node.nodeType === 1 && (node.matches('screen-policies') || node.querySelector('screen-policies')));
+[2026-11-05 03:40:48]	JS Error (Stack): TypeError: node.matches is not a function
+    at fs://game/civ7-better-policy-ui/ui/compact-layouts.js:24:38
+    at Array.some (<anonymous>)
+    at fs://game/civ7-better-policy-ui/ui/compact-layouts.js:23:61
+    at Array.some (<anonymous>)
+    at MutationObserver.<anonymous> (fs://game/civ7-better-policy-ui/ui/compact-layouts.js:20:17)

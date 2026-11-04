@@ -1,0 +1,39 @@
+{
+  "before": {
+    "turn": 106,
+    "session": {
+      "version": 2,
+      "startedAt": 1793810903407,
+      "suspendedAt": null,
+      "lastInputAt": 1793810903407,
+      "idleRested": false,
+      "loading": false,
+      "loadingStartedAt": null,
+      "turnCount": 0,
+      "idleBreakStartedAt": null,
+      "countedToken": "game:-526700269:player:0:age:2077444219:turn:106",
+      "night": null,
+      "paidToken": "game:-526700269:player:0:age:2077444219:turn:106",
+      "pending": null
+    }
+  },
+  "after": {
+    "turn": 106,
+    "sent": true,
+    "session": {
+      "version": 2,
+      "startedAt": 1793810903407,
+      "suspendedAt": null,
+      "lastInputAt": 1793810903407,
+      "idleRested": false,
+      "loading": false,
+      "loadingStartedAt": null,
+      "turnCount": 0,
+      "idleBreakStartedAt": null,
+      "countedToken": "game:-526700269:player:0:age:2077444219:turn:106",
+      "night": null,
+      "paidToken": "game:-526700269:player:0:age:2077444219:turn:106",
+      "pending": null
+    }
+  }
+}

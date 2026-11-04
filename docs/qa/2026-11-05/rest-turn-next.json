@@ -1,0 +1,27 @@
+{
+  "t": 1793810935989,
+  "elapsed": 32582,
+  "session": {
+    "version": 2,
+    "startedAt": 1793810903407,
+    "suspendedAt": null,
+    "lastInputAt": 1793810903407,
+    "idleRested": false,
+    "loading": false,
+    "loadingStartedAt": null,
+    "turnCount": 0,
+    "idleBreakStartedAt": null,
+    "countedToken": "game:-526700269:player:0:age:2077444219:turn:106",
+    "night": null,
+    "paidToken": "game:-526700269:player:0:age:2077444219:turn:106",
+    "pending": null
+  },
+  "loadingState": 8,
+  "waiting": 7,
+  "started": 8,
+  "restEnabled": true,
+  "suspended": false,
+  "mode": "INTERFACEMODE_DEFAULT",
+  "deal": null,
+  "screen": []
+}

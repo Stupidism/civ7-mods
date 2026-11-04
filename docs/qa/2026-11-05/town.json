@@ -1,0 +1,726 @@
+{
+  "city": {
+    "owner": 0,
+    "id": 196610,
+    "type": 1
+  },
+  "name": "LOC_CITY_NAME_ICELAND11",
+  "isTown": true,
+  "all": [
+    {
+      "id": {
+        "owner": 0,
+        "id": 65536,
+        "type": 1
+      },
+      "name": "LOC_CITY_NAME_ICELAND1",
+      "town": false
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 131073,
+        "type": 1
+      },
+      "name": "{LOC_CITY_NAME_ICELAND9: ugc -453087527;三分文化;}",
+      "town": false
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 196610,
+        "type": 1
+      },
+      "name": "LOC_CITY_NAME_ICELAND11",
+      "town": true
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 262147,
+        "type": 1
+      },
+      "name": "{LOC_CITY_NAME_ICELAND5: ugc -1024730250;一分搞钱;}",
+      "town": false
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 327684,
+        "type": 1
+      },
+      "name": "{LOC_CITY_NAME_ICELAND8: ugc -669189630;二分科技;}",
+      "town": false
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 393221,
+        "type": 1
+      },
+      "name": "LOC_CITY_NAME_ICELAND4",
+      "town": true
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 458758,
+        "type": 1
+      },
+      "name": "LOC_CITY_NAME_HEIAN2",
+      "town": true
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 589832,
+        "type": 1
+      },
+      "name": "LOC_CITY_NAME_SENGOKU3",
+      "town": true
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 786441,
+        "type": 1
+      },
+      "name": "LOC_CITY_NAME_ICELAND12",
+      "town": true
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 851978,
+        "type": 1
+      },
+      "name": "LOC_CITY_NAME_ICELAND14",
+      "town": true
+    }
+  ],
+  "text": "劳加尔231119.52.52.5-30106.2城镇重心劳加尔与4座城市和5座城镇相连。发展城镇使城镇的发展加快50%。“发展城镇”是默认重心，新发展重心可在上方选择。查看隐藏项查看隐藏项购买生产购买定居点陷入动乱！0回合后你可以进行购买或改变重心。建筑跨时代粮仓无时代限制+4+15522013.8220跨时代砖瓦窑无时代限制+1+1+15522013.8220跨时代港湾无时代限制+2+15522018.3220庄园国库金币不足+3+3-223493620.3936祭坛国库金币不足+3-211746821.3468跨时代渔场无时代限制+25522055.0220远古城墙60240∞240 新排序单位开拓者国库金币不足3230920920探路者230120120商人国库金币不足4180720720军队指挥官国库金币不足27002,8002800骑手国库金币不足335120480480方阵230100400400投射机1151030255220220弓箭手2102010250200200 新排序奇观 新排序项目 新排序转换为城市1000已达城市上限 长按1秒，本回合跳过这座定居点的建造；",
+  "components": [
+    "_audioGroup",
+    "receiveFocusEventListener",
+    "loseFocusEventListener",
+    "detroyEventListener",
+    "Root",
+    "animateInType",
+    "animateOutType",
+    "enableOpenSound",
+    "enableCloseSound",
+    "documentClosePanelListener",
+    "isClosingRecursionGuard",
+    "inAttach",
+    "inputContext",
+    "SMALL_SCREEN_MODE_MAX_HEIGHT",
+    "SMALL_SCREEN_MODE_MAX_WIDTH",
+    "focusInListener",
+    "focusOutListener",
+    "engineInputListener",
+    "inputContextChangedListener",
+    "frameEngineInputListener",
+    "requestCloseListener",
+    "onUpgradeToCityButtonListener",
+    "viewFocusListener",
+    "viewLoseFocusListener",
+    "onNextCityButtonListener",
+    "onPrevCityButtonListener",
+    "onCityDetailsClosedListener",
+    "onSettlementNameChangedListener",
+    "onSettlementNameExitListener",
+    "cityYieldBar",
+    "isInitialLoadComplete",
+    "wasQueueInitiallyEmpty",
+    "lastFocusedPanel",
+    "_isPurchase",
+    "_cityID",
+    "_recommendations",
+    "_playerGoldBalance",
+    "itemElementMap",
+    "_items",
+    "_viewHidden",
+    "uniqueQuarterInfos",
+    "frame",
+    "cityNameElement",
+    "cityStatusContainerElement",
+    "cityStatusIconElement",
+    "cityStatusTextElement",
+    "subPanelContainer",
+    "townFocusPanel",
+    "townFocusPanelCloseButton",
+    "buildQueue",
+    "prevCityButton",
+    "nextCityButton",
+    "productionPurchaseContainer",
+    "productionPurchaseTabBar",
+    "showCityDetailsButton",
+    "townFocusSection",
+    "lastProductionSection",
+    "townUnrestDisplay",
+    "townPurchaseLabel",
+    "viewHiddenCheckbox",
+    "productionAccordion",
+    "productionCategorySlots",
+    "upgradeToCityButton",
+    "upgradeToCityAlert",
+    "upgradeToCityButtonCostElement",
+    "cityDetailsSlot",
+    "panelProductionSlot",
+    "uniqueQuarters",
+    "onAccordionSectionToggle",
+    "onChooserItemSelected",
+    "onTownFocusItemSelected",
+    "onCloseTownFocusPanel",
+    "onCurrentFocusItemSelected",
+    "onViewHiddenChanged",
+    "onCityDetailsActivated",
+    "onFocusCityViewEvent",
+    "onProductionPurchaseTabSelected",
+    "updateItems",
+    "onInterfaceModeChanged",
+    "bzCityHall"
+  ],
+  "elements": [
+    {
+      "tag": "TOWN-FOCUS-SECTION",
+      "name": "LOC_UI_FOOD_CHOOSER_FOCUS_GROWTH",
+      "cls": "flex flex-col items-center justify-center px-14 py-2 production-chooser__town-focus-gradient",
+      "box": [
+        60,
+        396,
+        1948,
+        332
+      ],
+      "text": "城镇重心劳加尔与4座城市和5座城镇相连。发展城镇使城镇的发展加快50%。“发展城镇”是默认重心，新发展重心可在上方选择。"
+    },
+    {
+      "tag": "TOWN-FOCUS-CHOOSER-ITEM",
+      "name": "LOC_UI_FOOD_CHOOSER_FOCUS_GROWTH",
+      "cls": "flex-auto mx-5 my-2 fxs-chooser-item hud_sidepanel_list-bg flex justify-stretch items-stretch relative pointer-events-auto cursor-pointer",
+      "box": [
+        591,
+        511,
+        886,
+        144
+      ],
+      "text": "发展城镇使城镇的发展加快50%。"
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_BUILDING_GRANARY_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        81.39990234375,
+        898,
+        931.199951171875,
+        144.199951171875
+      ],
+      "text": "跨时代粮仓无时代限制+4+15522013.8220"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg cursor-pointer bsu-ranked-item",
+      "box": [
+        81.39990234375,
+        898,
+        931.199951171875,
+        129.800048828125
+      ],
+      "text": "跨时代粮仓无时代限制+4+15522013.8220"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none bsu-ageless-icon",
+      "box": [
+        89.40185546875,
+        914.9000244140624,
+        96,
+        96
+      ],
+      "text": "跨时代"
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_BUILDING_BRICKYARD_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        81.39990234375,
+        1056.5999755859375,
+        931.199951171875,
+        144.199951171875
+      ],
+      "text": "跨时代砖瓦窑无时代限制+1+1+15522013.8220"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg cursor-pointer bsu-ranked-item",
+      "box": [
+        81.39990234375,
+        1056.5999755859375,
+        931.199951171875,
+        129.800048828125
+      ],
+      "text": "跨时代砖瓦窑无时代限制+1+1+15522013.8220"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none bsu-ageless-icon",
+      "box": [
+        89.40185546875,
+        1073.5,
+        96,
+        96
+      ],
+      "text": "跨时代"
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_BUILDING_HARBOR_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        81.39990234375,
+        1215.199951171875,
+        931.199951171875,
+        144.199951171875
+      ],
+      "text": "跨时代港湾无时代限制+2+15522018.3220"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg cursor-pointer bsu-ranked-item",
+      "box": [
+        81.39990234375,
+        1215.199951171875,
+        931.199951171875,
+        129.800048828125
+      ],
+      "text": "跨时代港湾无时代限制+2+15522018.3220"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none bsu-ageless-icon",
+      "box": [
+        89.40185546875,
+        1232.0999755859375,
+        96,
+        96
+      ],
+      "text": "跨时代"
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_BUILDING_VILLA_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        81.39990234375,
+        1373.800048828125,
+        931.199951171875,
+        183.199951171875
+      ],
+      "text": "庄园国库金币不足+3+3-223493620.3936"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg disabled cursor-not-allowed bsu-ranked-item",
+      "box": [
+        81.39990234375,
+        1373.800048828125,
+        931.199951171875,
+        168.800048828125
+      ],
+      "text": "庄园国库金币不足+3+3-223493620.3936"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none",
+      "box": [
+        89.40185546875,
+        1410.2000732421875,
+        96,
+        96
+      ],
+      "text": ""
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_BUILDING_ALTAR_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        81.39990234375,
+        1571.39990234375,
+        931.199951171875,
+        183.199951171875
+      ],
+      "text": "祭坛国库金币不足+3-211746821.3468"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg disabled cursor-not-allowed bsu-ranked-item",
+      "box": [
+        81.39990234375,
+        1571.39990234375,
+        931.199951171875,
+        168.800048828125
+      ],
+      "text": "祭坛国库金币不足+3-211746821.3468"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none",
+      "box": [
+        89.40185546875,
+        1607.7999267578125,
+        96,
+        96
+      ],
+      "text": ""
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_BUILDING_FISHING_QUAY_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        81.39990234375,
+        1769,
+        931.199951171875,
+        144.199951171875
+      ],
+      "text": "跨时代渔场无时代限制+25522055.0220"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg cursor-pointer bsu-ranked-item",
+      "box": [
+        81.39990234375,
+        1769,
+        931.199951171875,
+        129.800048828125
+      ],
+      "text": "跨时代渔场无时代限制+25522055.0220"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none bsu-ageless-icon",
+      "box": [
+        89.40185546875,
+        1785.9000244140625,
+        96,
+        96
+      ],
+      "text": "跨时代"
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_BUILDING_ANCIENT_WALLS_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        81.39990234375,
+        1927.5999755859375,
+        931.199951171875,
+        126.4000244140625
+      ],
+      "text": "远古城墙60240∞240"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg cursor-pointer bsu-ranked-item",
+      "box": [
+        81.39990234375,
+        1927.5999755859375,
+        931.199951171875,
+        112
+      ],
+      "text": "远古城墙60240∞240"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none",
+      "box": [
+        89.40185546875,
+        1935.5999755859375,
+        96,
+        96
+      ],
+      "text": ""
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_UNIT_SETTLER_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        1023.39990234375,
+        898,
+        931.19970703125,
+        167.199951171875
+      ],
+      "text": "开拓者国库金币不足3230920920"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg disabled cursor-not-allowed bsu-ranked-item",
+      "box": [
+        1023.39990234375,
+        898,
+        931.19970703125,
+        152.800048828125
+      ],
+      "text": "开拓者国库金币不足3230920920"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none",
+      "box": [
+        1031.40185546875,
+        926.4000244140624,
+        96,
+        96
+      ],
+      "text": ""
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_UNIT_SCOUT_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        1023.39990234375,
+        1079.5999755859375,
+        931.19970703125,
+        128.199951171875
+      ],
+      "text": "探路者230120120"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg cursor-pointer bsu-ranked-item",
+      "box": [
+        1023.39990234375,
+        1079.5999755859375,
+        931.19970703125,
+        113.800048828125
+      ],
+      "text": "探路者230120120"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none",
+      "box": [
+        1031.40185546875,
+        1088.5,
+        96,
+        96
+      ],
+      "text": ""
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_UNIT_MERCHANT_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        1023.39990234375,
+        1222.199951171875,
+        931.19970703125,
+        167.199951171875
+      ],
+      "text": "商人国库金币不足4180720720"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg disabled cursor-not-allowed bsu-ranked-item",
+      "box": [
+        1023.39990234375,
+        1222.199951171875,
+        931.19970703125,
+        152.800048828125
+      ],
+      "text": "商人国库金币不足4180720720"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none",
+      "box": [
+        1031.40185546875,
+        1250.5999755859375,
+        96,
+        96
+      ],
+      "text": ""
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_UNIT_ARMY_COMMANDER_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        1023.39990234375,
+        1403.800048828125,
+        931.19970703125,
+        167.199951171875
+      ],
+      "text": "军队指挥官国库金币不足27002,8002800"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg disabled cursor-not-allowed bsu-ranked-item",
+      "box": [
+        1023.39990234375,
+        1403.800048828125,
+        931.19970703125,
+        152.800048828125
+      ],
+      "text": "军队指挥官国库金币不足27002,8002800"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none",
+      "box": [
+        1031.40185546875,
+        1432.2000732421875,
+        96,
+        96
+      ],
+      "text": ""
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_UNIT_HORSEMAN_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        1023.39990234375,
+        1585.39990234375,
+        931.19970703125,
+        167.199951171875
+      ],
+      "text": "骑手国库金币不足335120480480"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg disabled cursor-not-allowed bsu-ranked-item",
+      "box": [
+        1023.39990234375,
+        1585.39990234375,
+        931.19970703125,
+        152.800048828125
+      ],
+      "text": "骑手国库金币不足335120480480"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none",
+      "box": [
+        1031.40185546875,
+        1613.7999267578125,
+        96,
+        96
+      ],
+      "text": ""
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_UNIT_PHALANX_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        1023.39990234375,
+        1767,
+        931.19970703125,
+        128.199951171875
+      ],
+      "text": "方阵230100400400"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg cursor-pointer bsu-ranked-item",
+      "box": [
+        1023.39990234375,
+        1767,
+        931.19970703125,
+        113.800048828125
+      ],
+      "text": "方阵230100400400"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none",
+      "box": [
+        1031.40185546875,
+        1775.9000244140625,
+        96,
+        96
+      ],
+      "text": ""
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_UNIT_BALLISTA_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        1023.39990234375,
+        1909.599853515625,
+        931.19970703125,
+        128.199951171875
+      ],
+      "text": "投射机1151030255220220"
+    },
+    {
+      "tag": "DIV",
+      "name": "ProductionChooserItem",
+      "cls": "pointer-events-auto fxs-chooser-item flex justify-stretch items-stretch relative production-chooser-item text-xs leading-tight hud_sidepanel_list-bg cursor-pointer bsu-ranked-item",
+      "box": [
+        1023.39990234375,
+        1909.599853515625,
+        931.19970703125,
+        113.800048828125
+      ],
+      "text": "投射机1151030255220220"
+    },
+    {
+      "tag": "DIV",
+      "name": "Icon",
+      "cls": "bg-center bg-contain bg-no-repeat bz-pci-icon size-12 bg-contain bg-center bg-no-repeat m-1 flex-shrink-0 pointer-events-none",
+      "box": [
+        1031.40185546875,
+        1918.4998779296875,
+        96,
+        96
+      ],
+      "text": ""
+    },
+    {
+      "tag": "PRODUCTION-CHOOSER-ITEM",
+      "name": "LOC_UNIT_ARCHER_NAME",
+      "cls": "text-base production-chooser-item",
+      "box": [
+        1023.39990234375,
+        2052.199951171875,
+        931.19970703125,
+        128.199951171875
+      ],
+      "text": "弓箭手2102010250200200"
+    }
+  ]
+}

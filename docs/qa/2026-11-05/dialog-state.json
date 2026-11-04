@@ -1,0 +1,20 @@
+{
+  "dialog": "退出至桌面确定要退出至桌面？所有未保存的进度将丢失！确定取消",
+  "buttons": [
+    {
+      "tag": "FXS-BUTTON",
+      "text": "确定",
+      "caption": "LOC_GENERIC_OK",
+      "rect": "{}"
+    },
+    {
+      "tag": "FXS-BUTTON",
+      "text": "取消",
+      "caption": "LOC_GENERIC_CANCEL",
+      "rect": "{}"
+    }
+  ],
+  "overlay": true,
+  "menu": false,
+  "turn": 106
+}

@@ -1,0 +1,86 @@
+{
+  "turn": 27,
+  "loaded": false,
+  "rest": false,
+  "overlay": false,
+  "mode": "INTERFACEMODE_UNSET",
+  "viewport": [
+    5120,
+    2160
+  ],
+  "body": "冰岛帝国文化 | 军事在奥丁护佑之下，冰岛勇士驾驭龙首战船，自苦寒极北之境破浪而出。北欧雄狮的雷霆之怒，天下海岸无一能逃。累累战利品高悬于长屋梁柱，辉煌功绩被萨迦诗人和游吟歌者传颂千古。握紧战斧，高举木桨，维京传奇始于今朝。文明能力 | 列王传奇•海上单位+1视野。•发现一座自然奇观时，获得250文化值（标准速度下）。提示与技巧“渡鸦之宴”传统使特色单位“维京人”能在2格范围内进行掠夺和沿岸扫荡。沿可航行河流航行进入内陆，展开劫掠！开始游戏",
+  "mods": [
+    {
+      "id": "civ7-garbage-time",
+      "enabled": false
+    },
+    {
+      "id": "civ7-autosave-limit",
+      "enabled": true
+    },
+    {
+      "id": "civ7-fenhe-ui",
+      "enabled": false
+    },
+    {
+      "id": "civ7-fenhe",
+      "enabled": false
+    },
+    {
+      "id": "civ7-command-console",
+      "enabled": true
+    },
+    {
+      "id": "civ7-play-again",
+      "enabled": false
+    },
+    {
+      "id": "civ7-mac-launcher",
+      "enabled": true
+    },
+    {
+      "id": "civ7-native-debug-input-launcher",
+      "enabled": false
+    },
+    {
+      "id": "civ7-native-debug-input",
+      "enabled": false
+    },
+    {
+      "id": "civ7-map-tools-gamepad",
+      "enabled": true
+    },
+    {
+      "id": "civ7-better-chinese-support",
+      "enabled": false
+    },
+    {
+      "id": "civ7-before-end-turn",
+      "enabled": true
+    },
+    {
+      "id": "civ7-war-controls",
+      "enabled": true
+    },
+    {
+      "id": "civ7-better-settlement-ui",
+      "enabled": true
+    },
+    {
+      "id": "civ7-better-policy-ui",
+      "enabled": true
+    },
+    {
+      "id": "civ7-resource-planner",
+      "enabled": true
+    },
+    {
+      "id": "civ7-rest-guard",
+      "enabled": false
+    },
+    {
+      "id": "civ7-research-transfer",
+      "enabled": true
+    }
+  ]
+}

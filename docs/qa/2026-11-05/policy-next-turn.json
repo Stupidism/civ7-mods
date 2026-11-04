@@ -1,0 +1,89 @@
+{
+  "result": [
+    {
+      "tab": "LOC_UI_POLICIES_OVERVIEW_TAB",
+      "skip": [
+        4170.67,
+        136,
+        96,
+        96
+      ],
+      "close": [
+        4266.67,
+        136,
+        96,
+        96
+      ],
+      "icon": [
+        4189.87,
+        155.2,
+        57.6,
+        57.6
+      ],
+      "class": "aoa-card-skip absolute top-5 right-4 size-12 pointer-events-auto cursor-pointer disabled cursor-not-allowed",
+      "tooltip": "当前没有需要跳过的空槽提醒。",
+      "cards": 0,
+      "slots": 0
+    },
+    {
+      "tab": "LOC_UI_POLICIES_POLICIES_TAB",
+      "skip": [
+        4170.67,
+        136,
+        96,
+        96
+      ],
+      "close": [
+        4266.67,
+        136,
+        96,
+        96
+      ],
+      "icon": [
+        4189.87,
+        155.2,
+        57.6,
+        57.6
+      ],
+      "class": "aoa-card-skip absolute top-5 right-4 size-12 pointer-events-auto cursor-pointer disabled cursor-not-allowed",
+      "tooltip": "当前没有需要跳过的空槽提醒。",
+      "cards": 12,
+      "slots": 3
+    },
+    {
+      "tab": "LOC_UI_POLICIES_CRISIS_TAB",
+      "skip": [
+        4170.67,
+        136,
+        96,
+        96
+      ],
+      "close": [
+        4266.67,
+        136,
+        96,
+        96
+      ],
+      "icon": [
+        4189.87,
+        155.2,
+        57.6,
+        57.6
+      ],
+      "class": "aoa-card-skip absolute top-5 right-4 size-12 pointer-events-auto cursor-pointer disabled cursor-not-allowed",
+      "tooltip": "当前没有需要跳过的空槽提醒。",
+      "cards": 0,
+      "slots": 0
+    }
+  ],
+  "disabledTested": true,
+  "before": {
+    "turn": 2,
+    "sent": false
+  },
+  "after": {
+    "turn": 2,
+    "sent": false,
+    "page": true
+  }
+}

@@ -1,0 +1,396 @@
+{
+  "turn": 1,
+  "before": [
+    {
+      "id": 65536,
+      "cap": 8,
+      "resources": [
+        {
+          "value": 1874,
+          "off": false,
+          "type": 1479152311
+        },
+        {
+          "value": 1879,
+          "off": false,
+          "type": 1406122326
+        }
+      ]
+    },
+    {
+      "id": 131073,
+      "cap": 3,
+      "resources": [
+        {
+          "value": 1191,
+          "off": false,
+          "type": 1406122326
+        }
+      ]
+    },
+    {
+      "id": 196610,
+      "cap": 1,
+      "resources": [
+        {
+          "value": 1211,
+          "off": false,
+          "type": 1079613569
+        }
+      ]
+    },
+    {
+      "id": 262147,
+      "cap": 3,
+      "resources": []
+    },
+    {
+      "id": 327684,
+      "cap": 1,
+      "resources": [
+        {
+          "value": 1448,
+          "off": false,
+          "type": 1079613569
+        }
+      ]
+    },
+    {
+      "id": 393221,
+      "cap": 1,
+      "resources": [
+        {
+          "value": 1770,
+          "off": false,
+          "type": 1406122326
+        }
+      ]
+    },
+    {
+      "id": 458758,
+      "cap": 1,
+      "resources": []
+    },
+    {
+      "id": 524295,
+      "cap": 3,
+      "resources": [
+        {
+          "value": 1967,
+          "off": false,
+          "type": 1479152311
+        }
+      ]
+    },
+    {
+      "id": 589832,
+      "cap": 1,
+      "resources": [
+        {
+          "value": 2274,
+          "off": false,
+          "type": 1406122326
+        }
+      ]
+    },
+    {
+      "id": 655369,
+      "cap": 1,
+      "resources": [
+        {
+          "value": 2109,
+          "off": false,
+          "type": 1406122326
+        }
+      ]
+    },
+    {
+      "id": 720906,
+      "cap": 3,
+      "resources": [
+        {
+          "value": 2290,
+          "off": false,
+          "type": 1406122326
+        }
+      ]
+    },
+    {
+      "id": 786443,
+      "cap": 1,
+      "resources": []
+    },
+    {
+      "id": 851980,
+      "cap": 3,
+      "resources": [
+        {
+          "value": 2705,
+          "off": false,
+          "type": 1479152311
+        }
+      ]
+    },
+    {
+      "id": 917517,
+      "cap": 6,
+      "resources": [
+        {
+          "value": 2969,
+          "off": false,
+          "type": -1746324013
+        }
+      ]
+    }
+  ],
+  "after": [
+    {
+      "id": 65536,
+      "cap": 8,
+      "resources": [
+        {
+          "value": 1689,
+          "off": false,
+          "type": -2044340950
+        },
+        {
+          "value": 1865,
+          "off": false,
+          "type": -800251555
+        },
+        {
+          "value": 1874,
+          "off": false,
+          "type": 1479152311
+        },
+        {
+          "value": 1879,
+          "off": false,
+          "type": 1406122326
+        },
+        {
+          "value": 2118,
+          "off": false,
+          "type": 399581372
+        },
+        {
+          "value": 2456,
+          "off": false,
+          "type": 464703006
+        },
+        {
+          "value": 2872,
+          "off": false,
+          "type": 399581372
+        },
+        {
+          "value": 3051,
+          "off": false,
+          "type": 464703006
+        }
+      ]
+    },
+    {
+      "id": 131073,
+      "cap": 3,
+      "resources": [
+        {
+          "value": 1191,
+          "off": false,
+          "type": 1406122326
+        },
+        {
+          "value": 1688,
+          "off": false,
+          "type": -1746324013
+        },
+        {
+          "value": 1777,
+          "off": false,
+          "type": -1746324013
+        }
+      ]
+    },
+    {
+      "id": 196610,
+      "cap": 1,
+      "resources": [
+        {
+          "value": 1211,
+          "off": false,
+          "type": 1079613569
+        }
+      ]
+    },
+    {
+      "id": 262147,
+      "cap": 3,
+      "resources": []
+    },
+    {
+      "id": 327684,
+      "cap": 1,
+      "resources": [
+        {
+          "value": 1448,
+          "off": false,
+          "type": 1079613569
+        }
+      ]
+    },
+    {
+      "id": 393221,
+      "cap": 1,
+      "resources": [
+        {
+          "value": 1770,
+          "off": false,
+          "type": 1406122326
+        }
+      ]
+    },
+    {
+      "id": 458758,
+      "cap": 1,
+      "resources": [
+        {
+          "value": 1126,
+          "off": false,
+          "type": 1406122326
+        }
+      ]
+    },
+    {
+      "id": 524295,
+      "cap": 3,
+      "resources": [
+        {
+          "value": 1364,
+          "off": false,
+          "type": 1406122326
+        },
+        {
+          "value": 1367,
+          "off": false,
+          "type": 1406122326
+        },
+        {
+          "value": 1967,
+          "off": false,
+          "type": 1479152311
+        }
+      ]
+    },
+    {
+      "id": 589832,
+      "cap": 1,
+      "resources": [
+        {
+          "value": 2274,
+          "off": false,
+          "type": 1406122326
+        }
+      ]
+    },
+    {
+      "id": 655369,
+      "cap": 1,
+      "resources": [
+        {
+          "value": 2109,
+          "off": false,
+          "type": 1406122326
+        }
+      ]
+    },
+    {
+      "id": 720906,
+      "cap": 3,
+      "resources": [
+        {
+          "value": 1801,
+          "off": false,
+          "type": 106691567
+        },
+        {
+          "value": 2290,
+          "off": false,
+          "type": 1406122326
+        },
+        {
+          "value": 2370,
+          "off": false,
+          "type": 106691567
+        }
+      ]
+    },
+    {
+      "id": 786443,
+      "cap": 1,
+      "resources": [
+        {
+          "value": 1277,
+          "off": false,
+          "type": 1406122326
+        }
+      ]
+    },
+    {
+      "id": 851980,
+      "cap": 3,
+      "resources": [
+        {
+          "value": 1462,
+          "off": false,
+          "type": 1406122326
+        },
+        {
+          "value": 2705,
+          "off": false,
+          "type": 1479152311
+        }
+      ]
+    },
+    {
+      "id": 917517,
+      "cap": 6,
+      "resources": [
+        {
+          "value": 1530,
+          "off": false,
+          "type": 1406122326
+        },
+        {
+          "value": 1798,
+          "off": false,
+          "type": -1746324013
+        },
+        {
+          "value": 1940,
+          "off": false,
+          "type": 1406122326
+        },
+        {
+          "value": 2362,
+          "off": false,
+          "type": -1746324013
+        },
+        {
+          "value": 2536,
+          "off": false,
+          "type": -1746324013
+        },
+        {
+          "value": 2969,
+          "off": false,
+          "type": -1746324013
+        }
+      ]
+    }
+  ],
+  "changed": true,
+  "status": [
+    "已完成：装入 20 份资源，调整 20 份"
+  ],
+  "text": "1623 (+405)+199+283+130158 (+46)14/10LOC_UI_RESOURCE_ALLOCATION_TITLELOC_COMMERCE_TRADE_ROUTES_TITLELOC_COMMERCE_EMPIRE_RESOURCE_TITLELOC_COMMERCE_TREASURE_RESOURCES_TITLE按倾向分配补足幸福度一键整理已完成：装入 20 份资源，调整 20 份资源空槽提醒：开分配范围包含骆驼资源包含已分配资源城市优先仅城镇定居点幸福度0以上5以上城市幸福度0以上20以上定居点排序▼资源高亮定居点城市（1）斯考尔霍特首都本土183114-5.71881.3399城镇（13）二分科技城镇本土发展城镇44278697553657.15拉帕哈城镇本土发展城镇522830362327182三分文化城镇本土发展城镇54299190267045劳加尔城镇本土发展城镇1201730.32.54.2-30霍夫城镇本土发展城镇22118275200霍拉尔城镇本土发展城镇1113223200一分搞钱城镇本土发展城镇54586684292405梅莱·哈韦阿城镇本土发展城镇11611.918.12.82.8-60堺市城镇本土发展城镇13251934.95.72.8-10霍斯库尔兹斯塔济尔城镇本土发展城镇41221113.61.92.6-70镰仓城镇本土发展城镇232123.823.82.82.1-60安土城镇本土发展城镇13205.4-4.11.20.8-160托洛阿城镇本土发展城镇32276-4.33.46.2-160未连入贸易网络（0）该分组暂无定居点重置倾向全部取消分配未分配+12+12相连城市资源城镇资源（通用）断开城市资源城镇资源（通用）长按 1 秒，本回合 跳过此项提醒"
+}

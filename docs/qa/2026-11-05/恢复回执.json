@@ -1,0 +1,20 @@
+{
+  "time": "2026-11-04T16:49:51.702787+00:00",
+  "gameClosed": true,
+  "saveFilesVerified": 479,
+  "directoriesVerified": 6,
+  "changedRestored": [
+    "Single/auto/AutoSave_休息_T49_261101-1407.Civ7Save",
+    "Single/auto/AutoSave_休息_T49_261101-1410.Civ7Save"
+  ],
+  "testFilesRemoved": [
+    "Single/Integration_20261105_FeatureQA.Civ7Save",
+    "Single/Integration_20261105_battle.Civ7Save",
+    "Single/Integration_20261105_exploration.Civ7Save",
+    "Single/auto/AutoSave_01_0002.Civ7Save",
+    "Single/auto/AutoSave_BeforeEndTurn_01_0001.Civ7Save"
+  ],
+  "runtimeRestored": 2,
+  "flagsAndSettingsVerified": true,
+  "recoveryArchivesDeleted": 4
+}

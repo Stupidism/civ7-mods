@@ -1,0 +1,346 @@
+TAP version 13
+# Subtest: 实机事件回放：能识别科研及文化的回合产出，保留小数，事件没有节点或实际入账字段
+ok 1 - 实机事件回放：能识别科研及文化的回合产出，保留小数，事件没有节点或实际入账字段
+  ---
+  duration_ms: 0.674791
+  type: 'test'
+  ...
+# Subtest: 实机回放：仅凭玩家产出和节点整数变化不赋予可转点数
+ok 2 - 实机回放：仅凭玩家产出和节点整数变化不赋予可转点数
+  ---
+  duration_ms: 0.24425
+  type: 'test'
+  ...
+# Subtest: 实机存档回读证据包含两条研究线每个可选节点及当前研究的阶级和点数
+ok 3 - 实机存档回读证据包含两条研究线每个可选节点及当前研究的阶级和点数
+  ---
+  duration_ms: 0.099042
+  type: 'test'
+  ...
+# Subtest: 公民身份 II 保留起始 50，娱乐原有 12 加上亲自投入的 30
+ok 4 - 公民身份 II 保留起始 50，娱乐原有 12 加上亲自投入的 30
+  ---
+  duration_ms: 1.50475
+  type: 'test'
+  ...
+# Subtest: 赠送与实际投入发生在同一次结算也仅搬动已归因的部分
+ok 5 - 赠送与实际投入发生在同一次结算也仅搬动已归因的部分
+  ---
+  duration_ms: 0.089625
+  type: 'test'
+  ...
+# Subtest: 连续往返、重复选择与延迟送达的旧改选均不复制点数
+ok 6 - 连续往返、重复选择与延迟送达的旧改选均不复制点数
+  ---
+  duration_ms: 0.646125
+  type: 'test'
+  ...
+# Subtest: 目标已有自己的已付点数，往返时仍可转走；赠点留在该项目
+ok 7 - 目标已有自己的已付点数，往返时仍可转走；赠点留在该项目
+  ---
+  duration_ms: 0.134416
+  type: 'test'
+  ...
+# Subtest: 科技分支按实际点数换算，保留定点小数
+ok 8 - 科技分支按实际点数换算，保留定点小数
+  ---
+  duration_ms: 0.374875
+  type: 'test'
+  ...
+# Subtest: 目标只差 3.25，只扣 3.25，剩余已付点数留在来源，完成项目不可再退款
+ok 9 - 目标只差 3.25，只扣 3.25，剩余已付点数留在来源，完成项目不可再退款
+  ---
+  duration_ms: 0.115667
+  type: 'test'
+  ...
+# Subtest: 随同一存档保存、序列化并重载后，继续沿用已证实的余额
+ok 10 - 随同一存档保存、序列化并重载后，继续沿用已证实的余额
+  ---
+  duration_ms: 0.236542
+  type: 'test'
+  ...
+# Subtest: 两个独立档位即使活动项目与进度相同，也按各自嵌入的账本恢复
+ok 11 - 两个独立档位即使活动项目与进度相同，也按各自嵌入的账本恢复
+  ---
+  duration_ms: 0.128375
+  type: 'test'
+  ...
+# Subtest: 旧存档缺失账本，已有 80 点全部保护，只能转走之后确证的新投入
+ok 12 - 旧存档缺失账本，已有 80 点全部保护，只能转走之后确证的新投入
+  ---
+  duration_ms: 0.075542
+  type: 'test'
+  ...
+# Subtest: 时代、玩家、局、阶段、重复次数或快照不符，以及损坏账本，均保护原点数
+ok 13 - 时代、玩家、局、阶段、重复次数或快照不符，以及损坏账本，均保护原点数
+  ---
+  duration_ms: 0.851416
+  type: 'test'
+  ...
+# Subtest: 不明增量、进度回退、重放入账或给非活动节点记入本人投入均不产生虚假余额
+ok 14 - 不明增量、进度回退、重放入账或给非活动节点记入本人投入均不产生虚假余额
+  ---
+  duration_ms: 0.204375
+  type: 'test'
+  ...
+# Subtest: 首次选择、已完成的来源及已满目标均不扣点
+ok 15 - 首次选择、已完成的来源及已满目标均不扣点
+  ---
+  duration_ms: 0.084292
+  type: 'test'
+  ...
+# Subtest: 按 1/256 点遍历可转余额与目标余量，双方守恒且起始点不动
+ok 16 - 按 1/256 点遍历可转余额与目标余量，双方守恒且起始点不动
+  ---
+  duration_ms: 1.987959
+  type: 'test'
+  ...
+# Subtest: S 实际适配器：退款后离开原项目、跳过累计、手动改选合并到账
+ok 17 - S 实际适配器：退款后离开原项目、跳过累计、手动改选合并到账
+  ---
+  duration_ms: 1.960042
+  type: 'test'
+  ...
+# Subtest: C 实际适配器：退款后离开原项目、跳过累计、手动改选合并到账
+ok 18 - C 实际适配器：退款后离开原项目、跳过累计、手动改选合并到账
+  ---
+  duration_ms: 0.911375
+  type: 'test'
+  ...
+# Subtest: 实际适配器：单回合跳过到期后，下一步进入选择页面而非直接过回合
+ok 19 - 实际适配器：单回合跳过到期后，下一步进入选择页面而非直接过回合
+  ---
+  duration_ms: 0.546167
+  type: 'test'
+  ...
+# Subtest: S 卡片退款：退非活动 A 不切走 B，连续退 A/B 合并余额且无自动领取
+ok 20 - S 卡片退款：退非活动 A 不切走 B，连续退 A/B 合并余额且无自动领取
+  ---
+  duration_ms: 0.612792
+  type: 'test'
+  ...
+# Subtest: C 卡片退款：退非活动 A 不切走 B，连续退 A/B 合并余额且无自动领取
+ok 21 - C 卡片退款：退非活动 A 不切走 B，连续退 A/B 合并余额且无自动领取
+  ---
+  duration_ms: 0.51325
+  type: 'test'
+  ...
+# Subtest: 短按只跳过本回合，必须确认切入暂存后才允许过回合
+ok 22 - 短按只跳过本回合，必须确认切入暂存后才允许过回合
+  ---
+  duration_ms: 0.685125
+  type: 'test'
+  ...
+# Subtest: 持续跳过跨回合及重载保持，点数留在真实暂存项目，旧项目不增加
+ok 23 - 持续跳过跨回合及重载保持，点数留在真实暂存项目，旧项目不增加
+  ---
+  duration_ms: 0.213292
+  type: 'test'
+  ...
+# Subtest: 持续跳过后再短按不会悄悄改成单回合；只有主动研究才退出
+ok 24 - 持续跳过后再短按不会悄悄改成单回合；只有主动研究才退出
+  ---
+  duration_ms: 0.063542
+  type: 'test'
+  ...
+# Subtest: 退款后要求重新选择；新暂存点数与原退款相加且不重复领取
+ok 25 - 退款后要求重新选择；新暂存点数与原退款相加且不重复领取
+  ---
+  duration_ms: 0.100625
+  type: 'test'
+  ...
+# Subtest: 暂存扣点尚未完成时不发放；完成后只发一次
+ok 26 - 暂存扣点尚未完成时不发放；完成后只发一次
+  ---
+  duration_ms: 0.093167
+  type: 'test'
+  ...
+# Subtest: 写入余额后中断，恢复时不把同笔暂存金额加两次
+ok 27 - 写入余额后中断，恢复时不把同笔暂存金额加两次
+  ---
+  duration_ms: 0.135333
+  type: 'test'
+  ...
+# Subtest: 目标尚未选中及未知发放结果不解冻、不重复发送
+ok 28 - 目标尚未选中及未知发放结果不解冻、不重复发送
+  ---
+  duration_ms: 0.076083
+  type: 'test'
+  ...
+# Subtest: 原版拒绝暂存选择时不宣称已跳过
+ok 29 - 原版拒绝暂存选择时不宣称已跳过
+  ---
+  duration_ms: 0.064
+  type: 'test'
+  ...
+# Subtest: 暂存切换尚未确认时，旧研究的迟到事件不能领回退款或结束跳过
+ok 30 - 暂存切换尚未确认时，旧研究的迟到事件不能领回退款或结束跳过
+  ---
+  duration_ms: 0.06925
+  type: 'test'
+  ...
+# Subtest: 领取中改选另一项目时不把钱发给旧目标或清掉等待状态
+ok 31 - 领取中改选另一项目时不把钱发给旧目标或清掉等待状态
+  ---
+  duration_ms: 0.105625
+  type: 'test'
+  ...
+# Subtest: mousebutton-left 短按和一秒长按互斥，松开和重复事件不再触发
+ok 32 - mousebutton-left 短按和一秒长按互斥，松开和重复事件不再触发
+  ---
+  duration_ms: 0.411417
+  type: 'test'
+  ...
+# Subtest: accept 短按和一秒长按互斥，松开和重复事件不再触发
+ok 33 - accept 短按和一秒长按互斥，松开和重复事件不再触发
+  ---
+  duration_ms: 0.049166
+  type: 'test'
+  ...
+# Subtest: shell-action-1 短按和一秒长按互斥，松开和重复事件不再触发
+ok 34 - shell-action-1 短按和一秒长按互斥，松开和重复事件不再触发
+  ---
+  duration_ms: 0.046375
+  type: 'test'
+  ...
+# Subtest: 失焦取消；先松手但未到定时器回调的长按仍按一秒判断
+ok 35 - 失焦取消；先松手但未到定时器回调的长按仍按一秒判断
+  ---
+  duration_ms: 0.061792
+  type: 'test'
+  ...
+# Subtest: 大额暂存按安全百分比多次扣除，重复结算不重复记账
+ok 36 - 大额暂存按安全百分比多次扣除，重复结算不重复记账
+  ---
+  duration_ms: 0.712375
+  type: 'test'
+  ...
+# Subtest: 点击退款只记一次，重复通知和读档不多发；只舍去来源小数
+ok 37 - 点击退款只记一次，重复通知和读档不多发；只舍去来源小数
+  ---
+  duration_ms: 0.586459
+  type: 'test'
+  ...
+# Subtest: 目标将满，只付显示差额；余款用于后一个目标
+ok 38 - 目标将满，只付显示差额；余款用于后一个目标
+  ---
+  duration_ms: 0.083458
+  type: 'test'
+  ...
+# Subtest: 先持久化扣款请求；原节点尚未清空不能收款
+ok 39 - 先持久化扣款请求；原节点尚未清空不能收款
+  ---
+  duration_ms: 0.101667
+  type: 'test'
+  ...
+# Subtest: 可主动改回原项目，正常选择和未覆盖的奖励节点不自行扣点
+ok 40 - 可主动改回原项目，正常选择和未覆盖的奖励节点不自行扣点
+  ---
+  duration_ms: 0.070542
+  type: 'test'
+  ...
+# Subtest: 未知入账结果保留原退款与事务标记，重载不再发放
+ok 41 - 未知入账结果保留原退款与事务标记，重载不再发放
+  ---
+  duration_ms: 0.145334
+  type: 'test'
+  ...
+# Subtest: 已有余额的异步退款：写入总额后中断，重载只合并一次
+ok 42 - 已有余额的异步退款：写入总额后中断，重载只合并一次
+  ---
+  duration_ms: 0.095458
+  type: 'test'
+  ...
+# Subtest: 暂存收款事务未结束时，普通卡片退款和旧扣款恢复均不抢写余额
+ok 43 - 暂存收款事务未结束时，普通卡片退款和旧扣款恢复均不抢写余额
+  ---
+  duration_ms: 0.052
+  type: 'test'
+  ...
+# Subtest: 旧版没有未来市政扣点定义时重现禁用按钮
+ok 44 - 旧版没有未来市政扣点定义时重现禁用按钮
+  ---
+  duration_ms: 1.389708
+  type: 'test'
+  ...
+# Subtest: antiquity C 已完成 0 轮后只退当前未完成进度
+ok 45 - antiquity C 已完成 0 轮后只退当前未完成进度
+  ---
+  duration_ms: 0.923292
+  type: 'test'
+  ...
+# Subtest: antiquity C 已完成 4 轮后只退当前未完成进度
+ok 46 - antiquity C 已完成 4 轮后只退当前未完成进度
+  ---
+  duration_ms: 0.503333
+  type: 'test'
+  ...
+# Subtest: antiquity S 已完成 0 轮后只退当前未完成进度
+ok 47 - antiquity S 已完成 0 轮后只退当前未完成进度
+  ---
+  duration_ms: 0.727917
+  type: 'test'
+  ...
+# Subtest: antiquity S 已完成 4 轮后只退当前未完成进度
+ok 48 - antiquity S 已完成 4 轮后只退当前未完成进度
+  ---
+  duration_ms: 0.331917
+  type: 'test'
+  ...
+# Subtest: exploration C 已完成 0 轮后只退当前未完成进度
+ok 49 - exploration C 已完成 0 轮后只退当前未完成进度
+  ---
+  duration_ms: 0.275209
+  type: 'test'
+  ...
+# Subtest: exploration C 已完成 4 轮后只退当前未完成进度
+ok 50 - exploration C 已完成 4 轮后只退当前未完成进度
+  ---
+  duration_ms: 0.370417
+  type: 'test'
+  ...
+# Subtest: exploration S 已完成 0 轮后只退当前未完成进度
+ok 51 - exploration S 已完成 0 轮后只退当前未完成进度
+  ---
+  duration_ms: 0.342958
+  type: 'test'
+  ...
+# Subtest: exploration S 已完成 4 轮后只退当前未完成进度
+ok 52 - exploration S 已完成 4 轮后只退当前未完成进度
+  ---
+  duration_ms: 0.313416
+  type: 'test'
+  ...
+# Subtest: modern C 已完成 0 轮后只退当前未完成进度
+ok 53 - modern C 已完成 0 轮后只退当前未完成进度
+  ---
+  duration_ms: 0.481666
+  type: 'test'
+  ...
+# Subtest: modern C 已完成 4 轮后只退当前未完成进度
+ok 54 - modern C 已完成 4 轮后只退当前未完成进度
+  ---
+  duration_ms: 0.484
+  type: 'test'
+  ...
+# Subtest: modern S 已完成 0 轮后只退当前未完成进度
+ok 55 - modern S 已完成 0 轮后只退当前未完成进度
+  ---
+  duration_ms: 0.35725
+  type: 'test'
+  ...
+# Subtest: modern S 已完成 4 轮后只退当前未完成进度
+ok 56 - modern S 已完成 4 轮后只退当前未完成进度
+  ---
+  duration_ms: 0.32875
+  type: 'test'
+  ...
+1..56
+# tests 56
+# suites 0
+# pass 56
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 74.253167

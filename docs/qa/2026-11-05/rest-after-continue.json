@@ -1,0 +1,38 @@
+{
+  "t": 1793810775836,
+  "elapsed": 197567,
+  "session": {
+    "version": 2,
+    "startedAt": 1793810578269,
+    "suspendedAt": null,
+    "lastInputAt": 1793810768728,
+    "idleRested": false,
+    "loading": false,
+    "loadingStartedAt": null,
+    "turnCount": 0,
+    "idleBreakStartedAt": null,
+    "countedToken": null,
+    "night": null,
+    "paidToken": null,
+    "pending": {
+      "token": "game:-526700269:player:0:age:2077444219:turn:106",
+      "turn": 106,
+      "reason": "time",
+      "durationMs": 60000,
+      "deadline": 1793810698417
+    }
+  },
+  "loadingState": 8,
+  "waiting": 7,
+  "started": 8,
+  "restEnabled": true,
+  "suspended": false,
+  "mode": "INTERFACEMODE_DEFAULT",
+  "deal": null,
+  "screen": [
+    [
+      "FXS-BUTTON",
+      "打开设置"
+    ]
+  ]
+}

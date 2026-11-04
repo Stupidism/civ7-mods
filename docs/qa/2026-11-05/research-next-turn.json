@@ -1,0 +1,95 @@
+{
+  "turn": 2,
+  "age": "AGE_EXPLORATION",
+  "player": 0,
+  "activeTurn": true,
+  "loaded": true,
+  "multiplayer": false,
+  "restGuard": {
+    "recognized": false,
+    "overlay": false
+  },
+  "lanes": {
+    "S": {
+      "active": {
+        "name": "NODE_RT_RESERVE_EX_S",
+        "hash": -1207111464,
+        "index": 259,
+        "exists": true,
+        "progress": 0,
+        "cost": 1000000,
+        "depth": 0,
+        "maxDepth": 1,
+        "repeatedDepth": 0
+      },
+      "target": -1,
+      "reserve": {
+        "name": "NODE_RT_RESERVE_EX_S",
+        "hash": -1207111464,
+        "index": 259,
+        "exists": true,
+        "progress": 0,
+        "cost": 1000000,
+        "depth": 0,
+        "maxDepth": 1,
+        "repeatedDepth": 0
+      },
+      "canReserve": {
+        "Success": true
+      },
+      "state": {
+        "BANK": 357,
+        "OWNER": 260,
+        "TX": 0,
+        "P_MODE": 3,
+        "P_TURN": 2,
+        "P_TARGET": 0,
+        "P_PARKED": 1,
+        "R_STEP": 0,
+        "R_BASE": 0,
+        "R_AMOUNT": 357
+      }
+    },
+    "C": {
+      "active": {
+        "name": "NODE_RT_RESERVE_EX_C",
+        "hash": -1514413892,
+        "index": 260,
+        "exists": true,
+        "progress": 0,
+        "cost": 1000000,
+        "depth": 0,
+        "maxDepth": 1,
+        "repeatedDepth": 0
+      },
+      "target": -1,
+      "reserve": {
+        "name": "NODE_RT_RESERVE_EX_C",
+        "hash": -1514413892,
+        "index": 260,
+        "exists": true,
+        "progress": 0,
+        "cost": 1000000,
+        "depth": 0,
+        "maxDepth": 1,
+        "repeatedDepth": 0
+      },
+      "canReserve": {
+        "Success": true
+      },
+      "state": {
+        "BANK": 525,
+        "OWNER": 261,
+        "TX": 0,
+        "P_MODE": 2,
+        "P_TURN": 2,
+        "P_TARGET": 0,
+        "P_PARKED": 1,
+        "R_STEP": 0,
+        "R_BASE": 0,
+        "R_AMOUNT": 525
+      }
+    }
+  },
+  "buttons": []
+}

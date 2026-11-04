@@ -1,0 +1,328 @@
+{
+  "q": {
+    "tag": "PANEL-BUILD-QUEUE",
+    "cls": "absolute left-3 h-full bsu-build-queue bsu-queue-mouse",
+    "y": 828,
+    "x": 2632,
+    "h": 1278,
+    "w": 837.60009765625,
+    "display": "block",
+    "visibility": "visible",
+    "height": "1278px",
+    "overflow": "visible"
+  },
+  "inner": {
+    "tag": "FXS-VSLOT",
+    "cls": "fxs-scrollable-content--last fxs-vslot build-queue__item-container-queued relative mr-2\\.5 grow",
+    "y": 846,
+    "x": 2632,
+    "h": 1260,
+    "w": 837.60009765625,
+    "display": "flex",
+    "visibility": "visible",
+    "height": "1260px",
+    "overflow": "visible"
+  },
+  "scroll": {
+    "tag": "DIV",
+    "cls": "flex flex-col fxs-scrollable-content-container max-w-full max-h-full overflow-y-scroll",
+    "y": 846,
+    "x": 2632,
+    "h": 1260,
+    "w": 837.60009765625,
+    "display": "flex",
+    "visibility": "visible",
+    "height": "auto",
+    "overflow": "scroll"
+  },
+  "rendered": [
+    {
+      "index": "0",
+      "row": {
+        "tag": "FXS-VSLOT",
+        "cls": "build-queue__item-container-outer fxs-vslot",
+        "y": 1926,
+        "x": 3050.7998046875,
+        "h": 180,
+        "w": 418.7998046875,
+        "display": "flex",
+        "visibility": "visible",
+        "height": "5rem",
+        "overflow": "visible",
+        "inline": "--bsu-row-top: 1080px;"
+      },
+      "button": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 1978.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hit": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 1978.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hittable": true
+    },
+    {
+      "index": "1",
+      "row": {
+        "tag": "FXS-VSLOT",
+        "cls": "build-queue__item-container-outer fxs-vslot",
+        "y": 1746,
+        "x": 3050.7998046875,
+        "h": 180,
+        "w": 418.7998046875,
+        "display": "flex",
+        "visibility": "visible",
+        "height": "5rem",
+        "overflow": "visible",
+        "inline": "--bsu-row-top: 900px;"
+      },
+      "button": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 1798.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hit": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 1798.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hittable": true
+    },
+    {
+      "index": "2",
+      "row": {
+        "tag": "FXS-VSLOT",
+        "cls": "build-queue__item-container-outer fxs-vslot",
+        "y": 1566,
+        "x": 3050.7998046875,
+        "h": 180,
+        "w": 418.7998046875,
+        "display": "flex",
+        "visibility": "visible",
+        "height": "5rem",
+        "overflow": "visible",
+        "inline": "--bsu-row-top: 720px;"
+      },
+      "button": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 1618.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hit": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 1618.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hittable": true
+    },
+    {
+      "index": "3",
+      "row": {
+        "tag": "FXS-VSLOT",
+        "cls": "build-queue__item-container-outer fxs-vslot",
+        "y": 1386,
+        "x": 3050.7998046875,
+        "h": 180,
+        "w": 418.7998046875,
+        "display": "flex",
+        "visibility": "visible",
+        "height": "5rem",
+        "overflow": "visible",
+        "inline": "--bsu-row-top: 540px;"
+      },
+      "button": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 1438.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hit": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 1438.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hittable": true
+    },
+    {
+      "index": "4",
+      "row": {
+        "tag": "FXS-VSLOT",
+        "cls": "build-queue__item-container-outer fxs-vslot",
+        "y": 1206,
+        "x": 3050.7998046875,
+        "h": 180,
+        "w": 418.7998046875,
+        "display": "flex",
+        "visibility": "visible",
+        "height": "5rem",
+        "overflow": "visible",
+        "inline": "--bsu-row-top: 360px;"
+      },
+      "button": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 1258.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hit": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 1258.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hittable": true
+    },
+    {
+      "index": "5",
+      "row": {
+        "tag": "FXS-VSLOT",
+        "cls": "build-queue__item-container-outer fxs-vslot",
+        "y": 1026,
+        "x": 3050.7998046875,
+        "h": 180,
+        "w": 418.7998046875,
+        "display": "flex",
+        "visibility": "visible",
+        "height": "5rem",
+        "overflow": "visible",
+        "inline": "--bsu-row-top: 180px;"
+      },
+      "button": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 1078.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hit": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 1078.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hittable": true
+    },
+    {
+      "index": "6",
+      "row": {
+        "tag": "FXS-VSLOT",
+        "cls": "build-queue__item-container-outer fxs-vslot",
+        "y": 846,
+        "x": 3050.7998046875,
+        "h": 180,
+        "w": 418.7998046875,
+        "display": "flex",
+        "visibility": "visible",
+        "height": "5rem",
+        "overflow": "visible",
+        "inline": "--bsu-row-top: 0px;"
+      },
+      "button": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 898.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hit": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 898.47998046875,
+        "x": 3403.07958984375,
+        "h": 54,
+        "w": 54,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hittable": true
+    }
+  ],
+  "actual": 7
+}

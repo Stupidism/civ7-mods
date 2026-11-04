@@ -1,0 +1,172 @@
+{
+  "mode": "city",
+  "root": "PANEL-PRODUCTION-CHOOSER",
+  "turn": 106,
+  "city": "LOC_CITY_NAME_ICELAND1",
+  "purchase": false,
+  "viewport": [
+    5120,
+    2160
+  ],
+  "matches": [
+    {
+      "tag": "PANEL-BUILD-QUEUE",
+      "name": null,
+      "cl": "absolute left-3 h-full bsu-build-queue bsu-queue-mouse",
+      "rect": [
+        2632,
+        1908,
+        837.6,
+        198
+      ],
+      "text": "生产中1",
+      "dis": null,
+      "aria": null,
+      "display": "block"
+    },
+    {
+      "tag": "FXS-VSLOT",
+      "name": null,
+      "cl": "build-queue__item-container-outer fxs-vslot",
+      "rect": [
+        3050.8,
+        1926,
+        418.8,
+        180
+      ],
+      "text": "生产中1",
+      "dis": null,
+      "aria": null,
+      "display": "flex"
+    }
+  ],
+  "allKeys": [
+    "LOC_BUILDING_GRANARY_NAME",
+    "ProductionChooserItem",
+    "Icon",
+    "LOC_BUILDING_SAW_PIT_NAME",
+    "LOC_BUILDING_BLACKSMITH_NAME",
+    "LOC_BUILDING_HARBOR_NAME",
+    "LOC_BUILDING_ANCIENT_BRIDGE_NAME",
+    "LOC_BUILDING_FISHING_QUAY_NAME",
+    "LOC_BUILDING_ANCIENT_WALLS_NAME",
+    "LOC_UNIT_SETTLER_NAME",
+    "LOC_UNIT_SCOUT_NAME",
+    "LOC_UNIT_MERCHANT_NAME",
+    "LOC_UNIT_ARMY_COMMANDER_NAME",
+    "LOC_UNIT_HORSEMAN_NAME",
+    "LOC_UNIT_PHALANX_NAME",
+    "LOC_UNIT_BALLISTA_NAME",
+    "LOC_UNIT_ARCHER_NAME",
+    "LOC_UNIT_QUADRIREME_NAME",
+    "LOC_WONDER_MAUSOLEUM_AT_HALICARNASSUS_NAME",
+    "LOC_WONDER_MONKS_MOUND_NAME",
+    "LOC_WONDER_ANGKOR_WAT_NAME",
+    "LOC_PROJECT_CITY_CULTURE_PROJECT_NAME",
+    "LOC_PROJECT_CITY_SCIENCE_PROJECT_NAME",
+    "LOC_UI_FOOD_CHOOSER_FOCUS_GROWTH"
+  ],
+  "ageless": [
+    {
+      "cat": "buildings",
+      "txt": "跨时代粮仓无时代限制+7+2+1+155110.0551",
+      "mark": "跨时代",
+      "hiddenPill": "none"
+    },
+    {
+      "cat": "buildings",
+      "txt": "跨时代锯木场无时代限制+3+1+1+155112.2551",
+      "mark": "跨时代",
+      "hiddenPill": "none"
+    },
+    {
+      "cat": "buildings",
+      "txt": "跨时代港湾无时代限制+1+155127.5551",
+      "mark": "跨时代",
+      "hiddenPill": "none"
+    },
+    {
+      "cat": "buildings",
+      "txt": "跨时代渔场无时代限制+1551110.0551",
+      "mark": "跨时代",
+      "hiddenPill": "none"
+    },
+    {
+      "cat": "wonders",
+      "txt": "摩索拉斯王陵墓无时代限制已在建造队列中。21312131",
+      "mark": null,
+      "hiddenPill": "none"
+    },
+    {
+      "cat": "wonders",
+      "txt": "僧侣墩无时代限制+3+145034503",
+      "mark": null,
+      "hiddenPill": "none"
+    },
+    {
+      "cat": "wonders",
+      "txt": "吴哥窟无时代限制+3+145034503",
+      "mark": null,
+      "hiddenPill": "none"
+    }
+  ],
+  "tabsBox": [
+    72,
+    288,
+    3409.6,
+    96
+  ],
+  "queue": [
+    {
+      "orderType": 2,
+      "kind": -1504597204,
+      "type": -1020973792,
+      "modifiers": 0,
+      "location": {
+        "x": 25,
+        "y": 22
+      },
+      "instance": {
+        "owner": 0,
+        "id": 15925366,
+        "type": 2
+      },
+      "constructibleType": -1020973792,
+      "projectType": -1,
+      "unitType": -1
+    }
+  ],
+  "buttons": [
+    {
+      "tag": "FXS-CLOSE-BUTTON",
+      "name": null,
+      "cl": "absolute fxs-close-button size-12 cursor-pointer group top-1 right-1",
+      "rect": [
+        3409.6,
+        104,
+        96,
+        96
+      ],
+      "text": "",
+      "dis": null,
+      "aria": null,
+      "display": "block"
+    },
+    {
+      "tag": "FXS-CLOSE-BUTTON",
+      "name": null,
+      "cl": "absolute top-0 right-0 fxs-close-button size-12 cursor-pointer group right-1 top-1",
+      "rect": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "text": "",
+      "dis": null,
+      "aria": null,
+      "display": "block"
+    }
+  ],
+  "sample": "斯考尔霍特95102-34193.75671190.1城镇重心“发展城镇”是默认重心，新发展重心可在上方选择。查看隐藏项查看隐藏项购买生产购买定居点陷入动乱！0回合后你可以进行购买或改变重心。建筑跨时代粮仓无时代限制+7+2+1+155110.0551跨时代锯木场无时代限制+3+1+1+155112.2551冶铁坊+12+1+1-2-2324324.03243跨时代港湾无时代限制+1+155127.5551远古桥梁+4-21001100.01001跨时代渔场无时代限制+1551110.0551远古城墙601∞601 新排序单位开拓者323022302探路者2301301商人418021802军队指挥官270067006骑手33512021202方阵23010011001投射机11510302551551弓箭手21020102501501四段帆船3302520901901 新排序奇观摩索拉斯王陵墓无时代限制已在建造队列中。21312131僧侣墩无时代限制+3+145034503吴哥窟无时代"
+}

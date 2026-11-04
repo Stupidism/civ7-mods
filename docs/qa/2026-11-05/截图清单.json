@@ -1,0 +1,46 @@
+{
+  "01-城市生产与队列.jpg": {
+    "originalSHA256": "f73b5efffb9f73c746224257da505f7f1445d3b97c9db6289e4b71a03f04fdd0",
+    "preview": "截图/01-城市生产与队列.png"
+  },
+  "02-队列实际点击取消通过.jpg": {
+    "originalSHA256": "835abfea0c6c349d20335dc8a1f3cfdbd69deee85f980f2fe8ce433705302143",
+    "preview": "截图/02-队列实际点击取消通过.png"
+  },
+  "03-城镇首次打开双列布局.jpg": {
+    "originalSHA256": "87b6f8ec82c41e7bc9a2087e2e3ab8cc7a46f53846f4941349594d1810c9aa1f",
+    "preview": "截图/03-城镇首次打开双列布局.png"
+  },
+  "04-城镇重心与详情不重叠.jpg": {
+    "originalSHA256": "1d62c48dee7c8f21c86f359a63e55541aee79b51ab1ee324593486f6c817380c",
+    "preview": "截图/04-城镇重心与详情不重叠.png"
+  },
+  "05-资源页当前状态.jpg": {
+    "originalSHA256": "332a7d341d797ff70f7a4d3dc731cd33aad5f757dc17ad489b9a759d05de0042",
+    "preview": "截图/05-资源页当前状态.png"
+  },
+  "06-政策空槽提醒禁用状态.jpg": {
+    "originalSHA256": "e7c39f114afff170218bbe4a968d96910e680af87d9efbd23ddabbf5e6a64bf2",
+    "preview": "截图/06-政策空槽提醒禁用状态.png"
+  },
+  "08-资源实际分配完成.jpg": {
+    "originalSHA256": "f5714dc80e9979a70ba1e3030235941b3f8eb221d5e037051e9eef4576c1b96a",
+    "preview": "截图/08-资源实际分配完成.png"
+  },
+  "09-探索时代跨回合科文储存.jpg": {
+    "originalSHA256": "57f6fe08d04516031c616ad814560ce67d96be48e9e4207585f7ec9148cdf8e6",
+    "preview": "截图/09-探索时代跨回合科文储存.png"
+  },
+  "10-战斗样本载入状态.jpg": {
+    "originalSHA256": "4788c8f1cccf84ce3092794a2d08047e13ac7fb226b83b8ba2fe30b62c68b17f",
+    "preview": "截图/10-战斗样本载入状态.png"
+  },
+  "13-休息退出确认.png": {
+    "originalSHA256": "2da149e6a9527d4762b9eee7c32273a81e1fc41e10b86d95b9f20cf1e5b2385b",
+    "preview": "截图/13-休息退出确认.png"
+  },
+  "14-取消退出保留休息.png": {
+    "originalSHA256": "9983858da1a1a47247615af26b8854fb3b8af20f3950623300c14ab57d77eb14",
+    "preview": "截图/14-取消退出保留休息.png"
+  }
+}

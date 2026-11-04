@@ -1,0 +1,810 @@
+[
+  {
+    "key": "zhFKaKM",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFKaKM",
+    "mod": "civ7-rest-guard",
+    "title": "不再来一回合：读档及等待开始被误算为连续游戏时长",
+    "previous": "未通过",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "本轮Rest启用且未用debug活动标记。等待开始阶段两次采样间隔2612ms，elapsed均0、loading=true；原生开始操作后地图就绪，loading=false、elapsed增长至13391ms，随后正常触发一分钟休息。",
+    "files": [
+      "rest-wait-sample.json",
+      "rest-clock-start.json",
+      "rest-clock-later.json",
+      "rest-after-continue.json"
+    ],
+    "shot": "14-取消退出保留休息.png",
+    "testedBuild": "1.8.7-dev.1103-2223-9b620247"
+  },
+  {
+    "key": "zhFKaN0",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFKaN0",
+    "mod": "civ7-rest-guard",
+    "title": "不再来一回合：未完成和平谈判时强制休息无法打开设置",
+    "previous": "待实机验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "普通地图及夜间休息的原生菜单/选项通过，但未完成和平谈判或外交等待的专项复现，不外推为通过。",
+    "files": [
+      "rest-menu-clock.json",
+      "rest-confirm.json"
+    ],
+    "shot": null,
+    "testedBuild": "1.8.7-dev.1103-2223-9b620247"
+  },
+  {
+    "key": "zhFTmk4",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFTmk4",
+    "mod": "civ7-better-settlement-ui",
+    "title": "生产队列的取消按钮被城市详情遮挡",
+    "previous": "待复测",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "T106 城市详情同时打开；原生队列输入完成左键提前、右键取消，实际系统鼠标点击取消后队列 7→6；全部可见行中心命中正确。限本轮 5120×2160 游戏视口。",
+    "files": [
+      "queue.json",
+      "queue-hit.json",
+      "queue-native-click.json"
+    ],
+    "shot": "02-队列实际点击取消通过.jpg",
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "WAR-02",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVmk4",
+    "mod": "civ7-war-controls",
+    "title": "自动攻击后保留选中单位",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "战斗副本载入停在末尾：Loading.isLoaded=false，WorldUI未定义，War运行入口未注册；未绕过原生就绪门槛。开发会话核对同摘要样本曾在同版游戏成功，不能判定存档不兼容或归因War。商人占格专用样本也未确认。",
+    "files": [
+      "battle-after-start.json",
+      "battle-ui-errors.txt"
+    ],
+    "shot": "10-战斗样本载入状态.jpg",
+    "testedBuild": "0.6.3-dev.1102-2206-21d296ec"
+  },
+  {
+    "key": "WAR-03",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVmqg",
+    "mod": "civ7-war-controls",
+    "title": "加入军队后保留预期选中状态",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "战斗副本载入停在末尾：Loading.isLoaded=false，WorldUI未定义，War运行入口未注册；未绕过原生就绪门槛。开发会话核对同摘要样本曾在同版游戏成功，不能判定存档不兼容或归因War。商人占格专用样本也未确认。",
+    "files": [
+      "battle-after-start.json",
+      "battle-ui-errors.txt"
+    ],
+    "shot": "10-战斗样本载入状态.jpg",
+    "testedBuild": "0.6.3-dev.1102-2206-21d296ec"
+  },
+  {
+    "key": "WAR-05",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVm0s",
+    "mod": "civ7-war-controls",
+    "title": "增援时用上键切换目标并用 Esc 返回镜头",
+    "previous": "待复测",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "战斗副本载入停在末尾：Loading.isLoaded=false，WorldUI未定义，War运行入口未注册；未绕过原生就绪门槛。开发会话核对同摘要样本曾在同版游戏成功，不能判定存档不兼容或归因War。商人占格专用样本也未确认。",
+    "files": [
+      "battle-after-start.json",
+      "battle-ui-errors.txt"
+    ],
+    "shot": "10-战斗样本载入状态.jpg",
+    "testedBuild": "0.6.3-dev.1102-2206-21d296ec"
+  },
+  {
+    "key": "POL-02",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVnHc",
+    "mod": "civ7-better-policy-ui",
+    "title": "空政策槽关闭时延后并允许本回合跳过",
+    "previous": "待复测",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待复测",
+    "note": "受测旧构建：有空槽时长按跳过使按钮禁用、页面保持打开、三个已提交槽数组仍为空、回合不变。T2已无空槽，不能证明跨回合提醒恢复。统测发现观察器异常后开发会话已改源码，最新补丁未安装，旧实机结果不沿用。",
+    "files": [
+      "policy-hold.json",
+      "policy-next-turn.json"
+    ],
+    "shot": "06-政策空槽提醒禁用状态.jpg",
+    "testedBuild": "0.2.2-dev.1103-1153-1533bfdb + 提醒模块 d9a12fb92781"
+  },
+  {
+    "key": "BSU-03",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVnWw",
+    "mod": "civ7-better-settlement-ui",
+    "title": "在项目栏按右列优先排列队列并支持跨列导航",
+    "previous": "未通过",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "部分验收",
+    "note": "队列从 1→8 项，第八项进入左列；右列优先几何与鼠标命中通过，跨列实体手柄导航未测。",
+    "files": [
+      "queue.json",
+      "queue-hit.json"
+    ],
+    "shot": "02-队列实际点击取消通过.jpg",
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "BSU-04",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVnbY",
+    "mod": "civ7-better-settlement-ui",
+    "title": "仅为跨时代建筑显示角标，隐藏奇观标签",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "粮仓、锯木场、港湾、渔场显示跨时代角标；摩索拉斯王陵墓、僧侣墩、吴哥窟没有该角标，原生重复标签隐藏。",
+    "files": [
+      "city.json"
+    ],
+    "shot": "01-城市生产与队列.jpg",
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "BSU-05",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVnhw",
+    "mod": "civ7-better-settlement-ui",
+    "title": "用鼠标在生产队列中上移或取消项目",
+    "previous": "未通过",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "T106 城市详情同时打开；原生队列输入完成左键提前、右键取消，实际系统鼠标点击取消后队列 7→6；全部可见行中心命中正确。限本轮 5120×2160 游戏视口。",
+    "files": [
+      "queue.json",
+      "queue-hit.json",
+      "queue-native-click.json"
+    ],
+    "shot": "02-队列实际点击取消通过.jpg",
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "BSU-06",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVnm0",
+    "mod": "civ7-better-settlement-ui",
+    "title": "关闭未完成建造后排尾或显式跳过当前城市",
+    "previous": "待复测",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "部分验收",
+    "note": "空生产队列城市长按跳过 1.1 秒，在松手前关闭面板；队列仍空，回合仍106，未发送结束回合。普通关闭排尾及下回合恢复未完整覆盖。",
+    "files": [
+      "skip-city.json"
+    ],
+    "shot": null,
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "RP-02",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVnvs",
+    "mod": "civ7-resource-planner",
+    "title": "应用实际可分配资源并核对完成结果",
+    "previous": "待实机验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "探索1回合资源未锁定，通过原生“按倾向分配”按钮，实际分配12→32份，与状态“装入20份、调整20份”一致；14个定居点没有超容量。",
+    "files": [
+      "rp-examine.json",
+      "rp-run.json"
+    ],
+    "shot": "08-资源实际分配完成.jpg",
+    "testedBuild": "1.4.2-dev.1103-2038-c953488d"
+  },
+  {
+    "key": "RP-03",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVnz8",
+    "mod": "civ7-resource-planner",
+    "title": "分配失败时回滚资源变更",
+    "previous": "待实机验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "没有可自然复现的原生分配失败样本；未通过伪造 sendRequest 或改写引擎返回值冒充失败回滚实测。离线140项通过。",
+    "files": [
+      "civ7-resource-planner.tap"
+    ],
+    "shot": null,
+    "testedBuild": "1.4.2-dev.1103-2038-c953488d"
+  },
+  {
+    "key": "RP-05",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVn-0",
+    "mod": "civ7-resource-planner",
+    "title": "损坏资源不参与收益、分配和空槽提醒",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "部分验收",
+    "note": "T106和探索T1均读取真实资源清单，但损坏样本数均为0；不将空集合检查视为损坏排除验收。",
+    "files": [
+      "rp-damage.json",
+      "rp-exploration-inventory.json"
+    ],
+    "shot": null,
+    "testedBuild": "1.4.2-dev.1103-2038-c953488d"
+  },
+  {
+    "key": "RP-06",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVoCc",
+    "mod": "civ7-resource-planner",
+    "title": "在定居点列表末尾重置资源倾向",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "修改倾向再滚至列表末尾点击重置，倾向改变并恢复；按钮可命中，所有定居点资源分配前后完全一致。",
+    "files": [
+      "rp-reset.json"
+    ],
+    "shot": "05-资源页当前状态.jpg",
+    "testedBuild": "1.4.2-dev.1103-2038-c953488d"
+  },
+  {
+    "key": "RP-07",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVoHg",
+    "mod": "civ7-resource-planner",
+    "title": "将资源选项贴底并标出空槽提醒的选中状态",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "部分验收",
+    "note": "截图确认设置区贴底和提醒开启金框；本轮未完成开启/关闭全路径及实体手柄回归。",
+    "files": [
+      "resource.json"
+    ],
+    "shot": "05-资源页当前状态.jpg",
+    "testedBuild": "1.4.2-dev.1103-2038-c953488d"
+  },
+  {
+    "key": "RP-08",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVoMo",
+    "mod": "civ7-resource-planner",
+    "title": "按合法空槽生成资源提醒并支持当回合跳过",
+    "previous": "待复测",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "分配成功路径已通过，但合法空槽提醒/跨回合跳过及仅剩盐等条件产能资源的定向样本未完成；不得由分配成功推断提醒正确。",
+    "files": [
+      "rp-run.json",
+      "civ7-resource-planner.tap"
+    ],
+    "shot": null,
+    "testedBuild": "1.4.2-dev.1103-2038-c953488d"
+  },
+  {
+    "key": "RES-01",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVpt4",
+    "mod": "civ7-research-transfer",
+    "title": "改选研究时精确扣原节点并向新节点等额转点",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "旧自动转点/来源账本原型任务，当前0.3.1已改为显式卡片退款与暂存。任务验收标准不等同于现行实现，保留历史且不以新流程通过覆盖旧原型。",
+    "files": [
+      "research-source.json"
+    ],
+    "shot": null,
+    "testedBuild": "0.3.1+1105-0315-fd11f517"
+  },
+  {
+    "key": "RES-02",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVpy4",
+    "mod": "civ7-research-transfer",
+    "title": "区分科技和市政的自付、赠点与溢出来源",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "旧自动转点/来源账本原型任务，当前0.3.1已改为显式卡片退款与暂存。任务验收标准不等同于现行实现，保留历史且不以新流程通过覆盖旧原型。",
+    "files": [
+      "research-source.json"
+    ],
+    "shot": null,
+    "testedBuild": "0.3.1+1105-0315-fd11f517"
+  },
+  {
+    "key": "RES-03",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVp4w",
+    "mod": "civ7-research-transfer",
+    "title": "读档后恢复转点账本并保护来源未知的旧档",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "旧自动转点/来源账本原型任务，当前0.3.1已改为显式卡片退款与暂存。任务验收标准不等同于现行实现，保留历史且不以新流程通过覆盖旧原型。",
+    "files": [
+      "research-source.json"
+    ],
+    "shot": null,
+    "testedBuild": "0.3.1+1105-0315-fd11f517"
+  },
+  {
+    "key": "BSU-07",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVp-k",
+    "mod": "civ7-better-settlement-ui",
+    "title": "生产页顶部页签等分整行宽度",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "生产/购买两页签实测等宽 1688.8，覆盖当前行。限当前视口。",
+    "files": [
+      "queue.json"
+    ],
+    "shot": "01-城市生产与队列.jpg",
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "POL-03",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVqDg",
+    "mod": "civ7-better-policy-ui",
+    "title": "政策页顶部页签等分整行宽度",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待复测",
+    "note": "受测旧构建三页签等宽1180.4；三页切换后跳过按钮始终为96×96，紧邻关闭按钮，图标57.6居中。随后开发会话修复观察器，最新补丁未安装/实机复测，不能沿用旧验收。",
+    "files": [
+      "policy-input.json",
+      "policy-exploration.json"
+    ],
+    "shot": "06-政策空槽提醒禁用状态.jpg",
+    "testedBuild": "0.2.2-dev.1103-1153-1533bfdb + 提醒模块 d9a12fb92781"
+  },
+  {
+    "key": "RP-09",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVqIs",
+    "mod": "civ7-resource-planner",
+    "title": "资源页顶部页签等分整行宽度",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "T106资源三页签等宽1180.4；探索时代四页签截图正常铺满，限当前视口。",
+    "files": [
+      "resource.json"
+    ],
+    "shot": "08-资源实际分配完成.jpg",
+    "testedBuild": "1.4.2-dev.1103-2038-c953488d"
+  },
+  {
+    "key": "POL-04",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVqVk",
+    "mod": "civ7-better-policy-ui",
+    "title": "政策页跳过按钮跟随原生关闭按钮",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待复测",
+    "note": "受测旧构建三页签等宽1180.4；三页切换后跳过按钮始终为96×96，紧邻关闭按钮，图标57.6居中。随后开发会话修复观察器，最新补丁未安装/实机复测，不能沿用旧验收。",
+    "files": [
+      "policy-input.json",
+      "policy-exploration.json"
+    ],
+    "shot": "06-政策空槽提醒禁用状态.jpg",
+    "testedBuild": "0.2.2-dev.1103-1153-1533bfdb + 提醒模块 d9a12fb92781"
+  },
+  {
+    "key": "RP-10",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVqas",
+    "mod": "civ7-resource-planner",
+    "title": "资源页跳过按钮跟随原生关闭按钮",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "部分验收",
+    "note": "资源页跳过图标视觉紧邻关闭按钮；本轮未覆盖缩放/窗口变化和实体手柄。",
+    "files": [
+      "resource.json"
+    ],
+    "shot": "05-资源页当前状态.jpg",
+    "testedBuild": "1.4.2-dev.1103-2038-c953488d"
+  },
+  {
+    "key": "BSU-09",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVrW8",
+    "mod": "civ7-better-settlement-ui",
+    "title": "完工或覆盖建造后核对建筑净收益",
+    "previous": "待实机验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "本轮模块离线92项通过；尚缺完工/覆盖前后产出对照及损坏建筑修复样本，没有将预估值或旧截图作为实机通过。",
+    "files": [
+      "civ7-better-settlement-ui.tap"
+    ],
+    "shot": null,
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "BSU-10",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVrfc",
+    "mod": "civ7-better-settlement-ui",
+    "title": "修复损坏建筑后更新生产与收益展示",
+    "previous": "待实机验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "本轮模块离线92项通过；尚缺完工/覆盖前后产出对照及损坏建筑修复样本，没有将预估值或旧截图作为实机通过。",
+    "files": [
+      "civ7-better-settlement-ui.tap"
+    ],
+    "shot": null,
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "RG-03",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVrl4",
+    "mod": "civ7-rest-guard",
+    "title": "在新休息构建回归夜间限制",
+    "previous": "待复测",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "用临时设置将当前本地时间纳入夜间窗口，真实夜间弹窗显示03:41–03:56、继续禁用；通过原生选项关闭夜间限制并确认后生效。未改系统时间。",
+    "files": [
+      "rest-night.json",
+      "rest-confirm.json"
+    ],
+    "shot": null,
+    "testedBuild": "1.8.7-dev.1103-2223-9b620247"
+  },
+  {
+    "key": "RG-04",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVrr0",
+    "mod": "civ7-rest-guard",
+    "title": "在新休息构建回归回合阈值触发",
+    "previous": "待复测",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "已设每回合阈值1进行探测，但T106属于已付费/已计数token，提交后本样本未进入下一本地回合；不足以证明新的阈值触发。未强改内部计数。",
+    "files": [
+      "rest-turn.json",
+      "rest-turn-next.json"
+    ],
+    "shot": null,
+    "testedBuild": "1.8.7-dev.1103-2223-9b620247"
+  },
+  {
+    "key": "RG-05",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFVrv8",
+    "mod": "civ7-rest-guard",
+    "title": "在休息流程验证退出确认和取消",
+    "previous": "待复测",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "真实系统Esc打开“退出至桌面”原生确认框；通过原生取消按钮取消，确认框关闭、休息弹窗保留、T106不变且未提交回合。",
+    "files": [
+      "dialog-state.json",
+      "rest-cancel.json"
+    ],
+    "shot": "13-休息退出确认.png",
+    "testedBuild": "1.8.7-dev.1103-2223-9b620247"
+  },
+  {
+    "key": "zhFWS5M",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFWS5M",
+    "mod": "civ7-rest-guard",
+    "title": "【不再来一回合】读档后已进入可操作地图，游玩时钟仍停在加载状态",
+    "previous": "未通过",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "本轮Rest启用且未用debug活动标记。等待开始阶段两次采样间隔2612ms，elapsed均0、loading=true；原生开始操作后地图就绪，loading=false、elapsed增长至13391ms，随后正常触发一分钟休息。",
+    "files": [
+      "rest-wait-sample.json",
+      "rest-clock-start.json",
+      "rest-clock-later.json",
+      "rest-after-continue.json"
+    ],
+    "shot": "14-取消退出保留休息.png",
+    "testedBuild": "1.8.7-dev.1103-2223-9b620247"
+  },
+  {
+    "key": "zhFWTyg",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFWTyg",
+    "mod": "civ7-better-settlement-ui",
+    "title": "【定居点界面】双列生产队列绘制在滚动区上方，取消按钮无法用鼠标命中",
+    "previous": "未通过",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "T106 城市详情同时打开；原生队列输入完成左键提前、右键取消，实际系统鼠标点击取消后队列 7→6；全部可见行中心命中正确。限本轮 5120×2160 游戏视口。",
+    "files": [
+      "queue.json",
+      "queue-hit.json",
+      "queue-native-click.json"
+    ],
+    "shot": "02-队列实际点击取消通过.jpg",
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "RES-04",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFXh30",
+    "mod": "civ7-research-transfer",
+    "title": "点击取消研究退还整数点数，再用原版科技／市政卡片领取",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "部分验收",
+    "note": "当前0.3.1离线56项通过。探索T2选择原生市政后暂存文化525→35、退出暂停；开局经济项目按产品边界不支持退款。未完成本轮卡片退款/未来轮次实机闭环；开发会话此前同构建证据单列，不替代本轮。",
+    "files": [
+      "research-chosen.json",
+      "research-choose.json",
+      "research.tap"
+    ],
+    "shot": null,
+    "testedBuild": "0.3.1+1105-0315-fd11f517"
+  },
+  {
+    "key": "zhFYgUA",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFYgUA",
+    "mod": "civ7-better-settlement-ui",
+    "title": "建造预览漏扣被替换改良和幸福度的负收益",
+    "previous": "待复测",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "本轮模块离线92项通过；尚缺完工/覆盖前后产出对照及损坏建筑修复样本，没有将预估值或旧截图作为实机通过。",
+    "files": [
+      "civ7-better-settlement-ui.tap"
+    ],
+    "shot": null,
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "zhFZeI4",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFZeI4",
+    "mod": "civ7-better-settlement-ui",
+    "title": "建筑回本预估先选毛产出最高地块，漏掉净收益更高的可建位置",
+    "previous": "待复测",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "本轮模块离线92项通过；尚缺完工/覆盖前后产出对照及损坏建筑修复样本，没有将预估值或旧截图作为实机通过。",
+    "files": [
+      "civ7-better-settlement-ui.tap"
+    ],
+    "shot": null,
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "zhFaFnI",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFaFnI",
+    "mod": "civ7-rest-guard",
+    "title": "休息弹窗显示手柄按键图标和当前按钮高亮",
+    "previous": "待实机验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "部分验收",
+    "note": "原生DOM具备inline-accept/inline-sys-menu且继续按钮有焦点标记；实际鼠标截图下隐藏手柄提示符合输入设备状态。实体手柄与设备切换高亮未测。",
+    "files": [
+      "rest-buttons.json"
+    ],
+    "shot": "14-取消退出保留休息.png",
+    "testedBuild": "1.8.7-dev.1103-2223-9b620247"
+  },
+  {
+    "key": "zhFaFzc",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFaFzc",
+    "mod": "civ7-rest-guard",
+    "title": "夜间禁玩期间可确认并应用新的夜间时段",
+    "previous": "待实机验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "部分验收",
+    "note": "夜间强制休息下，真实鼠标打开原生菜单和选项；原生夜间开关产生草稿false，确认前持久值仍true，点击确认后持久值false、选项页关闭。已证明禁玩中确认生效，修改起止时段组合未测。",
+    "files": [
+      "rest-options-change.json",
+      "rest-confirm-inspect.json",
+      "rest-confirm.json"
+    ],
+    "shot": null,
+    "testedBuild": "1.8.7-dev.1103-2223-9b620247"
+  },
+  {
+    "key": "zhFaKXU",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFaKXU",
+    "mod": "civ7-rest-guard",
+    "title": "原生加载页的开始按钮可点击，休息弹窗等加载幕关闭后接管输入",
+    "previous": "待实机验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "本轮Rest启用且未用debug活动标记。等待开始阶段两次采样间隔2612ms，elapsed均0、loading=true；原生开始操作后地图就绪，loading=false、elapsed增长至13391ms，随后正常触发一分钟休息。",
+    "files": [
+      "rest-wait-sample.json",
+      "rest-clock-start.json",
+      "rest-clock-later.json",
+      "rest-after-continue.json"
+    ],
+    "shot": "14-取消退出保留休息.png",
+    "testedBuild": "1.8.7-dev.1103-2223-9b620247"
+  },
+  {
+    "key": "zhFarPc",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFarPc",
+    "mod": "civ7-better-settlement-ui",
+    "title": "城镇购买区挤占重心列表，选项被城镇详情遮挡",
+    "previous": "待复测",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "首次打开城镇并打开重心后，购买双列宽度保持，重心面板位于购买区与右侧详情之间；可见选项命中正确，选择发展城镇后关闭重心面板且金币不变。",
+    "files": [
+      "town.json",
+      "town-focus.json",
+      "town-confirm.json"
+    ],
+    "shot": "04-城镇重心与详情不重叠.jpg",
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "zhFbfk0",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFbfk0",
+    "mod": "civ7-better-settlement-ui",
+    "title": "生产队列卡片高亮与实际点击范围错位",
+    "previous": "待复测",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "T106 城市详情同时打开；原生队列输入完成左键提前、右键取消，实际系统鼠标点击取消后队列 7→6；全部可见行中心命中正确。限本轮 5120×2160 游戏视口。",
+    "files": [
+      "queue.json",
+      "queue-hit.json",
+      "queue-native-click.json"
+    ],
+    "shot": "02-队列实际点击取消通过.jpg",
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "zhFbnNg",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFbnNg",
+    "mod": "civ7-better-settlement-ui",
+    "title": "首次打开城镇时产出竖排，购买列表被页首挤出",
+    "previous": "待复测",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "首次打开劳加尔，产出横排、建筑/单位购买双列完整显示；没有页首挤占。",
+    "files": [
+      "town.json"
+    ],
+    "shot": "03-城镇首次打开双列布局.jpg",
+    "testedBuild": "0.2.17-dev.1103-1153-0e404977"
+  },
+  {
+    "key": "zhFcAz4",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFcAz4",
+    "mod": "civ7-rest-guard",
+    "title": "暂停或强制休息期间可确认全部设置",
+    "previous": "待实机验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "部分验收",
+    "note": "夜间强制休息中原生夜间设置确认路径通过；全部类别、所有开关/下拉并未穷举。",
+    "files": [
+      "rest-confirm.json"
+    ],
+    "shot": null,
+    "testedBuild": "1.8.7-dev.1103-2223-9b620247"
+  },
+  {
+    "key": "zhFkz-M",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFkz-M",
+    "mod": "civ7-rest-guard",
+    "title": "外交行动等待回应时可从休息弹窗打开设置并返回",
+    "previous": "待实机验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "待实机验收",
+    "note": "普通地图及夜间休息的原生菜单/选项通过，但未完成和平谈判或外交等待的专项复现，不外推为通过。",
+    "files": [
+      "rest-menu-clock.json",
+      "rest-confirm.json"
+    ],
+    "shot": null,
+    "testedBuild": "1.8.7-dev.1103-2223-9b620247"
+  },
+  {
+    "key": "zhFmHVI",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhFmHVI",
+    "mod": "civ7-rest-guard",
+    "title": "休息弹窗移除重复的退出游戏按钮",
+    "previous": "待实机验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "已验收",
+    "note": "一分钟休息弹窗只有“休息完成，继续”和“打开设置”两个按钮，没有重复退出按钮；退出通过Esc原生确认。",
+    "files": [
+      "rest-buttons.json",
+      "dialog-state.json"
+    ],
+    "shot": "14-取消退出保留休息.png",
+    "testedBuild": "1.8.7-dev.1103-2223-9b620247"
+  },
+  {
+    "key": "RES-05",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhF4FLc",
+    "mod": "civ7-research-transfer",
+    "title": "未来市政与未来科技：退还当前未完成轮次的进度",
+    "previous": "待实机验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "部分验收",
+    "note": "当前0.3.1离线56项通过。探索T2选择原生市政后暂存文化525→35、退出暂停；开局经济项目按产品边界不支持退款。未完成本轮卡片退款/未来轮次实机闭环；开发会话此前同构建证据单列，不替代本轮。",
+    "files": [
+      "research-chosen.json",
+      "research-choose.json",
+      "research.tap"
+    ],
+    "shot": null,
+    "testedBuild": "0.3.1+1105-0315-fd11f517"
+  },
+  {
+    "key": "RES-06",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhF5aRQ",
+    "mod": "civ7-research-transfer",
+    "title": "退款后停止原研究，单回合或持续跳过科文并暂存点数",
+    "previous": "部分验收",
+    "status": "待实机验收",
+    "notes": "本轮实机排队；旧证据不直接沿用到新构建。",
+    "conclusion": "部分验收",
+    "note": "探索T1科技原生快捷长按进入持续跳过(P_MODE=3)，市政按钮进入本回合跳过(P_MODE=2)；推进T2后真实BANK为科研357/文化525、暂存节点进度归0，选择市政后文化余额35。市政持续长按、重读档和跨时代迁移未完成，输入探针未触发不能直接定为产品缺陷。",
+    "files": [
+      "research-after-hold.json",
+      "research-both-confirmed.json",
+      "research-next-turn.json",
+      "research-chosen.json"
+    ],
+    "shot": "09-探索时代跨回合科文储存.jpg",
+    "testedBuild": "0.3.1+1105-0315-fd11f517"
+  },
+  {
+    "key": "RP-11",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhGBxbo",
+    "mod": "civ7-resource-planner",
+    "title": "盐等条件产能资源的空槽提醒",
+    "conclusion": "待实机验收",
+    "note": "分配成功路径已通过，但合法空槽提醒/跨回合跳过及仅剩盐等条件产能资源的定向样本未完成；不得由分配成功推断提醒正确。",
+    "files": [
+      "rp-run.json",
+      "civ7-resource-planner.tap"
+    ],
+    "shot": null,
+    "testedBuild": "1.4.2-dev.1103-2038-c953488d"
+  },
+  {
+    "key": "WAR-08",
+    "id": "PVTI_lAHOAFiEN84Bprn0zhGByYY",
+    "mod": "civ7-war-controls",
+    "title": "商人占格时快速转移",
+    "conclusion": "待实机验收",
+    "note": "战斗副本载入停在末尾：Loading.isLoaded=false，WorldUI未定义，War运行入口未注册；未绕过原生就绪门槛。开发会话核对同摘要样本曾在同版游戏成功，不能判定存档不兼容或归因War。商人占格专用样本也未确认。",
+    "files": [
+      "battle-after-start.json",
+      "battle-ui-errors.txt"
+    ],
+    "shot": "10-战斗样本载入状态.jpg",
+    "testedBuild": "0.6.3-dev.1102-2206-21d296ec"
+  }
+]

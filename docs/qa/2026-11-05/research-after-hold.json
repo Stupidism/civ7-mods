@@ -1,0 +1,102 @@
+{
+  "turn": 1,
+  "age": "AGE_EXPLORATION",
+  "player": 0,
+  "activeTurn": true,
+  "loaded": true,
+  "multiplayer": false,
+  "restGuard": {
+    "recognized": false,
+    "overlay": false
+  },
+  "lanes": {
+    "S": {
+      "active": {
+        "name": "NODE_RT_RESERVE_EX_S",
+        "hash": -1207111464,
+        "index": 259,
+        "exists": true,
+        "progress": 0,
+        "cost": 1000000,
+        "depth": 0,
+        "maxDepth": 1,
+        "repeatedDepth": 0
+      },
+      "target": -1,
+      "reserve": {
+        "name": "NODE_RT_RESERVE_EX_S",
+        "hash": -1207111464,
+        "index": 259,
+        "exists": true,
+        "progress": 0,
+        "cost": 1000000,
+        "depth": 0,
+        "maxDepth": 1,
+        "repeatedDepth": 0
+      },
+      "canReserve": {
+        "Success": true
+      },
+      "state": {
+        "BANK": 0,
+        "OWNER": 0,
+        "TX": 0,
+        "P_MODE": 3,
+        "P_TURN": 2,
+        "P_TARGET": 0,
+        "P_PARKED": 1,
+        "R_STEP": 0,
+        "R_BASE": 0,
+        "R_AMOUNT": 0
+      }
+    },
+    "C": {
+      "active": null,
+      "target": -1,
+      "reserve": {
+        "name": "NODE_RT_RESERVE_EX_C",
+        "hash": -1514413892,
+        "index": 260,
+        "exists": true,
+        "progress": 0,
+        "cost": 1000000,
+        "depth": 0,
+        "maxDepth": 1,
+        "repeatedDepth": 0
+      },
+      "canReserve": {
+        "Success": true
+      },
+      "state": {
+        "BANK": 0,
+        "OWNER": 0,
+        "TX": 0,
+        "P_MODE": 0,
+        "P_TURN": 0,
+        "P_TARGET": 0,
+        "P_PARKED": 0,
+        "R_STEP": 0,
+        "R_BASE": 0,
+        "R_AMOUNT": 0
+      }
+    }
+  },
+  "buttons": [
+    {
+      "lane": null,
+      "skip": "S",
+      "text": "持续跳过中",
+      "disabled": "false",
+      "box": {
+        "x": 4446,
+        "y": 109,
+        "width": 480,
+        "height": 92,
+        "top": 109,
+        "right": 4926,
+        "bottom": 201,
+        "left": 4446
+      }
+    }
+  ]
+}

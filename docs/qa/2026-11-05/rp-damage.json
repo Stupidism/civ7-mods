@@ -1,0 +1,194 @@
+{
+  "sample": [],
+  "rawCount": 53,
+  "tabAvailable": [
+    "plot:3233",
+    "plot:1281",
+    "plot:1380",
+    "plot:1463",
+    "plot:1616",
+    "plot:1892",
+    "plot:1805",
+    "plot:1885"
+  ],
+  "plan": [
+    "plot:1211",
+    "plot:1874",
+    "plot:1967",
+    "plot:2456",
+    "plot:3051",
+    "plot:1448",
+    "plot:1801",
+    "plot:2370",
+    "plot:2630",
+    "plot:3481",
+    "plot:1798",
+    "plot:1971",
+    "plot:2054",
+    "plot:2118",
+    "plot:2376",
+    "plot:2640",
+    "plot:2872",
+    "plot:3317",
+    "plot:3567",
+    "plot:1957",
+    "plot:1961",
+    "plot:2787",
+    "plot:2791",
+    "plot:3054",
+    "plot:3401",
+    "plot:3484",
+    "plot:2705",
+    "plot:2876",
+    "plot:2969",
+    "plot:2123",
+    "plot:1281",
+    "plot:1380",
+    "plot:1463",
+    "plot:1616",
+    "plot:1805",
+    "plot:1885",
+    "plot:1892",
+    "plot:3233"
+  ],
+  "cities": [
+    {
+      "id": 65536,
+      "cap": 5,
+      "occupied": [
+        "plot:1211",
+        "plot:1874",
+        "plot:1967",
+        "plot:2456",
+        "plot:3051"
+      ]
+    },
+    {
+      "id": 131073,
+      "cap": 5,
+      "occupied": [
+        "plot:1448",
+        "plot:1801",
+        "plot:2370",
+        "plot:2630",
+        "plot:3481"
+      ]
+    },
+    {
+      "id": 196610,
+      "cap": 1,
+      "occupied": [
+        "plot:1798"
+      ]
+    },
+    {
+      "id": 262147,
+      "cap": 10,
+      "occupied": [
+        "plot:1971",
+        "plot:2054",
+        "plot:2118",
+        "plot:2376",
+        "plot:2640",
+        "plot:2872",
+        "plot:3317",
+        "plot:3567"
+      ]
+    },
+    {
+      "id": 327684,
+      "cap": 7,
+      "occupied": [
+        "plot:1957",
+        "plot:1961",
+        "plot:2787",
+        "plot:2791",
+        "plot:3054",
+        "plot:3401",
+        "plot:3484"
+      ]
+    },
+    {
+      "id": 393221,
+      "cap": 1,
+      "occupied": [
+        "plot:2705"
+      ]
+    },
+    {
+      "id": 458758,
+      "cap": 3,
+      "occupied": [
+        "plot:2876"
+      ]
+    },
+    {
+      "id": 589832,
+      "cap": 1,
+      "occupied": [
+        "plot:2969"
+      ]
+    },
+    {
+      "id": 786441,
+      "cap": 1,
+      "occupied": []
+    },
+    {
+      "id": 851978,
+      "cap": 1,
+      "occupied": [
+        "plot:2123"
+      ]
+    }
+  ],
+  "cap": [
+    {
+      "id": 65536,
+      "remaining": 0
+    },
+    {
+      "id": 131073,
+      "remaining": 0
+    },
+    {
+      "id": 196610,
+      "remaining": 0
+    },
+    {
+      "id": 262147,
+      "remaining": 2
+    },
+    {
+      "id": 327684,
+      "remaining": 0
+    },
+    {
+      "id": 393221,
+      "remaining": 0
+    },
+    {
+      "id": 458758,
+      "remaining": 2
+    },
+    {
+      "id": 589832,
+      "remaining": 0
+    },
+    {
+      "id": 786441,
+      "remaining": 1
+    },
+    {
+      "id": 851978,
+      "remaining": 0
+    }
+  ],
+  "damagedInAvailable": [],
+  "damagedInPlan": [],
+  "slottedDamaged": [],
+  "bonuses": {
+    "0": {},
+    "1": {}
+  }
+}

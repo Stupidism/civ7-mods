@@ -1,0 +1,27 @@
+{
+  "night": {
+    "id": "rest-guard-night-enabled",
+    "category": "mods",
+    "group": "rest_guard",
+    "type": 5,
+    "label": "LOC_RG_NIGHT_ENABLED",
+    "description": "LOC_RG_NIGHT_DESCRIPTION",
+    "initListener": {},
+    "updateListener": {},
+    "isHidden": false,
+    "currentValue": false,
+    "forceRender": {}
+  },
+  "controls": [
+    {
+      "tag": "FXS-HERO-BUTTON",
+      "html": "<fxs-hero-button id=\"options-confirm\" class=\"ml-2 pointer-events-auto cursor-pointer fxs-hero-button relative flex min-h-11\\.5 items-center justify-center min-w-80 font-title uppercase font-bold text-accent-1 tracking-150 mt-6 text-shadow-subtle leading-none text-center\" caption=\"LOC_OPTIONS_CONFIRM_CHANGES\" tabindex=\"-1\" data-audio-group-ref=\"options\" data-audio-activate-ref=\"data-audio-options-confirm\" data-audio-press-ref=\"data-audio-hero-press\" data-audio-focus-ref=\"data-audio-hero-focus\"><div class=\"absolute inset-0 opacity-0 bg-herobutton-gradient\"></div><div class=\"absolute inset-x-0 top-0 bottom-0 flex flex-row\"><div class=\"flex-1 bg-herobutton-sideframe\"></div><div class=\"flex-1 bg-herobutton-sideframe -rotate-y-180\"></div><div class=\"absolute inset-0 flex justify-center\"><div class=\"w-11 bg-herobutton-centerpiece\"></div></div></div><div class=\"relative py-3 px-5 text-center\" data-l10n-id=\"LOC_OPTIONS_CONFIRM_CHANGES\">确认变更</div></fxs-hero-button>",
+      "box": [
+        2864,
+        1988,
+        640,
+        92
+      ]
+    }
+  ]
+}

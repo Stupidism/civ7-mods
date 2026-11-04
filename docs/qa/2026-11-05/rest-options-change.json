@@ -1,0 +1,39 @@
+{
+  "before": true,
+  "stillSaved": true,
+  "switch": "<fxs-switch class=\"group relative flex items-center h-8 w-20 px-2 py-1 cursor-pointer img-switch-frame-off\" optionid=\"rest-guard-night-enabled\" selected=\"true\" disabled=\"false\" tabindex=\"-1\" data-tooltip-content=\"独立开关，默认开启：本地时间22:00至次日07:00禁止游戏。时间按15分钟调整，支持跨午夜；起止相同则不限制。禁玩期间可点“打开设置”调整时段。\" data-tooltip-anchor=\"left\"><div class=\"absolute inset-0 transition-opacity\"><div class=\"absolute inset-0 opacity-0 group-hover\\:opacity-100 group-focus\\:opacity-100 img-switch-frame-on-focus transition-opacity\"></div><div class=\"absolute inset-0 opacity-0 group-active\\:opacity-100 img-switch-frame-on-active transition-opacity\"></div></div><div class=\"absolute inset-0 transition-opacity\"><div class=\"absolute inset-0 opacity-0 group-hover\\:opacity-100 group-focus\\:opacity-100 img-switch-frame-off-focus trans",
+  "buttons": [
+    {
+      "caption": "配置",
+      "text": "配置"
+    },
+    {
+      "caption": "配置",
+      "text": "配置"
+    },
+    {
+      "caption": "变更语言",
+      "text": "变更语言"
+    },
+    {
+      "caption": "恢复微操大师常凯申默认",
+      "text": "恢复微操大师常凯申默认"
+    },
+    {
+      "caption": "恢复默认",
+      "text": "恢复默认"
+    },
+    {
+      "caption": "已连接",
+      "text": "已连接"
+    },
+    {
+      "caption": "LOC_OPTIONS_CANCEL_CHANGES",
+      "text": "取消变更"
+    },
+    {
+      "caption": "LOC_OPTIONS_RESET_TO_DEFAULTS",
+      "text": "重设"
+    }
+  ]
+}

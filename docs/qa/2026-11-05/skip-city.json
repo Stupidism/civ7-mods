@@ -1,0 +1,45 @@
+{
+  "before": {
+    "id": {
+      "owner": 0,
+      "id": 327684,
+      "type": 1
+    },
+    "turn": 106,
+    "queue": [],
+    "skip": "<fxs-activatable class=\"bsu-defer-icon-button pointer-events-auto cursor-pointer\" role=\"button\" tabindex=\"0\" aria-label=\"本回合跳过建造\" disabled=\"false\" data-tooltip-content=\"[icon:BSU_SKIP] 本回合跳过这座定居点的建造，下回合重新检查。正常关闭只将它排到最后；其他必要行动仍需处理。\"><span class=\"bsu-defer-symbol\" aria-hidden=\"true\"></span></fxs-activatable>",
+    "head": {
+      "owner": 0,
+      "id": 327684,
+      "type": 1
+    },
+    "order": [
+      "version",
+      "register",
+      "dispose",
+      "unifiedActions",
+      "registerSharedCards",
+      "cardDomains"
+    ]
+  },
+  "held": {
+    "panel": false,
+    "turn": 106,
+    "queue": []
+  },
+  "after": {
+    "turn": 106,
+    "sent": false,
+    "queue": [],
+    "panel": false,
+    "head": null,
+    "providers": [
+      "version",
+      "register",
+      "dispose",
+      "unifiedActions",
+      "registerSharedCards",
+      "cardDomains"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "t": 1793810576568,
+  "elapsed": 0,
+  "session": {
+    "version": 2,
+    "startedAt": 1793810548042,
+    "suspendedAt": null,
+    "lastInputAt": 1793810548042,
+    "idleRested": false,
+    "loading": true,
+    "loadingStartedAt": 1793810548042,
+    "turnCount": 0,
+    "idleBreakStartedAt": null,
+    "countedToken": null,
+    "night": null,
+    "paidToken": null,
+    "pending": null
+  },
+  "loadingState": 8,
+  "waiting": 7,
+  "started": 8,
+  "restEnabled": true,
+  "suspended": false,
+  "mode": "INTERFACEMODE_UNSET",
+  "deal": null,
+  "screen": [
+    [
+      "DIV",
+      "开始游戏"
+    ]
+  ]
+}

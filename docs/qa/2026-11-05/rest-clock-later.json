@@ -1,0 +1,27 @@
+{
+  "t": 1793810591660,
+  "elapsed": 13391,
+  "session": {
+    "version": 2,
+    "startedAt": 1793810578269,
+    "suspendedAt": null,
+    "lastInputAt": 1793810578269,
+    "idleRested": false,
+    "loading": false,
+    "loadingStartedAt": null,
+    "turnCount": 0,
+    "idleBreakStartedAt": null,
+    "countedToken": null,
+    "night": null,
+    "paidToken": null,
+    "pending": null
+  },
+  "loadingState": 8,
+  "waiting": 7,
+  "started": 8,
+  "restEnabled": true,
+  "suspended": false,
+  "mode": "INTERFACEMODE_DEFAULT",
+  "deal": null,
+  "screen": []
+}

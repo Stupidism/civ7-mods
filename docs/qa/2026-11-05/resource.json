@@ -1,0 +1,328 @@
+{
+  "mode": "resource",
+  "root": "SCREEN-RESOURCE-ALLOCATION",
+  "turn": 106,
+  "viewport": [
+    5120,
+    2160
+  ],
+  "matches": [
+    {
+      "tag": "DIV",
+      "name": "CloseButton",
+      "cl": "pointer-events-auto size-12 cursor-pointer group right-4 top-5 absolute",
+      "rect": [
+        4266.7,
+        136,
+        96,
+        96
+      ],
+      "text": "",
+      "dis": null,
+      "aria": null,
+      "display": "block"
+    },
+    {
+      "tag": "FXS-ACTIVATABLE",
+      "name": null,
+      "cl": "aoa-card-skip absolute top-5 right-4 size-12 pointer-events-auto cursor-pointer disabled cursor-not-allowed",
+      "rect": [
+        4170.7,
+        136,
+        96,
+        96
+      ],
+      "text": "",
+      "dis": "true",
+      "aria": null,
+      "display": "block"
+    },
+    {
+      "tag": "DIV",
+      "name": null,
+      "cl": "rp-toolbar-settings flex flex-col",
+      "rect": [
+        818.9,
+        1167.8,
+        460.8,
+        894.6
+      ],
+      "text": "资源空槽提醒：开分配范围包含骆驼资源包含已分配资源城市优先仅城镇定居点幸福度0以上5以上城市幸福度0以上20以上",
+      "dis": null,
+      "aria": null,
+      "display": "flex"
+    },
+    {
+      "tag": "DIV",
+      "name": null,
+      "cl": "rp-settings-spacer",
+      "rect": [
+        818.9,
+        772.8,
+        460.8,
+        395
+      ],
+      "text": "",
+      "dis": null,
+      "aria": null,
+      "display": "block"
+    },
+    {
+      "tag": "DIV",
+      "name": "ResourcePlannerButton",
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-reset-defaults rp-action flex flex-row items-center cursor-pointer",
+      "rect": [
+        2227.1,
+        4114.2,
+        223.8,
+        84.6
+      ],
+      "text": "重置倾向",
+      "dis": null,
+      "aria": null,
+      "display": "flex"
+    },
+    {
+      "tag": "DIV",
+      "name": "ResourcePlannerButton",
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-reminder-toggle rp-option rp-action flex flex-row items-center rp-active cursor-pointer",
+      "rect": [
+        818.9,
+        1194.8,
+        460.8,
+        84.6
+      ],
+      "text": "资源空槽提醒：开",
+      "dis": null,
+      "aria": "true",
+      "display": "flex"
+    },
+    {
+      "tag": "DIV",
+      "name": "ResourcePlannerButton",
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-option rp-action flex flex-row items-center cursor-pointer",
+      "rect": [
+        826.3,
+        1369.6,
+        446,
+        84.6
+      ],
+      "text": "包含骆驼资源",
+      "dis": null,
+      "aria": "false",
+      "display": "flex"
+    },
+    {
+      "tag": "DIV",
+      "name": "ResourcePlannerButton",
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-option rp-action flex flex-row items-center cursor-pointer",
+      "rect": [
+        826.3,
+        1461.4,
+        446,
+        84.6
+      ],
+      "text": "包含已分配资源",
+      "dis": null,
+      "aria": "false",
+      "display": "flex"
+    },
+    {
+      "tag": "DIV",
+      "name": "ResourcePlannerButton",
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-action rp-scope-option flex flex-row items-center rp-active cursor-pointer",
+      "rect": [
+        826.3,
+        1573.4,
+        446,
+        77.8
+      ],
+      "text": "城市优先",
+      "dis": null,
+      "aria": "true",
+      "display": "flex"
+    },
+    {
+      "tag": "DIV",
+      "name": "ResourcePlannerButton",
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-action rp-scope-option flex flex-row items-center cursor-pointer",
+      "rect": [
+        826.3,
+        1651.2,
+        446,
+        77.8
+      ],
+      "text": "仅城镇",
+      "dis": null,
+      "aria": "false",
+      "display": "flex"
+    },
+    {
+      "tag": "DIV",
+      "name": "TabList",
+      "cl": "flex flex-row items-stretch justify-stretch relative uppercase font-title text-base text-accent-2 tracking-150 min-h-16 px-4 rp-commerce-tabs bz-tab-list self-center text-base font-base",
+      "rect": [
+        757.3,
+        136,
+        3605.3,
+        128
+      ],
+      "text": "LOC_UI_RESOURCE_ALLOCATION_TITLELOC_COMMERCE_TRADE_ROUTES_TITLELOC_COMMERCE_EMPIRE_RESOURC",
+      "dis": null,
+      "aria": null,
+      "display": "flex"
+    },
+    {
+      "tag": "DIV",
+      "name": "TabListItem",
+      "cl": "pointer-events-auto relative flex items-center justify-center font-fit-shrink text-center flex-1 cursor-pointer text-secondary",
+      "rect": [
+        789.3,
+        136,
+        1180.4,
+        128
+      ],
+      "text": "LOC_UI_RESOURCE_ALLOCATION_TITLE",
+      "dis": null,
+      "aria": null,
+      "display": "flex"
+    },
+    {
+      "tag": "DIV",
+      "name": "TabListItem",
+      "cl": "pointer-events-auto relative flex items-center justify-center font-fit-shrink text-center flex-1 text-accent-1 cursor-pointer",
+      "rect": [
+        1969.8,
+        136,
+        1180.4,
+        128
+      ],
+      "text": "LOC_COMMERCE_TRADE_ROUTES_TITLE",
+      "dis": null,
+      "aria": null,
+      "display": "flex"
+    },
+    {
+      "tag": "DIV",
+      "name": "TabListItem",
+      "cl": "pointer-events-auto relative flex items-center justify-center font-fit-shrink text-center flex-1 text-accent-1 cursor-pointer",
+      "rect": [
+        3150.2,
+        136,
+        1180.4,
+        128
+      ],
+      "text": "LOC_COMMERCE_EMPIRE_RESOURCE_TITLE",
+      "dis": null,
+      "aria": null,
+      "display": "flex"
+    }
+  ],
+  "allKeys": [
+    "Commerce-Screen",
+    "Icon",
+    "OrnatePanel",
+    "Tab",
+    "TabList",
+    "Activatable",
+    "NavHelp",
+    "TabListItem",
+    "commerce-resource-gamepad-tray-context",
+    "commerce-resources-container(SpatialSlot)",
+    "commerce-screen-base-tab-content",
+    "ResourcePlannerButton",
+    "slotted-resource-container",
+    "ScrollArea",
+    "Collapsible-Container",
+    "斯考尔霍特-city-resource-activatable",
+    "Card-Frame",
+    "city-resource-container-斯考尔霍特",
+    "棉花-Activatable",
+    "丝绸-Activatable",
+    "锡-Activatable",
+    "ImageButton",
+    "三分文化-city-resource-activatable",
+    "city-resource-container-三分文化",
+    "盐-Activatable",
+    "海龟-Activatable",
+    "二分科技-city-resource-activatable",
+    "city-resource-container-二分科技",
+    "螃蟹-Activatable",
+    "熏香-Activatable",
+    "一分搞钱-city-resource-activatable",
+    "city-resource-container-一分搞钱",
+    "宝贝螺-Activatable",
+    "蜜枣-Activatable",
+    "玉-Activatable",
+    "红宝石-Activatable",
+    "堺市-city-resource-activatable",
+    "city-resource-container-堺市",
+    "霍夫-city-resource-activatable",
+    "city-resource-container-霍夫",
+    "赫利达恩迪-city-resource-activatable",
+    "city-resource-container-赫利达恩迪",
+    "羊毛-Activatable",
+    "劳加尔-city-resource-activatable",
+    "city-resource-container-劳加尔",
+    "镰仓-city-resource-activatable",
+    "city-resource-container-镰仓",
+    "霍斯库尔兹斯塔济尔-city-resource-activatable",
+    "city-resource-container-霍斯库尔兹斯塔济尔",
+    "available-resources-container",
+    "commerce-unassigned-resources",
+    "骆驼-Activatable",
+    "高岭土-Activatable",
+    "珍珠-Activatable",
+    "CloseButton"
+  ],
+  "ageless": [],
+  "tabsBox": null,
+  "buttons": [
+    {
+      "tag": "DIV",
+      "name": "ResourcePlannerButton",
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-reminder-toggle rp-option rp-action flex flex-row items-center rp-active cursor-pointer",
+      "rect": [
+        818.9,
+        1194.8,
+        460.8,
+        84.6
+      ],
+      "text": "资源空槽提醒：开",
+      "dis": null,
+      "aria": "true",
+      "display": "flex"
+    },
+    {
+      "tag": "DIV",
+      "name": "ResourcePlannerButton",
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-option rp-action flex flex-row items-center cursor-pointer",
+      "rect": [
+        826.3,
+        1369.6,
+        446,
+        84.6
+      ],
+      "text": "包含骆驼资源",
+      "dis": null,
+      "aria": "false",
+      "display": "flex"
+    },
+    {
+      "tag": "DIV",
+      "name": "ResourcePlannerButton",
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-option rp-action flex flex-row items-center cursor-pointer",
+      "rect": [
+        826.3,
+        1461.4,
+        446,
+        84.6
+      ],
+      "text": "包含已分配资源",
+      "dis": null,
+      "aria": "false",
+      "display": "flex"
+    }
+  ],
+  "sample": "440 (+250)+150+210+139280 (+20)10/9LOC_UI_RESOURCE_ALLOCATION_TITLELOC_COMMERCE_TRADE_ROUTES_TITLELOC_COMMERCE_EMPIRE_RESOURCE_TITLE资源分配已锁定获得新的可分配资源或资源槽位时解锁资源分配。按倾向分配补足幸福度一键整理资源空槽提醒：开分配范围包含骆驼资源包含已分配资源城市优先仅城镇定居点幸福度0以上5以上城市幸福度0以上20以上定居点排序▼资源高亮定居点城市（4）斯考尔霍特首都本土1195102-34193.7567三分文化城市本土555678-62745315二分科技城市本土4557721468.831225一分搞钱城市本土56826972.2231645城镇（6）堺市城镇本土发展城镇11305334290霍夫城镇本土发展城镇22923264240赫利达恩迪城镇本土发展城镇32312174230劳加尔城镇本土发展城镇1231119.52.52.5-30镰仓"
+}

@@ -1,0 +1,320 @@
+{
+  "turn": 1,
+  "locked": false,
+  "resources": 45,
+  "buttons": [
+    {
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-auto rp-action flex flex-row items-center cursor-pointer",
+      "text": "按倾向分配",
+      "disabled": null,
+      "aria": null
+    },
+    {
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-happiness rp-action flex flex-row items-center cursor-pointer",
+      "text": "补足幸福度",
+      "disabled": null,
+      "aria": null
+    },
+    {
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-tidy rp-action flex flex-row items-center cursor-pointer",
+      "text": "一键整理",
+      "disabled": null,
+      "aria": null
+    },
+    {
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-reminder-toggle rp-option rp-action flex flex-row items-center rp-active cursor-pointer",
+      "text": "资源空槽提醒：开",
+      "disabled": null,
+      "aria": null
+    },
+    {
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-option rp-action flex flex-row items-center cursor-pointer",
+      "text": "包含骆驼资源",
+      "disabled": null,
+      "aria": null
+    },
+    {
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-option rp-action flex flex-row items-center cursor-pointer",
+      "text": "包含已分配资源",
+      "disabled": null,
+      "aria": null
+    },
+    {
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-action rp-scope-option flex flex-row items-center rp-active cursor-pointer",
+      "text": "城市优先",
+      "disabled": null,
+      "aria": null
+    },
+    {
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-action rp-scope-option flex flex-row items-center cursor-pointer",
+      "text": "仅城镇",
+      "disabled": null,
+      "aria": null
+    },
+    {
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-target-option rp-action cursor-pointer",
+      "text": "0以上",
+      "disabled": null,
+      "aria": null
+    },
+    {
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-target-option rp-action rp-active cursor-pointer",
+      "text": "5以上",
+      "disabled": null,
+      "aria": null
+    },
+    {
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-target-option rp-action cursor-pointer",
+      "text": "0以上",
+      "disabled": null,
+      "aria": null
+    },
+    {
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-target-option rp-action rp-active cursor-pointer",
+      "text": "20以上",
+      "disabled": null,
+      "aria": null
+    },
+    {
+      "cl": "pointer-events-auto fxs-button fxs-button-small rp-button rp-reset-defaults rp-action flex flex-row items-center cursor-pointer",
+      "text": "重置倾向",
+      "disabled": null,
+      "aria": null
+    }
+  ],
+  "cities": [
+    {
+      "id": {
+        "owner": 0,
+        "id": 65536,
+        "type": 1
+      },
+      "resources": [
+        {
+          "uniqueResource": {
+            "resource": 1479152311,
+            "prestigeCivilization": -1
+          },
+          "value": 1874,
+          "isOffMap": false
+        },
+        {
+          "uniqueResource": {
+            "resource": 1406122326,
+            "prestigeCivilization": -1
+          },
+          "value": 1879,
+          "isOffMap": false
+        }
+      ],
+      "cap": 8
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 131073,
+        "type": 1
+      },
+      "resources": [
+        {
+          "uniqueResource": {
+            "resource": 1406122326,
+            "prestigeCivilization": -1
+          },
+          "value": 1191,
+          "isOffMap": false
+        }
+      ],
+      "cap": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 196610,
+        "type": 1
+      },
+      "resources": [
+        {
+          "uniqueResource": {
+            "resource": 1079613569,
+            "prestigeCivilization": -1
+          },
+          "value": 1211,
+          "isOffMap": false
+        }
+      ],
+      "cap": 1
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 262147,
+        "type": 1
+      },
+      "resources": [],
+      "cap": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 327684,
+        "type": 1
+      },
+      "resources": [
+        {
+          "uniqueResource": {
+            "resource": 1079613569,
+            "prestigeCivilization": -1
+          },
+          "value": 1448,
+          "isOffMap": false
+        }
+      ],
+      "cap": 1
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 393221,
+        "type": 1
+      },
+      "resources": [
+        {
+          "uniqueResource": {
+            "resource": 1406122326,
+            "prestigeCivilization": -1
+          },
+          "value": 1770,
+          "isOffMap": false
+        }
+      ],
+      "cap": 1
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 458758,
+        "type": 1
+      },
+      "resources": [],
+      "cap": 1
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 524295,
+        "type": 1
+      },
+      "resources": [
+        {
+          "uniqueResource": {
+            "resource": 1479152311,
+            "prestigeCivilization": -1
+          },
+          "value": 1967,
+          "isOffMap": false
+        }
+      ],
+      "cap": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 589832,
+        "type": 1
+      },
+      "resources": [
+        {
+          "uniqueResource": {
+            "resource": 1406122326,
+            "prestigeCivilization": -1
+          },
+          "value": 2274,
+          "isOffMap": false
+        }
+      ],
+      "cap": 1
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 655369,
+        "type": 1
+      },
+      "resources": [
+        {
+          "uniqueResource": {
+            "resource": 1406122326,
+            "prestigeCivilization": -1
+          },
+          "value": 2109,
+          "isOffMap": false
+        }
+      ],
+      "cap": 1
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 720906,
+        "type": 1
+      },
+      "resources": [
+        {
+          "uniqueResource": {
+            "resource": 1406122326,
+            "prestigeCivilization": -1
+          },
+          "value": 2290,
+          "isOffMap": false
+        }
+      ],
+      "cap": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 786443,
+        "type": 1
+      },
+      "resources": [],
+      "cap": 1
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 851980,
+        "type": 1
+      },
+      "resources": [
+        {
+          "uniqueResource": {
+            "resource": 1479152311,
+            "prestigeCivilization": -1
+          },
+          "value": 2705,
+          "isOffMap": false
+        }
+      ],
+      "cap": 3
+    },
+    {
+      "id": {
+        "owner": 0,
+        "id": 917517,
+        "type": 1
+      },
+      "resources": [
+        {
+          "uniqueResource": {
+            "resource": -1746324013,
+            "prestigeCivilization": -1
+          },
+          "value": 2969,
+          "isOffMap": false
+        }
+      ],
+      "cap": 6
+    }
+  ]
+}

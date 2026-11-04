@@ -1,0 +1,234 @@
+{
+  "sample": [],
+  "rawCount": 45,
+  "tabAvailable": [
+    "plot:1281",
+    "plot:1380",
+    "plot:1463",
+    "plot:1616",
+    "plot:1223",
+    "plot:1885"
+  ],
+  "plan": [
+    "plot:1689",
+    "plot:1865",
+    "plot:1874",
+    "plot:1879",
+    "plot:2118",
+    "plot:2456",
+    "plot:2872",
+    "plot:3051",
+    "plot:1191",
+    "plot:1688",
+    "plot:1777",
+    "plot:1211",
+    "plot:1448",
+    "plot:1770",
+    "plot:1126",
+    "plot:1364",
+    "plot:1367",
+    "plot:1967",
+    "plot:2274",
+    "plot:2109",
+    "plot:1801",
+    "plot:2290",
+    "plot:2370",
+    "plot:1277",
+    "plot:1462",
+    "plot:2705",
+    "plot:1530",
+    "plot:1798",
+    "plot:1940",
+    "plot:2362",
+    "plot:2536",
+    "plot:2969",
+    "plot:1223",
+    "plot:1281",
+    "plot:1380",
+    "plot:1463",
+    "plot:1616",
+    "plot:1885"
+  ],
+  "cities": [
+    {
+      "id": 65536,
+      "cap": 8,
+      "occupied": [
+        "plot:1689",
+        "plot:1865",
+        "plot:1874",
+        "plot:1879",
+        "plot:2118",
+        "plot:2456",
+        "plot:2872",
+        "plot:3051"
+      ]
+    },
+    {
+      "id": 131073,
+      "cap": 3,
+      "occupied": [
+        "plot:1191",
+        "plot:1688",
+        "plot:1777"
+      ]
+    },
+    {
+      "id": 196610,
+      "cap": 1,
+      "occupied": [
+        "plot:1211"
+      ]
+    },
+    {
+      "id": 262147,
+      "cap": 3,
+      "occupied": []
+    },
+    {
+      "id": 327684,
+      "cap": 1,
+      "occupied": [
+        "plot:1448"
+      ]
+    },
+    {
+      "id": 393221,
+      "cap": 1,
+      "occupied": [
+        "plot:1770"
+      ]
+    },
+    {
+      "id": 458758,
+      "cap": 1,
+      "occupied": [
+        "plot:1126"
+      ]
+    },
+    {
+      "id": 524295,
+      "cap": 3,
+      "occupied": [
+        "plot:1364",
+        "plot:1367",
+        "plot:1967"
+      ]
+    },
+    {
+      "id": 589832,
+      "cap": 1,
+      "occupied": [
+        "plot:2274"
+      ]
+    },
+    {
+      "id": 655369,
+      "cap": 1,
+      "occupied": [
+        "plot:2109"
+      ]
+    },
+    {
+      "id": 720906,
+      "cap": 3,
+      "occupied": [
+        "plot:1801",
+        "plot:2290",
+        "plot:2370"
+      ]
+    },
+    {
+      "id": 786443,
+      "cap": 1,
+      "occupied": [
+        "plot:1277"
+      ]
+    },
+    {
+      "id": 851980,
+      "cap": 3,
+      "occupied": [
+        "plot:1462",
+        "plot:2705"
+      ]
+    },
+    {
+      "id": 917517,
+      "cap": 6,
+      "occupied": [
+        "plot:1530",
+        "plot:1798",
+        "plot:1940",
+        "plot:2362",
+        "plot:2536",
+        "plot:2969"
+      ]
+    }
+  ],
+  "cap": [
+    {
+      "id": 65536,
+      "remaining": 0
+    },
+    {
+      "id": 131073,
+      "remaining": 0
+    },
+    {
+      "id": 196610,
+      "remaining": 0
+    },
+    {
+      "id": 262147,
+      "remaining": 3
+    },
+    {
+      "id": 327684,
+      "remaining": 0
+    },
+    {
+      "id": 393221,
+      "remaining": 0
+    },
+    {
+      "id": 458758,
+      "remaining": 0
+    },
+    {
+      "id": 524295,
+      "remaining": 0
+    },
+    {
+      "id": 589832,
+      "remaining": 0
+    },
+    {
+      "id": 655369,
+      "remaining": 0
+    },
+    {
+      "id": 720906,
+      "remaining": 0
+    },
+    {
+      "id": 786443,
+      "remaining": 0
+    },
+    {
+      "id": 851980,
+      "remaining": 1
+    },
+    {
+      "id": 917517,
+      "remaining": 0
+    }
+  ],
+  "damagedInAvailable": [],
+  "damagedInPlan": [],
+  "slottedDamaged": [],
+  "bonuses": {
+    "0": {},
+    "1": {}
+  }
+}

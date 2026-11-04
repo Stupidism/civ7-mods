@@ -1,0 +1,26 @@
+{
+  "before": {
+    "slots": [
+      [],
+      [],
+      []
+    ],
+    "tip": "[icon:BPU_AO_SKIP] 本回合跳过，下回合重新检查。正常关闭只将行动排到最后，不会跳过；未确认的改动不会提交。",
+    "class": "aoa-card-skip absolute top-5 right-4 size-12 pointer-events-auto cursor-pointer",
+    "turn": 1
+  },
+  "held": {
+    "page": true,
+    "class": "aoa-card-skip absolute top-5 right-4 size-12 pointer-events-auto cursor-pointer disabled cursor-not-allowed",
+    "tip": "本回合已[icon:BPU_AO_SKIP] 跳过，未确认改动仍保留在界面中。"
+  },
+  "after": {
+    "slots": [
+      [],
+      [],
+      []
+    ],
+    "turn": 1,
+    "sent": false
+  }
+}

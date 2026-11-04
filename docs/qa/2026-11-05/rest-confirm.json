@@ -1,0 +1,20 @@
+{
+  "config": {
+    "turnEnabled": false,
+    "timeEnabled": false,
+    "nightEnabled": false,
+    "nightStart": 221,
+    "nightEnd": 236,
+    "playMinutes": 1,
+    "restMinutes": 1,
+    "intervals": [
+      13,
+      8,
+      5,
+      3,
+      2
+    ]
+  },
+  "options": false,
+  "turn": 106
+}
