@@ -1,0 +1,14 @@
+{
+  "time": "2026-11-05T07:09:58.933883+00:00",
+  "gameClosed": true,
+  "saveFilesVerified": 479,
+  "directoriesVerified": 6,
+  "changedRestored": [],
+  "testFilesRemoved": [
+    "Single/WarMerchant_20261105_merchant.Civ7Save",
+    "Single/WarMerchant_20261105_transfer.Civ7Save"
+  ],
+  "runtimeRestored": 0,
+  "flagsAndSettingsVerified": true,
+  "recoveryArchivesDeleted": 3
+}

@@ -1,0 +1,35 @@
+{
+  "properties": {
+    "Name": "LOC_C7DEV_3ECB39125379_NAME",
+    "Description": "LOC_C7DEV_3ECB39125379_DESCRIPTION",
+    "Version": "0.6.3-dev.1102-2206-21d296ec",
+    "Authors": "Custom Mod",
+    "AffectsSavedGames": "0",
+    "ShowInBrowser": "1",
+    "EnabledByDefault": "1",
+    "Civ7InstallChannel": "development",
+    "Civ7Build": "1102-2206-21d296ec"
+  },
+  "runtimeHashes": {
+    "war-controls.modinfo": "10a5f43ea71e3e5a8d8b7d62a47b04515156d440d5c1377c8865c422028c60db",
+    "ui/healing-tooltip.js": "09ea3ae45a9a7b7dff055dff163adc0aeebf703384bf4b9bd638ccb89b63c1b4",
+    "ui/tactical-controls.js": "94ebea592573abb0aaee242f267a3118afa248341b072a6e9bce76b4fef5b877",
+    "ui/focus-bonus.js": "66a20f7818bf438e4d9e08a70bf73dc013681187a9ac37d1e6edfef76d5ffee5",
+    "ui/command-hooks.js": "eef55eb75650c03525a9d2318048b8651b0c9ec188c9b0f790614b839ea857bd",
+    "ui/native-options.js": "b7611b1d39787fc1d3c423d2ee4586af4dea54d3ae629d904e609aaf31f70039",
+    "ui/war-controls.js": "d5a08bdd5685ff3fab0ef6782bb12d21efa9508e26441f6948e23aa155947982",
+    "ui/settings-store.js": "4b3e2b76f76ae32ee9e0484b090635ffe1aae1c55975f0f2392351b0436a8331",
+    "ui/quick-transfer.js": "b8d717ed4d8c0170a94282ef489d04097b1c5ba03731cdfc7403a910fe48ce27",
+    "ui/focus-cost.js": "0fdb03c60aceb0e45bd8a2670423d92dbd07f283cea9d96fb744856c0df72b94",
+    "ui/selection-assist.js": "05974e0c9e0ad928afbff6558833d22ce9e069dc9f115835fe8cf85660cf9fcf",
+    "ui/selected-intent.js": "ab513f90562a629542829ca78121f3e4709a48150bf2b7d336797d23b348cf91",
+    "ui/settings-layout.js": "a9b996e98331f8783c1e4166eb9bc6b6e31646c0f1ce958bc58c85c339a17866",
+    "ui/settings-ui.js": "133891b422705ebb4e281a0737ea0aa250a67d14daefb8693e410af8b0a6bdc8",
+    "text/settings.xml": "b9ed35a93a73ed6453b2308f6b2a9dd6d1bda5c3e1bca1fadfca013082bb336a",
+    "text/civ7-dev-channel.xml": "763f20b364f26dd6dedec65f5bed6cc48ca3dc2a436f36e88083b490bcec1568",
+    "data/focus-cost.xml": "a1598d65be898198596125dfedffce53dccd0f4401725a044449bf5f12052336",
+    "data/focus-bonus-effects.xml": "c12b7db8bebc817ca21b2ec6221039862b3a66fc67dab47e2610b14db309178a",
+    "data/focus-bonus.xml": "0af0e534bc29c5800fe4da3d0d4392621d5ce7c17c3400994042a0064d4ae344",
+    "data/focus-cost-effects.xml": "9d964706b2d32817b9b51c649f5289c90bbcba0c3c13b41168b655e5e844c276"
+  }
+}
