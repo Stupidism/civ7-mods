@@ -1,0 +1,327 @@
+{
+  "before": [
+    -1020973792
+  ],
+  "added": [
+    {
+      "type": "UNIT_SCOUT",
+      "n": 1,
+      "after": 2
+    },
+    {
+      "type": "UNIT_ARCHER",
+      "n": 2,
+      "after": 3
+    },
+    {
+      "type": "UNIT_MERCHANT",
+      "n": 3,
+      "after": 4
+    },
+    {
+      "type": "UNIT_SCOUT",
+      "n": 4,
+      "after": 5
+    },
+    {
+      "type": "UNIT_ARCHER",
+      "n": 5,
+      "after": 6
+    },
+    {
+      "type": "UNIT_MERCHANT",
+      "n": 6,
+      "after": 7
+    },
+    {
+      "type": "UNIT_SCOUT",
+      "n": 7,
+      "after": 8
+    }
+  ],
+  "layout": [
+    {
+      "index": "0",
+      "type": "WONDER_MAUSOLEUM_AT_HALICARNASSUS",
+      "box": [
+        1144.6,
+        963,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "摩索拉斯王陵墓[N]已在队首。[N]右键取消此项。",
+      "child": "active-title flex justify-center font-title uppercase text-sm py-2"
+    },
+    {
+      "index": "1",
+      "type": "UNIT_SCOUT",
+      "box": [
+        1144.6,
+        873,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "探路者[N]左键提前一位。[N]右键取消此项。",
+      "child": "queued-title flex justify-center font-title uppercase text-sm py-2 mt-5"
+    },
+    {
+      "index": "2",
+      "type": "UNIT_ARCHER",
+      "box": [
+        1144.6,
+        783,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "弓箭手[N]左键提前一位。[N]右键取消此项。",
+      "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+    },
+    {
+      "index": "3",
+      "type": "UNIT_MERCHANT",
+      "box": [
+        1144.6,
+        693,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "商人[N]左键提前一位。[N]右键取消此项。",
+      "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+    },
+    {
+      "index": "4",
+      "type": "UNIT_SCOUT",
+      "box": [
+        1144.6,
+        603,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "探路者[N]左键提前一位。[N]右键取消此项。",
+      "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+    },
+    {
+      "index": "5",
+      "type": "UNIT_ARCHER",
+      "box": [
+        1144.6,
+        513,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "弓箭手[N]左键提前一位。[N]右键取消此项。",
+      "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+    },
+    {
+      "index": "6",
+      "type": "UNIT_MERCHANT",
+      "box": [
+        1144.6,
+        423,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "商人[N]左键提前一位。[N]右键取消此项。",
+      "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+    },
+    {
+      "index": "7",
+      "type": "UNIT_SCOUT",
+      "box": [
+        989.6,
+        963,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot bsu-queue-second",
+      "tip": "探路者[N]左键提前一位。[N]右键取消此项。",
+      "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+    }
+  ],
+  "arr": [
+    -1020973792,
+    1872107673,
+    313932809,
+    1524084938,
+    1872107673,
+    313932809,
+    1524084938,
+    1872107673
+  ],
+  "moved": [
+    -1020973792,
+    1872107673,
+    313932809,
+    1524084938,
+    1872107673,
+    313932809,
+    1872107673,
+    1524084938
+  ],
+  "removed": [
+    -1020973792,
+    1872107673,
+    313932809,
+    1524084938,
+    1872107673,
+    313932809,
+    1872107673
+  ],
+  "afterRows": [
+    {
+      "index": "0",
+      "type": "WONDER_MAUSOLEUM_AT_HALICARNASSUS",
+      "box": [
+        1144.6,
+        963,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "摩索拉斯王陵墓[N]已在队首。[N]右键取消此项。",
+      "child": "active-title flex justify-center font-title uppercase text-sm py-2"
+    },
+    {
+      "index": "1",
+      "type": "UNIT_SCOUT",
+      "box": [
+        1144.6,
+        873,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "探路者[N]左键提前一位。[N]右键取消此项。",
+      "child": "queued-title flex justify-center font-title uppercase text-sm py-2 mt-5"
+    },
+    {
+      "index": "2",
+      "type": "UNIT_ARCHER",
+      "box": [
+        1144.6,
+        783,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "弓箭手[N]左键提前一位。[N]右键取消此项。",
+      "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+    },
+    {
+      "index": "3",
+      "type": "UNIT_MERCHANT",
+      "box": [
+        1144.6,
+        693,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "商人[N]左键提前一位。[N]右键取消此项。",
+      "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+    },
+    {
+      "index": "4",
+      "type": "UNIT_SCOUT",
+      "box": [
+        1144.6,
+        603,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "探路者[N]左键提前一位。[N]右键取消此项。",
+      "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+    },
+    {
+      "index": "5",
+      "type": "UNIT_ARCHER",
+      "box": [
+        1144.6,
+        513,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "弓箭手[N]左键提前一位。[N]右键取消此项。",
+      "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+    },
+    {
+      "index": "6",
+      "type": "UNIT_SCOUT",
+      "box": [
+        1144.6,
+        423,
+        155,
+        90
+      ],
+      "class": "build-queue__item-container-outer fxs-vslot",
+      "tip": "探路者[N]左键提前一位。[N]右键取消此项。",
+      "child": "build-queue__item-container items-center justify-center flex flex-row relative pointer-events-auto cursor-pointer"
+    }
+  ],
+  "queueBox": [
+    989.6,
+    414,
+    310,
+    639
+  ],
+  "tabs": [
+    {
+      "box": [
+        44,
+        144,
+        626.8,
+        48
+      ],
+      "text": "生产"
+    },
+    {
+      "box": [
+        670.8,
+        144,
+        626.8,
+        48
+      ],
+      "text": "购买"
+    }
+  ],
+  "tabsBox": [
+    36,
+    144,
+    1269.6,
+    48
+  ],
+  "skip": [
+    1221.6,
+    52,
+    48,
+    48
+  ],
+  "icon": [
+    1231.2,
+    61.6,
+    28.8,
+    28.8
+  ],
+  "close": [
+    1269.6,
+    52,
+    48,
+    48
+  ],
+  "disabled": "true",
+  "skipClass": "bsu-defer-icon-button pointer-events-auto cursor-pointer disabled cursor-not-allowed",
+  "city": {
+    "owner": 0,
+    "id": 65536,
+    "type": 1
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "time": "2026-11-05T02:38:52.370118+00:00",
+  "gameClosed": true,
+  "saveFilesVerified": 479,
+  "directoriesVerified": 6,
+  "changedRestored": [],
+  "testFilesRemoved": [
+    "Single/Delta_20261105_settlement.Civ7Save"
+  ],
+  "runtimeRestored": 0,
+  "flagsAndSettingsVerified": true,
+  "recoveryArchivesDeleted": 1
+}

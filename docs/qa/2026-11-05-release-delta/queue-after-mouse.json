@@ -1,0 +1,287 @@
+{
+  "q": {
+    "tag": "PANEL-BUILD-QUEUE",
+    "cls": "absolute left-3 h-full bsu-build-queue bsu-queue-mouse",
+    "y": 504,
+    "x": 989.6000366210938,
+    "h": 549,
+    "w": 310.00006103515625,
+    "display": "block",
+    "visibility": "visible",
+    "height": "549px",
+    "overflow": "visible"
+  },
+  "inner": {
+    "tag": "FXS-VSLOT",
+    "cls": "fxs-scrollable-content--last fxs-vslot build-queue__item-container-queued relative mr-2\\.5 grow",
+    "y": 513,
+    "x": 989.6000366210938,
+    "h": 540,
+    "w": 310.00006103515625,
+    "display": "flex",
+    "visibility": "visible",
+    "height": "540px",
+    "overflow": "visible"
+  },
+  "scroll": {
+    "tag": "DIV",
+    "cls": "flex flex-col fxs-scrollable-content-container max-w-full max-h-full overflow-y-scroll",
+    "y": 513,
+    "x": 989.6000366210938,
+    "h": 540,
+    "w": 310.00006103515625,
+    "display": "flex",
+    "visibility": "visible",
+    "height": "auto",
+    "overflow": "scroll"
+  },
+  "rendered": [
+    {
+      "index": "0",
+      "row": {
+        "tag": "FXS-VSLOT",
+        "cls": "build-queue__item-container-outer fxs-vslot",
+        "y": 963,
+        "x": 1144.60009765625,
+        "h": 90,
+        "w": 155,
+        "display": "flex",
+        "visibility": "visible",
+        "height": "5rem",
+        "overflow": "visible",
+        "inline": "--bsu-row-top: 450px;"
+      },
+      "button": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 989.739990234375,
+        "x": 1265.840087890625,
+        "h": 27,
+        "w": 27,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hit": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 989.739990234375,
+        "x": 1265.840087890625,
+        "h": 27,
+        "w": 27,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hittable": true
+    },
+    {
+      "index": "1",
+      "row": {
+        "tag": "FXS-VSLOT",
+        "cls": "build-queue__item-container-outer fxs-vslot",
+        "y": 873,
+        "x": 1144.60009765625,
+        "h": 90,
+        "w": 155,
+        "display": "flex",
+        "visibility": "visible",
+        "height": "5rem",
+        "overflow": "visible",
+        "inline": "--bsu-row-top: 360px;"
+      },
+      "button": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 899.739990234375,
+        "x": 1265.840087890625,
+        "h": 27,
+        "w": 27,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hit": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 899.739990234375,
+        "x": 1265.840087890625,
+        "h": 27,
+        "w": 27,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hittable": true
+    },
+    {
+      "index": "2",
+      "row": {
+        "tag": "FXS-VSLOT",
+        "cls": "build-queue__item-container-outer fxs-vslot",
+        "y": 783,
+        "x": 1144.60009765625,
+        "h": 90,
+        "w": 155,
+        "display": "flex",
+        "visibility": "visible",
+        "height": "5rem",
+        "overflow": "visible",
+        "inline": "--bsu-row-top: 270px;"
+      },
+      "button": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 809.739990234375,
+        "x": 1265.840087890625,
+        "h": 27,
+        "w": 27,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hit": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 809.739990234375,
+        "x": 1265.840087890625,
+        "h": 27,
+        "w": 27,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hittable": true
+    },
+    {
+      "index": "3",
+      "row": {
+        "tag": "FXS-VSLOT",
+        "cls": "build-queue__item-container-outer fxs-vslot",
+        "y": 693,
+        "x": 1144.60009765625,
+        "h": 90,
+        "w": 155,
+        "display": "flex",
+        "visibility": "visible",
+        "height": "5rem",
+        "overflow": "visible",
+        "inline": "--bsu-row-top: 180px;"
+      },
+      "button": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 719.739990234375,
+        "x": 1265.840087890625,
+        "h": 27,
+        "w": 27,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hit": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 719.739990234375,
+        "x": 1265.840087890625,
+        "h": 27,
+        "w": 27,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hittable": true
+    },
+    {
+      "index": "4",
+      "row": {
+        "tag": "FXS-VSLOT",
+        "cls": "build-queue__item-container-outer fxs-vslot",
+        "y": 603,
+        "x": 1144.60009765625,
+        "h": 90,
+        "w": 155,
+        "display": "flex",
+        "visibility": "visible",
+        "height": "5rem",
+        "overflow": "visible",
+        "inline": "--bsu-row-top: 90px;"
+      },
+      "button": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 629.739990234375,
+        "x": 1265.840087890625,
+        "h": 27,
+        "w": 27,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hit": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 629.739990234375,
+        "x": 1265.840087890625,
+        "h": 27,
+        "w": 27,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hittable": true
+    },
+    {
+      "index": "5",
+      "row": {
+        "tag": "FXS-VSLOT",
+        "cls": "build-queue__item-container-outer fxs-vslot",
+        "y": 513,
+        "x": 1144.60009765625,
+        "h": 90,
+        "w": 155,
+        "display": "flex",
+        "visibility": "visible",
+        "height": "5rem",
+        "overflow": "visible",
+        "inline": "--bsu-row-top: 0px;"
+      },
+      "button": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 539.739990234375,
+        "x": 1265.840087890625,
+        "h": 27,
+        "w": 27,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hit": {
+        "tag": "FXS-ACTIVATABLE",
+        "cls": "build-queue__close-button size-6 absolute -right-2 -top-2 bg-contain pointer-events-auto cursor-pointer",
+        "y": 539.739990234375,
+        "x": 1265.840087890625,
+        "h": 27,
+        "w": 27,
+        "display": "block",
+        "visibility": "visible",
+        "height": "1.5rem",
+        "overflow": "visible"
+      },
+      "hittable": true
+    }
+  ],
+  "actual": 6
+}
