@@ -44,13 +44,55 @@ export class BridgeSettingsStore {
       return { ...(this.lastGood ?? this.defaults) };
     }
   }
+  #rollbackPlain(before, attempted, failure) {
+    const actual = this.storage.getItem(STORE);
+    if (actual === before) return;
+    if (actual !== attempted) {
+      // Do not overwrite a detectable intervening foreign update while trying
+      // to undo our rejected write.
+      throw new Error(`Controller settings rollback failed after ${failure}`);
+    }
+    try {
+      if (before == null) {
+        if (typeof this.storage.removeItem !== 'function') throw new Error('storage cannot remove the rejected first write');
+        this.storage.removeItem(STORE);
+        if (this.storage.getItem(STORE) != null) throw new Error('removal was not verified');
+      } else {
+        this.storage.setItem(STORE, before);
+        if (this.storage.getItem(STORE) !== before) throw new Error('restoration was not verified');
+      }
+    } catch (error) {
+      throw new Error(`Controller settings rollback failed after ${failure}: ${error}`);
+    }
+  }
   save(config) {
     const next = normalizeConfig(config, this.defaults);
     if (!this.lastGood) this.load();
+    const serialized = JSON.stringify(next);
     try {
-      this.storage.setItem(STORE, JSON.stringify(next));
-      const actual = parseConfig(this.storage.getItem(STORE));
-      if (Object.keys(DEFAULTS).some(key => actual[key] !== next[key])) throw new Error('Controller settings read-back failed');
+      if (typeof this.storage.verifiedSetItem === 'function') {
+        this.storage.verifiedSetItem(STORE, serialized, () => {
+          const actual = parseConfig(this.storage.getItem(STORE));
+          if (Object.keys(DEFAULTS).some(key => actual[key] !== next[key])) {
+            throw new Error('Controller settings read-back failed');
+          }
+        });
+      } else {
+        let attempted = false;
+        let before;
+        try {
+          before = this.storage.getItem(STORE);
+          attempted = true;
+          this.storage.setItem(STORE, serialized);
+          const actual = parseConfig(this.storage.getItem(STORE));
+          if (Object.keys(DEFAULTS).some(key => actual[key] !== next[key])) {
+            throw new Error('Controller settings read-back failed');
+          }
+        } catch (error) {
+          if (attempted) this.#rollbackPlain(before, serialized, String(error.message ?? error));
+          throw error;
+        }
+      }
     } catch (error) { this.writeFault = true; throw error; }
     this.lastGood = { ...next };
     this.readFault = null;

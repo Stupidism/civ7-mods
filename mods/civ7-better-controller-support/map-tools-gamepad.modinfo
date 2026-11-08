@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Mod xmlns="ModInfo" id="civ7-map-tools-gamepad" version="16">
+<Mod xmlns="ModInfo" id="civ7-map-tools-gamepad" version="17">
   <Properties>
     <Name>LOC_MTG_MOD_NAME</Name>
     <Description>LOC_MTG_DESCRIPTION</Description>
     <Authors>Stupidism</Authors>
-    <Version>0.10.1</Version>
+    <Version>0.10.2-dev</Version>
     <Package>Mod</Package>
     <AffectsSavedGames>0</AffectsSavedGames>
     <ShowInBrowser>1</ShowInBrowser>

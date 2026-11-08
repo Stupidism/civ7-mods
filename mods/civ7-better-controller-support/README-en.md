@@ -1,6 +1,6 @@
-# Better Controller Support 0.10.1
+# Better Controller Support 0.10.2-dev
 
-Release 0.10.1, 2026-11-06, refreshes the English documentation and feature boundaries only. It changes no runtime behavior and claims neither a new fix nor new live validation. The published 0.10.0 runtime baseline carries forward; this revision adds no physical-controller, Windows, or in-game testing.
+Source candidate **0.10.2-dev** (2026-11-09) fixes multi-key settings compatibility, legacy calibration migration and recovery after a failed save. Workshop remains at **0.10.1**. This candidate has offline checks only; it has not been installed or validated in game. See [storage review fixes](docs/storage-review-fixes.md).
 
 ## Current six feature groups
 
@@ -25,8 +25,8 @@ The following features are outside this package. All three page mods are optiona
 
 ## Upgrade and settings
 
-Replace this mod's complete directory during updates so removed files cannot linger. Keep the internal mod ID and existing settings; no settings reset is needed. Do not enable it together with the old standalone Mac controller fix or keep duplicate local and Workshop copies.
+Replace this mod's complete directory during updates so removed files cannot linger. The internal mod ID stays unchanged. On reliable keyed storage, legacy calibration is loaded and migrated when settings are confirmed. Legacy records on affected macOS key-blind storage require the explicit [migration procedure](docs/storage-review-fixes.md); do not clear other mods’ settings. Do not enable it together with the old standalone Mac controller fix or keep duplicate local and Workshop copies.
 
-Runtime files are identical to the published 0.10.0 baseline. All 136 offline regression tests passed with no skips. No new in-game, physical-controller or Windows tests were performed for this release. See [validation records](VALIDATION.md).
+Published 0.10.1 retained the 0.10.0 runtime and passed 136 offline regressions with no skips. The 0.10.2-dev candidate changes storage code, so published-version acceptance does not cover it. Candidate evidence is recorded in the storage fixes document; in-game, physical-controller and Windows validation remains pending. See [validation records](VALIDATION.md).
 
 Development: `npm test`; set `CIV7_PLAYWRIGHT_MODULE` for the isolated browser regression, which does not connect to the game. `python3 tools/package.py` only creates the runtime package.

@@ -1,6 +1,6 @@
 {
   "name": "civ7-map-tools-gamepad",
-  "version": "0.10.1",
+  "version": "0.10.2-dev",
   "private": true,
   "type": "module",
   "scripts": {
