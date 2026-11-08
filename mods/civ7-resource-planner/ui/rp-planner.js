@@ -1,3 +1,4 @@
+import { weightedSum } from './valuation/rp-valuation-weights.js';
 // Pure allocation model. No game APIs or UI state in this module.
 export const YIELDS = ['YIELD_FOOD','YIELD_PRODUCTION','YIELD_GOLD','YIELD_SCIENCE','YIELD_CULTURE','YIELD_HAPPINESS','YIELD_DIPLOMACY'];
 export const WEIGHTS = [2,4,1,4,4,8,0];
@@ -24,6 +25,37 @@ export function effectsFor(resource, city) {
   return {flat, percent, construction};
 }
 
+// One formula for every caller. Conditional unit/building production is a
+// percentage of the settlement's production after ordinary flat/percent
+// effects. `city.construction` holds already assigned fixed production
+// resources; candidate resources add to it without compounding.
+function ordinaryYields(city, flat, percent) {
+  return city.base.map((b,i) => ((b + flat[i]) * (city.multiplier[i] + percent[i]/100) + (city.offset?.[i]||0)) * (city.postMultiplier?.[i]??1));
+}
+
+function appliedYields(city, flat, percent, construction) {
+  const result=ordinaryYields(city,flat,percent);
+  result[1]*=1+((Number(city.construction)||0)+construction)/100;
+  return result;
+}
+
+// Allocation utility uses its own vector. For a known queue head, useful
+// production reaches the remaining cost while additive baseline overflow stays
+// creditable; every modeled production source shares that policy. Raw yield
+// prediction and UI deltas continue to use cityYieldVector/appliedYields above.
+function scoredYields(city, flat, percent, construction) {
+  const result=ordinaryYields(city,flat,percent);
+  const rawProduction=result[1]*(1+((Number(city.construction)||0)+construction)/100);
+  const remaining=city.productionRemaining;
+  const nativeOffset=Number.isFinite(city.productionRateOffset)?city.productionRateOffset:0;
+  if(Number.isFinite(remaining)&&remaining>=0) {
+    const baseline=city.base[1]+flat[1]+(city.offset?.[1]||0);
+    const finalProduction=rawProduction+nativeOffset;
+    result[1]=Math.min(finalProduction,remaining)+Math.max(baseline-remaining,0);
+  } else result[1]=rawProduction;
+  return result;
+}
+
 export function cityYieldVector(city, resources) {
   const flat = Array(7).fill(0), percent = Array(7).fill(0);
   let construction=0;
@@ -32,26 +64,82 @@ export function cityYieldVector(city, resources) {
     construction+=e.construction;
     for (let i=0;i<7;i++) { flat[i] += e.flat[i]; percent[i] += e.percent[i]; }
   }
-  const result=city.base.map((b,i) => ((b + flat[i]) * (city.multiplier[i] + percent[i]/100) + (city.offset?.[i]||0)) * (city.postMultiplier?.[i]??1));
-  result[1]*=1+construction/100;
-  return result;
+  return appliedYields(city,flat,percent,construction);
 }
 
-export function utility(values) {
-  return values.reduce((sum, v, i) => sum + (i === 5 ? Math.min(0,v)*8 : v*WEIGHTS[i]), 0);
+function cityScoreVector(city, resources) {
+  const flat = Array(7).fill(0), percent = Array(7).fill(0);
+  let construction=0;
+  for (const r of resources) {
+    const e = effectsFor(r, city);
+    construction+=e.construction;
+    for(let i=0;i<7;i++) { flat[i]+=e.flat[i]; percent[i]+=e.percent[i]; }
+  }
+  return scoredYields(city,flat,percent,construction);
+}
+
+// Legacy single-yield settings migrate without discarding the city's preference.
+export function normalizePreferences(value) {
+  if (typeof value === 'string') return YIELDS.includes(value) ? {[value]:2} : {};
+  return Object.fromEntries(YIELDS.filter(key=>value && (value[key]===2 || value[key]===0)).map(key=>[key,value[key]]));
+}
+export function cyclePreference(value,yieldType) {
+  const next=normalizePreferences(value);
+  if(!YIELDS.includes(yieldType))return next;
+  if(next[yieldType]===0)delete next[yieldType];
+  else next[yieldType]=next[yieldType]===2?0:2;
+  return next;
+}
+export const hasPreferences=value=>Object.keys(normalizePreferences(value)).length>0;
+// Default preferences compare unmodified income, independently of allocation
+// checkboxes. Ties share a preference; zero/negative-only yields add no marks.
+export function bareYields(city,assigned=[]) {
+  const values=[...city.base];
+  for(const resource of assigned){const {flat}=effectsFor(resource,city);for(let i=0;i<YIELDS.length;i++)values[i]-=flat[i];}
+  return values;
+}
+// Reverse the candidate subtraction performed by snapshot(). Used when a
+// filtered planner run (happiness) removes an already assigned resource:
+// it remains in the city, so its construction returns to the fixed baseline.
+export function restoreAssignedResource(city,resource) {
+  const e=effectsFor(resource,city);
+  city.capacity+=(resource.bonusSlots||0)-1;
+  for(let i=0;i<YIELDS.length;i++){city.base[i]+=e.flat[i];city.multiplier[i]+=e.percent[i]/100;}
+  city.construction=(Number(city.construction)||0)+e.construction;
+  return city;
+}
+export function defaultPreferences(cities) {
+  const result={};
+  for(let i=0;i<YIELDS.length;i++) {
+    const value=c=>Number(c.bareBase?.[i]);
+    const highest=Math.max(0,...cities.map(c=>Number.isFinite(value(c))?value(c):0));
+    if(highest<=EPS)continue;
+    for(const c of cities)if(Math.abs(value(c)-highest)<=EPS) {
+      const key=c.preferenceID??c.key;
+      (result[key]??={})[YIELDS[i]]=2;
+    }
+  }
+  return result;
+}
+export function utility(values,preferences) {
+  return weightedSum(values.map((v,i)=>{
+    const factor=typeof preferences==='string'?(preferences===YIELDS[i]?2:1):preferences?.[YIELDS[i]];
+    return [i===5?Math.min(0,v):v, WEIGHTS[i]*(factor===0||factor===2?factor:1)];
+  }));
 }
 
 export function marginal(city, resource, assigned = []) {
-  const before = cityYieldVector(city, assigned);
-  const after = cityYieldVector(city, [...assigned,resource]);
-  return { score: utility(after)-utility(before), yields: after.map((v,i)=>v-before[i]) };
+  const before = cityScoreVector(city, assigned);
+  const after = cityScoreVector(city, [...assigned,resource]);
+  const rawBefore = cityYieldVector(city, assigned),rawAfter = cityYieldVector(city, [...assigned,resource]);
+  return { score: utility(after,city.tendency)-utility(before,city.tendency), yields: rawAfter.map((v,i)=>v-rawBefore[i]) };
 }
 
 function permitted(r,c,mode) {
   if (!r.allowed.includes(c.key)) return false;
   const m=marginal(c,r);
   if (mode === 'happiness') return cityYieldVector(c,[])[5]<0 && m.yields[5]>EPS;
-  return (c.tendency && m.yields[YIELDS.indexOf(c.tendency)]>EPS) || r.original === c.key;
+  return mode==='score' || hasPreferences(c.tendency) || r.original === c.key;
 }
 
 // Maximum-weight bipartite allocation, with reverse edges to undo early choices.
@@ -92,7 +180,7 @@ function* matching(resources,cities,mode,eligible) {
 }
 
 export function planUtility(assignment, resources,cities) {
-  return cities.reduce((sum,c)=>sum+utility(cityYieldVector(c,resources.filter(r=>assignment[r.key]===c.key))),0);
+  return cities.reduce((sum,c)=>sum+utility(cityScoreVector(c,resources.filter(r=>assignment[r.key]===c.key)),c.tendency),0);
 }
 
 function* improve(assignment,resources,cities,mode,eligible) {
@@ -104,8 +192,7 @@ function* improve(assignment,resources,cities,mode,eligible) {
     if(!key)return 0;
     const c=byCity.get(key),flat=Array(7).fill(0),percent=Array(7).fill(0);let construction=0;
     for(const r of held){const e=effects.get(key).get(r.key);construction+=e.construction;for(let i=0;i<7;i++){flat[i]+=e.flat[i];percent[i]+=e.percent[i];}}
-    const vector=c.base.map((b,i)=>((b+flat[i])*(c.multiplier[i]+percent[i]/100)+(c.offset?.[i]||0))*(c.postMultiplier?.[i]??1));
-    vector[1]*=1+construction/100;return utility(vector);
+    return utility(scoredYields(c,flat,percent,construction),c.tendency);
   };
   for(const r of resources) {
     const key=assignment[r.key],held=resources.filter(x=>assignment[x.key]===key);
@@ -135,6 +222,32 @@ function* improve(assignment,resources,cities,mode,eligible) {
         if(gain>bestGain){bestGain=gain;best=[a.key,to,b.key,from];}
       }
     }
+    if(!best) {
+      // A single zero-score resource can still help when combined with others
+      // to cross a finite production-remaining plateau. Try only the best
+      // production-heavy prefixes permitted by the existing eligibility rules.
+      let bestBundleGain=EPS,bestBundleCity,bestBundle;
+      for(const c of cities) {
+        yield;
+        if(!Number.isFinite(c.productionRemaining)||c.productionRemaining<0)continue;
+        const heldForCity=held.get(c.key),freeCapacity=Math.floor(c.capacity-heldForCity.length);
+        if(freeCapacity<=0)continue;
+        const candidates=resources.filter(r=>!assignment[r.key]&&eligible(r,c)&&effects.get(c.key).get(r.key).flat[1]>EPS);
+        candidates.sort((a,b)=>effects.get(c.key).get(b.key).flat[1]-effects.get(c.key).get(a.key).flat[1]);
+        const bundle=[];
+        for(const resource of candidates) {
+          yield;
+          if(bundle.length>=freeCapacity)break;
+          bundle.push(resource);
+          const gain=value(c.key,[...heldForCity,...bundle])-current.get(c.key);
+          if(gain>bestBundleGain){bestBundleGain=gain;bestBundleCity=c;bestBundle=[...bundle];}
+        }
+      }
+      if(bestBundle) {
+        for(const resource of bestBundle)assignment[resource.key]=bestBundleCity.key;
+        continue;
+      }
+    }
     if(!best)break;
     assignment[best[0]]=best[1];if(best.length>2)assignment[best[2]]=best[3];
   }
@@ -157,7 +270,7 @@ function* allocationSteps(resources,cities,mode='tendency') {
     let best, bestValue=planUtility(assignment,normal,state);
     const from=camelAssignments[camel.key],source=state.find(c=>c.key===from);
     for(const c of state) {
-      if(c.key===from || !camel.allowed.includes(c.key) || (mode==='tendency'&&!c.tendency) || c.capacity<0)continue;
+      if(c.key===from || !camel.allowed.includes(c.key) || (mode==='tendency'&&!hasPreferences(c.tendency)) || c.capacity<0)continue;
       if(source && source.capacity<camel.bonusSlots-1)continue;
       if(source)source.capacity-=camel.bonusSlots-1;
       c.capacity += camel.bonusSlots-1;
@@ -170,7 +283,7 @@ function* allocationSteps(resources,cities,mode='tendency') {
     if(best) {if(source)source.capacity-=camel.bonusSlots-1;camelAssignments[camel.key]=best.key;state.find(c=>c.key===best.key).capacity+=camel.bonusSlots-1;assignment=best.next;}
   }
   const result={...assignment,...camelAssignments};
-  if(mode==='tendency') {
+  if(mode==='tendency'||mode==='score') {
     const previous=Object.fromEntries(resources.filter(r=>r.original).map(r=>[r.key,r.original]));
     if(planUtility(result,resources,cities)<=planUtility(previous,resources,cities)+EPS)return previous;
   }
@@ -202,7 +315,19 @@ export function groupedSettlements(sections) {
 // Happiness filling keeps all occupied slots reserved, then adds or moves one
 // resource at a time. This avoids overbooking slots when an existing resource
 // has no better destination. City priority is explicit, rather than a score bias.
-export function planHappiness(resources,cities,townsOnly=false) {
+export function planHappiness(resources,cities,townsOnly=false,options={}) {
+  const settlementTarget=options.settlementTarget===5?5:0;
+  const cityTarget=options.cityTarget===20?20:0;
+  const target=c=>c.isTown?settlementTarget:Math.max(settlementTarget,cityTarget);
+  const benefit=(c,r,held)=>{
+    const before=cityYieldVector(c,held)[5],after=cityYieldVector(c,[...held,r])[5];
+    const m=marginal(c,r,held),factor=normalizePreferences(c.tendency).YIELD_HAPPINESS??1;
+    // Extend only happiness filling's clipping point; overall score keeps its
+    // original zero threshold and all other yield weights stay unchanged.
+    m.score+=((Math.min(target(c),after)-Math.min(target(c),before))-
+      (Math.min(0,after)-Math.min(0,before)))*WEIGHTS[5]*factor;
+    return m;
+  };
   const assignment=Object.fromEntries(resources.filter(r=>r.original).map(r=>[r.key,r.original]));
   const at=key=>resources.filter(r=>assignment[r.key]===key);
   const byKey=new Map(cities.map(c=>[c.key,c]));
@@ -213,16 +338,16 @@ export function planHappiness(resources,cities,townsOnly=false) {
       let best,bestGain=EPS;
       for(const c of targets) {
         const held=at(c.key);
-        if(held.length>=c.capacity || cityYieldVector(c,held)[5]>=-EPS)continue;
+        if(held.length>=c.capacity || cityYieldVector(c,held)[5]>=target(c)-EPS)continue;
         for(const r of resources) {
           const from=assignment[r.key];
           if(from===c.key||protectedResources.has(r.key)||!r.allowed.includes(c.key))continue;
           // Town-only mode never removes a resource from a city.
           if(townsOnly&&from&&!byKey.get(from).isTown)continue;
-          const gain=marginal(c,r,held);
+          const gain=benefit(c,r,held);
           if(gain.yields[5]<=EPS)continue;
           const donor=from?byKey.get(from):undefined;
-          const cost=donor?marginal(donor,r,at(from).filter(x=>x.key!==r.key)).score:0;
+          const cost=donor?benefit(donor,r,at(from).filter(x=>x.key!==r.key)).score:0;
           if(gain.score-cost>bestGain){bestGain=gain.score-cost;best={r,to:c.key};}
         }
       }

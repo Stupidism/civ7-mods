@@ -1,37 +1,83 @@
 import {createSignal, onCleanup, onMount, createEffect, untrack} from '/core/vendor/solid-js/dist/solid.js';
-import {planAllocationAsync, planHappiness, effectsFor, cityKey} from './rp-planner.js';
+import {planAllocationAsync, planHappiness, restoreAssignedResource, cityKey, cyclePreference, hasPreferences, defaultPreferences} from './rp-planner.js';
 import {resourceCatalog,snapshot,gameScope,preferenceKey,findAssignment,sendOperation} from './rp-game-adapter.js';
 import {readSettings,writeSettings} from './rp-settings.js';
 import {t,errorMessage} from './rp-l10n.js';
+import {resourceDeferral} from './rp-defer.js';
 const controllers=new WeakMap();
 export function getPlanner(model){return controllers.get(model);}
 export function createPlanner(model) {
   if(controllers.has(model))return controllers.get(model);
   let saved;try{saved=readSettings();}catch(e){saved={preferences:{},games:{}};console.error('[Resource Planner] '+e.message);}
   const scope=gameScope(),catalog=resourceCatalog();
-  const [tendencies,setTendencies]=createSignal(saved.games?.[scope]||{});
-  const [camels,setCamels]=createSignal(false),[assigned,setAssigned]=createSignal(false);
+  const initial=saved.games?.[scope]||{};
+  const [tendencies,setTendencies]=createSignal(initial);
+  // Existing saved marks belong to the user. Never replace them on migration.
+  const [preferenceMode,setPreferenceMode]=createSignal(saved.preferenceModes?.[scope]??(Object.values(initial).some(hasPreferences)?'manual':'auto'));
+  const allocation=saved.preferences?.allocation||{};
+  const [camels,setCamelsValue]=createSignal(allocation.camels===true),[assigned,setAssignedValue]=createSignal(allocation.assigned===true);
+  const happy=saved.preferences?.happiness||{};
+  const [happinessScope,setHappinessScopeValue]=createSignal(happy.scope==='towns'?'towns':'cities');
+  const [settlementTarget,setSettlementTargetValue]=createSignal(happy.settlementTarget===5?5:0);
+  const [cityTarget,setCityTargetValue]=createSignal(happy.cityTarget===20?20:0);
   const [busy,setBusy]=createSignal(false),[statusData,setStatusData]=createSignal({key:'HINT',args:[]});
+  const [reminderEnabled,setReminderEnabled]=createSignal(saved.preferences?.resourceReminders!==false);
   const status=()=>t(statusData().key,...statusData().args);
   // Stable result code for integrations; status() is display-only and localized.
   const statusCode=()=>statusData().key;
   const setStatus=(key,...args)=>setStatusData({key,args});
   let alive=true;
   const persist=()=>{
-    try {const current=readSettings();current.games||={};current.preferences||={};current.games[scope]=tendencies();current.preferences.sort=model.selectedSettlementSortType();current.preferences.direction=model.selectedSortDirection();writeSettings(current);}
+    try {
+      const current=readSettings();
+      current.games||={};
+      current.games[scope]=tendencies();
+      current.preferenceModes||={};
+      current.preferenceModes[scope]=preferenceMode();
+      current.preferences||={};
+      current.preferences.sort=model.selectedSettlementSortType();
+      current.preferences.direction=model.selectedSortDirection();
+      current.preferences.happiness={scope:happinessScope(),settlementTarget:settlementTarget(),cityTarget:cityTarget()};
+      current.preferences.allocation={...current.preferences.allocation,camels:camels(),assigned:assigned()};
+      writeSettings(current);
+    }
     catch(e){setStatus('SETTINGS_FAILED',errorMessage(e));console.error('[Resource Planner] '+e.message);}
   };
+  const refreshDefaults=()=>{
+    if(preferenceMode()!=='auto')return;
+    const data=snapshot(model,tendencies(),catalog,{defaultsOnly:true});
+    setTendencies(defaultPreferences(data.cities));persist();
+  };
   onMount(()=>{
-    model.setSelectedSettlementSortType(saved.preferences?.sort??13);
+    const allowed=Object.values(model.resourceSettlementSortItems??{});
+    const requested=saved.preferences?.sort??13;
+    model.setSelectedSettlementSortType(!allowed.length||allowed.includes(requested)?requested:13);
     model.toggleSelectedSortDirection(saved.preferences?.direction??-1);
+    try{refreshDefaults();}catch(e){setStatus('DEFAULTS_FAILED',errorMessage(e));console.error('[Resource Planner] '+e.message);}
   });
   createEffect(()=>{model.selectedSettlementSortType();model.selectedSortDirection();untrack(persist);});
-  const p={camels,assigned,busy,status,statusCode,tendencies,setCamels,setAssigned,
+  const changePreference=(write,choices,value)=>{if(busy()||model.resourceActionBusy?.()||!alive||!choices.includes(value))return;write(value);persist();};
+  const p={camels,assigned,busy,status,statusCode,tendencies,preferenceMode,
+    setCamels:value=>changePreference(setCamelsValue,[true,false],value),
+    setAssigned:value=>changePreference(setAssignedValue,[true,false],value),
+    reminderEnabled,toggleReminders(){if(busy()||model.resourceActionBusy?.()||!alive)return;const value=!reminderEnabled();if(resourceDeferral().setRemindersEnabled(value))setReminderEnabled(value);else setStatus('SETTINGS_FAILED','');},
+    happinessScope,settlementTarget,cityTarget,
+    setHappinessScope:value=>changePreference(setHappinessScopeValue,['cities','towns'],value),
+    setSettlementTarget:value=>changePreference(setSettlementTargetValue,[0,5],value),
+    setCityTarget:value=>changePreference(setCityTargetValue,[0,20],value),
+    runHappiness:()=>{void run(happinessScope()==='towns'?'town-happiness':'city-happiness');},
     sort(type){if(model.selectedSettlementSortType()===type)model.toggleSelectedSortDirection();else{model.setSelectedSettlementSortType(type);model.toggleSelectedSortDirection(-1);}persist();},
     tendency(id){const c=Cities.get(id);return c?tendencies()[preferenceKey(c)]:undefined;},
-    clear(id){const c=Cities.get(id);if(!c)return;const next={...tendencies()};delete next[preferenceKey(c)];setTendencies(next);persist();},
-    choose(id,yieldType){if(busy())return;const c=Cities.get(id);if(!c)return;setTendencies({...tendencies(),[preferenceKey(c)]:yieldType});persist();void run('tendency',cityKey(c));},
-    run(mode='tendency'){void run(mode);}
+    clear(id){if(busy()||model.resourceActionBusy?.()||!alive)return;const c=Cities.get(id);if(!c)return;const next={...tendencies()};delete next[preferenceKey(c)];setPreferenceMode('manual');setTendencies(next);persist();},
+    choose(id,yieldType){if(busy()||model.resourceActionBusy?.()||!alive)return;const c=Cities.get(id);if(!c)return;const key=preferenceKey(c),next={...tendencies()},value=cyclePreference(next[key],yieldType);if(hasPreferences(value))next[key]=value;else delete next[key];setPreferenceMode('manual');setTendencies(next);setStatus('HINT');persist();},
+    resetDefaults(){
+      if(busy()||model.resourceActionBusy?.()||!alive)return;
+      try{
+        const data=snapshot(model,tendencies(),catalog,{defaultsOnly:true});
+        setTendencies(defaultPreferences(data.cities));setPreferenceMode('auto');setStatus('HINT');persist();
+      }catch(e){setStatus('DEFAULTS_FAILED',errorMessage(e));console.error('[Resource Planner] '+e.message);}
+    },
+    run(mode='score'){void run(mode);}
   };
   controllers.set(model,p);
   onCleanup(()=>{alive=false;controllers.delete(model);});
@@ -40,12 +86,13 @@ export function createPlanner(model) {
     const kept=[];
     for(const r of data.resources) {
       if(predicate(r)){kept.push(r);continue;}
-      if(r.original){const c=data.cities.find(c=>c.key===r.original),e=effectsFor(r,c);c.capacity+=r.bonusSlots-1;for(let i=0;i<7;i++){c.base[i]+=e.flat[i];c.multiplier[i]+=e.percent[i]/100;}}
+      if(r.original){const c=data.cities.find(c=>c.key===r.original);restoreAssignedResource(c,r);}
     }
     data.resources=kept;
   }
   async function run(mode,target) {
-    if(busy()||!alive)return;
+    if(busy()||model.resourceActionBusy?.()||!alive)return;
+    model.clearResourceActionStatus?.();
     if(Players.get(GameContext.localPlayerID)?.Resources?.isResourceAssignmentLocked()){setStatus('LOCKED');return;}
     setBusy(true);setStatus('COMPUTING');
     const playerID=GameContext.localPlayerID,turn=Game.turn,age=Game.age;
@@ -56,15 +103,15 @@ export function createPlanner(model) {
       // Allow the engine to paint the busy state before the synchronous planner.
       await new Promise(resolve=>setTimeout(resolve,0));
       if(!guard())return;
+      if(mode==='score'||mode==='tendency')refreshDefaults();
       data=snapshot(model,tendencies(),catalog,{camels:camels(),assigned:assigned()});
       if(target)data.cities.forEach(c=>{if(c.key!==target)c.tendency=undefined;});
       let plan;
-      if(mode==='tendency') {
-        if(!data.cities.some(c=>c.tendency)){setStatus('CHOOSE_PREFERENCE');return;}
-        plan=await planAllocationAsync(data.resources,data.cities,'tendency',{shouldContinue:guard});
+      if(mode==='score'||mode==='tendency') {
+        plan=await planAllocationAsync(data.resources,data.cities,'score',{shouldContinue:guard});
       } else {
         restrict(data,r=>!r.bonusSlots&&r.effects.some(e=>e.yield==='YIELD_HAPPINESS'&&e.amount>0));
-        plan=planHappiness(data.resources,data.cities,mode==='town-happiness');
+        plan=planHappiness(data.resources,data.cities,mode==='town-happiness',{settlementTarget:settlementTarget(),cityTarget:cityTarget()});
       }
       changes=data.resources.filter(r=>(plan[r.key]||undefined)!==r.original).map(r=>({r,to:plan[r.key]}));
       if(!changes.length){setStatus('NO_CHANGES');return;}

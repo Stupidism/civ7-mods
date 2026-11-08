@@ -1,0 +1,10 @@
+/* Resource Planner's native close-button treatment, with skip semantics. */
+.aoa-card-reminder { position:absolute; top:0; right:0; bottom:0; left:0; z-index:10; pointer-events:none; }
+.aoa-card-skip { position:absolute; right:4.5rem; top:1.25rem; width:3rem; height:3rem; cursor:pointer; pointer-events:auto; background-image:url(blp:hud_closebutton); background-size:100% 100%; }
+.aoa-card-skip:hover { background-image:url(blp:hud_closebutton_hover); }
+.aoa-card-skip:active, .aoa-card-skip.pressed { background-image:url(blp:hud_closebutton_pressed); }
+.aoa-card-skip[disabled="true"] { opacity:0.45; cursor:default; }
+.aoa-card-skip-symbol { position:absolute; top:0.55rem; right:0.55rem; bottom:0.55rem; left:0.55rem; background-color:#341e24; pointer-events:none; }
+.aoa-card-skip-symbol::after { content:""; position:absolute; top:0; right:0; bottom:0; left:0; background-image:url(blp:Action_Skip.png); background-size:contain; background-position:center; background-repeat:no-repeat; }
+.aoa-card-hint { position:absolute; right:1.5rem; bottom:1rem; width:max-content; max-width:calc(100% - 3rem); padding:0.25rem 0.5rem; color:#e5d2ac; font-size:0.85rem; line-height:1.35; background-color:#0b1622cc; pointer-events:none; }
+.aoa-card-hint > .font-body { flex:0 1 auto !important; display:block !important; }

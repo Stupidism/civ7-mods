@@ -1,24 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="civ7-resource-planner" version="1.1.0" xmlns="ModInfo">
+<Mod id="civ7-resource-planner" version="1.5.0" xmlns="ModInfo">
   <Properties>
-    <Name>LOC_RP_MOD_NAME</Name><Version>1.1.0</Version>
+    <Name>LOC_RP_MOD_NAME</Name><Version>1.5.0</Version>
     <Description>LOC_RP_MOD_DESCRIPTION</Description>
-    <Authors>Resource Planner; Resource Re-sorts UI by beezany</Authors>
+    <Authors>Better Resource UI; Resource Re-sorts UI by beezany</Authors>
     <AffectsSavedGames>0</AffectsSavedGames><EnabledByDefault>1</EnabledByDefault>
   </Properties>
-  <Dependencies><Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME"/><Mod id="bz-re-sorts" title="LOC_MOD_BZ_RE_SORTS_NAME"/></Dependencies>
+  <Dependencies><Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME"/></Dependencies>
   <ActionCriteria><Criteria id="always"><AlwaysMet/></Criteria></ActionCriteria>
   <ActionGroups><ActionGroup id="resource-planner-ui" scope="game" criteria="always">
     <Properties><LoadOrder>2000</LoadOrder></Properties>
     <Actions><UpdateText><Item>text/resource-planner.xml</Item></UpdateText><ImportFiles>
       <Item>ui-next/screens/commerce/commerce-screen-resources-tab.js</Item>
       <Item>ui-next/screens/commerce/commerce-screen-model.js</Item>
-      <Item>ui/rp-planner.js</Item><Item>ui/rp-settings.js</Item><Item>ui/rp-game-adapter.js</Item>
-      <Item>ui/rp-controller.js</Item><Item>ui/rp-ui.js</Item><Item>ui/rp-style.css</Item><Item>ui/rp-l10n.js</Item>
+      <Item>ui/rp-planner.js</Item>
+      <Item>ui/rp-settings.js</Item>
+      <Item>ui/rp-game-adapter.js</Item>
+      <Item>ui/rp-controller.js</Item>
+      <Item>ui/rp-ui.js</Item>
+      <Item>ui/rp-style.css</Item>
+      <Item>ui/rp-l10n.js</Item>
+      <Item>ui-next/screens/commerce/treasure-convoy-card.js</Item>
+      <Item>ui-next/screens/commerce/commerce-screen.js</Item>
+      <Item>ui-next/screens/commerce/commerce-screen-empire-tab.js</Item>
+      <Item>ui-next/screens/commerce/commerce-screen.scss2.js</Item>
+      <Item>ui-next/screens/commerce/commerce-screen-base-tab-content.js</Item>
+      <Item>ui-next/screens/commerce/factory-type-display.js</Item>
+      <Item>ui-next/screens/commerce/commerce-screen.css</Item>
+      <Item>ui-next/screens/commerce/commerce-screen.scss.js</Item>
+      <Item>ui-next/screens/commerce/commerce-screen-trade-tab.js</Item>
+      <Item>ui-next/screens/commerce/trade-route-card.js</Item>
+      <Item>ui-next/screens/commerce/commerce-criteria-display.js</Item>
+        <Item>ui-next/screens/commerce/treasure-convoy-progress-bar.js</Item>
+      <Item>ui-next/screens/commerce/commerce-screen-treasure-tab.js</Item>
+      <Item>ui/rp-resource-actions.js</Item>
+      <Item>ui/rp-defer.js</Item>
+      <Item>ui/rp-defer-runtime.js</Item>
+      <Item>ui/valuation/rp-valuation-cache.js</Item>
+      <Item>ui/valuation/rp-valuation-diplomacy.js</Item>
+      <Item>ui/valuation/rp-valuation-economy.js</Item>
+      <Item>ui/valuation/rp-valuation-happiness.js</Item>
+      <Item>ui/valuation/rp-valuation-horizon.js</Item>
+      <Item>ui/valuation/rp-valuation-index.js</Item>
+      <Item>ui/valuation/rp-valuation-service.js</Item>
+      <Item>ui/valuation/rp-valuation-network.js</Item>
+      <Item>ui/valuation/rp-valuation-rescue.js</Item>
+      <Item>ui/valuation/rp-valuation-settlement.js</Item>
+      <Item>ui/valuation/rp-valuation-weights.js</Item>
+      <Item>ui/rp-valuation-adapter.js</Item>
     </ImportFiles></Actions>
   </ActionGroup>
   <ActionGroup id="resource-planner-text-shell" scope="shell" criteria="always">
     <Properties><LoadOrder>2000</LoadOrder></Properties>
     <Actions><UpdateText><Item>text/resource-planner.xml</Item></UpdateText></Actions>
-  </ActionGroup></ActionGroups>
+  </ActionGroup>
+    <ActionGroup id="distributed-action-reminders" scope="game" criteria="always">
+      <Properties><LoadOrder>4100</LoadOrder></Properties>
+      <Actions>
+        <UIScripts><Item>ui/card-reminder-entry.js</Item></UIScripts>
+        <UpdateText><Item>text/action-order.xml</Item></UpdateText>
+        <UpdateIcons><Item>config/instruction-icons.xml</Item></UpdateIcons>
+        <ImportFiles><Item>ui/turn-order.js</Item><Item>ui/turn-order-runtime.js</Item><Item>ui/card-reminders.js</Item><Item>ui/card-reminders-runtime.js</Item><Item>ui/force-turn-runtime.js</Item><Item>ui/page-skip-hold.js</Item><Item>ui/aoa-instruction-hints.js</Item><Item>ui/action-order.css</Item></ImportFiles>
+      </Actions>
+    </ActionGroup>
+</ActionGroups>
+  <LocalizedText><File>text/resource-planner.xml</File></LocalizedText>
 </Mod>

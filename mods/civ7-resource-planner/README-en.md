@@ -1,48 +1,57 @@
-# Resource Planner
+# Better Resource UI
 
-[简体中文](README.md) · Extension for **Resource Re-sorts 3.0.2** by beezany.
+[简体中文](README.md) · **1.5.0** · November 9, 2026
 
-The development source supports English and Simplified Chinese using the game's text language. Other languages use the game's English fallback. There is no separate language setting. The October 23, 2026 translation is a local development update: it has not been installed or published to the Workshop, and has not been tested in the running game.
-
-## Using the resource panel
-
-Open the existing Resources / Trade panel with both Resource Planner and [Resource Re-sorts](https://steamcommunity.com/sharedfiles/filedetails/?id=3507102808) enabled.
-
-- The six yield icons on the left sort settlements by Gold, Food, Science, Culture, Production or Happiness. Click the same icon again to reverse the order. Happiness descending is the initial default; your sorting choice is remembered.
-- Settlements appear in Cities, Towns and Outside the trade network groups. Sorting stays within each group; groups can be collapsed. Order is recalculated when opening the resource page or explicitly sorting. Yields and slots update while you move resources, but the settlement order stays fixed, including after automatic allocation finishes.
-- **Fill** beside City resources improves negative happiness in cities first, then towns. **Fill** beside Bonus resources handles towns only and does not take resources away from cities. Pure happiness resources stop being added once happiness reaches zero.
-- Click a settlement's yield icon to remember its preference and immediately try to assign suitable resources. The highlighted icon and **Preference** label show the choice. Click the label's × to clear it.
-- **Assign by preference** considers all settlements with a preference and their available slots together.
-- **Include Camels** allows capacity expansion. **Include assigned resources** allows existing assignments to be rearranged. Both options start off whenever the page opens and also apply to Fill.
-- When a resource is already selected, clicking a settlement's yield icon attempts to place it instead of starting preference allocation. Right-click / Esc first cancels the selected resource and drag; with nothing selected, it can close the panel.
-
-Preferences are saved by map seed, player and settlement identity. They survive reopening the panel, restarting and loading. Older saves from the same map share these UI preferences; preferences are not written into the game save.
-
-## Allocation rules
-
-Gold / Food / Science / Culture / Production / Happiness use weights of **1 / 2 / 4 / 4 / 4 / 8**. Happiness only scores improvement from a negative value toward zero: raising -2 by 6 counts as 16 points. Influence has no assigned conversion weight and contributes zero to the score.
-
-Allocation uses maximum-weight matching followed by improvements to individual moves and swaps. Percentage bonuses use gross base yields; warehouse and building bonuses use applicable undamaged buildings. City, town, capital, distant-land and construction-queue conditions are considered separately. Nonlinear combinations are improved iteratively, not exhaustively searched.
-
-Each Camel provides two net extra slots after accounting for its own slot. It is used only when the added capacity improves the result. With both options enabled, already assigned Camels may also move. Unrecognized third-party conditions are not counted as supported settlement bonuses.
-
-Turn locks, resource classes, trade connections and capacity still apply. The game decides whether an assignment is legal. Operations wait for confirmation; on failure, the mod attempts to undo changes from that operation and reports any incomplete recovery. If there is no suitable resource, free slot, preference or positive gain, it leaves assignments unchanged.
+Review settlement yields, mark priorities, fill happiness shortfalls and assign resources in one panel. English and Simplified Chinese follow the game language. The internal ID remains `civ7-resource-planner`, preserving existing preferences.
 
 ## Installation and compatibility
 
-Keep Resource Re-sorts enabled. For manual installation, exit the game and copy the entire `civ7-resource-planner` folder into:
+[Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182). Restart after Steam finishes updating and confirm the mod is enabled. Avoid duplicate manual and Workshop copies.
 
-- Windows: `%LOCALAPPDATA%/Firaxis Games/Sid Meier's Civilization VII/Mods/`
-- macOS: `~/Library/Application Support/Civilization VII/Mods/`
+This is now standalone: **a separate Resource Re-sorts installation is no longer required**. Disable competing commerce-page overrides, including the separate Resource Re-sorts mod. These pages derive from Resource Re-sorts 3.0.2 by beezany; see [NOTICE.md](NOTICE.md). No separate Action Order mod is needed; disable retired Action Order Adjustments.
 
-The `.modinfo` file must be directly inside that folder. Avoid enabling both manual and Workshop copies with the same Mod ID. Other mods replacing the same commerce page or model can conflict; recheck compatibility after game or Resource Re-sorts updates.
+## Layout and sorting
 
-This UI extension declares `AffectsSavedGames=0` and does not add game database rules. Resource assignments still affect your current game normally. Historical testing used Civilization VII 1.5.0 (1311346); see [validation notes](VALIDATION.md) for exact versions, platforms and limits.
+Cities, towns and disconnected settlements form three vertically stacked groups. Actions are on the left; sorting and highlighting form two left-aligned rows above the settlements; unassigned resources are on the right. Each settlement has yields/preferences on the left and resource slots on the right.
 
-The panel retains native controller paths. Offline coverage includes controller pickup and Cancel, but full physical-controller navigation and placement have not been verified for this update.
+Select a sort icon to sort; select it again to reverse direction. Assignments do not reorder the list. Sorting is recalculated only on explicit sorting or reopening. Railway/factory sorts appear in the Modern Age; highlighting reflects available resource effects. Hover or controller focus explains the action. **Tidy resource slots** groups cards without reallocating resources.
 
-## Development and attribution
+## Preferences and allocation
 
-Run `node --test tests/*.test.mjs` with Node.js 22+. The reactive sorting test reads the locally installed game Solid runtime; set `CIV7_SOLID_PATH` if needed. It explicitly skips that check when the runtime is absent. Offline tests do not launch or connect to the game.
+Each yield independently cycles Neutral → Prefer ×2 → Avoid ×0 → Neutral. Multiple marks are allowed. Green outlines and inset upward triangles indicate preferences; red outlines and inset downward triangles indicate avoidance. Gold fill marks current focus. Marks change preferences only; **Assign by preference** applies the allocation. Avoidance zeros that yield's score, not other contributions of a mixed resource, and does not prohibit manual placement.
 
-The commerce page and model derive from Resource Re-sorts 3.0.2 by beezany and use native game UI components. Resource Re-sorts must be installed separately. Original mod and game code remain the property of their respective owners; this extension grants no additional license for third-party code.
+Automatic defaults prefer the highest positive bare yield for each yield type, including positive ties. Resource and percentage bonuses are excluded. Any manual edit or clear freezes defaults. **Reset preferences** restores automatic defaults; a settlement's clear icon removes its marks only. Camels and assigned-resource rearrangement are optional and their switches persist.
+
+Gold/Food/Science/Culture/Production/Happiness use weights 1/2/4/4/4/8. Prefer doubles the relevant contribution; Avoid zeros it. Influence has no conversion weight. Assign by preference only scores happiness improvement up to zero; the separate Fill happiness action uses selectable higher targets.
+
+Allocation compares weighted benefits across eligible settlements, capacity, resource classes and trade connections, including useful Camel capacity. Iterative improvements do not guarantee a global optimum. Native locks and legality still apply. Operations wait for confirmation and stop on cancellation, context changes, locks or timeout; confirmed adjustments remain, and incomplete recovery is reported.
+
+## Happiness targets
+
+Choose Cities first or Towns only, then **Fill happiness**. Settlement targets are 0 or 5; city targets are 0 or 20, defaulting to 0. Cities use the higher applicable target. Towns only leaves cities alone. Changing options does not allocate resources; shortages or capacity may prevent reaching a target.
+
+## Production and Salt
+
+City headings show the current unit, building or project and invested/required production when known. Unknown progress is omitted; towns have no redundant non-training label. The production queue's own display belongs to Better Settlement UI.
+
+Conditional production resources count only when the current queue head matches their condition; Salt applies to unit training. All production contributions compare the before/after value:
+
+`usable production = min(final production for the current item, remaining cost) + max(pre-percentage base production − remaining cost, 0)`
+
+With base60, +50% and80 remaining, +2base scores0. With30 remaining, it scores2. This excludes the bonus-driven waste interval while retaining additional base overflow. Flat, percentage and conditional contributions follow the same comparison, then production weight and preference are applied. Unknown remaining cost retains the uncapped estimate. Displayed raw yields remain unchanged. This is an allocation valuation policy, not exact simulation of every native overflow mechanic or future queue item.
+
+## Reminders and controls
+
+Reminders require a legal empty slot and an available resource. Damaged resources do not count as available; only conditionally useful resources such as Salt with no matching production do not prompt assignment. The reminder toggle persists. Closing normally defers unfinished resource work to later this turn. Use the skip button beside Close or hold the page skip action (default X) for one second to skip this turn. Checks resume next turn; this does not automatically end the turn.
+
+Mouse: select/place resources, Shift-drag matching resources, middle-click quick fill/removal, right-click to cancel selection first.
+
+Controller: four areas cover main actions, sorting/highlighting, settlement preferences, and slots plus the unassigned pool. Use the left stick/D-pad to choose an area, Confirm to enter, and triggers to switch. Cancel first drops a carried resource, then leaves editing/the area before closing. While carrying resources, unrelated controls are disabled. Contextual quick actions handle matching resources; the remove action returns a carried assigned resource to the pool. Occupied slots can be exchanged; displaced resources that cannot return to the source remain unassigned. Follow the game's device-specific bottom-tray icons. Full physical-controller acceptance remains pending.
+
+The Garbage Time integration is retained and requires enabling its resource automation separately. UI preferences are shared by older saves of the same map. Resource assignments still change your current game normally.
+
+## Validation and development
+
+184 offline checks passed with zero skips for this release. Historical Mac live checks cover their respective builds only. The latest production valuation, full physical-controller behavior, Windows, multiplayer and all third-party combinations have not completed live acceptance. Existing Workshop screenshots show1.1.0, not this layout.
+
+[Historical validation](https://github.com/Stupidism/civ7-mods/blob/main/mods/civ7-resource-planner/VALIDATION.md). Run `node --test tests/*.test.mjs` from this directory with Node.js22+. Tests requiring installed native libraries or a browser explicitly skip when unavailable. Package with `python3 tools/package.py --output <directory-outside-repository>`.

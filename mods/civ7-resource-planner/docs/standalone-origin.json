@@ -1,0 +1,60 @@
+{
+  "source": "Resource Re-sorts 3.0.2",
+  "author": "beezany",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3507102808",
+  "date": "2026-10-30",
+  "supportingFiles": [
+    {
+      "path": "ui-next/screens/commerce/treasure-convoy-card.js",
+      "sha256": "c66ed54d30574a0323314b18774722542e28efb913dc8bce221156414e98241f"
+    },
+    {
+      "path": "ui-next/screens/commerce/commerce-screen.js",
+      "sha256": "fab7a678ed62d911ca854468a2b9c87b6320217cc9efff72b2eaaf011d4eb2ec"
+    },
+    {
+      "path": "ui-next/screens/commerce/commerce-screen-empire-tab.js",
+      "sha256": "f957f70490dc9ee824cc71a3819dc1c43fb44998cd817906684207ce2d31e5a4"
+    },
+    {
+      "path": "ui-next/screens/commerce/commerce-screen.scss2.js",
+      "sha256": "4380710bfcdb89382600284e715c5fb8ad5aac2c7416dcfdeaf6434325138af2"
+    },
+    {
+      "path": "ui-next/screens/commerce/commerce-screen-base-tab-content.js",
+      "sha256": "b8ca57f98296050102afd6c0b505995b482204a469c739ced7900d098da885e2"
+    },
+    {
+      "path": "ui-next/screens/commerce/factory-type-display.js",
+      "sha256": "7898e5c83979cf49103e66600390bf10ae8a6cdefb974cdadc192b23313ff19e"
+    },
+    {
+      "path": "ui-next/screens/commerce/commerce-screen.css",
+      "sha256": "19700be58f7e73dfa424232a1c4523ca0273dcb668f1dcea3266a1a5df3f39f1"
+    },
+    {
+      "path": "ui-next/screens/commerce/commerce-screen.scss.js",
+      "sha256": "b1c64c978b6f20205ffb528f704881cc33e95dce77a4aa847b5766ba9c404c51"
+    },
+    {
+      "path": "ui-next/screens/commerce/commerce-screen-trade-tab.js",
+      "sha256": "14570c9ad392198c6a82e5136887df7aa0397140caede647f07a47147eaad770"
+    },
+    {
+      "path": "ui-next/screens/commerce/trade-route-card.js",
+      "sha256": "c246a7f54e7e8e8f315cf7f380172c0232a5e1891a71403b4ba49066fadf7355"
+    },
+    {
+      "path": "ui-next/screens/commerce/commerce-criteria-display.js",
+      "sha256": "791c3d44382414838716ea51e2bf420d2a30d6974ba4d02581540d0fa42e370a"
+    },
+    {
+      "path": "ui-next/screens/commerce/treasure-convoy-progress-bar.js",
+      "sha256": "12f0f6224c30de2f5acae4437311b033b545b0d2ed8dd8562a344570d7437e1b"
+    },
+    {
+      "path": "ui-next/screens/commerce/commerce-screen-treasure-tab.js",
+      "sha256": "90ac5fff4d11a5d5e02b2be1229eb1bd760bdd7748103776a26dc577c272e7e5"
+    }
+  ]
+}
