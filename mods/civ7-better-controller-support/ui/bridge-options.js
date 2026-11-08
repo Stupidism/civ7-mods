@@ -14,14 +14,16 @@ export function installBridgeOptions({ options, optionType, categories, store, r
     const changed = Object.keys(DEFAULTS).filter(key => reset || draft[key] !== saved[key]);
     if (!changed.length) return;
     // Preserve settings changed by the debug buttons since options last opened.
-    const next = store.load();
+    // An explicit reset applies defaults directly without restoring the cached
+    // calibration. The shared settings document for other Mods is preserved.
+    const next = reset ? normalizeConfig({}, store.defaults) : store.load();
     for (const key of changed) next[key] = draft[key];
     try { saved = store.save(next); draft = { ...saved }; }
     catch (error) { reportError(error); throw error; }
   }
   function register() {
     entries = [];
-    for (const [key, label] of [['enabled', 'ENABLED'], ['invertLeftY', 'LEFT_INVERT'], ['invertPanY', 'INVERT'], ['showDebug', 'DEBUG']]) {
+    for (const [key, label] of [['enabled', 'ENABLED'], ['swapSticks', 'SWAP_STICKS'], ['invertLeftY', 'LEFT_INVERT'], ['invertPanY', 'INVERT'], ['showDebug', 'DEBUG']]) {
       const entry = {
         id: `controller-bridge-${key}`, category: 'mods', group: 'better_controller_support', type: optionType.Switch,
         label: `LOC_BCS_CB_${label}`, description: `LOC_BCS_CB_${label}_DESCRIPTION`,
@@ -58,7 +60,8 @@ export function installBridgeOptions({ options, optionType, categories, store, r
     wrap('init', reload, register);
     wrap('commitOptions', args => { if (configuration(args)) persist(); });
     wrap('restore', args => { if (configuration(args)) reload(); });
-    wrap('resetOptionsToDefault', () => { draft = normalizeConfig({}, store.defaults); persist(true); });
+    // Apply our explicit defaults after the original native reset.
+    wrap('resetOptionsToDefault', null, () => { draft = normalizeConfig({}, store.defaults); persist(true); });
     if (options.data.size) register();
   } catch (error) { dispose(); throw error; }
   return { dispose };

@@ -13,7 +13,8 @@ if out.is_relative_to(root.parents[1]):
     raise SystemExit('Release files must be outside the repository.')
 out.mkdir(parents=True, exist_ok=True)
 files = [root / 'map-tools-gamepad.modinfo', root / 'README.md', root / 'README-en.md', root / 'VALIDATION.md']
-files += sorted((root / 'ui').glob('*')) + sorted((root / 'text').glob('*.xml'))
+files += sorted(p for p in (root / 'ui').rglob('*') if p.is_file()) + sorted((root / 'text').glob('*.xml'))
+files += sorted((root / 'config').glob('*.xml'))
 version = json.loads((root / 'package.json').read_text())['version']
 archive = out / f'better-controller-support-{version}.zip'
 manifest = {str(p.relative_to(root)): {'size': p.stat().st_size, 'sha256': sha256(p.read_bytes()).hexdigest()} for p in files}

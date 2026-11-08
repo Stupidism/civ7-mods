@@ -1,0 +1,59 @@
+
+civ7-no-more-turn:
+# tests 160
+# pass 159
+# fail 0
+# skipped 1
+# duration_ms 109.927125
+
+civ7-auto-save-before:
+# tests 86
+# pass 55
+# fail 0
+# skipped 31
+# duration_ms 44.569417
+
+civ7-micromanagement-master-chiang-kai-shek:
+# tests 325
+# pass 325
+# fail 0
+# skipped 0
+# duration_ms 166.447625
+
+civ7-garbage-time:
+# tests 74
+# pass 74
+# fail 0
+# skipped 0
+# duration_ms 46.123375
+
+civ7-resource-planner:
+# tests 44
+# pass 44
+# fail 0
+# skipped 0
+# duration_ms 4114.631667
+
+civ7-better-controller-support:
+# tests 136
+# pass 136
+# fail 0
+# skipped 0
+# duration_ms 2035.85275
+
+civ7-better-chinese-support:
+test_manifest_only_updates_text_in_both_scopes (test_localization.LocalizationTests) ... ok
+test_mechanics_match_installed_official_rules (test_localization.LocalizationTests) ... ok
+test_metadata_and_only_functional_payloads (test_localization.LocalizationTests) ... ok
+test_minimal_changes_preserve_original_jinja_text_and_links (test_localization.LocalizationTests) ... ok
+test_native_importer_trimmed_source_text (test_localization.LocalizationTests) ... ok
+test_non_cascading_and_exact_key_selection (test_localization.LocalizationTests) ... ok
+test_real_assets_sql_language_guards_idempotence_and_parameters (test_localization.LocalizationTests) ... ok
+test_selected_effect_scopes (test_localization.LocalizationTests) ... ok
+test_without_dlc_sql_does_not_create_dlc_keys (test_localization.LocalizationTests) ... ok
+test_wonder_placement_conditions (test_localization.LocalizationTests) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 4.310s
+
+OK

@@ -1,13 +1,9 @@
+// Compatibility is user-selectable. Never infer a correct mapping from the OS.
+export const NATIVE_INPUT_ONLY = false;
 import { DEFAULTS } from './bridge-store.js';
 
-// BuildInfo is the native game's platform source; navigator covers older Mac
-// builds whose target label is absent. Do not enable fallback on unknown hosts.
-export function platformDefaults(build = {}, navigator = {}) {
-  const target = String(build.target || '');
-  const mac = target === 'Windows' ? false :
-    /mac|osx|darwin/i.test(target) || build.graphics === 'Metal' ||
-    /mac/i.test(navigator.platform || navigator.userAgent || '');
-  return { ...DEFAULTS, enabled: mac };
+export function platformDefaults() {
+  return { ...DEFAULTS, enabled: false };
 }
 
 // The old mod has no cooperative registration API. Defer to it when enabled,

@@ -32,9 +32,9 @@ function fixture(initial = {}, initialized = false) {
 
 test('existing settings migrate without a write, retaining right-stick preferences, defaulting left inversion and debug off', () => {
   const f = fixture({ enabled: false, invertPanY: false });
-  assert.deepEqual(f.store.load(), { enabled: false, invertLeftY: false, invertPanY: false, showDebug: false });
+  assert.deepEqual(f.store.load(), { enabled: false, swapSticks: false, invertLeftY: false, invertPanY: false, showDebug: false });
   assert.equal(f.writes.length, 0);
-  assert.equal(f.options.data.size, 4);
+  assert.equal(f.options.data.size, 5);
   assert.equal(f.categories.mods.title, 'Shared category');
   for (const entry of f.options.data.values()) {
     assert.equal(entry.category, 'mods'); assert.equal(entry.group, 'better_controller_support');
@@ -61,7 +61,7 @@ test('registration handles early and late initialization without duplicates', ()
     const f = fixture({}, initialized);
     assert.ok(f.options.data.has('controller-bridge-showDebug'));
     f.options.init(); f.options.init();
-    assert.equal(f.options.data.size, 4);
+    assert.equal(f.options.data.size, 5);
     f.integration.dispose();
     assert.equal(f.options.data.size, 0);
     assert.equal(f.options.commitOptions, f.originalCommit);
@@ -73,7 +73,7 @@ test('debug button changes are preserved when committing a different option draf
   f.change('showDebug', true);
   f.store.save({ ...f.store.load(), enabled: false });
   f.options.commitOptions();
-  assert.deepEqual(f.store.load(), { enabled: false, invertLeftY: false, invertPanY: true, showDebug: true });
+  assert.deepEqual(f.store.load(), { enabled: false, swapSticks: false, invertLeftY: false, invertPanY: true, showDebug: true });
 });
 
 test('failed persistence reports the error and does not notify or change stored settings', () => {
@@ -110,4 +110,13 @@ test('left direction draft supports Cancel, Confirm and reload without changing 
   const loaded = new BridgeSettingsStore(f.storage).load();
   assert.equal(loaded.invertLeftY, true);
   assert.equal(loaded.invertPanY, false);
+});
+
+test('stick swap has its own confirmed setting and preserves both inversion choices',()=>{
+ const f=fixture({enabled:true,invertLeftY:false,invertPanY:false});
+ f.change('swapSticks',true);assert.equal(f.store.load().swapSticks,false);
+ f.options.restore('configuration');assert.equal(f.store.load().swapSticks,false);
+ f.change('swapSticks',true);f.options.commitOptions('configuration');
+ assert.equal(f.applied.at(-1).swapSticks,true);assert.equal(f.applied.at(-1).invertLeftY,false);assert.equal(f.applied.at(-1).invertPanY,false);
+ assert.equal(new BridgeSettingsStore(f.storage).load().swapSticks,true);
 });

@@ -326,3 +326,22 @@ test('changing left direction stops only left motion; applying same value is a n
   f.action('nav-move', statuses.UPDATE, 0, 1);
   assert.deepEqual(f.events.at(-1), ['plot-move', statuses.UPDATE, 0, 1]);
 });
+
+test('manual stick swap routes both streams without vertical inversion and leaves menus alone',()=>{
+ const f=fixture({swapSticks:true,invertPanY:false,invertLeftY:false});
+ f.action('nav-move',statuses.UPDATE,0.6,0.8);f.action('scroll-pan',statuses.UPDATE,-0.6,-0.8);
+ assert.deepEqual(f.events,[['camera-pan',statuses.UPDATE,0.6,0.8],['plot-move',statuses.UPDATE,-0.6,-0.8]]);
+ f.action('nav-move',statuses.FINISH);f.action('scroll-pan',statuses.FINISH);
+ assert.deepEqual(f.events.slice(-2),[['camera-pan',statuses.FINISH,0,0],['plot-move',statuses.FINISH,0,0]]);
+ f.state.panelPresent=true;f.action('nav-move',statuses.UPDATE,0,1);assert.deepEqual(f.events.at(-1),['nav-move',statuses.UPDATE,0,1]);
+});
+test('switching stick roles stops held motion, native duplicates stay suppressed, and inversion follows target role',()=>{
+ const f=fixture({invertPanY:true,invertLeftY:false});
+ f.action('nav-move',statuses.UPDATE,1,0);f.action('scroll-pan',statuses.UPDATE,0,1);
+ f.bridge.setSwapSticks(true);assert.ok(f.stops.includes('plot-move'));assert.ok(f.stops.includes('camera-pan'));
+ f.action('nav-move',statuses.UPDATE,0,1);assert.deepEqual(f.events.at(-1),['camera-pan',statuses.UPDATE,0,-1]);
+ f.action('camera-pan',statuses.UPDATE,0,1);assert.deepEqual(f.events.at(-1),['plot-move',statuses.UPDATE,0,1]);
+ const n=f.events.length;f.action('scroll-pan',statuses.UPDATE,0,1);assert.equal(f.events.length,n);
+ f.bridge.setSwapSticks(false);assert.equal(f.bridge.getStatus().swapSticks,false);
+ f.action('nav-move',statuses.UPDATE,0,1);assert.deepEqual(f.events.at(-1),['plot-move',statuses.UPDATE,0,1]);
+});

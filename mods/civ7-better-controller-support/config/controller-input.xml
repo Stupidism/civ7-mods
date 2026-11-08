@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <!-- Keep the user's binding; receive press/release phases to measure a hold. -->
+  <InputActions>
+    <Update>
+      <Where ActionId="shell-action-5" />
+      <Set EventType="All" />
+    </Update>
+    <Update>
+      <Where ActionId="shell-action-2" />
+      <Set EventType="All" />
+    </Update>
+    <Update>
+      <Where ActionId="shell-action-1" />
+      <Set EventType="All" />
+    </Update>
+    <Update>
+      <Where ActionId="shell-action-3" />
+      <Set EventType="All" />
+    </Update>
+  </InputActions>
+</Database>

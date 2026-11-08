@@ -4,7 +4,7 @@ Stupidism 的文明7 Mod 开发合集。收录 7 个 Mod 项目，包含当前�
 
 | 项目 | 当前源码版本 | 功能与状态 |
 | --- | --- | --- |
-| [更好的手柄支持 · Better Controller Support](mods/civ7-better-controller-support/) | 0.3.0 | 地图工具轮盘与 Mac 输入兼容；新增 LB/RB 循环同格单位、X 打开定居点，88 项离线回归，新增功能实机待验 |
+| [更好的手柄支持 · Better Controller Support](mods/civ7-better-controller-support/) | 0.10.1 | 摇杆兼容、地图工具轮盘、地图居中、菜单滚动导航、同格单位与定居点快捷键、强制结束回合；页面布局与行动提醒已拆出 |
 | [No More Turn（不再来一回合）](mods/civ7-no-more-turn/) | 1.8.6 | 默认回合间隔改为 13/8/5/3/2；源码包含额外活动标记及手柄改动，不能等同于工坊发行包 |
 | [行动前自动存档 · Auto-save Before...](mods/civ7-auto-save-before/) | 1.1.2 | 回合前和外交行动前固定存档；先保存再休息；已同步跟随游戏语言的 1.1.2 发行源码 |
 | [微操大师常凯申](mods/civ7-micromanagement-master-chiang-kai-shek/README-zh-CN.txt) | 0.6.0 | 连续部署、原地齐射与增援切换；当前源码另含自动选敌及快速转移开发改动，未全部进入工坊包 |

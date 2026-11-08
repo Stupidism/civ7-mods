@@ -1,0 +1,31 @@
+{
+  "version": "0.5.0",
+  "date": "2026-10-29",
+  "status": "offline-ready-not-installed-or-published",
+  "scope": "Resource and all policy/tradition/crisis empty-slot reminders at the action tail; hold X to skip a category for the current turn",
+  "validation": {
+    "offlineTestsPassed": 117,
+    "offlineTestsFailed": 0,
+    "offlineTestsSkipped": 0,
+    "javascriptSyntaxAndImports": "passed",
+    "manifestReferences": 33,
+    "xmlAndBilingualKeys": "passed",
+    "controllerInputPhaseUpdates": [
+      "shell-action-5",
+      "shell-action-2",
+      "shell-action-1"
+    ],
+    "installed040StillMatchesReceipt": true
+  },
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261029T151728344701Z/better-controller-support-0.5.0.zip",
+  "archiveSha256": "b69aa2ed3c5d813c4abdada50d4804e36db20c87d8207f5c7912c757b63247a7",
+  "manifest": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261029T151728344701Z/manifest.json",
+  "packagedFilesVerified": 29,
+  "gameInteracted": false,
+  "liveTested": false,
+  "installed": false,
+  "published": false,
+  "savesAccessed": false,
+  "restGuardChanged": false,
+  "note": "Native UI methods replayed offline with instrumented engine data/requests. Real acknowledgement, driver phases, new hint/button placement, and policy-draft behavior remain unverified."
+}

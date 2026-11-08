@@ -1,40 +1,339 @@
-# 0.3.0 plot shortcuts — 2026-10-24 — offline validation
+# 2026-11-06 — 0.10.1 文档整理发行检查
 
-User explicitly requested no live tests while playing. This work is source-only: no game launch, UI/CDP connection, installation, Steam upload, Saves access, Rest Guard change or game-lock request.
+- 中英文 README 与工坊描述汇总 6 类手柄功能，明确资源、定居点、政策页面归属；不再推荐独立行动顺序调整。
+- ui、text、config 运行文件与 0.10.0 已发布回执逐文件 SHA-256 一致；按用户确认的已发布基线承接，不冒称新修复。
+- 使用 ARM64 Node v24.22.1 和隔离 Playwright 运行本 Mod 全套回归：136 通过、0 失败、0 跳过。日志：`work/bcs-release-0101-20261106/tests.log`。
+- 中英文人工复核、JSON/XML/清单引用和发行包哈希检查；未操作游戏、安装副本、存档或设置；未新增实机、实体手柄或 Windows 验证。
+- 工坊发布状态以 `docs/release-0.10.1.json` 回执为准。
 
-LB/RB cycle only multiple local on-map units on the highlighted plot, with a stable ID order and both directions wrapping. Includes civilians, sleeping and exhausted units. X opens that plot's settlement both before and after unit selection, via the installed game's original `WorldInput.handleSelectedPlotCity`; foreign/independent settlements retain diplomacy/contact rules. Ordinary rural districts do not become city shortcuts. Without a matching target the existing button meaning remains. Move/attack targeting, menus, dialogs, non-controller input and focus/input guards remain outside the shortcuts' scope.
+# 2026-11-01 — 0.10.0 开发版：统测交接
 
-The independent shortcut layer loads after the compatibility bridge, translates a claimed button to a private action through the native ActionHandler/ContextManager pipeline, and selects only after the existing input handlers permit it. Original binding/accept filters are also checked. It rechecks the plot, selected-unit identity, player, turn, mode, target and availability at release and again at delivery. It never sends movement, combat, trade, founding or end-turn requests. Held presses activate once; native FINISH-only streams are supported. Disposal unregisters its handler and preserves later wrappers.
+已核对统测会话关于安装版 `0.10.0-dev.1031-2359-31e6fd3f` 的证据；在该次测试节点，其运行文件与主目录源码一致。[完整统测报告](../../work/integration-test-20261101/RESULTS.md)。本次只离线核对证据、更新文档，没有重新运行游戏或发布。
 
-88 offline tests passed with zero skips: the prior 76 checks plus 12 plot-shortcut scenarios. Tests read the installed native dispatcher, ComponentID implementation and world/city selection code in isolated Node VMs and use a detached Chromium fixture for existing UI regressions. New scenarios cover native World/Unit and bridged Shell bindings; all four unit types; foreign/off-map/missing/duplicate units; native city and diplomacy calls; original fallbacks; paired and FINISH-only input; scope changes; native guards and source filters; target disappearance during routing; and hook cleanup. Engine selection calls are recorded by fixtures: this is not a live game or physical-controller result.
+- 资源规划器通过真实原生焦点／输入路径切换偏好。资源页只有一个暂缓控件，AO／旧 BCS 跳过控件均为零；激活后关闭页面，在第 53 回合进入 deferred 状态。证据：`resource-native-focus.json`、`resource-defer.json`。
+- 独立政策界面在 120 帧内保持同一种布局；定居点原生悬浮说明和生产／购买切换通过。这些界面功能归配套 Mod 所有，没有搬回 BCS。证据：`policy-stability.json`、`settlement-metrics.json`。
+- 已有真实窗口截图：[资源焦点与标记](../../work/integration-test-20261101/07-resource-markers-small.jpg)、[政策布局](../../work/integration-test-20261101/08-policy-layout-small.jpg)、[定居点悬浮说明](../../work/integration-test-20261101/04-market-small.jpg)。它们补充了此前未成功截图的那轮记录。
+- 配套 Mod 待修问题 IT-02：垃圾时间生成了原生按键图标，但图标被隐藏（`display:none`，缺少 `trigger-nav-help`）。已交对应开发会话，本次交接不代表已修复或通过。
+- 统测环境为 macOS ARM64／游戏 1.5.0 中文，通过原生 UI／API／输入事件驱动。未连接实体手柄，不能据此新增摇杆轴、物理按键或 Windows 验收。963 项离线通过属于多个 Mod 的合计，不是 963 项 BCS 实机测试。
+- 统测恢复回执确认：422 个原始 Saves 文件／6 个目录、原设置和 Rest Guard 状态已核验；游戏及控制进程退出，四份恢复压缩包删除，游戏锁释放。
 
-Pending: live macOS/Windows confirmation, physical controller feedback, and coexistence with other mods that replace these native input hooks. The Workshop publication result is recorded separately in docs/release-0.3.0.json. Publication does not include a forced local download or installation while the user is playing. Historical 0.2.0 physical feedback below does not validate 0.3.0.
+此前配套安装实测见[行动顺序拆分验证](../../work/action-order-live-20261031/RESULTS.md)，覆盖政策跳过、资源暂缓、延后建造，以及真实异步存档后的一次强制过回合。下方历史“仅源码”记录仍对应各自当时的状态。
 
 ---
 
-# 0.2.1 direct map-tool opening — 2026-10-23
+# 2026-10-31 — 0.10.0／行动顺序拆分 — 仅源码
 
-Radial A now closes the wheel and invokes the existing tool button's semantic activation on the next frame, without focusing the minimap toolbar or requiring a second A. B closes the tool through its owner and clears focus back to the map; newer popups retain priority. Native icons and other radial entries are unchanged.
-
-76 offline checks passed, zero skipped. The detached browser reads the installed native radial resolver and minimap button factory: one resolved/decorated radial activation invokes the wonder callback once, opens the list and focuses its first row. Closing returns to the map. Additional checks block deferred opens when a dialog, focus lock, device switch, view/mode change, disabled/missing button or disposal intervenes. This release does not run the game, connect CDP, load Saves or request physical controller testing.
-
-Previous 0.2.0 native screenshot evidence: `work/bilibili/better-controller-support/validation/summary.json`. Physical map/R3 events and user menu feedback are distinguished from synthetic input screenshots. The observed list-return-to-toolbar issue motivated removing that intermediate step; the new return-to-map behavior remains offline-validated only. Settings storage/persistence remains a separate unresolved finding and is not changed by this patch.
+在本记录节点，配套源码改动尚未安装、实机验收或发布。[完整离线证据与边界](../civ7-action-order/VALIDATION.md) · [迁移说明](../civ7-action-order/docs/migration.md)。下方更早的安装和验收记录分别描述其对应版本。
 
 ---
 
-# 0.2.0 integration — 2026-10-23
+# 2026-10-31 — 紧凑卡片提醒按钮
 
-Absorbs runtime features from civ7-controller-bridge 0.1.5 (chat 01a14f2b-7b7b-7c82-b926-677bfcbac1d0). Keeps the existing civ7-map-tools-gamepad Mod ID and Workshop item 3825193325. The standalone mod is not edited.
+将右上角大块文字面板替换为原生 `fxs-activatable`，沿用资源规划器关闭按钮的普通／悬浮／按下图片及内部符号处理。位置与大小跟随实际原生 CloseButton，包括紧凑／触控尺寸。跳过箭头保留跳过语义，不采用资源规划器的关闭／暂缓行为。鼠标模式显示带无障碍说明的图标按钮和悬浮提示；手柄模式隐藏该按钮，在原生底部指引上方显示已有原生设备图标及长按／松开说明。成功／失败状态仍可见，没有新增按键绑定。轮询状态不变时不重复写属性或样式。
 
-75 offline checks passed with no skips: 55 carried controller checks, 13 existing map-tool checks, 6 integration/platform/settings checks and 1 combined bridge/menu/map-tool browser check. Original game dispatchers, plot/camera handlers, radial menu and slots are read locally for simulations; no game source is packaged.
+190 项离线测试通过，0 失败、0 跳过：包括全部 BCS、生产／卡片提醒与共存测试，以及更好的政策界面的全部 16 项测试。新增独立浏览器检查使用实际提醒 DOM、双语说明及已安装游戏的原生 FxsActivatable START/FINISH 路由，覆盖 720/1366/1920px 宽度和 16/24px 根字号。检查与关闭按钮／底部指引的间距、单次确认、输入拦截、页面／草稿语义保留、概览页移除、危机页重建及清理。引擎确认仍由测试替身提供；Chromium 仅引用原生图片，未渲染它们。新的 Gameface 外观和实体手柄尚未验收。
 
-The combined check routes stick input through bridge/menu hooks into the map toolbar and wonder list exactly once, verifies one activation, then verifies R3 dispatches center-plot-cursor after returning to the map. Other checks cover old-mod deferral, disabled/excluded old-mod cases, Windows/Mac defaults and Reset, preserved old settings, Confirm/Cancel, input guard priority and disposal.
+已安装本地开发构建 `1031-2156-e3d5393f`；全部 36 个文件匹配准备好的包，其他 31 个 Mod 的清单不变。通道管理器已完整备份并校验旧 BCS 安装。仅两个 UI 运行文件变化；已有共享回合排序文件与安装中的定居点 Mod 一致。未触碰运行中的游戏，没有 UI／CDP、重启、Saves、设置或 Rest Guard 操作。新按钮下次启动加载，实机外观仍未验证。游戏锁已释放。回执：[installation-policy-skip-2026-10-31.json](docs/installation-policy-skip-2026-10-31.json)。
 
-Only the compatibility default depends on platform. BuildInfo.target is authoritative for Windows; Mac target labels, Metal and navigator provide Mac detection. Unknown hosts default off. Existing stored booleans override defaults. Old enabled mod detection uses native Modding.getInstalledMods().enabled and getModulesToExclude(); no old files are modified.
+证据：`work/policy-skip-button-20261031/{targeted-tests.log,tests.log}`。在源码检查节点，仅 `ui/card-reminders.js` 和 `ui/map-tools-gamepad.css` 与当时安装的运行文件不同；打包后的安装另行记录，未获得发布授权。
 
-Validation is offline only. No game UI/CDP, loads, saves, launches, controller button presses or Rest Guard changes occurred for this release. Previous standalone map movement/RB and map-tool feedback does not prove the combined release. The source thread's main-menu/radial analog issue still needs native confirmation despite its HOLD-to-UPDATE regression coverage.
+---
 
-## Previous release evidence
+# 2026-10-31 — 延后建造排在卡片提醒之后（BSU 0.1.7／BCS 0.9.2）
+
+在隔离测试中使用游戏原生 PanelAction 和 ProductionChooserScreen，复现了用户报告的行动轮盘顺序：两种功能加载顺序下，退出后均显示生产，而非待办的资源／政策行动。延后标记记录正确，但 chooseTailAction 在卡片提供方之前选择了延后的普通事项，侧边图标也单独重复了这一顺序。旧测试与契约明确写入了这个错误优先级。
+
+共享服务现在按普通事项、单位、卡片提醒、延后生产的顺序选择；未延后的原生首项保留优先级。侧边图标采用同一分组。保留原生强制通知，新增空槽提醒及资源规划器暂缓提醒仍打开正确页面，返回生产时仍阻塞正常结束回合。两份共享实现逐字节一致。
+
+三个新增集成回归先失败、后通过，覆盖两种加载顺序、自动退出生产页、渲染文字、侧边通知 ID、原生下一行动激活、剩余单位、额外政策／暂缓资源提醒，以及不提前结束回合。BSU 完整套件 67 项通过，BCS 144 项通过，0 失败、0 跳过。运行代码仅修改两个共享排序文件。本次修复未操作游戏 UI、CDP、重启、Saves、设置或 Rest Guard；安装证据另记。不宣称实机／实体手柄验收或已发布。
+
+证据：`work/settlement-defer-order-20261031/{red.log,primary-only.log,green.log,settlement-tests.log,controller-tests.log,installation.json}`。
+
+---
+
+## 2026-10-31 — 最终实机结果／0.9.1
+
+已安装 `1031-1754-e2ebb3f1`；最终重启、原生选项确认／取消、真实 City Hall／LF Policy Yields 设置写入通过。运行包 36 个文件校验通过，其他本地 Mod 文件不变。原启用状态（含 Rest Guard）、原 AppOptions／UserOptions／InputSettings 及其他共享设置全部恢复。409 个原始存档文件及 6 个目录核验不变；保留交接存档，删除自有测试副本及七份临时恢复压缩包。游戏已退出，命令已停止。没有实体手柄或 Windows 验收，未发布。完整报告：`work/controller-storage-live-20261031/REPORT.md`，恢复回执在同目录。此文档补记不改变已测试的安装运行文件。
+
+## 2026-10-31 — 0.9.1 共享手柄设置候选修复
+
+- 实机重启否定了此前原生选项原型：`UI.setOption` 及检查点在同一进程内能正确读回，但下一个进程中该选项为 null。此实现已从运行包移除。
+- 替代实现使用社区共享的单行 `modSettings` 与带版本的 `civ7-map-tools-gamepad` 命名空间，保留其他命名空间，拒绝多键／无效读取并校验写入。旧独立行须经哈希核验后离线迁移。
+- 144 项离线测试通过，0 失败、0 跳过，包括独立 Chromium、忽略键名的存储测试替身、新会话读取、真实共享辅助模块行为、选项确认／取消／默认值、失败保留与精确数据库行迁移计划。证据：`work/controller-storage-live-20261031/shared-tests.log`。
+- macOS 实机通过：精确行迁移、选项草稿／取消／确认、完整重启、原 Mod 组合（暂停 Rest Guard）、真实 City Hall 和 LF Policy Yields 保存、设置传递至游戏上下文地图桥。原生 `key(0)` 产生警告，最终适配器移除该失效查询，保留数量／结构／读回防护。最终重启及恢复证据在 `work/controller-storage-live-20261031`。
+- 命名输入注入覆盖菜单／通知面板，不是物理摇杆。交接副本从初始第 37 回合快照加载后进入第 38 回合，没有发送结束回合命令。原始存档及交接存档均保留。不宣称实体摇杆或 Windows 通过，未发布。
+
+# 0.9.0 配套政策 Mod 安装 — 2026-10-31
+
+开发构建 `1031-1501-83d786f4` 与独立更好的政策界面 `0.1.0 / 1031-1501-38d835f3` 一起安装。BCS 35 个文件、政策 Mod 10 个文件均按完整清单与哈希核验，每个 ID 只有一个安装副本。旧 BCS 已完整备份校验，工坊仍取消订阅。其他 30 个 Mod 目录不变，包括匹配的定居点共享模块。没有游戏交互、启动／重启、Saves、设置或 Rest Guard 改动；需下次启动加载，实机验收待完成。证据：`work/policy-install-20261031/installation.json`。下方更早条目记录其历史安装状态。
+
+---
+
+# 0.9.0 政策布局拆分 — 2026-10-31 — 仅源码
+
+政策布局代码、CSS 和布局测试已迁移至 `mods/civ7-better-policy-ui` 0.1.0，BCS 不再注册或打包它们。剩余 133 项离线测试通过，0 失败、0 跳过。输入／配置代码未改动。四列布局及旧高度残留防护归新 Mod 所有，详见其验收报告。此节点安装中的 BCS 仍为 0.8.0，没有游戏／UI／CDP、安装、设置、Saves 或发布操作。
+
+---
+
+# 强制过回合单行提示 — 2026-10-31
+
+排队获锁后已安装开发构建 `1031-1246-95f340d1`，38 个文件校验通过，需下次启动加载。未操作游戏，其他 Mod 不变。回执：`docs/installation-force-single-line-2026-10-31.json`。
+
+长按／松开提示采用局部单行样式：24px 不收缩行内文字，卡片宽 680px、最大为视口宽度的 80%。其他说明调用方保持原布局，未改动强制过回合输入或提交逻辑。
+
+14 项定向测试通过。在 720/1920px 下检查中英文长按／松开说明的实际辅助组件几何：不换行、位于卡片内部。已查看的独立预览使用占位图片，Gameface 显示尚未验证。证据：`work/controller-force-single-line-20261031/tests.log`、`hint-*.png`。源码检查节点曾等待游戏锁安装，上方另记后续安装结果。
+
+---
+
+# 持续滚动加速 — 2026-10-31
+
+135 项离线测试通过，0 失败、0 跳过。纵向滚动保留初始速度，600 ms 后平滑加速，1800 ms 时达到按内容长度决定的上限。视口／内容比例代表滑块比例，不依赖原生滑块最小尺寸。最高限制为基础速度的 2.5 倍，模拟轴幅度仍控制实际速度。松开、反向、回中／斜向输入、切换区域、焦点居中、过期样本和暂停均重置加速。
+
+独立 Chromium 覆盖短／长／极长内容、初始精度、加速中段、上限及重置。已有原生 FxsScrollable、布局、校准和菜单回归继续通过。实体手柄手感尚未验证。证据：`work/controller-scroll-acceleration-20261031/tests.log`；安装回执另记。本次更新无需操作游戏。
+
+---
+
+# 滚动提示显示修复 — 2026-10-31
+
+已本地安装开发构建 `1031-1156-7ed9ce04`，38 个文件核验通过。其他 Mod 不变，没有游戏操作或重启，实机显示待验证。回执：`docs/installation-scroll-hints-2026-10-31.json`。
+
+用户截图显示：静态原生右摇杆装饰仍在错误的滚动条上，底部说明挤成竖排。旧实现仅标记活动滚动区域，没有改变原生装饰的归属。实际说明渲染器在无约束子元素内使用 flex 基准为零的文字；早期滚动测试替换成纯文本，漏掉了这条布局路径。
+
+新增独立测试使用真实说明渲染器及原生结构的 Fxs／Solid 滚动轨道。基线现象：选择左侧后标记仍留在右侧；480px 窄宽度、24px 根字号压力场景出现竖排说明。这不是按用户截图精确尺寸复现 Gameface。修复方式：局部抑制原图标，在选中滑块显示一个原生设备图标，暂停时完整恢复；为说明组明确宽度，横排标签不收缩，空间不足时将说明组移至已有指引上方。不重挂原 DOM，不改原生输入标志。
+
+134 项测试通过，0 失败、0 跳过。中英文几何检查覆盖 480/720/1280/1920px、切换／恢复及此前输入和滚动回归。`work/controller-scroll-hints-fix-20261031/hints-layout.png` 是已查看的离线布局，使用占位图标，不是游戏截图。重启后的 Gameface 显示仍需确认。失败／通过／完整日志及安装后的回执见该目录。
+
+---
+
+# 滚动导航本地安装 — 2026-10-31 北京时间 11:44
+
+通过通道管理器安装开发构建 `1031-1144-c4270ba1`，38 个文件校验通过，只有一个本地副本，工坊已取消订阅。旧 Mod 完整备份核验通过。安装的共享运行模块匹配更好的定居点界面；定居点及资源规划器文件不变。没有游戏／UI／CDP／输入／重启、Saves 访问或 Rest Guard／设置操作。需下次启动，不是实机验收。回执：`docs/installation-scroll-navigation-2026-10-31.json`。
+
+---
+
+# 菜单滚动区域与焦点居中 — 2026-10-31 — 仅源码
+
+132 项离线测试通过，0 失败、0 跳过。DOM 测试覆盖按下即聚焦但不激活、禁用／屏幕外元素、校准及原生摇杆流、明确横向判定与回中锁存、独立只读滚动、鼠标委托、阻塞、移除／重建和过期长按取消。另一测试执行已安装游戏的原始 FxsScrollable 类，检查像素滚动与原生滑块同步且不移动焦点。已有输入、地图、提醒和强制回合回归通过。原生适配器测试仅替换新增 DOM 服务，其实际实现在独立 Chromium 中另行测试。
+
+新增导入均存在，中英文键唯一且配对。底部提示使用原生设备图标组件；测试替身不能证明 Gameface 图标渲染或实机底部布局。实体手柄阈值、真实选项／加载页路由及其他自定义滚动容器尚未验证。本次没有游戏操作、安装、申请锁、存档访问或 Rest Guard／设置变更，已安装开发版不变。证据：`work/controller-scroll-navigation-20261031/tests.log`、`implementation.json`。
+
+---
+
+# 本地开发通道试点 — 2026-10-31 北京时间 10:54
+
+用户明确选择更好的手柄支持作为唯一试点。构建 `0.8.0 / 1031-1050-17a54363` 安装至本地 Mods，保留内部 ID 及全部既有 UI／配置／文本字节。仅暂存的显示元数据和生成的双语开发标签变化，干净源码清单保留发行名称。旧安装完整备份核验通过；37 个安装文件均匹配准备清单，只扫描到一个副本；独立 Steam API 检查显示条目 3825193325 状态 0（未订阅）。资源规划器及更好的定居点界面清单不变，三个共享回合排序文件匹配安装中的定居点 Mod。
+
+通道工具 16 项隔离测试通过，包括重复／漂移防护及两条文件恢复失败路径。更新后的开发技能校验通过。真实迁移／取消订阅已验证；切回工坊的下载流程仅有隔离测试，尚未实际执行。没有游戏启动、UI／CDP／输入、Saves 访问、设置或 Rest Guard 操作。最终文件检查时未发现游戏进程，不宣称实机名称显示或手柄验收。全部命令结束，游戏锁释放。
+
+证据：`work/mod-channels-pilot-20261031/`；[当前安装回执](docs/installation-development-channel-2026-10-31.json)。下方旧记录描述早期安装状态。
+
+---
+
+# 禁用时的 Mod 浏览器元数据 — 2026-10-31 北京时间 10:16
+
+用户当次启动日志与只读 Mods.sqlite 显示 BCS 存在、已扫描且订阅中（Steam 状态 5），但被禁用，显示原始名称 LOC_MTG_MOD_NAME，Mod 本地化行数为零。35 个安装文件仍匹配上次配套安装回执；此前移除操作没有删除或取消订阅 BCS。原有 shell UpdateText 动作无法在 Mod 禁用时提供独立浏览器元数据。
+
+新增顶层 LocalizedText 注册 text/mod-info.xml，仅包含既有中英文名称／说明键，遵循本机原生支持的 Mod 元数据结构。已检查 XML、两套键及其位于仅启用时执行的 ActionGroups 之外；运行行为未变，无需重跑功能套件。完整备份并核验旧 Mod 后，仅安装新文件与清单；全部 36 个安装文件匹配预期哈希，其余 34 个不变。
+
+没有游戏 UI／CDP／重启、Saves 访问、启用状态修改、设置或 Rest Guard 操作。重启后的实际浏览器渲染尚未观察；Mod 仍禁用，用户需在列表启用。证据：work/controller-list-name-20261031/{diagnosis,installation}.json。未发布工坊。
+
+---
+
+# 配套本地安装 — 2026-10-31 北京时间 10:04
+
+已将验证过的输入／强制回合源码构建安装至 BCS（35 个文件），并将匹配的共享强制回合实现安装至 BSU（27 个文件）。每个安装文件的路径、大小、SHA-256 均匹配暂存 ZIP 清单；旧 Mod 目录已完整备份核验。资源规划器此前刚接入的卡片提醒集成保持原字节，资源规划器本身不变。
+
+安装前后游戏运行 PID 相同。没有 UI／CDP／输入、重启、Saves 访问、设置或 Rest Guard 改动；该构建需重启加载。这是本地安装，不是实机验收或工坊发布。完整证据：`work/controller-input-force-install-20261031/installation.json`；本地回执：`docs/installation-input-force-2026-10-31.json`。下方此前的“仅源码”记录描述安装前状态。
+
+---
+
+# 显式强制过回合穿过异步保存 — 2026-10-31 — 仅源码
+
+用户报告手柄和键盘均无法强制结束回合。离线复现使用本机原生 PanelAction、ActionHandler，真实 Auto-save Before 的 SaveGate／installTurnHook 及共享卡片提醒守卫。补丁前，键盘／手柄与两种保存钩子顺序组成的四种组合全部失败：较早绑定的原生监听器错过后加的原型强制标记，或保存完成时同步强制标记已经清除，卡片提醒拦截提交。此前本地日志确认第 21 回合 BeforeEndTurn 曾到达已保存／正在提交信息，但单凭该日志不能证明引擎接受了回合请求。
+
+共享服务现在在实时分发器与原型入口标记显式原生强制请求，经已有 sendEndTurn 参数链携带绑定面板／玩家／时代／回合的不透明票据。临时实例钩子恢复原来的自有／继承属性，卡片守卫在自身边界消费票据；普通／自动请求继续检查提醒。手柄转换重新进入当前原生动作处理链，包含后加的输入守卫。两条输入路径都不直接调用引擎，也不跳过自动保存／休息包装。BCS 与更好的定居点界面的 turn-order.js、force-turn-runtime.js 两份实现逐字节一致。两个更新源码包应一起安装，因为先初始化的注册表拥有共享实现。
+
+188 项相关测试通过，0 失败、0 跳过（BCS 130、定居点 58）。八个新增共存测试覆盖键盘／手柄、两种保存钩子顺序、原生监听器早／晚绑定、手柄层后注册、保存失败／回合过期、强制失败后的普通请求、原生输入守卫，以及延后继续的 Rest Guard 契约测试。最后一项保留接收者／参数／预检查，等待继续；不是完整 Rest Guard 运行时或实机验证。已有原生注册表测试覆盖任一 Mod 单独运行、两种注册顺序、重复归属及清理。
+
+用户截图还显示强制提示塌缩成竖排。卡片已明确宽度并限制为视口 80%。独立 Chromium 几何检查覆盖中英文 720/1920px，预览使用占位图片，不是真实游戏图标。初次布局检查因过严的最小宽度断言失败（298.6 对 300px），该日志不能证明复现了 Gameface 竖排问题。保留的检查验证文字宽度、视口容纳及最多两行；游戏渲染器仍待确认。
+
+证据：work/controller-force-turn-20261031/{red,green-coexistence,full-tests,layout-green}.log、hint-*.png、diagnosis.json。没有游戏输入／CDP、申请锁、安装、重启、存档访问或 Rest Guard 变更。源码基于 BCS 0.8.0／BSU 0.1.1，本轮不验证安装版／工坊行为，也不构成此前待测开拓者／菜单／叙事补丁的实机验收。
+
+---
+
+# 小型事件选项输入 — 2026-10-31 — 仅源码，基于 0.8.0
+
+用户报告地图上的小型叙事弹窗中，左摇杆缩放镜头、十字键无效、右摇杆选择奖励。原生 `small-narrative-event.js` 明确选择 InputContext.Dual。它与 PauseMenu 不同，不在菜单角色交换范围内，BCS 也没有组件为该弹窗取得 Shell 上下文。
+
+失败／通过回归：回放实际原生组件注册，再加载实际适配器，上下文仍为 Dual (3)，未达到预期 Shell (0)；已有 5 项适配器测试通过，新增项失败。补丁仅在这个特定弹窗位于顶层、手柄兼容开启且输入守卫允许时临时取得 Shell。采用已保存的交换设置，保留原生十字键／按钮路由。抑制旧 Dual 的缩放及移动开始事件，移动 FINISH 仍可用于归零旧运动。不强制聚焦按钮，不提交叙事选择。
+
+菜单适配器在帧／上下文变化时同步局部上下文归属；弹窗内禁用时恢复 Dual，关闭时恢复活动视图，不覆盖随后面板的上下文。焦点锁、鼠标／软光标、失焦、隐藏文档及 Rest Guard／Before End Turn 阻塞均阻止接管。已覆盖监听清理及地图／菜单包装的两种顺序。
+
+121 项测试通过，0 失败、0 跳过。离线回放原生 ActionHandler 及此叙事界面实际使用的 Solid Panel `onNavigate` 函数：持续校准后的左摇杆输入在原生重复延迟后移动焦点，十字键 START/FINISH 在选项间移动，右摇杆导航独立，未发出缩放／选择操作。这是命名输入与源码路由证据，不是物理设备采样；最初的十字键硬件异常尚未独立证实。
+
+证据：`work/controller-narrative-input-20261031/{red,green,full-tests}.log`、`diagnosis.json`。此补丁包含待测开拓者／菜单改动，但此节点均未安装或发布。没有实机交互、存档、奖励选择或 Rest Guard 设置变更；安装文件仍与 0.8.0 安装回执一致。
+
+---
+
+# 主菜单／暂停菜单摇杆角色 — 2026-10-31 — 仅源码，基于 0.8.0
+
+用户报告游戏暂停菜单中物理右摇杆移动焦点。此前交换选项仅由地图桥读取，菜单兼容层虽规范化 HOLD，却不读取 `swapSticks`。截图对应原生 `PauseMenuView`，该视图声明 Shell 输入，但 ContextManager 弹窗栈可以为空。
+
+可复现失败的测试：原生 ActionHandler 与槽位导航接收交换开启时、校准后属于左摇杆的 `scroll-pan` 流。补丁前焦点仍在索引 0，而非 -1（5 通过、1 失败）。这复现了该命名输入流缺少菜单映射，不是物理驱动的原始输出。更新后的测试也加载真实 PauseMenu 视图及菜单适配器。
+
+修复：已有保存的交换选项现在同时映射启动菜单和 PauseMenu（含子页面）的两种摇杆动作名。只有转换后的导航流将 HOLD 变为 UPDATE；保留向量与按钮事件，菜单上下方向独立于地图反转。用户此前报告商人选择器的左摇杆导航可用，因此交易列表、轮盘及其他游戏内视图保留原角色。更广泛的物理映射仍待用户反馈确认。
+
+开拓者地图图例排除于菜单适配器之外，其校准由前述地图修复负责。两种钩子顺序均测试 World、PauseMenu、选项、商人、开拓者、对话框与外交，检查每个样本仅映射一次。配置变化、失焦与清理只归零本补丁启动的滚动，绝不注入焦点移动。
+
+使用原生 ARM64 Node 与独立 Chromium，118 项测试通过，0 失败、0 跳过；语法与本地化 XML 检查通过。证据：`work/controller-menu-swap-20261031/red.log`、`full-tests.log`、`diagnosis.json`。没有安装、发布、游戏交互、Saves 或 Rest Guard 操作；安装中的 0.8.0 文件仍匹配安装回执。这不是实体手柄验收。
+
+---
+
+# 开拓者图例输入补丁 — 2026-10-31 — 仅源码，基于 0.8.0
+
+用户报告商人选择器中左摇杆切换城市按钮，而选中开拓者时左摇杆缩放镜头。本机原生源码确认商人选择器属于列表导航面板；开拓者滤镜则压入 `panel-settler-legend` 并继续允许地图输入，图例明确选择原生 Unit 上下文。此前输入桥在任何非空 ContextManager 栈下都会暂停，导致此场景丢失用户可用的地图校准。
+
+0.7.0 与 0.8.0 发行包中的 `ui/bridge-runtime.js` 逐字节一致（SHA-256 `4e70bb2a02da9ca68d160dbace9ee7a32a353247047b85825d1cd12076e461be`）。这表明是较早的覆盖缺口，而非布局拆分改变了摇杆映射。未采集原始实体手柄轨迹，产生缩放的精确驱动路径尚未验证。
+
+失败／通过回归：原生适配器测试在图例位于顶层时，补丁前活动／地图路由断言失败（6 通过、1 失败）。修复仅把顶层原生开拓者图例识别为地图叠层，保留全部视图、焦点、设备及遮罩守卫。移动使用已有校准桥，图例按钮原样委托。切换时清除持续输入；禁用时恢复图例的 Unit／World 上下文，不覆盖其他面板。
+
+使用原生 ARM64 Node 和独立 Chromium，113 项测试通过，0 失败、0 跳过。新增回归覆盖实际适配器、原生 ActionHandler／PlotCursor 移动、径向标尺委托、模态归属、禁用及图例切换后的过期按钮松开。已有商人／菜单和通用输入测试继续通过。证据：`work/controller-settler-input-20261031/{red,green,full-tests}.log`、`diagnosis.json`。
+
+此前 0.8.0 拆分包已按 `work/controller-split-install-20261031/installation.json` 本地安装；此补丁尚未安装、打包或发布。本轮没有游戏启动、UI／CDP、Saves、Rest Guard 或实体手柄验证。实机开拓者／缩放行为待用户验证。
+
+---
+
+# 0.8.0 定居点拆分 — 2026-10-30 — 仅离线
+
+与更好的定居点界面 0.1.0 配套：160 项测试通过，0 失败、0 跳过（手柄 109、定居点／共存 51）。定居点代码、图标、文字及排序记录写入已移出；此节点政策展示与卡片提醒仍保留。BCS 和 BSU 共享逐字节相同的 v1 回合排序模块，两种加载顺序均只有一个原生行动写入方。完整证据与实机缺口见[更好的定居点界面验收](../civ7-better-settlement-ui/VALIDATION.md)。
+
+BCS 摇杆映射／交换／反转、地图工具、快捷键和强制回合实现与起始源码一致，资源规划器未修改。没有安装、游戏／CDP 访问、游戏锁、Saves／Rest Guard 改动或发布。下方早期记录描述早期构建，不证明 0.8.0 已验收。
+
+仓库根检查器仍被 `dist/civ7-native-debug-input/0.2.0/` 下已有无关 ZIP 阻塞；两个相关 Mod 已分别通过限定范围的语法／XML／清单／版本检查。
+
+---
+
+## 统一布局与详细回本说明（离线）
+
+137 项测试通过，包括鼠标排序、原生悬浮说明包装生命周期／内容保留，以及 55×4 ÷ (3×4+1×4+1×4)=11 的计算。本轮未安装或实机测试。此前 0.7.0 实机证据只适用于之前安装的文件。
+
+## 2026-10-30 操作说明图标回溯
+
+135 项离线测试通过。长按／松开提示使用原生按键组件，功能关键词使用 FONTICON；详见 [回溯清单](docs/controller-instructions-audit.md)。本轮未安装、未实机测试。
+
+# 0.7.0 定居点排序 — 2026-10-30 — 离线验证
+
+133 项测试通过，0 失败、0 跳过。独立 Chromium 使用原生结构，验证摘要行、四个二态开关、指标边界及不与产出行重叠、新／原版排序和清理。纯逻辑／适配器测试覆盖加权边际回本、幸福赤字补足上限、维护费、本地地图钉领土、未知值稳定排序、跨升级共享累计购买次数、已确认单位创建与被拒绝／未确认请求。使用旧的启用设置检查原生输入发行保护。
+
+源码、清单及 XML 本地化检查通过，中英文键匹配。此节点本地游戏仍安装此前验证的 0.6.0 原生输入构建。用户 2026-10-30 反馈确认该构建的实体摇杆可用；仅覆盖该用户的 Mac，不代表所有手柄或 Windows。0.7.0 源码保持两层旧输入重映射关闭。
+
+本轮不安装、发布、启动、连接 CDP、访问 Saves 或改变 Rest Guard。新增 UI 与购买记录持久化尚未实机测试。购买次数从未来被确认的购买开始，不伪造历史数据。Detailed Map Tacks 为可选依赖；升级沿用当前加载的 UnitUpgrades 图。缺少放置数据时显示未知，不猜测基础产出。视觉测试截图不是游戏截图。
+
+证据：`work/controller-ranking-20261030/tests.txt`；`docs/layout-previews/production-ranking-1920.png`；`docs/release-0.7.0-offline.json` 记录单独核验的发行包。
+
+---
+
+# 0.6.0 手柄紧凑布局 — 2026-10-30 — 离线验证
+
+125 项离线检查通过，0 失败、0 跳过。六个新增场景覆盖原生折叠栏恢复、生产分类顺序和跨栏导航、实际布局入口路由、重复 START/FINISH、模态／鼠标／焦点／视图／Rest Guard 守卫、保持引擎模型分区的资源分组、稳定行身份与原城市索引，以及资源规划器两分区输入契约。
+
+独立 Chromium 在 1366/1920px 下使用从本机原生生产、政策和商业源码提取的模板、原生折叠栏类及政策高度计算器；工具样式、数据、焦点服务与引擎边界由测试替身提供。几何检查覆盖各面板政策三／四列、空槽叠层对齐、定居点三列及文档无横向溢出。docs/layout-previews 下预览为测试截图，不是游戏内截图，不能替代 Gameface／实体手柄验证。
+
+实现保留原生交互元素和回调。商业分组只包装视图属性，原模型索引不变。生产临时展开分类，鼠标输入时恢复此前状态；A/B、购买／建造激活、悬浮说明和边界导航仍由游戏处理。政策说明换行并使用原生等高重算。仅识别资源规划器当前替换工厂的 createPlanner 调用，不宣称兼容未知替换界面。
+
+仅源码／打包。未安装、上传工坊、启动游戏、操作 UI／CDP、访问存档、修改 Rest Guard 或申请游戏锁。按此前核验安装回执，安装版仍为 0.4.0；按此前发布回执，工坊仍为 0.3.0。待授权实测：真实 Gameface 布局／缩放／滚动、长本地化名称／说明、购买／城镇专精面板、资源槽／政策手柄导航、实机工厂注册顺序，以及 Windows／macOS 行为。
+
+---
+
+# 0.5.1 外交导航 — 2026-10-29 — 离线回归
+
+用户报告文化交流响应界面手柄卡住，具体受影响按钮尚未确认。使用本机原生 DiplomacyView（Shell 输入、无 ContextManager 弹窗）、ActionHandler 和 fxs-slot 导航方法，离线复现相符的模拟轴导航失败。适配器仅把主菜单和弹窗栈识别为菜单，因此 Mac HOLD 样本未转为原生槽位使用的 UPDATE。
+
+复现命令：`node --test tests/bridge-menu-navigation.test.mjs`（原生 ARM64 Node、当前本机原生模块）。修复前新增外交场景以响应索引 `0 !== 1` 失败，已有四项通过；修复后同一场景通过。该场景须为空弹窗栈并使用实际 Diplomacy 视图声明，添加普通弹窗则修复前已通过。适配器回归还覆盖接受／取消／十字键原样传递、阻塞叠层及设备上下文仍为 Shell 时返回 World。
+
+修复：除已有启动菜单／弹窗条件外，当实际 ViewManager.current 声明 InputContext.Shell 时也识别为菜单。只改变 nav-move HOLD 规范化，保留原生路由、输入过滤、焦点规则及确认／取消，不自动选择外交响应或改变焦点，不打包原生资源。
+
+119 项离线测试通过，0 失败、0 跳过。只证明已定位的模拟轴兼容缺口，不覆盖所有可能的 A/B、十字键、焦点或实体手柄故障。没有 UI／CDP、外交响应、实机安装、游戏重启或 Saves 操作。仅只读查看既有 UI 日志，未发现对应错误证据。新包包含此前 0.5.0 资源／政策提醒；本次不改已安装的 0.4.0。
+
+---
+
+# 0.5.0 资源与政策提醒 — 2026-10-29 — 离线验证
+
+资源提醒检查本地玩家实际资源身份（地图外与地图资源区分），排除已分配和帝国／宝藏资源，要求己方定居点有空槽，并仅调用原生 ASSIGN_RESOURCE 的 canStart，不提交分配。分配锁定、城市／城镇限制与原生合法性决定可用性。文化提醒比较 POLICY_CULTURE_SLOT、TRADITION_CULTURE_SLOT、CRISIS_CULTURE_SLOT 的实际槽数和已启用卡片；没有替代卡片时空槽也计入。
+
+该历史版本中，两类提醒排在普通阻塞事项、单位移动及延后生产之后。原生资源／传统／危机通知也作为尾部行动，但引擎确认前仍可访问且保持阻塞。额外提醒打开既有资源／政体界面，需要时选择危机标签。原生回合阻塞 API 不变。JavaScript 的 canEndTurn／sendEndTurn 守卫在提醒存在时阻止普通和自动完成，显式 force-end-turn 仍沿用原生结束回合包装路径。
+
+资源或政策／传统／危机页长按 X（shell-action-1，全部阶段），仅跳过当前玩家／时代／回合的该类提醒；短按 X 原样委托。长按要求配对的至少 1000 ms 按住／松开、稳定页面／标签、本地活动回合、允许的视图／输入／焦点，且无编辑器／休息遮罩。仅在显式跳过时使用原生 CONSIDER_ASSIGN_RESOURCE 或 CONSIDER_ASSIGN_TRADITIONS，绝不执行资源分配或政策应用。确认失败不能绕过已有原生阻塞。页面与未确认政策草稿保持打开；鼠标／键盘有本地化“本回合跳过”按钮。重新加载／玩家／回合变化清空本地跳过状态。
+
+117 项离线测试通过，0 失败、0 跳过（已有 108＋新增 9）。覆盖地图外／地图资源身份冲突、满槽／锁定／限制槽、三种文化槽、含延后生产的尾部排序、实际入口与原生 PanelAction 渲染／普通／自动／强制回合路由、原生页面打开、短／长 X、弹窗／标签／设备／窗口取消、类别独立跳过、新回合重置及原生确认失败。引擎读取／请求在隔离 VM 中插桩，不证明游戏内实际确认、手柄驱动阶段、草稿行为或 UI 位置。已有浏览器检查独立于游戏运行。
+
+状态：仅源码／打包，未安装或上传；上一安装回执仍为 0.4.0。本次新增没有实机／UI／CDP、存档访问、Rest Guard 改动或游戏锁请求。新按钮／提示布局、原生确认时序及其他 Mod 后加的结束回合钩子待实测。
+
+---
+
+# 0.4.0 最后建造新增功能 — 2026-10-29 — 离线验证
+
+加入未发布的 0.4.0 包。关闭尚未解决生产的界面或成功切换城市，将该城市生产标为当前本地玩家／时代／回合的最后事项。实际建筑放置及普通面板卸载不标为跳过。生产完成／移除、新作用域或重载清除标记；再次延后会把城市移到末尾。
+
+生产页 Y（shell-action-2）现在接收全部阶段。短按保留原生隐藏项目切换；按住至少 1000 ms 再松开标记最后建造，然后经原生 requestClose 关闭，不自动执行下一行动。本地化 fxs-button 提供鼠标／键盘激活。购买、城镇、文字编辑、非己方、非活动回合、模态／焦点锁、视图输入阻塞、休息叠层、设备／窗口失效和城市／回合变化会阻止或取消手动快捷键。
+
+当原生首项为延后生产时，JavaScript PanelAction 钩子更新主图标／文字、侧边通知目标、下一行动激活和镜头选择。未延后通知及剩余单位行动先于延后城市。原生 getEndTurnBlockingType／findEndTurnBlocking 和 canEndTurn 不变：只剩延后生产时，仍阻塞普通结束回合。没有新增生产／排序命令／网络／存档操作。延后图标绘制在原生动画帧后复核状态。
+
+108 项离线测试通过，0 失败、0 跳过（此前 99＋新增 9）。新增隔离 VM 场景加载当前原生 PanelAction 的 refresh／canEndTurn／tryEndTurn／激活及 ProductionChooserScreen 的关闭／短 Y 方法；引擎数据、复杂构建和侧边动画由测试替身提供。验证关闭 A → 显示／打开 B → 科技 → 单位 → 返回 A、原图标动画纠正、鼠标操作、短／长 Y、重复输入、取消、生产完成、作用域清除和清理，使用实际入口。不证明实体手柄阶段、游戏内面板布局或原生城市 setter 事件时序。
+
+没有实机、CDP、安装文件、Saves、Rest Guard 设置或工坊变更；仅完成源码／包验证。新增按钮／提示及 Windows／macOS 行为待授权实测。
+
+---
+
+# 0.4.0 强制结束回合 — 2026-10-29 — 离线验证
+
+View/Back 短按保留原生社交动作。按住至少 1000 ms 后显示松开提示；仅匹配的 FINISH 分发原生 force-end-turn，不由计时器提交回合。Shell 输入数据库为 shell-action-5 请求全部阶段，不改手势绑定。快捷键在兼容层与地块快捷键之后加载，独立于 Mac 输入桥开关。
+
+守卫要求手柄输入、普通地图／单位选择、世界／单位动作焦点、本地人类玩家的活动回合及允许的原生输入。菜单、焦点锁、隐藏／窗口失焦、设备变化、回合／选择变化、Rest Guard 遮罩和待完成的回合前存档均取消长按。抑制重复 FINISH，缺少 START 时不推断长按。清理移除 UI／监听并保留后加包装。
+
+99 项离线测试通过，0 失败、0 跳过：已有 88＋强制回合 11。原生 ActionHandler／PanelAction 在隔离 VM 执行；插桩 sendEndTurn 包装确认经过原生入口，而非直接 GameContext 调用。引擎完成与包装效果由测试替身提供，不证明真实自动存档／Rest Guard 兼容。入口测试覆盖进度文字、清理和取消。独立 Chromium 覆盖已有 UI 回归，新增进度条尚未在游戏中目视验证。
+
+没有游戏交互、启动、CDP、Saves 访问、实机安装、Steam 上传、Rest Guard 改动或申请锁，仅本地打包。待测：Shell 数据库更新后真实 Back START/FINISH 交付、macOS／Windows 实体手柄行为、进度条外观及与其他回合 Mod 共存。安装后需重启，运行中的游戏没有改动。
+
+---
+
+# 0.3.0 地块快捷键 — 2026-10-24 — 离线验证
+
+用户明确要求游玩期间不实测。本次仅源码，没有游戏启动、UI／CDP 连接、安装、Steam 上传、Saves 访问、Rest Guard 改动或游戏锁请求。
+
+LB/RB 只在高亮地块上的多个本地地图内单位间循环，按稳定 ID 排序，两个方向均循环；包含平民、睡眠和耗尽行动力的单位。X 在选单位前后均通过本机游戏原始 `WorldInput.handleSelectedPlotCity` 打开该格定居点；外国／独立势力定居点保留外交／接触规则，普通乡村地区不会变成城市快捷入口。没有匹配目标时保留原按钮含义。移动／攻击目标选择、菜单、对话框、非手柄输入及焦点／输入守卫排除于快捷键范围之外。
+
+独立快捷键层在兼容桥之后加载，将接管的按钮经原生 ActionHandler／ContextManager 管线转换为私有动作；既有输入处理器允许后才选择。也检查原绑定／接受过滤。松开时及交付时再次检查地块、所选单位身份、玩家、回合、模式、目标和可用性。不发送移动、战斗、交易、建城或结束回合请求。持续按下只激活一次，支持原生仅 FINISH 的输入流。清理注销处理器并保留后加包装。
+
+88 项离线测试通过，0 跳过：此前 76＋地块快捷键 12。测试在隔离 Node VM 中读取本机原生分发器、ComponentID 和世界／城市选择代码，已有 UI 回归使用独立 Chromium。新增场景覆盖原生 World／Unit 与桥接 Shell 绑定、四种单位类型、外国／地图外／缺失／重复单位、原生城市和外交调用、原回退行为、配对及仅 FINISH 输入、作用域变化、原生守卫与来源过滤、路由中目标消失及钩子清理。引擎选择调用由测试替身记录，不是实机或实体手柄结果。
+
+待测：macOS／Windows 实机确认、实体手柄反馈及与其他替换原生输入钩子的 Mod 共存。工坊发布结果另见 docs/release-0.3.0.json。发布不包含用户游玩期间强制本地下载／安装。下方历史 0.2.0 实体反馈不构成 0.3.0 验收。
+
+---
+
+# 0.2.1 地图工具直接打开 — 2026-10-23
+
+轮盘 A 关闭轮盘，下一帧调用已有工具按钮的语义激活，不再聚焦迷你地图工具栏或要求第二次 A。B 通过所属组件关闭工具并清除焦点返回地图，新弹窗仍优先。原生图标及其他轮盘项目不变。
+
+76 项离线检查通过，0 跳过。独立浏览器读取本机原生轮盘解析器与迷你地图按钮工厂：一次解析／装饰后的轮盘激活只调用一次奇观回调，打开列表并聚焦首行；关闭返回地图。额外检查在对话框、焦点锁、设备切换、视图／模式变化、按钮禁用／缺失或清理介入时阻止延迟打开。本版验证不运行游戏、不连接 CDP、不加载 Saves，也不要求实体手柄测试。
+
+此前 0.2.0 原生截图证据：`work/bilibili/better-controller-support/validation/summary.json`。实体地图／R3 事件及用户菜单反馈与合成输入截图区分记录。观察到的列表返回工具栏问题促成移除中间步骤；新的返回地图行为仍仅离线验证。设置存储／持久化是独立未解决问题，本补丁不处理。
+
+---
+
+# 0.2.0 集成 — 2026-10-23
+
+吸收 civ7-controller-bridge 0.1.5 的运行功能（会话 01a14f2b-7b7b-7c82-b926-677bfcbac1d0），保留 civ7-map-tools-gamepad 内部 ID 与工坊条目 3825193325，未修改独立旧 Mod。
+
+75 项离线检查通过，0 跳过：55 项沿用手柄检查、13 项既有地图工具、6 项集成／平台／设置、1 项桥／菜单／地图工具组合浏览器检查。原游戏分发器、地块／镜头处理器、轮盘和槽位均从本机读取用于模拟，不打包游戏源码。
+
+组合检查将摇杆输入经过桥／菜单钩子，恰好一次路由到地图工具栏和奇观列表，验证一次激活，并验证返回地图后 R3 分发 center-plot-cursor。其他检查覆盖检测到旧 Mod 时让位、旧 Mod 禁用／排除、Windows／Mac 默认值及重置、保留旧设置、确认／取消、输入守卫优先级和清理。
+
+只有兼容默认值依赖平台。Windows 以 BuildInfo.target 为准；Mac 结合 target 标签、Metal 和 navigator 检测。未知主机默认关闭，已有布尔设置覆盖默认值。旧 Mod 启用检测使用原生 Modding.getInstalledMods().enabled 与 getModulesToExclude()，不修改旧文件。
+
+仅离线验证，本版未操作游戏 UI／CDP、加载、保存、启动、实体手柄按键或 Rest Guard。此前独立地图移动／RB 和地图工具反馈不证明组合版本通过。来源会话的主菜单／轮盘模拟轴问题虽有 HOLD-to-UPDATE 回归覆盖，仍需原生实机确认。
+
+## 早期版本证据
 
 # 0.1.2 名称更新 · 2026-10-23
 
@@ -87,7 +386,7 @@ XML 解析、清单文件、版本一致性与发行包内容校验通过。逻�
 - **未启动、重启、加载或操作运行中的 Civilization VII，未使用游戏 UI/CDP，未执行实机测试。** 文件安装另有 `docs/installation-2026-10-23.json` 回执；存档与 Rest Guard 未读取、修改或暂停。
 - Windows、macOS 的真实手柄、多人对局、不同分辨率及其他重写输入链的模组尚未实机验收。
 - Detailed Map Tacks 图标选择的输入路径通过离线验证；地图钉完整放置/删除、预览和原模组其他快捷键不在本次验收范围。原第三方模组与游戏代码未打包、未改写。
-- 软件依赖是游戏自身已能接收到手柄输入。Mac 地图输入失效的问题仍需 Mac Controller Support Fix；本模组不提供系统驱动或设备映射。
+- 软件依赖是游戏自身已能接收到手柄输入。当前原生输入版本应停用旧 Mac Controller Support Fix，避免重复映射；本模组不提供系统驱动。
 
 ## 复现
 

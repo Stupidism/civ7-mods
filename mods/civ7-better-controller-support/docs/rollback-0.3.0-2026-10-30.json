@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-29T16:25:13.385947+00:00",
+  "version": "0.3.0",
+  "previousVersion": "0.4.0",
+  "destination": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3825193325",
+  "backup": "/Users/sunmer/Documents/Civ7-Mod-Backups/controller-rollback-20261029T162513370283Z",
+  "filesVerified": 22,
+  "previousFilesBackedUp": 27,
+  "disabledState": {
+    "civ7-controller-bridge": 1,
+    "civ7-map-tools-gamepad": 0
+  },
+  "liveTested": false,
+  "gameUIOrCDPUsed": false,
+  "gameRestarted": false,
+  "savesTouched": false,
+  "restGuardChanged": false,
+  "workshopUploaded": false,
+  "sourceDevelopmentVersionUnchanged": "0.6.0",
+  "restartRequired": true
+}

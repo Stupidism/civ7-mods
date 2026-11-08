@@ -1,0 +1,34 @@
+{
+  "version": "0.6.0",
+  "localVariant": "Mac compatibility layers temporarily disabled",
+  "originalSavesVerified": 400,
+  "saveBackup": "/Users/sunmer/Documents/Civ7-Save-Backups/controller-sample-20261029T170653.074414Z/Saves",
+  "testSaveRetained": "BCS_BeforeNative060_20261030_1793293613014_Test",
+  "gameExited": true,
+  "restGuardSettingsUnchanged": true,
+  "modStates": {
+    "civ7-controller-bridge": 1,
+    "civ7-rest-guard": 0,
+    "civ7-map-tools-gamepad": 0
+  },
+  "installedFileHashesVerified": 32,
+  "offlineTestsPassed": 125,
+  "nativeRuntime": {
+    "turn": 30,
+    "view": "World",
+    "context": 3,
+    "viewContext": 3,
+    "bridge": false,
+    "menuBridge": false,
+    "compact": true,
+    "tools": true,
+    "shortcuts": true,
+    "forceTurn": true,
+    "productionDeferrals": true,
+    "restPresent": false
+  },
+  "physicalStickDirectionVerified": false,
+  "workshopPublished": false,
+  "steamLaunchOptions": "Still empty from user-controlled direct-launch comparison; previous command retained in work/native-steam-launch-20261029/launch-option.txt",
+  "sourceUnchanged": true
+}

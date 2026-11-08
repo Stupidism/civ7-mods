@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_MTG_MOD_NAME">
+      <Text>Better Controller Support</Text>
+    </Row>
+    <Row Tag="LOC_MTG_DESCRIPTION">
+      <Text>Controller map tools, stacked-unit cycling and settlement shortcuts. Optional stick compatibility can be switched on or off in Options → Add-ons → Better Controller Support. City/unit/wonder lists require Map Trix; map tacks require Detailed Map Tacks.</Text>
+    </Row>
+  </EnglishText>
+  <LocalizedText>
+    <Row Tag="LOC_MTG_MOD_NAME" Language="zh_Hans_CN">
+      <Text>更好的手柄支持 · Better Controller Support</Text>
+    </Row>
+    <Row Tag="LOC_MTG_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>手柄地图工具、同格单位切换和定居点快捷入口。可在“选项 → 附加内容 → 更好的手柄支持”手动开关摇杆兼容。城市／单位／奇观列表需要 Map Trix；地图钉需要 Detailed Map Tacks。</Text>
+    </Row>
+  </LocalizedText>
+</Database>

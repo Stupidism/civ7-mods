@@ -1,0 +1,172 @@
+{
+  "version": "0.10.0",
+  "publishedFileId": "3825193325",
+  "title": "更好的手柄支持 · Better Controller Support",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3825193325",
+  "modId": "civ7-map-tools-gamepad",
+  "visibility": "public",
+  "tags": [
+    "Mod",
+    "UI"
+  ],
+  "updatedDate": "2026-11-01",
+  "metadataVerified": true,
+  "remoteBytesMatchPackage": true,
+  "downloadHashesVerified": false,
+  "subscribedAndInstalledVerified": false,
+  "uploadedFiles": {
+    "map-tools-gamepad.modinfo": {
+      "size": 3075,
+      "sha256": "89b5e2f385167aea00992e3b8b43d5fac4f1f495b42c38f253e76f977579c97d"
+    },
+    "VALIDATION.md": {
+      "size": 48618,
+      "sha256": "a916e24f625d24530f0781177fc4e2afba31b10afad1fc72dfcf5b5c7032a989"
+    },
+    "README.md": {
+      "size": 2661,
+      "sha256": "62ddfc54ca67911a5e81e0d2eb302eba8cd9b71fdc1713d4199abecc7163d933"
+    },
+    "README-en.md": {
+      "size": 1539,
+      "sha256": "f74048b3fa3e2ac66aaa5aaa541b8344b5d35e148e87222c87b8f518f18de9af"
+    },
+    "ui/instruction-hints.js": {
+      "size": 1385,
+      "sha256": "36cbd53f8755d62e4eedb02c67fa4f0bf19e5809dcc3799e34c9dc4e362c4fa2"
+    },
+    "ui/force-turn.js": {
+      "size": 5070,
+      "sha256": "5b3f51f99ed233de5f8324b7554013e047c559def1cd99ffdbf5e1d13c937688"
+    },
+    "ui/bridge-runtime.js": {
+      "size": 12090,
+      "sha256": "36d0d4159ea0d8bd632c1b3028bf75936ce2dbf765b340ed1277e80a4463e6ad"
+    },
+    "ui/bridge-options.js": {
+      "size": 3497,
+      "sha256": "a99dd68783cb4967f7c92397eecf156abf442cde8a6086bdd6d533954658f927"
+    },
+    "ui/map-tools-gamepad.js": {
+      "size": 3175,
+      "sha256": "d2a4ab01502b3dd10ff81abce9c2d89dd2bc69894ab01d48af4b427f567a4390"
+    },
+    "ui/scroll-navigation.js": {
+      "size": 10286,
+      "sha256": "a66d85be90b76830f565124e0f5ac8fd550288c893d6c48cd17e6dab8042e206"
+    },
+    "ui/map-tools-gamepad.css": {
+      "size": 267,
+      "sha256": "2b502f0e96ba18b99903118f306955165ea79a83917382be4cbfa0ef175bf928"
+    },
+    "ui/bridge-store.js": {
+      "size": 2713,
+      "sha256": "9ccb88fb24bbc5f623098e48d6258d732414c35358ee622c765c6d01c9bf8266"
+    },
+    "ui/controller-policy.js": {
+      "size": 890,
+      "sha256": "56993e816bb466d5a1f609b2a5bf2f15cad9d7db87b576525f5301003c56fa3e"
+    },
+    "ui/controller-bridge.js": {
+      "size": 7561,
+      "sha256": "95420a7af145913861cbac11c97595776f4f30355787c4755ee8383e6e4ff278"
+    },
+    "ui/force-turn-runtime.js": {
+      "size": 3309,
+      "sha256": "27ac8b7d3e75c7e665d6e7b6e5d7cde1e742de554d12dcbd3acaf1dd95ad961b"
+    },
+    "ui/radial-icons.js": {
+      "size": 1478,
+      "sha256": "7a6de2153f3ae902948bf006a0cc58ff6f3056883001daefb5c816c4767aa69e"
+    },
+    "ui/navigation.js": {
+      "size": 2651,
+      "sha256": "9215acde1fb8810f6263108298963753f6a1638011b687af410e9381e23a4295"
+    },
+    "ui/bridge-shared-storage.js": {
+      "size": 3059,
+      "sha256": "ffeb5737501f3f3e7d84dee9523a37669d26e0ccdaa211f176b25f0924f95b0e"
+    },
+    "ui/plot-shortcuts-adapter.js": {
+      "size": 4249,
+      "sha256": "ec058817faa9204893a0fa60fe482a74712a6f27d11e1adae20478c70a5bfa1a"
+    },
+    "ui/plot-shortcuts.js": {
+      "size": 3336,
+      "sha256": "a76189199581985ab9d8896547644d70629291c6068e735b79f0c426581ff202"
+    },
+    "ui/menu-navigation.js": {
+      "size": 6252,
+      "sha256": "facd8169cb76db2dece7f137acce50363e08aac0682a4655000f0625468a598b"
+    },
+    "ui/plot-shortcuts-runtime.js": {
+      "size": 4225,
+      "sha256": "1e5774fc8f6fdf52fac7a5878843d5a97e9e799d876609a45408279accc5785b"
+    },
+    "ui/menu-navigation-adapter.js": {
+      "size": 4183,
+      "sha256": "7038a21cee5da3a9528d0692c27b988b3441d97661f7bcf20f70b85f96cd50a1"
+    },
+    "ui/bridge-settings.js": {
+      "size": 2091,
+      "sha256": "7992e4409cc4564c37cdfc275e8ea42a840b7c44e1430a4fe4fe52f0ee2374c0"
+    },
+    "ui/map-tools-runtime.js": {
+      "size": 11206,
+      "sha256": "753a9f2f2f3cf18c6e1151dcf619874395f398cf8f5a4d7ce4b4368e9fe3c0f6"
+    },
+    "config/controller-input.xml": {
+      "size": 577,
+      "sha256": "b17bc57a0f6b423278543dab62bb93b1a13929f19a3bc9e6562e0fb8d096bde6"
+    },
+    "docs/history-README-en-through-0.9.2.md": {
+      "size": 15019,
+      "sha256": "5e6dc219a1f6677a8f762d2dab4b5e87c8b4850685576aa67e5ffae3ce8e0f97"
+    },
+    "docs/history-README-through-0.9.2.md": {
+      "size": 16406,
+      "sha256": "ea0d009e8eaf6ae1acf99c0f231dd2f19432d5a865cff5c73b1661f7485cd503"
+    },
+    "text/mod-info.xml": {
+      "size": 1007,
+      "sha256": "c9c8abfff513d9ef6d175d9ef8cfc7dcb8dc28af23c21769a84a07283702c788"
+    },
+    "text/controller-settings.xml": {
+      "size": 8699,
+      "sha256": "6444c3e7cee014ba93472f52975a20ed630e75730667013037a4740b13c514ac"
+    },
+    "text/map-tools.xml": {
+      "size": 2885,
+      "sha256": "8ed26eec425f3e687f4cd4b6e54a47c881d22ce2ccfed4982eddb3d1005117bd"
+    }
+  },
+  "descriptionSha256": "406738302980251c0da4ac27aea6c35fc0675f0b65248554126a5edd62ab693a",
+  "latestReceipt": "docs/release-0.10.0.json",
+  "publication": {
+    "mod": "civ7-map-tools-gamepad",
+    "version": "0.10.0",
+    "phase": "remote-verified",
+    "descriptionSha256": "406738302980251c0da4ac27aea6c35fc0675f0b65248554126a5edd62ab693a",
+    "id": "3825193325",
+    "result": 1,
+    "returnedId": "3825193325",
+    "legalAgreementRequired": false,
+    "uploadedAt": "2026-11-01T23:44:18.348869+08:00",
+    "remoteBytesMatchPackage": true,
+    "metadataVerified": true,
+    "downloadRequested": false,
+    "downloadHashesVerified": false,
+    "verifiedAt": "2026-11-01T23:46:29.532977+08:00"
+  },
+  "validation": {
+    "status": "离线及限定范围 Mac 实机组合验证；未完成实体手柄、Windows 全量回归",
+    "evidence": [
+      "work/action-order-live-20261031/RESULTS.md",
+      "work/integration-test-20261101/RESULTS.md"
+    ]
+  },
+  "localInstallationChanged": false,
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/controller-trio-20261101-234107/civ7-map-tools-gamepad-0.10.0.zip",
+  "archiveSha256": "499832194413a761cd5100508b7773a594407d642ee7bc9b34ea08ee41e5ea3c",
+  "previewUnchangedByUpdate": true
+}

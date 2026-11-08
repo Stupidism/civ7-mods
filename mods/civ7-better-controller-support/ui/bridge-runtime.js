@@ -3,7 +3,7 @@
 // focus, tutorials, ContextManager and other mods' input guards still run.
 export function createBridge({
   actionHandler, input, contexts, statuses, snapshot, stopMotion,
-  now = Date.now, report = () => {}, enabled = true, invertPanY = true, invertLeftY = false
+  now = Date.now, report = () => {}, enabled = true, invertPanY = true, invertLeftY = false, swapSticks = false
 }) {
   const previous = actionHandler.onEngineInput;
   if (typeof previous !== 'function' || typeof input.setActiveContext !== 'function' ||
@@ -44,7 +44,14 @@ export function createBridge({
     ownsShell = false;
     if (input.getActiveContext() !== contexts.Shell) return;
     // A panel owns its context now; don't restore World over a pause/dialog.
-    if (s.panelPresent) return;
+    if (s.panelPresent) {
+      // The settler legend selected Unit (World for pointer input) before we
+      // borrowed Shell. Other panels own their context and must be left alone.
+      if (s.mapOverlay && s.panelContext !== undefined && s.panelContext !== contexts.INVALID) {
+        input.setActiveContext(s.panelContext);
+      }
+      return;
+    }
     if (s.viewContext !== undefined && s.viewContext !== contexts.INVALID) {
       input.setActiveContext(s.viewContext);
     }
@@ -65,9 +72,9 @@ export function createBridge({
     try {
       const s = snapshot();
       state = s;
-      const nextScope = `${s.viewContext}:${s.mode}`;
+      const nextScope = `${s.viewContext}:${s.mode}:${s.mapOverlay === true}`;
       const eligible = enabled && windowFocused && s.controller && !s.softCursor &&
-        isMapContext(s.viewContext) && !s.panelPresent && s.worldAllowed &&
+        isMapContext(s.viewContext) && (!s.panelPresent || s.mapOverlay === true) && s.worldAllowed &&
         s.viewAllowed && !s.blocked;
       if (!eligible || scope !== nextScope) releaseMotion();
       scope = nextScope;
@@ -149,11 +156,20 @@ export function createBridge({
     }
     // Native menu UP and PlotCursor's upward camera-follow both use positive Y.
     // Calibrate the left stick separately; never invert menu or D-pad navigation.
-    if (name === 'nav-move') return analog(name, 'plot-move', status, x, leftY(y));
-    if (name === 'scroll-pan') return analog(name, 'camera-pan', status, x, invertPanY ? -y : y);
+    if (name === 'nav-move' || name === 'scroll-pan') {
+      const plot=(name==='nav-move')!==swapSticks;
+      return analog(name,plot?'plot-move':'camera-pan',status,x,plot?leftY(y):(invertPanY?-y:y));
+    }
     // A native World/Unit stream is unexpected while Shell is selected. Let it
     // use the same left calibration; stop fallback to avoid duplicate motion.
     if (name === 'plot-move' || name === 'camera-pan') {
+      if(swapSticks){
+        const target=name==='plot-move'?'camera-pan':'plot-move';
+        if(moving.has(target)){stopMotion(target);moving.delete(target);}
+        if(target==='plot-move')heldDirections.clear();
+        nativeMotion.set(target,now());
+        return send(target,status,x,target==='plot-move'?leftY(y):(invertPanY?-y:y));
+      }
       if (moving.has(name)) { stopMotion(name); moving.delete(name); }
       if (name === 'plot-move') heldDirections.clear();
       nativeMotion.set(name, now());
@@ -174,6 +190,9 @@ export function createBridge({
       }
       return;
     }
+    // The lens owns its ruler/cancel and other buttons. Correct only motion;
+    // in particular Shell X must reach the legend instead of starting a move.
+    if (state.mapOverlay) return delegate(name, status, x, y);
     const translations = {
       // Official World RB opens the radial menu; borrowed Shell RB is nav-next.
       // Unit RB must remain native next-button navigation.
@@ -247,6 +266,13 @@ export function createBridge({
     invertLeftY = !!value;
   }
 
+  function setSwapSticks(value) {
+    if(disposed || swapSticks===!!value)return;
+    // Neutralize all old streams before assigning the stick roles again.
+    for(const name of nativeMotion.keys())if(!moving.has(name))stopMotion(name);
+    releaseMotion();swapSticks=!!value;
+  }
+
   function dispose() {
     if (disposed) return;
     setEnabled(false);
@@ -259,11 +285,11 @@ export function createBridge({
 
   sync();
   return {
-    sync, tick: safeTick, setEnabled, setInvertLeftY, dispose,
+    sync, tick: safeTick, setEnabled, setInvertLeftY, setSwapSticks, dispose,
     setWindowFocused(value) { windowFocused = !!value; sync(); },
     setInvertPanY(value) { invertPanY = !!value; },
     getStatus() {
-      return { enabled, active, fault, invertPanY, invertLeftY, counts: { ...counts },
+      return { enabled, active, fault, invertPanY, invertLeftY, swapSticks, counts: { ...counts },
         mode: state?.mode, viewContext: state?.viewContext, inputContext: input.getActiveContext() };
     }
   };
