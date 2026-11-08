@@ -40,12 +40,8 @@ export function handoffTransport(storage, scope) {
   };
 }
 
-const scope = UI.isInGame() ? 'game' : 'shell';
+export let session;
 let transport;
-let saved;
-try { transport = handoffTransport(localStorage, scope); saved = transport.take(); }
-catch (error) { console.warn('[Rest Guard] Load handoff unavailable: ' + error); }
-export const session = new RestSession(saved);
 let destination = null;
 let warned = false;
 export function checkpoint() {
@@ -64,7 +60,24 @@ export function beginLoading() {
   session.beginLoading(Date.now()); destination = 'game'; checkpoint();
 }
 
-export function installLoadingHooks() {
+function failedLoading(scope) {
+  session.finishLoading(Date.now(), false);
+  // A failed load returns to its originating screen; shell time is not play.
+  if (scope === 'shell') session.beginLoading(Date.now());
+  cancelTransfer();
+}
+
+export function installLoadingHooks(scope) {
+  // The manifest selects the game entry before UI.isInGame() becomes true.
+  // Use that entry's scope both to consume the handoff and to resume the clock.
+  if (session) return;
+  let saved;
+  try {
+    transport = handoffTransport(localStorage, scope);
+    saved = transport.take();
+  } catch (error) { console.warn('[Rest Guard] Load handoff unavailable: ' + error); }
+  session = new RestSession(saved);
+  if (session.loading || (scope === 'shell' && session.startedAt !== null)) session.beginLoading(Date.now());
   for (const name of ['loadGame', 'loadAgeTransition']) {
     try {
       const original = Network[name];
@@ -73,9 +86,9 @@ export function installLoadingHooks() {
         beginLoading();
         try {
           const result = original.apply(Network, args);
-          if (result === false) { session.finishLoading(Date.now(), false); cancelTransfer(); }
+          if (result === false) { failedLoading(scope); }
           return result;
-        } catch (error) { session.finishLoading(Date.now(), false); cancelTransfer(); throw error; }
+        } catch (error) { failedLoading(scope); throw error; }
       };
       wrapped.c7rLoadingHook = true;
       Network[name] = wrapped;
@@ -87,7 +100,7 @@ export function installLoadingHooks() {
   if (!call.c7rExitHook) {
     const wrappedCall = function (name, ...args) {
       if (name === 'exitToMainMenu') {
-        session.finishLoading(Date.now(), false); destination = 'shell'; checkpoint();
+        session.beginLoading(Date.now()); destination = 'shell'; checkpoint();
       } else if (name === 'exitToDesktop') cancelTransfer();
       return call.call(this, name, ...args);
     };
@@ -95,14 +108,36 @@ export function installLoadingHooks() {
     engine.call = wrappedCall;
   }
 
+  // GameStarted can arrive before the player has dismissed the native curtain.
+  // The base game removes this direct child after the opening animation.
+  let curtainObserver;
+  const stopWatchingCurtain = () => {
+    curtainObserver?.disconnect();
+    curtainObserver = null;
+  };
   const loadingChanged = () => {
     const state = UI.getGameLoadingState();
     if (destination !== 'shell' && [UIGameLoadingState.WaitingForGameplayData,
       UIGameLoadingState.WaitingForLoadingCurtain, UIGameLoadingState.WaitingForConfiguration,
       UIGameLoadingState.WaitingForGameCore, UIGameLoadingState.WaitingForVisualization,
-      UIGameLoadingState.WaitingForUIReady, UIGameLoadingState.WaitingForGameUnloadScreenReady].includes(state)) {
+      UIGameLoadingState.WaitingForUIReady, UIGameLoadingState.WaitingForGameUnloadScreenReady,
+      UIGameLoadingState.WaitingToStart].includes(state)) {
       beginLoading();
-    } else if (state === UIGameLoadingState.GameStarted || state === UIGameLoadingState.WaitingToStart) {
+    } else if (destination !== 'shell' && scope === 'game' && state === UIGameLoadingState.GameStarted) {
+      const curtain = document.querySelector('#loading-curtain');
+      if (curtain) {
+        session.beginLoading(Date.now());
+        if (!curtainObserver) {
+          curtainObserver = new MutationObserver(() => {
+            if (curtain.isConnected) return;
+            stopWatchingCurtain();
+            loadingChanged();
+          });
+          curtainObserver.observe(curtain.parentNode, { childList: true });
+        }
+        return;
+      }
+      stopWatchingCurtain();
       session.finishLoading(Date.now()); cancelTransfer();
     }
   };
@@ -110,10 +145,10 @@ export function installLoadingHooks() {
   engine.on('LoadComplete', result => {
     if (typeof SerializerResult !== 'undefined' && result?.result !== undefined &&
         result.result !== SerializerResult.RESULT_OK) {
-      session.finishLoading(Date.now(), false); cancelTransfer();
+      failedLoading(scope);
     }
   });
-  window.addEventListener('unload', checkpoint);
+  window.addEventListener('unload', () => { stopWatchingCurtain(); checkpoint(); });
   loadingChanged();
   console.warn('[Rest Guard] ' + scope + ' session ' + (saved ? 'resumed' : 'new') + '; play ms: ' + session.elapsed(Date.now()));
 }

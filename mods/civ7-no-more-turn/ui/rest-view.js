@@ -62,11 +62,11 @@ export class RestView {
     this.mountLauncher();
   }
 
-  button(label, onActivate, className = '', tag = 'fxs-button') {
+  button(label, onActivate, className = '', tag = 'fxs-button', actionKey = 'inline-accept') {
     const button = element(tag, `c7r-button ${className}`);
     if (tag === 'fxs-button') {
       button.setAttribute('caption', label);
-      button.setAttribute('action-key', 'inline-accept');
+      button.setAttribute('action-key', actionKey);
     }
     const id = String(++this.sequence);
     button.setAttribute('data-c7r-action', id);
@@ -98,23 +98,26 @@ export class RestView {
     this.callbacks.setFocus?.(button);
   }
 
+  availableActions() {
+    return [this.continueButton, this.menuButton].filter(button =>
+      button && this.modal?.contains(button) && button.style.display !== 'none' && button.getAttribute('disabled') !== 'true');
+  }
+
   ensureFocus() {
     if (!this.modal || this.callbacks.hasDialog?.()) return;
-    const available = [this.continueButton, this.quitButton].filter(b => b && this.modal.contains(b) && b.getAttribute('disabled') !== 'true');
+    const available = this.availableActions();
     const current = this.callbacks.currentFocus?.()?.closest?.('[data-c7r-action]');
-    if (available.includes(current)) {
-      if (this.focusedAction !== current) this.focusAction(current);
-      return;
-    }
-    this.focusAction(available.includes(this.focusedAction) ? this.focusedAction : available[0]);
+    // A native panel may still own physical focus. Keep our visible selection
+    // and the target of Accept in sync while its focus request is pending.
+    const selected = available.includes(this.focusedAction) ? this.focusedAction : available[0];
+    if (selected !== this.focusedAction || current !== selected) this.focusAction(selected);
   }
 
   navigate(step) {
     if (this.callbacks.hasDialog?.()) return;
-    const buttons = [this.continueButton, this.quitButton].filter(b => b && this.modal?.contains(b) && b.getAttribute('disabled') !== 'true');
+    const buttons = this.availableActions();
     if (!buttons.length) return;
-    const current = this.callbacks.currentFocus?.() ?? this.focusedAction;
-    const index = buttons.indexOf(current);
+    const index = buttons.indexOf(this.focusedAction);
     this.focusAction(buttons[index < 0 ? 0 : (index + step + buttons.length) % buttons.length]);
   }
 
@@ -218,29 +221,12 @@ export class RestView {
     this.card.appendChild(this.message);
     const actions = element('div', 'c7r-actions');
     this.continueButton = this.button(t('BREAK_WAIT'), () => this.callbacks.resume(), 'c7r-primary c7r-continue');
-    this.quitButton = this.button(t('EXIT_GAME'), () => this.callbacks.quit(), 'c7r-quit');
+    this.menuButton = this.button(t('OPEN_GAME_SETTINGS'), () => this.callbacks.openGameMenu(), 'c7r-menu trigger-nav-help', 'fxs-button', 'inline-sys-menu');
     actions.appendChild(this.continueButton);
-    actions.appendChild(this.quitButton);
+    actions.appendChild(this.menuButton);
     this.card.appendChild(actions);
     this.card.appendChild(element('p', 'c7r-footnote', footnote));
-    this.saveStatus = element('p', 'c7r-footnote c7r-save-status');
-    this.saveStatus.setAttribute('role', 'status');
-    this.card.appendChild(this.saveStatus);
-  }
-
-  updateSaveStatus(state) {
-    if (!this.saveStatus) return;
-    const labels = {
-      waiting: t('SAVE_WAITING'),
-      saving: t('SAVE_SAVING'),
-      saved: t('SAVE_SAVED'),
-      failed: t('SAVE_FAILED'),
-      unavailable: t('SAVE_UNAVAILABLE'),
-      unconfirmed: t('SAVE_UNCONFIRMED'),
-    };
-    this.saveStatus.textContent = state ? (labels[state.status] ?? labels.unconfirmed) : '';
-    if (state?.status === 'saved' && state.cleanup === 'failed') this.saveStatus.textContent += t('CLEANUP_FAILED');
-    this.saveStatus.setAttribute('data-tooltip-content', state?.fileName ?? '');
+    this.card.appendChild(element('p', 'c7r-footnote', t('MANUAL_SAVE_NOTE')));
   }
 
   updateIdleRest(elapsed, rested) {

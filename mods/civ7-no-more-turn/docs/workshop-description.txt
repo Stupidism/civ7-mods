@@ -1,30 +1,63 @@
-[h1]No More Turn（不再来一回合） — 1.8.6[/h1]
+[h1]No More Turn（不再来一回合） — 1.8.8[/h1]
 A stopping point for "one more turn". Configurable breaks for Civilization VII single-player. English and Simplified Chinese follow the game's text language.
 
+[h2]Changelog[/h2]
+[b]1.8.8 · 2026-11-06[/b]
+[list]
+[*]Removed all break autosaves, retention cleanup and their options; the mod no longer touches save files at all.
+[*]The break panel has one row of two buttons: Continue Game and Open settings. Open settings enters the full native pause menu for manual saving, options and exit — no separate save or exit buttons.
+[*]Loading, waiting-to-start and main-menu waits no longer count as play time; previous progress is preserved.
+[*]Settings can be confirmed during breaks and the night restriction; a running forced break keeps its original deadline.
+[*]Native controller glyph hints and focus highlight on break panels.
+[*]An explicit recording/debug activity marker pauses restrictions; an open debug port alone is not activity.
+[/list]
+[b]1.8.7 · 2026-10-30[/b]
+[list]
+[*]Fixed break saves missing from the Autosaves tab: new saves use the autosave category and retain the AutoSave_ prefix.
+[*]Shortened names follow the game text language: AutoSave_Rest_T26_261029-2250 in English and AutoSave_休息_T26_261029-2250 in Simplified Chinese. All break reasons share the same name format, with time to the minute and no seconds or hash suffix.
+[*]Existing files are never overwritten. A rejected duplicate name is reported as a failed save. Retention recognizes both new language formats and legacy RestGuard names in the autosave category.
+[/list]
+
 [h2]1. Timed breaks: a reverse Pomodoro[/h2]
-Late-game turns can take a while. Set a real stopping point: by default, play for 25 minutes and take a five-minute break. A timed break can begin during a turn; resume when the countdown finishes.
+Set a real stopping point: play for 25 minutes, then take a five-minute break. A timed break can begin during a turn; resume when the countdown finishes.
 
 [h2]2. Turn-based breaks[/h2]
-Early turns and late turns take different amounts of time. Version 1.8.6 uses reverse Fibonacci defaults: 13 / 8 / 5 / 3 / 2 end-turn actions for turns 1–20 / 21–40 / 41–60 / 61–80 / 81 onward. Existing settings are preserved; use Reset to apply the new defaults. Each interval is adjustable from 1 to 100.
+Version 1.8.6 uses reverse Fibonacci defaults: 13 / 8 / 5 / 3 / 2 end-turn actions for turns 1–20 / 21–40 / 41–60 / 61–80 / 81 onward. Existing settings are preserved; use Reset to apply the new defaults. Each interval is adjustable from 1 to 100.
 The counter stays in memory: loading does not add turns or reset the count; exiting clears it. Completing a full break resets both time and turn counters.
 
 [h2]3. Voluntary breaks[/h2]
 After one idle minute, a voluntary-break panel shows the time already spent away. Continue Game is always available. Five continuous idle minutes complete a break; resuming early keeps your previous play progress.
 
 [h2]4. Restricted hours: early to bed, early to rise[/h2]
-The night restriction is enabled by default from 22:00 to 07:00 in your computer's local time. Adjust the schedule in 15-minute steps or disable it independently. Equal start and end times mean no restriction. Exit Game and Esc remain available, and the native exit confirmation appears above the break panel. The end of the restricted period never automatically advances a turn.
+The night restriction is enabled by default from 22:00 to 07:00 in your computer's local time. Adjust the schedule in 15-minute steps or disable it independently. Equal start and end times mean no restriction. Use Open settings for the native pause menu, or Esc for native exit confirmation. The end of the restricted period never automatically advances a turn.
 
-[h2]5. Autosave before a break[/h2]
-Each break attempts a separate local checkpoint named RestGuard_Idle/Time/Turn/Night with the turn, timestamp and unique suffix. Check the panel's save status before exiting.
-Keep the newest 10 break saves by default, adjustable from 1 to 100. Older break saves are removed only after a new save succeeds. The limit spans campaigns. Normal autosaves, quicksaves, other manual saves, cloud saves and other mods' saves are not part of that cleanup. Keep separate saves for important milestones.
+[h2]5. Manual saving during breaks[/h2]
+Open settings on the break panel opens the native pause menu, where you can save, quick-save or change options yourself. Closing the menu returns to the break panel; the countdown continues and a required break cannot be skipped. This mod never creates, queries or deletes saves in any break mode; existing saves are not moved or deleted. Auto-save Before... keeps handling its own before-turn saves.
 
 [h2]Setup and scope[/h2]
 Subscribe, wait for Steam to finish downloading, restart the game, and enable No More Turn in Additional Content. Avoid duplicate manual and Workshop copies. Options → Add-ons → No More Turn contains the settings. Turn, time and night restrictions have independent switches. Turning one off hides its related controls; shared settings remain available. Confirm saves changes, Cancel discards them.
 Single-player only. No dependency on another break/save mod. Compatible with Auto-save Before...'s before-turn save hook. The restriction applies inside the game, not to the computer.
-1.8.6 passed 78 offline checks against the actual release package. No live game test was run for this defaults-only update. The 1.8.5 break scenarios were captured on Mac 1.5.0 Metal; this does not establish other-platform or physical-controller coverage.
+The runtime in 1.8.8 passed user acceptance on 2026-11-06. The gallery shots come from 1.8.5 on Mac 1.5.0 Metal; other platforms and physical controllers are not covered.
 
 [h2]中文说明[/h2]
 给“再来一回合”设个终点。支持《文明 VII》单人游戏，界面跟随游戏文字语言，提供英文和简体中文。
+
+[h2]更新日志[/h2]
+[b]1.8.8 · 2026-11-06[/b]
+[list]
+[*]完全移除休息自动存档、保留清理及相关选项；任何休息模式都不再创建、查询或删除存档。
+[*]休息面板只保留“继续游戏／打开设置”两个按钮；打开设置进入完整原版暂停菜单，可手动保存、修改选项或退出，无单独保存或退出按钮。
+[*]加载、等待开始与主菜单等待不计入游戏时长，保留此前实际游戏累计。
+[*]休息与夜间禁玩期间可确认设置修改；进行中的强制休息保持原截止时间。
+[*]休息面板提供手柄原生图标提示与焦点高亮。
+[*]录制／调试的显式活动标记暂停休息限制；仅打开调试端口不算活动。
+[/list]
+[b]1.8.7 · 2026-10-30[/b]
+[list]
+[*]修复休息存档不出现在“自动保存”列表的问题：新存档使用自动存档分类，并保留 AutoSave_ 前缀。
+[*]缩短存档名并跟随游戏文字语言：中文 AutoSave_休息_T26_261029-2250，英文 AutoSave_Rest_T26_261029-2250。所有休息原因共用格式，时间精确到分钟，不带秒数或哈希后缀。
+[*]禁止覆盖旧文件，重名且请求被拒绝时明确显示保存失败。保留数量规则识别中英文新格式，以及自动存档分类中的旧 RestGuard 格式。
+[/list]
 
 [b]1. 按时间休息，反向番茄钟[/b]
 后期两回合可能很久。默认连续游戏25分钟，休息5分钟；不必等当前回合做完，倒计时结束后继续。
@@ -36,17 +69,16 @@ Single-player only. No dependency on another break/save mod. Compatible with Aut
 空闲1分钟出现面板，把已经离开的时间计入休息；随时可以继续游戏。连续空闲5分钟完成休息，提前继续则保留之前的累计游戏进度。
 
 [b]4. 禁玩时间，早睡早起[/b]
-默认开启22:00–次日07:00的禁玩时间，按电脑本地时间判断。可单独关闭，起止时间按15分钟调整；起止相同不限制。强制休息期间退出游戏和Esc仍可用，退出确认框在上层；解锁后不会自动结束回合。可回主菜单修改设置。
+默认开启22:00–次日07:00的禁玩时间，按电脑本地时间判断。可单独关闭，起止时间按15分钟调整；起止相同不限制。休息期间可通过“打开设置”进入原版菜单修改设置或退出，也可按Esc退出；解锁后不会自动结束回合。
 
-[b]5. 休息前自动存档[/b]
-每次休息尝试另存独立RestGuard文件，不覆盖原版自动保存。默认保留最近10个，可设1–100；新存档确认成功后才清理旧休息存档，跨战役合计。原版自动、快速、其他手动、云端与其他Mod存档不参与清理。退出前确认面板显示保存成功，重要进度另外手动保存。
+[b]5. 休息期间手动保存[/b]
+休息面板的“打开设置”进入原版暂停菜单，可手动保存、快速保存或调整选项。关闭菜单回到休息面板，倒计时继续，强制休息不能提前跳过。本 Mod 在任何休息模式下都不创建、查询或删除存档；已有存档不搬迁、不删除。Auto-save Before... 的回合前存档仍由该 Mod 自己负责。
 
 [b]安装与设置[/b]
 订阅并等待下载完成，重启游戏，在附加内容启用。避免手动版与工坊版重复安装。设置入口：选项 → 附加内容 → No More Turn（不再来一回合）。回合、时间、禁玩时间可分别开关；关闭时隐藏对应选项，共用选项不受影响。确认保存，取消放弃修改。
-本次默认值更新通过实际发行包78项离线检查，未启动游戏测试。配图实拍来自1.8.5、Mac 1.5.0 Metal，不代表其他平台或实体手柄验证。只限制游戏，不锁电脑。
+1.8.8所含运行代码于2026-11-06经用户验收。配图实拍来自1.8.5、Mac 1.5.0 Metal，不代表其他平台或实体手柄验证。只限制游戏，不锁电脑。
 
 
-[h2]Screenshot notes / 配图说明[/h2]
-The first seven gallery images were captured in 1.8.5: timed break, turn-based break, turn settings, voluntary break, night restriction, time/night settings, and the save list. Timed-break demonstration: 1 minute of play / 1 minute of rest. Turn-break demonstration: one end-turn action / 30 seconds of rest. Night demonstration: 16:00–17:00. The turn-settings screenshot shows the old 5/4/3/2/1 defaults; 1.8.6 now uses 13/8/5/3/2.
-
-图库前七张为1.8.5实机截图，依次展示计时休息、回合休息、回合设置、主动休息、禁玩时间、时间设置及存档列表。计时演示临时使用玩1分钟／休息1分钟，回合演示临时使用每次结束回合／休息30秒，禁玩时段临时使用16:00–17:00。回合设置图中的5／4／3／2／1是旧默认值，1.8.6已改为13／8／5／3／2。
+[h2]Gallery / 配图[/h2]
+Historical 1.8.5 images use demonstration timings. Shown save features and 5/4/3/2/1 defaults are obsolete.
+图库为1.8.5历史演示，使用临时间隔。图中旧存档功能和5/4/3/2/1默认值已过时。

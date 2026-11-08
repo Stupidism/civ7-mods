@@ -1,0 +1,27 @@
+{
+  "id": "3815557333",
+  "version": "1.8.7",
+  "scope": "description only; add bilingual changelog",
+  "phase": "verified",
+  "descriptionSha256": "0d97924679ffe266395e7f74dc42f7aee86c72408bb10071c36251d66ac68c80",
+  "previousDescriptionSha256": "5309a8b2c72885d82ec5042e88cab215743f745152b115cfa60d80c4fda134dc",
+  "result": 1,
+  "returnedId": "3815557333",
+  "legalAgreementRequired": false,
+  "metadataUnchanged": true,
+  "metadata": {
+    "creator_app": 3688890,
+    "consumer_app": 1295660,
+    "owner": 76561198166246286,
+    "visibility": 0,
+    "file": 18446744073709551615,
+    "preview": 16458421248005855117,
+    "total_size": 145221,
+    "banned": false,
+    "title": "No More Turn（不再来一回合）",
+    "tags": "Gameplay Tweaks,UI,Mod"
+  },
+  "updatedAt": "2026-10-30T00:10:04+08:00",
+  "verifiedAt": "2026-10-30T00:19:44.813335+08:00",
+  "skillUpdated": "/Users/sunmer/.codex/skills/civ7-modding/SKILL.md"
+}

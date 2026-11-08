@@ -21,7 +21,6 @@ export function subscribeSettings(listener) {
 }
 export const isSettingsOpen = () => !!document.querySelector('screen-options');
 export function openSettings() {
-  if (UI.isInGame() && (session.pending || session.night)) return;
   openRestOptions({ context: ContextManager, document, afterLayout: waitForLayout,
     focus: element => FocusManager.get().setFocus(element) });
 }
@@ -29,7 +28,6 @@ export function openSettings() {
 const removeDividers = installRestOptionDividers(ScreenOptionsCategory.prototype, document);
 const integration = installRestOptions({
   options: Options, optionType: OptionType, categories: CategoryData, store: settingsStore,
-  canCommit: () => !UI.isInGame() || (!session.pending && !session.night),
   applied(config, previous) {
     if (!previous.timeEnabled && config.timeEnabled && session.startedAt !== null) {
       session.startedAt = Date.now(); session.lastInputAt = Date.now(); session.idleRested = false;

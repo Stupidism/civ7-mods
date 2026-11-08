@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="civ7-rest-guard" version="19" xmlns="ModInfo">
+<Mod id="civ7-rest-guard" version="21" xmlns="ModInfo">
   <Properties>
     <Name>No More Turn（不再来一回合）</Name>
     <Description>LOC_RG_MOD_DESCRIPTION</Description>
     <Authors>Custom Mod</Authors>
-    <Version>1.8.6</Version>
+    <Version>1.8.8</Version>
     <Package>Mod</Package>
     <AffectsSavedGames>0</AffectsSavedGames>
   </Properties>
@@ -21,8 +21,6 @@
           <Item>ui/rest-model.js</Item>
           <Item>ui/rest-session.js</Item>
           <Item>ui/rest-activity.js</Item>
-          <Item>ui/rest-save.js</Item>
-          <Item>ui/rest-retention.js</Item>
           <Item>ui/rest-runtime.js</Item>
           <Item>ui/rest-store.js</Item>
           <Item>ui/rest-options.js</Item>
@@ -42,8 +40,6 @@
           <Item>ui/rest-model.js</Item>
           <Item>ui/rest-session.js</Item>
           <Item>ui/rest-activity.js</Item>
-          <Item>ui/rest-save.js</Item>
-          <Item>ui/rest-retention.js</Item>
           <Item>ui/rest-runtime.js</Item>
           <Item>ui/rest-store.js</Item>
           <Item>ui/rest-options.js</Item>
@@ -53,3 +49,4 @@
     </ActionGroup>
   </ActionGroups>
 </Mod>
+
