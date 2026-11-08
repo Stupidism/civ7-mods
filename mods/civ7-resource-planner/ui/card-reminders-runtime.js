@@ -42,20 +42,32 @@ export function readCardNeeds({ player, playerID, info, operations, assignType, 
     count: Math.max(0, (player.Culture?.getNumCultureSlots(type) ?? 0) -
       (player.Culture?.getActiveTraditions(type)?.length ?? 0)) }));
   let resources = false, hasOptional = false, hasRegular = false;
+  let eligibleResources = 0, damagedResources = 0, optionalResources = 0, regularResources = 0, unknownResources = 0;
   if (kinds.includes('resources') && player.Resources && !player.Resources.isResourceAssignmentLocked()) {
     const cities = (player.Cities?.getCities() ?? []).filter(c => c.owner === playerID && c.Resources);
     const key = r => `${r.isOffMap ? 'off' : 'plot'}:${r.value}`;
     const assigned = new Set(cities.flatMap(c => c.Resources.getAssignedResources().map(key)));
     const slots = cities.filter(c => c.Resources.getAssignedResourcesCap() > c.Resources.getAssignedResources().length);
     outer: for (const r of player.Resources.getResources()) {
-      if (assigned.has(key(r)) || isResourceDamaged(r)) continue;
+      if (assigned.has(key(r))) continue;
+      if (isResourceDamaged(r)) {
+        eligibleResources++; damagedResources++;
+        continue;
+      }
       const def = info.Resources.lookup(r.uniqueResource.resource);
-      if (!def || ['RESOURCECLASS_EMPIRE', 'RESOURCECLASS_TREASURE'].includes(def.ResourceClassType)) continue;
+      if (!def || !def.ResourceClassType || !def.ResourceType) {
+        eligibleResources++; unknownResources++;
+        continue;
+      }
+      if (['RESOURCECLASS_EMPIRE', 'RESOURCECLASS_TREASURE'].includes(def.ResourceClassType)) continue;
+      eligibleResources++;
       if (productionOnly?.has(def.ResourceType) && !(def.BonusResourceSlots > 0)) {
         hasOptional = true;
+        optionalResources++;
         continue;
       }
       hasRegular = true;
+      regularResources++;
       for (const city of slots) {
         if (def.ResourceClassType === 'RESOURCECLASS_CITY' && city.isTown) continue;
         const args = { City: city.id.id, ID: r.isOffMap ? r.value : -1, Flags: !!r.isOffMap };
@@ -64,7 +76,18 @@ export function readCardNeeds({ player, playerID, info, operations, assignType, 
       }
     }
   }
-  return { resources, onlyOptional: hasOptional && !hasRegular, policies: empty.some(s => s.count > 0), empty };
+  return {
+    resources,
+    onlyOptional: hasOptional && !hasRegular,
+    // Native resource blockers may be stale when every eligible unassigned item is
+    // deliberately ignored. Unknown metadata or any healthy regular resource is
+    // evidence that the engine still owns the decision, so keep its blocker.
+    suppressNativeResourceNotification: eligibleResources > 0 && !hasRegular && !unknownResources &&
+      (hasOptional || damagedResources > 0),
+    resourceEvidence: { eligible: eligibleResources, damaged: damagedResources,
+      optional: optionalResources, regular: regularResources, unknown: unknownResources },
+    policies: empty.some(s => s.count > 0), empty
+  };
 }
 
 export function createCardSkips() {

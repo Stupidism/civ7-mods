@@ -1,10 +1,11 @@
 import {isResourceDamaged} from './card-reminders-runtime.js';
 import {t} from './rp-l10n.js';
-import {bareYields,cityYieldVector,YIELDS, cityKey, resourceKey, effectsFor} from './rp-planner.js';
+import {bareYields,cityYieldVector,ordinaryYieldVector,YIELDS, cityKey, resourceKey, effectsFor} from './rp-planner.js';
 const truth=v=>v===true||v===1||v==='1'||v==='true';
 const rows=t=>{const a=[];t?.forEach(v=>a.push(v));return a;};
 const PRODUCTION_YIELD='YIELD_PRODUCTION';
 const FOOD_YIELD='YIELD_FOOD';
+const FIXED_POINT_TOLERANCE=1/128+1e-9;
 
 export function resourceCatalog(info=GameInfo) {
   const args=new Map(), dynamics=new Map(rows(info.DynamicModifiers).map(r=>[r.ModifierType,r]));
@@ -108,8 +109,22 @@ function nativeProductionRate(city,progress,info=globalThis.GameInfo) {
     const kind=globalThis.ProductionKind?.UNIT;
     if(!Number.isInteger(index)||index<0||!Number.isInteger(kind))return undefined;
     if(city?.BuildQueue?.currentProductionKind!==kind)return undefined;
-    const rate=city?.Yields?.calculateProductionSpecificYield?.(index,kind,false)?.value;
-    return Number.isFinite(rate)&&rate>=0?rate:undefined;
+    const tree=city?.Yields?.calculateProductionSpecificYield?.(index,kind,false);
+    const rate=tree?.value;
+    if(typeof rate!=='number'||!Number.isFinite(rate)||rate<0)return undefined;
+    // A valid ATTRIBUTE root exposes the structural ordinary base and the
+    // production-specific percentage. Never reconstruct that percentage by
+    // dividing the final rate; a zero base would make such a quotient invalid.
+    const attributeType=globalThis.GameValueStepTypes?.ATTRIBUTE;
+    const base=tree?.base?.value,percent=tree?.modifier?.value;
+    if(Number.isInteger(attributeType)&&tree?.type===attributeType&&
+      typeof base==='number'&&Number.isFinite(base)&&base>=0&&
+      typeof percent==='number'&&Number.isFinite(percent)&&percent>=-100&&
+      Math.abs(rate-base*(1+percent/100))<=FIXED_POINT_TOLERANCE)
+      return {rate,ordinaryBase:base,productionPercent:percent};
+    // Unknown derivatives remain useful only as a scalar. Preserve the old
+    // conservative offset behavior instead of guessing a rate ratio.
+    return {rate};
   }catch{return undefined;}
 }
 
@@ -261,7 +276,7 @@ export function snapshot(model,tendencies,catalog,options) {
     });
     const city={key,id:c.id,name:Locale.compose(c.name),isTown:c.isTown,isCapital:c.isCapital,isDistantLands:c.isDistantLands,
       preferenceID:preferenceKey(c),connected:!!c.Trade?.isInTradeNetwork(),base,multiplier,offset,postMultiplier,tags,assigned,live:c,
-      construction:0,capacity:c.Resources.getAssignedResourcesCap()-occupied.length,tendency:tendencies[preferenceKey(c)],productionRateOffset:0};
+      construction:0,capacity:c.Resources.getAssignedResourcesCap()-occupied.length,tendency:tendencies[preferenceKey(c)],productionRateOffset:0,productionExtraPercent:0};
     const production=currentProduction(c);
     if(production.queue)city.queue=production.queue;
     if(production.progress?.yieldType===PRODUCTION_YIELD) {
@@ -315,11 +330,29 @@ export function snapshot(model,tendencies,catalog,options) {
     .reduce((sum,r)=>sum+effectsFor(r,c).construction,0);
   // The native query describes the physical assignments at snapshot time. Only
   // after candidate subtraction/fixed-construction reconstruction can it be
-  // compared with the model; use that difference solely as the scoring offset.
+  // compared with the model. A structural ATTRIBUTE root separates the native
+  // ordinary base from its production percentage; otherwise retain the old
+  // scalar-offset fallback.
   for(const c of cities) {
     if(!nativeRates.has(c.key))continue;
-    const modeledRate=cityYieldVector(c,c.assigned.filter(r=>candidateKeys.has(r.key)))[1];
-    const correction=nativeRates.get(c.key)-modeledRate;
+    const native=nativeRates.get(c.key),originalCandidates=c.assigned.filter(r=>candidateKeys.has(r.key));
+    if(native.ordinaryBase!==undefined) {
+      const ordinaryRate=ordinaryYieldVector(c,originalCandidates)[1];
+      if(Number.isFinite(ordinaryRate)&&Math.abs(ordinaryRate-native.ordinaryBase)<=FIXED_POINT_TOLERANCE) {
+        const assignedPercent=c.assigned.reduce((sum,r)=>sum+effectsFor(r,c).construction,0);
+        const extraPercent=native.productionPercent-assignedPercent;
+        const modeledRate=ordinaryRate*(1+native.productionPercent/100);
+        const correction=native.rate-modeledRate;
+        const residualTolerance=FIXED_POINT_TOLERANCE*Math.max(1,Math.abs(1+native.productionPercent/100));
+        if(Number.isFinite(extraPercent)&&Number.isFinite(correction)&&Math.abs(correction)<=residualTolerance) {
+          c.productionExtraPercent=extraPercent;
+          c.productionRateOffset=correction;
+          continue;
+        }
+      }
+    }
+    const modeledRate=cityYieldVector(c,originalCandidates)[1];
+    const correction=native.rate-modeledRate;
     if(Number.isFinite(correction))c.productionRateOffset=correction;
   }
   return {resources:candidates,cities};

@@ -8,6 +8,7 @@ import { ContextManager } from '/core/ui/context-manager/context-manager.js';
 import ViewManager from '/core/ui/views/view-manager.js';
 import { FocusManager } from '/core/ui-next/services/focus-manager.js';
 import { IsControllerActive } from '/core/ui-next/services/input.js';
+import { ComponentID } from '/core/ui/utilities/utilities-component-id.js';
 import { setActivePolicyTab } from '/base-standard/ui/policies/model-government.js';
 import { installPageSkipHold } from './page-skip-hold.js';
 import { CARD_NOTIFICATIONS, productionOnlyResources, readCardNeeds, createCardSkips } from './card-reminders-runtime.js';
@@ -49,10 +50,13 @@ export function createCardReminders({ scope, localTurn, refresh, nextRank }, { k
   const typeName = item => Game.Notifications.getTypeName(item.type);
   const kind = item => { const value = CARD_NOTIFICATIONS[typeName(item)]; return kinds.includes(value) ? value : undefined; };
   let productionOnly, catalogAge, acknowledged;
+  const deliberateResourceSuppression = value =>
+    value.suppressNativeResourceNotification ?? value.onlyOptional === true;
   function state(fresh = false) {
     const token = scope(); skips.sync(token);
     if (deferredScope !== token) { deferredScope = token; deferred.clear(); }
-    if (!localTurn()) return { resources: false, policies: false, empty: [] };
+    if (!localTurn()) return { resources: false, onlyOptional: false,
+      suppressNativeResourceNotification: false, policies: false, empty: [] };
     if (fresh || token !== cachedScope || performance.now() >= expires) {
       if (kinds.includes('resources') && (!productionOnly || catalogAge !== Game.age)) {
         productionOnly = productionOnlyResources(GameInfo);
@@ -201,12 +205,12 @@ export function createCardReminders({ scope, localTurn, refresh, nextRank }, { k
     lastPoll = performance.now();
     // A native "assign new resources" blocker can coexist with our empty tail.
     // Acknowledge that prompt only, without assigning anything or ending the turn.
-    if (kinds.includes('resources') && state().onlyOptional) {
+    if (kinds.includes('resources') && deliberateResourceSuppression(state())) {
       const player = GameContext.localPlayerID;
       const id = (Game.Notifications.getIdsForPlayer(player) ?? []).find(id =>
         Game.Notifications.getBlocksTurnAdvancement(id) && kind({type:Game.Notifications.getType(id)}) === 'resources');
       const token = id && scope() + '/' + ComponentID.toString(id);
-      if (token && token !== acknowledged && state(true).onlyOptional &&
+      if (token && token !== acknowledged && deliberateResourceSuppression(state(true)) &&
           Game.PlayerOperations.canStart(player, PlayerOperationTypes.CONSIDER_ASSIGN_RESOURCE, {}, false)?.Success) {
         acknowledged = token;
         Game.PlayerOperations.sendRequest(player, PlayerOperationTypes.CONSIDER_ASSIGN_RESOURCE, {});

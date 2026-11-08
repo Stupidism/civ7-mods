@@ -33,6 +33,15 @@ function ordinaryYields(city, flat, percent) {
   return city.base.map((b,i) => ((b + flat[i]) * (city.multiplier[i] + percent[i]/100) + (city.offset?.[i]||0)) * (city.postMultiplier?.[i]??1));
 }
 
+export function ordinaryYieldVector(city, resources) {
+  const flat = Array(7).fill(0), percent = Array(7).fill(0);
+  for (const r of resources) {
+    const e = effectsFor(r, city);
+    for (let i=0; i<7; i++) { flat[i] += e.flat[i]; percent[i] += e.percent[i]; }
+  }
+  return ordinaryYields(city,flat,percent);
+}
+
 function appliedYields(city, flat, percent, construction) {
   const result=ordinaryYields(city,flat,percent);
   result[1]*=1+((Number(city.construction)||0)+construction)/100;
@@ -45,7 +54,8 @@ function appliedYields(city, flat, percent, construction) {
 // prediction and UI deltas continue to use cityYieldVector/appliedYields above.
 function scoredYields(city, flat, percent, construction) {
   const result=ordinaryYields(city,flat,percent);
-  const rawProduction=result[1]*(1+((Number(city.construction)||0)+construction)/100);
+  const extraProductionPercent=Number.isFinite(city.productionExtraPercent)?city.productionExtraPercent:0;
+  const rawProduction=result[1]*(1+((Number(city.construction)||0)+construction+extraProductionPercent)/100);
   const remaining=city.productionRemaining;
   const nativeOffset=Number.isFinite(city.productionRateOffset)?city.productionRateOffset:0;
   if(Number.isFinite(remaining)&&remaining>=0) {
