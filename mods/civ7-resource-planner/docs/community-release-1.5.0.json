@@ -1,0 +1,21 @@
+{
+  "version": "1.5.0",
+  "date": "2026-11-09",
+  "bilibili": {
+    "url": "https://www.bilibili.com/opus/1263171240630157332",
+    "status": "submitted_author_readback",
+    "publicGuestVerified": false,
+    "text": "更好的资源界面 1.5.0 已更新（2026-11-09）。资源规划现已更名，并可独立运行，不再需要额外启用 Resource Re-sorts；请停用同样覆盖资源／贸易页面的独立 Re-sorts，原作者 beezany 的归属说明保留。\n\n本次包含：倾向×2／避免×0多选及默认倾向重置；定居点幸福度0／5、城市0／20目标；图标工具与手柄分区；损坏资源、当前无效的盐等条件资源不再催促分配；城市显示当前生产的已投入／所需锤，移除城镇“不生产单位”提示。\n\n盐按当前训练单位计收益，全部产能评分统一排除百分比加成的浪费区间，并保留基础溢出的边际价值。例如基础60、加成50%、剩余80，再加2基础锤计0；剩余30时计2。属于分配估值，不是对原版所有溢出与未来队列的精确模拟。\n\n184项离线检查通过，零跳过；最新完整实机及实体手柄验收仍待完成。原文图片仍是1.1.0。\n工坊：https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182"
+  },
+  "civfanatics": {
+    "url": "https://forums.civfanatics.com/threads/resource-planner-%E2%80%94-give-resources-a-destination-not-another-spreadsheet.705251/post-17006538",
+    "id": "17006538",
+    "status": "pending_moderation",
+    "text": "Better Resource UI 1.5.0 — November 9, 2026\n\nResource Planner is now Better Resource UI, a standalone update. Separate Resource Re-sorts is no longer required; disable competing commerce-page overrides, including separate Re-sorts. Credit remains with beezany for the Resource Re-sorts 3.0.2 page derivatives.\n\nNew: multi-select Prefer ×2 / Avoid ×0; resettable bare-yield defaults; happiness targets 0/5 for settlements and 0/20 for cities; revised icon tools and controller areas. Damaged and currently ineffective conditional resources no longer prompt allocation. City headings show known invested/required production; redundant town non-training labels are removed.\n\nSalt is valued against current unit training. All production scoring discounts the bonus-driven waste interval while retaining additional base overflow: base 60, +50%, 80 remaining, +2 base scores 0; with 30 remaining it scores 2. This is an allocation estimate, not full native overflow or future-queue simulation.\n\n184 offline checks passed, zero skipped. Latest full live-build and physical-controller acceptance remain pending. Original-post screenshots are from 1.1.0.\n\nWorkshop: https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182"
+  },
+  "reddit": {
+    "url": "https://www.reddit.com/r/CivVII/comments/1xf5wzi/resource_planner_110_happiness_filling_and/",
+    "status": "not_submitted_navigation_timeout",
+    "text": "Better Resource UI 1.5.0 — November 9, 2026\n\nResource Planner is now Better Resource UI, a standalone update. Separate Resource Re-sorts is no longer required; disable competing commerce-page overrides, including separate Re-sorts. Credit remains with beezany for the Resource Re-sorts 3.0.2 page derivatives.\n\nNew: multi-select Prefer ×2 / Avoid ×0; resettable bare-yield defaults; happiness targets 0/5 for settlements and 0/20 for cities; revised icon tools and controller areas. Damaged and currently ineffective conditional resources no longer prompt allocation. City headings show known invested/required production; redundant town non-training labels are removed.\n\nSalt is valued against current unit training. All production scoring discounts the bonus-driven waste interval while retaining additional base overflow: base 60, +50%, 80 remaining, +2 base scores 0; with 30 remaining it scores 2. This is an allocation estimate, not full native overflow or future-queue simulation.\n\n184 offline checks passed, zero skipped. Latest full live-build and physical-controller acceptance remain pending. Original-post screenshots are from 1.1.0.\n\nWorkshop: https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182"
+  }
+}

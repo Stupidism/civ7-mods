@@ -1,6 +1,7 @@
 // Resource Planner extension of Resource Re-sorts 3.0.2 by beezany.
 import { template, insert, className, setAttribute } from '../../../../core/vendor/solid-js/web/dist/web.js';
 import { createSignal, createMemo, createEffect, on, createComponent, untrack, Show, mergeProps, createRenderEffect, For, onCleanup, onMount } from '../../../../core/vendor/solid-js/dist/solid.js';
+import { ContextManager } from '../../../../core/ui/context-manager/context-manager.js';
 import { displayRequestUniqueId } from '../../../../core/ui/context-manager/display-handler.js';
 import { DialogBoxManager } from '../../../../core/ui/dialog-box/manager-dialog-box.js';
 import { ComponentID } from '../../../../core/ui/utilities/utilities-component-id.js';
@@ -13,13 +14,12 @@ import { CollapsibleContainer } from '../../../../core/ui-next/components/collap
 import { ConfirmationDialog } from '../../../../core/ui-next/components/confirmation-dialog.js';
 import { Divider } from '../../../../core/ui-next/components/divider.js';
 import { createTypedDragAndDrop, useDraggableContext, useDragAndDropContext, DragEndStatus } from '../../../../core/ui-next/components/drag-and-drop.js';
-import { Dropdown, DropdownItem } from '../../../../core/ui-next/components/dropdown.js';
 import { Icon } from '../../../../core/ui-next/components/icon.js';
 import { ImageButton } from '../../../../core/ui-next/components/image-button.js';
 import { useImageCache } from '../../../../core/ui-next/components/image-cache.js';
 import { L10n } from '../../../../core/ui-next/components/l10n.js';
 import { ScrollArea } from '../../../../core/ui-next/components/scroll-area.js';
-import { SpatialSlot, HSlot } from '../../../../core/ui-next/components/slot.js';
+import { SpatialSlot } from '../../../../core/ui-next/components/slot.js';
 import { Tooltip } from '../../../../core/ui-next/components/tooltip.js';
 import { useAudio } from '../../../../core/ui-next/services/audio-support.js';
 import { ComponentRegistry } from '../../../../core/ui-next/services/component-registry.js';
@@ -29,17 +29,16 @@ import { isMobile } from '../../../../core/ui-next/services/view-experience.js';
 import { LayoutModel } from '../../../../core/ui-next/utilities/layout-utilities.js';
 import { FramedResource } from '../../components/framed-resource.js';
 import { GamepadTrayItemProvider } from '../../components/gamepad-tray-item-provider.js';
-import { YieldDelta } from '../../components/yield-delta.js';
 import { CommerceScreenBaseTabContent } from './commerce-screen-base-tab-content.js';
 import { useCommerceScreenContext, gamepadLog, getResourceName, ResourceContainerSelectionState, getCityName } from './commerce-screen-model.js';
 import { FactoryTypeDisplay } from './factory-type-display.js';
 import { ResourceTooltip } from '../../tooltips/resource-tooltip.js';
 // TRIX
-import { Hotkeys } from '/core/ui-next/components/hotkeys.js';
 import style from './commerce-screen.scss.js';
+import {installDeferInput} from '/civ7-resource-planner/ui/rp-defer.js';
 import { t } from '/civ7-resource-planner/ui/rp-l10n.js';
 import { createPlanner, getPlanner } from '/civ7-resource-planner/ui/rp-controller.js';
-import { PlannerToolbar, HappinessButton, TendencyYield, TendencyLabel, createGroups, plannerStyle } from '/civ7-resource-planner/ui/rp-ui.js';
+import { PlannerToolbar, ResetPreferencesButton, SortToolbar, ZoneEntry, TendencyYield, TendencyLabel, createGroups, plannerStyle, isControllerPlacement, zoneActive, markZone, installControllerGlyphs, installControllerFocus, createZoneNavigation, SettlementProduction } from '/civ7-resource-planner/ui/rp-ui.js';
 
 var
   _tmpl$ = template(`<div></div>`),
@@ -73,6 +72,7 @@ var
   _tmpl$24 = template(`<div class="flex flex-row w-full items-center"><div class="flex flex-row items-center"><div class="text-secondary uppercase font-title flex-auto"></div><div class="flex flex-row mr-6"></div></div><div class="text-secondary uppercase font-title ml-2 pointer-events-none"></div></div>`),
   _tmpl$25 = template(`<div><div></div></div>`),
   _tmpl$26 = template(`<div class="ml-2"></div>`);
+const divHeader=template('<div class="flex flex-col w-full"></div>');
 const DEBUG_DRAG_AND_DROP = false;
 const [DragAndDrop, Draggable, Dropzone] = createTypedDragAndDrop();
 const DraggableResource = (props) => {
@@ -118,13 +118,15 @@ const DraggableResource = (props) => {
       // slotted resource: remove
       model.mclickSlottedResource({
         resourceValue: props.resourceData.resourceValue,
-        cityID: props.resourceData.cityID
+        cityID: props.resourceData.cityID,
+        isOffMap: props.resourceData.isOffMap
       });
     } else {
       // available resource: add to first available slot
       model.mclickAvailableResource({
         resourceValue: props.resourceData.resourceValue,
-        cityID: props.resourceData.cityID
+        cityID: props.resourceData.cityID,
+        isOffMap: props.resourceData.isOffMap
       });
     }
   }
@@ -150,29 +152,37 @@ const DraggableResource = (props) => {
     }
   }
   const isResourceSelected = createMemo(() => {
-    return model.selectedResource().resourceValue == props.resourceData.resourceValue;
+    return model.selectedResource().resourceValue === props.resourceData.resourceValue && !!model.selectedResource().isOffMap === !!props.resourceData.isOffMap;
   });
   createEffect(() => {
     if (!IsControllerActive()) {
       return false;
     }
-    const focusInitialResourceOnSettlementSelectedWithoutResourceSelected = model.selectedResource().resourceValue === -1 && (model.selectedSettlementId() ? ComponentID.isMatch(model.selectedSettlementId(), props.resourceData.cityID ?? null) : false) && props.isFirstResourceInSection;
+    if(!zoneActive(model,'resources')){setShouldAutoFocus(false);return;}
+    const focusInitialResourceOnSettlementSelectedWithoutResourceSelected = (model.selectedSettlementId() ? ComponentID.isMatch(model.selectedSettlementId(), props.resourceData.cityID ?? null) : false) && props.isFirstResourceInSection;
     const shouldAutoFocus2 = focusInitialResourceOnSettlementSelectedWithoutResourceSelected;
     if (shouldAutoFocus2) {
       gamepadLog("AUTO-FOCUS " + getResourceName(props.resourceData));
     }
     setShouldAutoFocus(shouldAutoFocus2);
   });
-  createEffect(on(model.isInSortAndFilterMode, (newValue) => {
-    if (!newValue) {
-      if (!props.resourceData.cityID && props.isFirstResourceInSection) {
-        setShouldAutoFocus(true);
-      }
+  createEffect(on(model.resourceZone, (newValue, previous) => {
+    if (newValue!=='resources') { setShouldAutoFocus(false); return; }
+    if (previous!==newValue && IsControllerActive()) {
+      // Show recreates the resource's Activatable when leaving tools mode.
+      // Restore by full resource identity rather than a detached DOM reference.
+      const focused = model.focusedResource();
+      setShouldAutoFocus((focused.resourceValue===-1&&!props.resourceData.cityID&&props.isFirstResourceInSection) || (focused.resourceValue === props.resourceData.resourceValue &&
+        !!focused.isOffMap === !!props.resourceData.isOffMap &&
+        ((!focused.cityID && !props.resourceData.cityID) || ComponentID.isMatch(focused.cityID, props.resourceData.cityID))));
+    } else if (previous === undefined && !props.resourceData.cityID && props.isFirstResourceInSection) {
+      setShouldAutoFocus(true);
     }
   }));
   const resourceName = createMemo(() => getResourceName({
     cityID: props.resourceData.cityID,
-    resourceValue: props.resourceData.resourceValue
+    resourceValue: props.resourceData.resourceValue,
+    isOffMap: props.resourceData.isOffMap
   }));
   return createComponent(Draggable, {
     get data() {
@@ -189,7 +199,7 @@ const DraggableResource = (props) => {
           return !model.canSelectResource(props.resourceData);
         });
         const enabled = createMemo(() => {
-          if (isResourceSelected()) {
+          if (props.resourceData.resourceProps?.isDamaged || !zoneActive(model,'resources') || model.resourceActionBusy() || isResourceSelected()) {
             return false;
           }
           if (!IsControllerActive()) {
@@ -224,7 +234,7 @@ const DraggableResource = (props) => {
           model.setLastSlottedResourceValues(lastSlottedValues);
         };
         const setSwapTargetIfAppropriate = () => {
-          if (model.selectedResource().resourceValue === -1 || model.selectedResource().resourceValue === props.resourceData.resourceValue || !props.resourceData.canSwapWithSelectedResource()) {
+          if (model.selectedResource().resourceValue === -1 || (model.selectedResource().resourceValue === props.resourceData.resourceValue && !!model.selectedResource().isOffMap === !!props.resourceData.isOffMap) || !model.canSelectResource(props.resourceData)) {
             return;
           }
           model.setResourceSwapTarget(props.resourceData.resourceValue);
@@ -241,7 +251,7 @@ const DraggableResource = (props) => {
         });
         return createComponent(Show, {
           get when() {
-            return createMemo(() => !!enabled())() && !model.isInSortAndFilterMode();
+            return createMemo(() => !!enabled())() && zoneActive(model,'resources');
           },
           get fallback() {
             return createComponent(ResourceTooltip, mergeProps(() => props.resourceData.resourceProps, {
@@ -288,7 +298,8 @@ const DraggableResource = (props) => {
                       onFocus: () => {
                         model.setFocusedResource({
                           resourceValue: props.resourceData.resourceValue,
-                          cityID: props.resourceData.cityID
+                          cityID: props.resourceData.cityID,
+                          isOffMap: props.resourceData.isOffMap
                         });
                         model.setFocusedSettlementId(void 0);
                         setSwapTargetIfAppropriate();
@@ -360,12 +371,46 @@ const ResourceSlot = (props) => {
     }
   }));
 };
+const ResourcePoolHeader = (props) => {
+        var _el$47 = _tmpl$24(), _el$48 = _el$47.firstChild, _el$49 = _el$48.firstChild, _el$50 = _el$49.nextSibling, _el$51 = _el$48.nextSibling;
+        _el$48.classList.add("rp-pool-heading");
+        insert(_el$49, createComponent(L10n.Compose, {
+          text: "LOC_COMMERCE_AVAILABLE_RESOURCES_TITLE"
+        }));
+        insert(_el$50, createComponent(For, {
+          get each() {
+            return props.unslottedBonuses;
+          },
+          children: (unslottedBonus) => (() => {
+            var _el$54 = _tmpl$25(), _el$55 = _el$54.firstChild;
+            insert(_el$54, () => `+${unslottedBonus.bonusAmount}`, null);
+            createRenderEffect((_p$) => {
+              var _v$9 = `ml-2 flex flex-row ${isMobile() ? "items-center" : ""}`, _v$10 = `${isMobile() ? "size-10" : "size-6"} mr-1 bg-cover bg-center`, _v$11 = unslottedBonus.iconSrc;
+              _v$9 !== _p$.e && className(_el$54, _p$.e = _v$9);
+              _v$10 !== _p$.t && className(_el$55, _p$.t = _v$10);
+              _v$11 !== _p$.a && ((_p$.a = _v$11) != null ? _el$55.style.setProperty("background-image", _v$11) : _el$55.style.removeProperty("background-image"));
+              return _p$;
+            }, {
+              e: void 0,
+              t: void 0,
+              a: void 0
+            });
+            return _el$54;
+          })()
+        }));
+
+return _el$48;
+};
 const AvailableResourcesContainer = (props) => {
   const model = useCommerceScreenContext();
   return (() => {
     var _el$2 = _tmpl$2(), _el$3 = _el$2.firstChild;
-    _el$2.style.setProperty("width", "22.8888888889rem");
-    insert(_el$3, createComponent(PlannerToolbar, {model}), null);
+
+    _el$2.classList.add('rp-unassigned');
+    markZone(_el$2,model,'resources');
+    insert(_el$2,createComponent(ZoneEntry,{model,zone:'resources'}),_el$2.firstChild);
+    insert(_el$3,createComponent(ResourcePoolHeader,props),null);
+
     insert(_el$3, createComponent(ScrollArea, {
       "class": "flex-auto",
       reserveSpace: true,
@@ -530,7 +575,7 @@ const AvailableResourcesSectionInternal = (props) => {
                           return subSection.type === "RESOURCECLASS_CITY" ? t("CITY_RESOURCES") : subSection.type === "RESOURCECLASS_BONUS" ? t("BONUS_RESOURCES") : subSection.title;
                         }
                       }));
-                      insert(_el$6, createComponent(HappinessButton, {model, type:subSection.type}), null);
+
                       return _el$6;
                     })(), (() => {
                       var _el$8 = _tmpl$6();
@@ -592,31 +637,16 @@ const AvailableResourcesSectionInternal = (props) => {
 const SlottedResourcesContainer = (props) => {
   const model = useCommerceScreenContext();
   const plannerGroups = createGroups(props);
-  const isReturnResourcesEnabled = createMemo(() => model.isSlottingAvailable && props.slottedResourceSectionData.some((sectionData) => sectionData.cityResources.some((cityData) => cityData.slottedResources.length > 0)) && model.selectedResource().resourceValue === -1);
+  const isReturnResourcesEnabled = createMemo(() => zoneActive(model,'resources') && model.isSlottingAvailable && props.slottedResourceSectionData.some((sectionData) => sectionData.cityResources.some((cityData) => cityData.slottedResources.some(r=>!r.resourceProps?.isDamaged))) && model.selectedResource().resourceValue === -1);
   return (() => {
     var _el$10 = _tmpl$9();
     insert(_el$10, createComponent(ScrollArea, {
-      "class": "flex-auto pl-2",
+      "class": "rp-resource-scroll flex-auto pl-2",
       get allowGamepadPan() {
         return model.focusedSettlementId() !== void 0 || model.selectedSettlementId() !== void 0;
       },
       get children() {
-        return [createComponent(Hotkeys, {
-          get hotkeys() {
-            return [{
-              hotkeyAction: "cycle-next",
-              onActivate: model.onNextSettlementSortType
-            },
-              {
-                hotkeyAction: "cycle-prev",
-                onActivate: model.onPrevSettlementSortType
-              },
-              {
-                hotkeyAction: "unit-skip-turn",
-                onActivate: model.toggleSelectedSortDirection
-              }];
-          }
-        }), createComponent(For, {
+        return [createComponent(For, {
           get each() {
             return plannerGroups;
           },
@@ -627,7 +657,7 @@ const SlottedResourcesContainer = (props) => {
             get titleIcon() {
               return section.collapsibleContainerData.titleIcon;
             },
-            "class": "text-secondary w-full mb-2",
+            "class": "rp-resource-column text-secondary w-full mb-2",
             disableFocus: true,
             get children() {
               return createComponent(Show, {
@@ -655,7 +685,7 @@ const SlottedResourcesContainer = (props) => {
                     children: (subSection, index) => {
                       return createComponent(CityResourceContainer, mergeProps({
                         get cityIndex() {
-                          return index();
+                          return props.slottedResourceSectionData.flatMap(section => section.cityResources).indexOf(subSection);
                         }
                       }, subSection));
                     }
@@ -667,6 +697,7 @@ const SlottedResourcesContainer = (props) => {
           })
         }), (() => {
           var _el$11 = _tmpl$8();
+          insert(_el$11, createComponent(ResetPreferencesButton, {model}), null);
           insert(_el$11, createComponent(ConfirmationDialog, {
             name: "confirm-unassign-resources",
             onAccept: () => {
@@ -716,7 +747,7 @@ const SlottedResourcesContainer = (props) => {
                 }
               });
             }
-          }));
+          }), null);
           return _el$11;
         })()];
       }
@@ -784,6 +815,7 @@ const SettlementName = (props) => {
   ]);
   return (() => {
     var _el$15 = _tmpl$14(), _el$16 = _el$15.firstChild, _el$17 = _el$16.nextSibling;
+    _el$15.classList.add('rp-settlement-title');
     _el$16.style.setProperty("background-image", 'url("blp:banner_hex")');
     insert(_el$16, createComponent(Icon, {
       get ["class"]() {
@@ -794,6 +826,11 @@ const SettlementName = (props) => {
       }
     }));
     insert(_el$17, () => props.settlementName);
+    insert(_el$15, createComponent(SettlementProduction, {
+      get production() {
+        return props.production;
+      }
+    }), null);
     insert(_el$15, createComponent(Show, {
       get when() {
         return LayoutModel.get().screenHeight() > Layout.pixelsToScreenPixels(720);
@@ -913,10 +950,8 @@ const CityResourceContainerInternal = (props) => {
   };
   imageCache.registerImages(CityResourceContainerInternalSymbol, Object.values(images));
   const [bottomButtonIconCSS, setBottomButtonIconCSS] = createSignal("");
-  const [leftButtonIconCSS, setLeftButtonIconCSS] = createSignal("");
   createEffect(() => {
-    setBottomButtonIconCSS(`url(blp:${Icon$1.getIconFromActionName("accept", ActiveInputDevice()) ?? ""})`);
-    setLeftButtonIconCSS(`url(blp:${Icon$1.getIconFromActionName("shell-action-1", ActiveInputDevice()) ?? ""})`);
+    setBottomButtonIconCSS(`url(${Icon$1.getIconFromActionName("accept", ActiveInputDevice()) ?? ""})`);
   });
   const selectionState = createMemo(() => model.getResourceContainerSelectionState(model.cityIsConnectedToTradeNetwork(props.cityID), {
     cityID: props.cityID,
@@ -936,31 +971,31 @@ const CityResourceContainerInternal = (props) => {
   };
   const canDrop = (draggable, dropzone) => {
     const memo = createMemo(() => {
-      if (model.isInSortAndFilterMode()) {
+      if (!zoneActive(model,'resources') || dropzone.data.isDamaged || draggable.data.resourceProps?.isDamaged) {
         return false;
       }
-      if (dropzone.data.resourceValue) {
-        return model.canDropResourceOnTarget(draggable.data, props.cityID, dropzone.data.resourceValue);
+      if (dropzone.data.resourceValue !== undefined && dropzone.data.resourceValue !== -1) {
+        return model.canDropResourceOnTarget(draggable.data, props.cityID, dropzone.data.resourceValue, dropzone.data.isOffMap);
       }
       return selectionState() === ResourceContainerSelectionState.CanSelect;
     });
     return memo;
   };
-  const isReturnResourcesEnabled = createMemo(() => model.isSlottingAvailable && props.slottedResources.length > 0 && model.selectedResource().resourceValue === -1);
+  const isReturnResourcesEnabled = createMemo(() => zoneActive(model,'resources') && model.isSlottingAvailable && props.slottedResources.some(r=>!r.resourceProps?.isDamaged) && model.selectedResource().resourceValue === -1);
   const settlementIsFocused = createMemo(() => ComponentID.isMatch(model.focusedSettlementId() ?? null, props.cityID));
   const settlementIsSelected = createMemo(() => ComponentID.isMatch(model.selectedSettlementId() ?? null, props.cityID));
   const shouldShowGhostResource = createMemo(() => {
     const hasSelectedResource = model.selectedResource().resourceValue !== -1;
     const settlementIsSelectedOrFocused = settlementIsFocused() || settlementIsSelected();
-    const settlementIsNotUnselectable = selectionState() !== ResourceContainerSelectionState.CanNotSelect;
+    const settlementIsNotUnselectable = model.canAssignSelectedResourceToSettlement(props.cityID);
     const selectedResourcesIsInSettlement = ComponentID.isMatch(model.selectedResource().cityID ?? null, props.cityID);
     return IsControllerActive() && hasSelectedResource && settlementIsSelectedOrFocused && settlementIsNotUnselectable && !selectedResourcesIsInSettlement;
   });
   const autoFocusGhost = createMemo(() => {
-    if (model.isInSortAndFilterMode()) {
+    if (!zoneActive(model,'resources')) {
       return false;
     }
-    return settlementIsSelected() && model.selectedResource().resourceValue !== -1;
+    return settlementIsSelected() && model.selectedResource().resourceValue !== -1 && model.canAssignSelectedResourceToSettlement(props.cityID) && !model.settlementHasSlottedResources(props.cityID);
   });
   return (() => {
     var _el$25 = _tmpl$17();
@@ -1027,13 +1062,15 @@ const CityResourceContainerInternal = (props) => {
                   return createComponent(FactoryTypeDisplay, mergeProps(() => props.factoryResourceData));
                 }
               }), null);
-              insert(_el$26, createComponent(TendencyLabel, {model, cityID: props.cityID}), null);
               return _el$26;
             })(), createComponent(Divider.Horizontal, {
               margin: 1
             }), (() => {
               var _el$27 = _tmpl$16(), _el$28 = _el$27.firstChild, _el$29 = _el$28.nextSibling, _el$30 = _el$29.firstChild, _el$31 = _el$30.firstChild;
               _el$31.style.rowGap = '0.2222222222rem';  // TRIX
+              _el$27.classList.add('rp-settlement-body');
+              markZone(_el$28,model,'preferences');
+              markZone(_el$29,model,'resources');
               insert(_el$28, () => createComponent(For, {
                 get each() {
                   return props.yieldDeltas;
@@ -1042,7 +1079,9 @@ const CityResourceContainerInternal = (props) => {
                   model, cityID: props.cityID, data: yieldDelta, index
                 })
               }));
+              insert(_el$28,createComponent(TendencyLabel,{model,cityID:props.cityID}),null);
               insert(_el$27, createComponent(Divider.Vertical, {
+                class: 'rp-card-divider',
                 margin: 2
               }), _el$29);
               insert(_el$31, createComponent(Show, {
@@ -1077,6 +1116,7 @@ const CityResourceContainerInternal = (props) => {
                             return {
                               cityID: props.cityID,
                               resourceValue: slottedResource.resourceValue,
+                              isDamaged: slottedResource.resourceProps.isDamaged,
                               isOffMap: slottedResource.isOffMap
                             };
                           },
@@ -1089,7 +1129,7 @@ const CityResourceContainerInternal = (props) => {
                             return createComponent(DraggableResource, {
                               resourceData: slottedResource,
                               get isFirstResourceInSection() {
-                                return slotIndex() === 0;
+                                return slotIndex() === props.slottedResources.findIndex(r=>!r.resourceProps?.isDamaged);
                               },
                               get isActiveDropzone() {
                                 return resourceIsActiveDropzone();
@@ -1170,7 +1210,7 @@ const CityResourceContainerInternal = (props) => {
                             return `absolute ${isMobile() ? "size-10" : "size-8"} top-0`;
                           },
                           get name() {
-                            return createMemo(() => !!settlementIsSelected())() ? bottomButtonIconCSS() : leftButtonIconCSS();
+                            return bottomButtonIconCSS();
                           },
                           isUrl: true
                         });
@@ -1267,7 +1307,7 @@ const CityResourceContainer = (props) => {
   const [isFocused, setIsFocused] = createSignal(false);
   const dndContext = useDragAndDropContext();
   const isFocusable = createMemo(() => {
-    if (model.isInSortAndFilterMode()) {
+    if (!zoneActive(model,'resources')) {
       return false;
     }
     if (IsControllerActive()) {
@@ -1285,6 +1325,8 @@ const CityResourceContainer = (props) => {
     canAssignResourceToSettlement: props.canAssignSelectedResourceToSettlement
   }));
   const isDisabled = createMemo(() => {
+    if (isControllerPlacement(model)) return !model.isSlottingAvailable || !!model.resourceActionBusy?.() ||
+      (!model.canAssignSelectedResourceToSettlement(props.cityID) && !model.settlementHasSlottedResources(props.cityID));
     return selectionState() === ResourceContainerSelectionState.CanNotSelect;
   });
   const onFocus = () => {
@@ -1316,7 +1358,7 @@ const CityResourceContainer = (props) => {
       setAutoFocusSettlement(false);
       return;
     }
-    if (model.isInSortAndFilterMode()) {
+    if (!zoneActive(model,'resources')) {
       setAutoFocusSettlement(false);
       return;
     }
@@ -1340,7 +1382,11 @@ const CityResourceContainer = (props) => {
     },
     name: `${cityName}-city-resource-activatable`,
     onActivate: () => {
-      if (IsControllerActive()) {
+      if (isDisabled()) return;
+      if (isControllerPlacement(model)) {
+        if(model.canAssignSelectedResourceToSettlement(props.cityID)) model.slotSelectedResource(props.cityID);
+        else model.setSelectedSettlementId(props.cityID);
+      } else if (IsControllerActive()) {
         if (model.settlementHasSlottedResources(props.cityID)) {
           model.setSelectedSettlementId(props.cityID);
         }
@@ -1414,12 +1460,13 @@ const WarningBanner = () => {
   })();
 };
 const CommerceResourcesContainerComponent = (props) => {
+  onCleanup(installControllerGlyphs());
   const model = useCommerceScreenContext();
   createPlanner(model);
   const audioTrigger = useAudio("DraggableResource");
-  const yieldHighlightDropdownItems = ["DEFAULT", "YIELD_FOOD", "YIELD_PRODUCTION", "YIELD_GOLD", "YIELD_SCIENCE", "YIELD_CULTURE", "YIELD_HAPPINESS", "YIELD_DIPLOMACY"];
   const onDragStart = (draggable) => {
     const data = draggable.data;
+    if (data.resourceProps?.isDamaged) return;
     const selected = model.selectedResource();
     // A drag begins a selection, not the click handler's toggle/swap gesture.
     if (selected.resourceValue === data.resourceValue &&
@@ -1447,6 +1494,7 @@ const CommerceResourcesContainerComponent = (props) => {
   };
   const onDragDrop = (draggable, dropzone, _position, dropFailed) => {
     const resource = draggable.data;
+    if (resource.resourceProps?.isDamaged || dropzone.data.isDamaged) return;
     const cityID = dropzone.data.cityID;
     if (dropFailed) {
       const resource2 = draggable.data;
@@ -1460,7 +1508,7 @@ const CommerceResourcesContainerComponent = (props) => {
       return;
     }
     const targetResourceValue = dropzone.data.resourceValue;
-    if (targetResourceValue) {
+    if (targetResourceValue !== undefined && targetResourceValue !== -1) {
       if (cityID) {
         model.clickSlottedResource({
           cityID,
@@ -1485,50 +1533,18 @@ const CommerceResourcesContainerComponent = (props) => {
   };
   const [cancelDrag, setCancelDrag] = createSignal(false);
   const disableDND = createMemo(() => {
-    return !model.isSlottingAvailable || !!getPlanner(model)?.busy() || cancelDrag();
+    return !model.isSlottingAvailable || !!getPlanner(model)?.busy() || model.resourceActionBusy() || model.isInSortAndFilterMode() || cancelDrag();
   });
   const [gamepadTrayItems, setGamepadTrayItems] = createSignal([]);
-  createEffect(on(model.focusedSettlementId, (newId, prevId) => {
-    if (ComponentID.isMatch(newId ?? null, prevId ?? null)) {
-      return;
-    }
-    gamepadLog("Focused Settlement changed:", getCityName(newId), "( was", getCityName(prevId), ")");
-    setGamepadTrayItems(model.getGamepadTrayItems());
-  }));
-  createEffect(on(model.selectedSettlementId, (newId, prevId) => {
-    if (ComponentID.isMatch(newId ?? null, prevId ?? null)) {
-      return;
-    }
-    gamepadLog("Selected Settlement changed:", getCityName(newId), "( was", getCityName(prevId), ")");
-    setGamepadTrayItems(model.getGamepadTrayItems());
-  }));
-  createEffect(on(model.focusedResource, (newValue, prevValue) => {
-    if (newValue.resourceValue === prevValue?.resourceValue) {
-      return;
-    }
-    gamepadLog("Focused Resource changed:", getResourceName(newValue), "( was", getResourceName(prevValue), ")");
-    setGamepadTrayItems(model.getGamepadTrayItems());
-  }));
-  createEffect(on(model.selectedResource, (newValue, prevValue) => {
-    if (newValue.resourceValue === prevValue?.resourceValue) {
-      return;
-    }
-    gamepadLog("Selected Resource changed:", getResourceName(newValue), "( was", getResourceName(prevValue), ")");
-    setGamepadTrayItems(model.getGamepadTrayItems());
-  }));
-  createEffect(on(model.ghostResourceFocused, (newValue, prevValue) => {
-    if (newValue === prevValue) {
-      return;
-    }
-    gamepadLog("Ghost Resource changed focus:", newValue);
-    setGamepadTrayItems(model.getGamepadTrayItems());
-  }));
-  const [autoFocusFilters, setAutoFocusFilters] = createSignal(false);
-  const [disableFilters, setDisableFilters] = createSignal(true);
-  createEffect(() => {
-    setDisableFilters(!model.isInSortAndFilterMode());
-    setAutoFocusFilters(model.isInSortAndFilterMode());
+  createEffect(()=>{
+    const items=model.getGamepadTrayItems();
+    if(!IsControllerActive()||getPlanner(model)?.busy()||model.resourceActionBusy()||model.selectedResource().resourceValue!==INVALID_RESOURCE_VALUE||model.isInSortAndFilterMode()){setGamepadTrayItems(items);return;}
+    const combined=items.map(item=>item.hotkeyAction==='cancel'?{...item,navTrayText:t('CANCEL_AND_DEFER',Locale.compose(item.navTrayText))}:item);
+    if(!combined.some(item=>item.hotkeyAction==='cancel'))combined.push({name:'Resource-close-defer',hotkeyAction:'cancel',navTrayText:t('CANCEL_AND_DEFER',Locale.compose('LOC_GENERIC_CLOSE'))});
+    setGamepadTrayItems(combined);
   });
+  // Each zone owns its focus candidates. Selection identity survives zone switches.
+  onCleanup(()=>{model.enterResourceZone(null);model.cancelResourceActions();});
   createEffect(() => {
     if (model.swapFail()?.swapFail === true) {
       const resource = model.swapFail()?.selectedResourceData;
@@ -1580,208 +1596,12 @@ const CommerceResourcesContainerComponent = (props) => {
     });
     FocusManager.get().setFocus(document.body);
   }
-  return createComponent(CommerceScreenBaseTabContent, {
+  return createComponent(GamepadTrayItemProvider, {
+    class:'flex flex-col flex-auto',name:'commerce-resource-gamepad-tray-context',items:gamepadTrayItems,
+    get children(){return createComponent(SpatialSlot, {name:'commerce-resources-container',class:'flex flex-col flex-auto relative',get children(){return createComponent(CommerceScreenBaseTabContent, {
     description: "LOC_COMMERCE_RESOURCE_ALLOCATION_DESCRIPTION",
-    get headerBar() {
-      return (() => {
-        var _el$47 = _tmpl$24(), _el$48 = _el$47.firstChild, _el$49 = _el$48.firstChild, _el$50 = _el$49.nextSibling, _el$51 = _el$48.nextSibling;
-        _el$48.style.setProperty("width", "22.8888888889rem");
-        insert(_el$49, createComponent(L10n.Compose, {
-          text: "LOC_COMMERCE_AVAILABLE_RESOURCES_TITLE"
-        }));
-        insert(_el$50, createComponent(For, {
-          get each() {
-            return props.unslottedBonuses;
-          },
-          children: (unslottedBonus) => (() => {
-            var _el$54 = _tmpl$25(), _el$55 = _el$54.firstChild;
-            insert(_el$54, () => `+${unslottedBonus.bonusAmount}`, null);
-            createRenderEffect((_p$) => {
-              var _v$9 = `ml-2 flex flex-row ${isMobile() ? "items-center" : ""}`, _v$10 = `${isMobile() ? "size-10" : "size-6"} mr-1 bg-cover bg-center`, _v$11 = unslottedBonus.iconSrc;
-              _v$9 !== _p$.e && className(_el$54, _p$.e = _v$9);
-              _v$10 !== _p$.t && className(_el$55, _p$.t = _v$10);
-              _v$11 !== _p$.a && ((_p$.a = _v$11) != null ? _el$55.style.setProperty("background-image", _v$11) : _el$55.style.removeProperty("background-image"));
-              return _p$;
-            }, {
-              e: void 0,
-              t: void 0,
-              a: void 0
-            });
-            return _el$54;
-          })()
-        }));
-        insert(_el$51, createComponent(L10n.Compose, {
-          text: "LOC_COMMERCE_SETTLEMENTS_TITLE"
-        }));
-        insert(_el$47, createComponent(HSlot, {
-          name: "filter-and-sort",
-          "class": "ml-8 flex flex-row flex-auto items-center justify-end",
-          get children() {
-            return [(() => {
-              var _el$52 = _tmpl$23();
-              insert(_el$52, createComponent(L10n.Compose, {
-                text: "LOC_ADVANCED_START_FILTER"
-              }));
-              return _el$52;
-            })(), createComponent(AudioContextProvider, {
-              segment: "Filters",
-              get children() {
-                return [createComponent(Dropdown, {
-                  "class": "ml-2 mr-4 max-w-60 flex-auto pointer-events-auto min-h-11",
-                  selectedItemTemplate: (item) => (() => {
-                    var _el$56 = _tmpl$26();
-                    insert(_el$56, createComponent(L10n.Stylize, {
-                      text: item !== "DEFAULT" ?  `LOC_${item}` :
-                      "LOC_COMMERCE_RESOURCE_SORT_FILTER_DEFAULT_LABEL"
-                    }));
-                    return _el$56;
-                  })(),
-                  get defaultValue() {
-                    return yieldHighlightDropdownItems[0];
-                  },
-                  onItemSelected: (item) => model.setSelectedResourceFilter(item),
-                  get disableFocus() {
-                    return disableFilters();
-                  },
-                  get autoFocus() {
-                    return autoFocusFilters();
-                  },
-                  tabIndex: 1,
-                  get children() {
-                    return createComponent(For, {
-                      each: yieldHighlightDropdownItems,
-                      children: (item) => createComponent(DropdownItem, {
-                        "class": "text-sm py-1\\.5 px-2",
-                        value: item,
-                        get children() {
-                          return createComponent(Show, {
-                            when: item !== "DEFAULT",
-                            get fallback() {
-                              return (() => {
-                                var _el$57 = _tmpl$26();
-                                insert(_el$57, createComponent(L10n.Stylize, {
-                                  text: "LOC_COMMERCE_RESOURCE_SORT_FILTER_DEFAULT_LABEL"
-                                }));
-                                return _el$57;
-                              })();
-                            },
-                            get children() {
-                              return createComponent(L10n.Stylize, {
-                                text: `LOC_${item}`
-                              });
-                            }
-                          });
-                        }
-                      })
-                    });
-                  }
-                }), (() => {
-                  var _el$53 = _tmpl$23();
-                  const sortDirection = createMemo(() => {
-                    return model.selectedSortDirection() < 0 ?
-                      "bz-sort-descending" : "bz-sort-ascending";
-                  });
-                  insert(_el$53, createComponent(Activatable, {
-                    "class": "bz-sort-button relative -my-1\\.5 h-14 flex-col justify-center items-center",
-                    onActivate: () => {
-                      model.toggleSelectedSortDirection();
-                    },
-                    get children() {
-                      return [createComponent(Icon, {
-                        get ["class"]() {
-                          return `bz-sort-up ${sortDirection()}`;
-                        },
-                        name: "url(blp:fi_action_move_64.png)",
-                        isUrl: true
-                      }), createComponent(L10n.Stylize, {
-                        "class": "bz-sort-label",
-                        text: "LOC_COMMERCE_SORT_LABEL"
-                      }), createComponent(Icon, {
-                        get ["class"]() {
-                          return `bz-sort-down ${sortDirection()}`;
-                        },
-                        name: "url(blp:fi_action_move_64.png)",
-                        isUrl: true
-                      })];
-                    }
-                  }));
-                  return _el$53;
-                })(), createComponent(Dropdown, {
-                  "class": "ml-2 max-w-80 flex-auto pointer-events-auto min-h-11",
-                  selectedItemTemplate: (json) => (() => {
-                    const [key, _value] = JSON.parse(json);
-                    var _el$58 = _tmpl$26();
-                    insert(_el$58, createComponent(L10n.Stylize, {
-                      text: key
-                    }));
-                    return _el$58;
-                  })(),
-                  get defaultValue() {
-                    const index = model.selectedSettlementSortIndex();
-                    const [key, value] =
-                      Object.entries(model.resourceSettlementSortItems)[index];
-                    return JSON.stringify([ key, value ]);
-                  },
-                  onItemSelected: (json) => {
-                    const [_key, value] = JSON.parse(json);
-                    model.setSelectedSettlementSortType(value);
-                    model.onSortResources();
-                  },
-                  get disableFocus() {
-                    return disableFilters();
-                  },
-                  tabIndex: 2,
-                  get children() {
-                    return createComponent(For, {
-                      get each() {
-                        return Object.entries(model.resourceSettlementSortItems);
-                      },
-                      children: ([key, value]) => createComponent(DropdownItem, {
-                        "class": "text-sm py-1\\.5 px-2",
-                        value: JSON.stringify([ key, value ]),
-                        get children() {
-                          return createComponent(L10n.Stylize, {
-                            text: key
-                          });
-                        }
-                      })
-                    });
-                  }
-                }), createComponent(Tooltip.Text, {
-                  get text() {
-                    return Locale.compose("LOC_BZ_RE_SORT_RESOURCES");
-                  },
-                  get children() {
-                    return createComponent(AudioContextProvider, {
-                      segment: "Activatable",
-                      get children() {
-                        return createComponent(ImageButton, {
-                          "class": "bz-re-sort-button ml-2",
-                          imageData: {
-                            base: "url(blp:shell_arrow-button)",
-                            focus: "url(blp:shell_arrow-button-focus)"
-                          },
-                          size: "11",
-                          onActivate: model.onSortResources
-                        });
-                      }
-                    });
-                  }
-                })];
-              }
-            })];
-          }
-        }), null);
-        return _el$47;
-      })();
-    },
     get children() {
-      return createComponent(GamepadTrayItemProvider, {
-        "class": "flex-auto",
-        name: "commerce-resource-gamepad-tray-context",
-        items: gamepadTrayItems,
-        get children() {
-          return [(() => {
+      return [(() => {
             var _el$45 = _tmpl$21();
             insert(_el$45, createComponent(Show, {
               get when() {
@@ -1801,26 +1621,27 @@ const CommerceResourcesContainerComponent = (props) => {
             },
             debugTrace: DEBUG_DRAG_AND_DROP,
             get children() {
-              return createComponent(SpatialSlot, {
-                name: "commerce-resources-container",
-                "class": "flex-auto relative",
-                get children() {
+              return (() => {
                   var _el$46 = _tmpl$22();
                   const rpInputGuard = (event) => {
-                    const {name, status} = event.detail ?? {};
-                    const isCancel = name === "cancel" || name === "mousebutton-right" || name === "keyboard-escape";
-                    if (isCancel && model.selectedResource().resourceValue !== -1) {
-                      // Consume press AND release before the screen's close hotkey.
-                      event.preventDefault();
-                      event.stopPropagation();
-                      if (status === InputActionStatuses.FINISH) {
-                        setCancelDrag(true);
-                        model.deselectSelectedResource();
-                        setTimeout(() => setCancelDrag(false), 0);
+                    const {name,status}=event.detail??{};
+                    const isCancel=name==='cancel'||name==='mousebutton-right'||name==='keyboard-escape';
+                    if(isCancel){
+                      // Consume both phases, then pop exactly one interaction layer.
+                      const selected=model.selectedResource().resourceValue!==-1;
+                      const editing=IsControllerActive()&&!!model.selectedSettlementId();
+                      const zone=IsControllerActive()&&model.resourceZone()!==null;
+                      if(model.resourceActionBusy()||selected||editing||zone){
+                        event.preventDefault();event.stopPropagation();
+                        if(status===InputActionStatuses.FINISH){
+                          if(model.resourceActionBusy())model.cancelResourceActions();
+                          else if(selected){setCancelDrag(true);model.deselectSelectedResource();setTimeout(()=>setCancelDrag(false),0);}
+                          else if(editing)model.setSelectedSettlementId(void 0);
+                          else model.enterResourceZone(null);
+                        }
                       }
-                    } else if (getPlanner(model)?.busy() && !isCancel && _el$46.contains(event.target)) {
-                      event.preventDefault();
-                      event.stopPropagation();
+                    }else if((getPlanner(model)?.busy()||model.resourceActionBusy())&&_el$46.contains(event.target)){
+                      event.preventDefault();event.stopPropagation();
                     }
                   };
                   let inputRoot;
@@ -1828,18 +1649,62 @@ const CommerceResourcesContainerComponent = (props) => {
                     // Include the header and blank panel space, but not other screens.
                     inputRoot = _el$46.closest("screen-resource-allocation") ?? _el$46;
                     inputRoot.addEventListener("engine-input", rpInputGuard, true);
+                    const routeZoneNavigation=createZoneNavigation(model,IsControllerActive,()=>!!getPlanner(model)?.busy());
+                    const zoneNavigation=event=>{if(_el$46.getClientRects().length)routeZoneNavigation(event);};
+                    inputRoot.addEventListener('navigate-input',zoneNavigation,true);
+                    onCleanup(()=>inputRoot.removeEventListener('navigate-input',zoneNavigation,true));
+                    onCleanup(installDeferInput(inputRoot,model,()=>!!getPlanner(model)?.busy()));
+                    inputRoot.classList.add('rp-resource-screen');
+                    onCleanup(()=>inputRoot.classList.remove('rp-resource-screen'));
+                    onCleanup(installControllerFocus(FocusManager.get(),inputRoot,IsControllerActive));
+                    // Solid replaces resource Activatables when a zone enables them.
+                    // Their autoFocus can run before the parent focus context registers.
+                    // Transfer focus after that layout instead of leaving it on the
+                    // now-disabled control in the previous zone.
+                    const onZoneFocus=event=>{const zone=event.target.getAttribute?.('data-rp-zone-entry');if(zone)model.focusResourceZone(zone);};
+                    inputRoot.addEventListener('focusin',onZoneFocus);
+                    onCleanup(()=>inputRoot.removeEventListener('focusin',onZoneFocus));
+                    createEffect(on(()=>[model.resourceZone(),model.resourceZoneCandidate(),IsControllerActive()],([zone,candidate,controller])=>{
+                      if(!controller)return;
+                      let frame=requestAnimationFrame(()=>{
+                        frame=requestAnimationFrame(()=>{
+                          if(!inputRoot?.isConnected||model.resourceZone()!==zone||!IsControllerActive()||model.selectedResource().resourceValue!==-1)return;
+                          if(zone===null){
+                            const target=inputRoot.querySelector('[data-rp-zone-entry="'+candidate+'"][tabindex]');
+                            if(target)FocusManager.get().setFocus(target);return;
+                          }
+                          _el$46.removeAttribute('tabindex');
+                          const selectors=zone===null?[]:
+                            zone==='actions'?['.rp-auto[tabindex]', '.rp-toolbar .rp-action[tabindex]']:
+                            zone==='preferences'?['.rp-yield[tabindex]', '.rp-reset-defaults[tabindex]']:
+                            zone==='tools'?['.rp-sort-icons .rp-active[tabindex]']:
+                            ['.draggable-resource.focused-resource[tabindex]', '.rp-unassigned .draggable-resource[tabindex]', '[data-name$="-city-resource-activatable"][tabindex]'];
+                          // Coherent's selector parser does not support :not().
+                          const target=selectors.flatMap(s=>Array.from(inputRoot.querySelectorAll(s))).find(e=>!e.classList.contains('disabled')&&e.getBoundingClientRect().width>0);
+                          if(target)FocusManager.get().setFocus(target);
+                        });
+                      });
+                      onCleanup(()=>cancelAnimationFrame(frame));
+                    }));
                   });
                   onCleanup(() => inputRoot?.removeEventListener("engine-input", rpInputGuard, true));
+                  _el$46.classList.add('rp-body-zones');
+                  insert(_el$46,createComponent(PlannerToolbar,{model}),null);
+                  const center=divHeader();center.className='rp-center flex flex-col';
+                  insert(center,createComponent(SortToolbar,{model}),null);
+                  const title=divHeader();title.className='rp-settlements-title';markZone(title,model,'preferences');
+                  insert(title,createComponent(ZoneEntry,{model,zone:'preferences'}),null);
+                  insert(title,createComponent(L10n.Compose,{text:'LOC_COMMERCE_SETTLEMENTS_TITLE'}),null);
+                  insert(center,title,null);
+                  insert(center,createComponent(SlottedResourcesContainer,props),null);
+                  insert(_el$46,center,null);
                   insert(_el$46, createComponent(AvailableResourcesContainer, props), null);
-                  insert(_el$46, createComponent(SlottedResourcesContainer, props), null);
                   return _el$46;
-                }
-              });
+              })();
             }
           })];
-        }
-      });
     }
+  });}});}
   });
 };
 const CommerceResourcesContainer = ComponentRegistry.register({
@@ -1863,6 +1728,8 @@ const CommerceResourcesContainer = ComponentRegistry.register({
     "blp:restype_factory_v2",
     "blp:shell_arrow-button",
     "blp:shell_arrow-button-focus",
+    "blp:resource_return_button_default.png",
+    "blp:base_button-bg", "blp:base_button-bg-focus", "blp:base_button-bg-press", "blp:base_button-bg-dis",
   ],
 });
 

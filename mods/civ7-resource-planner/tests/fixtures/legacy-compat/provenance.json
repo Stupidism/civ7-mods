@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "snapshotDate": "2026-11-09",
+  "purpose": "Self-contained legacy compatibility fixtures for Resource Planner tests.",
+  "files": {
+    "civ7-action-order/ui/card-reminders.js": {
+      "source": "mods/civ7-action-order/ui/card-reminders.js",
+      "size": 11830,
+      "sha256": "22aa7e0bada130315b68e7b66274553ec0ef2871553724793f5fba6bd24c9fd2"
+    },
+    "civ7-map-tools-gamepad/ui/map-tools-gamepad.css": {
+      "source": "mods/civ7-map-tools-gamepad/ui/map-tools-gamepad.css",
+      "size": 267,
+      "sha256": "2b502f0e96ba18b99903118f306955165ea79a83917382be4cbfa0ef175bf928"
+    },
+    "civ7-action-order/ui/action-order.css": {
+      "source": "mods/civ7-action-order/ui/action-order.css",
+      "size": 1319,
+      "sha256": "a7ed69e60058e60c71d6c9665785664ae070fff9997b2f2c537c9f5eeb3189d0"
+    },
+    "civ7-garbage-time/ui/gt-resource-model.js": {
+      "source": "mods/civ7-garbage-time/ui/gt-resource-model.js",
+      "size": 2027,
+      "sha256": "8eed42d16c62c35f453571c69f3e765bb8761538bd8725712c85d9fbfa016f79"
+    }
+  }
+}

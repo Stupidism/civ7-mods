@@ -1,0 +1,31 @@
+## 2026-11-02：关闭延后／本回合跳过统一（源码，未安装／未发布）
+
+|页面 Mod|开发版|提醒条件|
+|---|---|---|
+|更好的政策界面|0.2.1|政策、传统或危机槽仍为空|
+|资源规划器|1.4.1|有未分配资源，同时存在可以合法分配的空槽；页面可随时切换“资源空槽提醒”，选择会保存|
+|更好的定居点界面|0.2.1|本定居点仍须选择生产项目|
+
+三处正常关闭（B、鼠标右键、右上角关闭）统一仅将未完成行动排到队尾。已有行动完成或槽位填满时，不会因为关闭而重新追加提醒。资源没有未分配卡、没有空槽或没有合法分配位置时也不提醒。
+
+关闭按钮旁统一提供原版跳过箭头按钮；鼠标点击、聚焦后原生确认，或长按 X 一秒可跳过本回合。长按到时立即生效，不必松开。提示使用当前设备按键图标和文字。政策／资源不提交未确认改动；建造只标记当前定居点，不自动选择项目、不同时结束回合。下一回合重新检查。
+
+普通必要行动和单位先处理；延后的资源、政策和建造按关闭先后排尾，再次关闭移到最后。明确跳过的生产不再挡住本回合的手动“下一回合”，但科技、单位和其他待办仍需处理；完成请求仍经过存档与休息守卫。自动过回合仍遵守原版阻挡条件。
+
+三者独立启用，无需公共库或《行动顺序调整》。更新所需页面 Mod，并停用旧 AO 0.1.0；任一新页面 Mod 会接管旧 AO 的共享入口，后加载的旧 AO 不再提供重复功能。不依赖旧 AO 补齐未安装的页面提醒。BCS 的摇杆与手柄映射代码未改。
+
+本次只完成源码、离线回归和三个独立包；未安装、未操作游戏、未发布。真实引擎的留空建造过回合、实体手柄、Windows 与最终游戏内布局仍待实机验收。见 `work/unified-action-close-20261102/结果.md`。以下版本和实机记录为历史信息，不代表当前构建已实机通过。
+
+## November 2, 2026: unified defer and skip controls (source only)
+
+Better Policy UI **0.2.1** reminds when policy, tradition or crisis slots are empty. Resource Planner **1.4.1** reminds only when an unassigned resource has a legal empty slot; its resource page now includes a persistent reminders On/Off control. Better Settlement UI **0.2.1** owns production deferral and per-settlement skipping.
+
+Closing with B, right-click or Close only moves unfinished work to the tail. Filled slots never add another reminder. Resources also require an unassigned card and a legal destination. Deferred pages are ordered by closure time; closing again moves that action to the end.
+
+Each page has a Skip this turn arrow beside Close. Click it, focus and confirm it, or hold X for one second. The hold fires at the threshold without release. Device glyphs accompany instructions. Policy/resource skips do not submit draft edits. Production skips affect only the current settlement and do not end the turn. All skips reset next turn.
+
+After explicitly skipping every remaining production task, manually activate Next Turn. Other required actions and units still block, and save/rest guards remain in the submission chain. Native automatic end-turn requirements remain unchanged.
+
+These are three independent packages with shared source included; no fourth library or Action Order mod is required. Disable retired Action Order Adjustments 0.1.0 when upgrading. Any new page owner takes over its shared entry, including when the legacy mod loads later; missing page owners are not supplied by old AO. BCS input/mapping code is unchanged.
+
+Source and offline validation only: not installed, live-tested or published. Native empty-production completion, physical controllers, Windows and final in-game layout remain unverified. Earlier installation and live-test notes below refer to their own historical builds.

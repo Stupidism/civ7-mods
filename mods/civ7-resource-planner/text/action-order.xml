@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_RP_AO_CARD_SKIP_NO_ACTION"><Text>There is no empty-slot reminder to skip.</Text></Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIP_TOOLTIP"><Text>[icon:RP_AO_SKIP] Skip this turn; check again next turn. Closing normally only moves this action to the end. Unconfirmed edits are not submitted.</Text></Row>
+    <Row Tag="LOC_RP_AO_RESOURCES_PENDING">
+      <Text>Assign remaining [icon:RADIAL_RESOURCES] resources</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_POLICIES_PENDING">
+      <Text>Fill empty [icon:SOCIAL_POLICY] policy slots</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIP">
+      <Text>[icon:RP_AO_SKIP] Skip this turn</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIP_HINT">
+      <Text>Hold for 1 second to [icon:RP_AO_SKIP] skip this reminder for this turn</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIP_HOLD">
+      <Text>Keep holding to [icon:RP_AO_SKIP] skip this turn</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIP_RELEASE">
+      <Text>[icon:RP_AO_SKIP] Skip this turn without confirming edits</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIPPED">
+      <Text>[icon:RP_AO_SKIP] Skipped for this turn. Unconfirmed edits remain unchanged.</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIP_UNAVAILABLE">
+      <Text>This required action cannot be [icon:RP_AO_SKIP] skipped yet. Finish or close the screen normally.</Text>
+    </Row>
+  </EnglishText>
+  <LocalizedText>
+    <Row Tag="LOC_RP_AO_CARD_SKIP_NO_ACTION" Language="zh_Hans_CN"><Text>当前没有需要跳过的空槽提醒。</Text></Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIP_TOOLTIP" Language="zh_Hans_CN"><Text>[icon:RP_AO_SKIP] 本回合跳过，下回合重新检查。正常关闭只将行动排到最后，不会跳过；未确认的改动不会提交。</Text></Row>
+    <Row Tag="LOC_RP_AO_RESOURCES_PENDING" Language="zh_Hans_CN">
+      <Text>分配剩余[icon:RADIAL_RESOURCES] 资源</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_POLICIES_PENDING" Language="zh_Hans_CN">
+      <Text>填充空的[icon:SOCIAL_POLICY] 政策与传统槽</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIP" Language="zh_Hans_CN">
+      <Text>本回合[icon:RP_AO_SKIP] 跳过</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIP_HINT" Language="zh_Hans_CN">
+      <Text>长按 1 秒，本回合[icon:RP_AO_SKIP] 跳过此项提醒</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIP_HOLD" Language="zh_Hans_CN">
+      <Text>继续按住，[icon:RP_AO_SKIP] 跳过本回合</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIP_RELEASE" Language="zh_Hans_CN">
+      <Text>[icon:RP_AO_SKIP] 跳过本回合，不提交未确认改动</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIPPED" Language="zh_Hans_CN">
+      <Text>本回合已[icon:RP_AO_SKIP] 跳过，未确认改动仍保留在界面中。</Text>
+    </Row>
+    <Row Tag="LOC_RP_AO_CARD_SKIP_UNAVAILABLE" Language="zh_Hans_CN">
+      <Text>当前必要行动暂不能[icon:RP_AO_SKIP] 跳过，请正常处理或关闭界面。</Text>
+    </Row>
+  </LocalizedText>
+</Database>

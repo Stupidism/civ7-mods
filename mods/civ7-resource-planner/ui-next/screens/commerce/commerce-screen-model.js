@@ -1,6 +1,9 @@
+import {isResourceDamaged} from '/civ7-resource-planner/ui/card-reminders-runtime.js';
+import {resourceCatalog,productionReader,updateProduction} from '/civ7-resource-planner/ui/rp-game-adapter.js';
 // Resource Planner extension of Resource Re-sorts 3.0.2 by beezany.
 // Keep assignment updates live; settlement sorting is an explicit command.
 /* eslint-disable no-useless-assignment */
+import {resourceDeferral} from '/civ7-resource-planner/ui/rp-defer.js';
 import { createSignal, createSelector, onCleanup, onMount, createMemo, createEffect, untrack, batch, createContext, useContext } from '../../../../core/vendor/solid-js/dist/solid.js';
 import { createMutable } from '../../../../core/vendor/solid-js/store/dist/store.js';
 import { ContextManager } from '../../../../core/ui/context-manager/context-manager.js';
@@ -18,7 +21,10 @@ import { compareSettlementTypes, compareSettlementNames } from '../../../../core
 import CityYields from '../../../ui/utilities/utilities-city-yields.js';
 import { ConstructibleHasTagType } from '../../../ui/utilities/utilities-tags.js';
 
-const modID = "bz-re-sorts";
+import {createResourceActions} from '/civ7-resource-planner/ui/rp-resource-actions.js';
+import {t} from '/civ7-resource-planner/ui/rp-l10n.js';
+
+const modID = "civ7-resource-planner";
 function saveOption(name, value) {
   if (!name) return value;
   UI.setOption("user", "Mod", `${modID}.${name}`, value);
@@ -27,7 +33,7 @@ function saveOption(name, value) {
 }
 function loadOption(name, defaultValue) {
   if (!name) return void defaultValue;
-  return UI.getOption("user", "Mod", `${modID}.${name}`) ?? defaultValue;
+  return UI.getOption("user", "Mod", `${modID}.${name}`) ?? UI.getOption("user", "Mod", `bz-re-sorts.${name}`) ?? defaultValue;
 }
 // TRIX: persistent sort directions
 let savedSettlementSortType = loadOption("settlementSortType", -1);
@@ -122,6 +128,9 @@ function gamepadLog(...args) {
   }
 }
 function createCommerceScreenModel() {
+  // Icon/Locale are ES imports here, not globals. Bind them for both the
+  // initial card population and later queue-event refreshes.
+  const readProduction=productionReader({info:GameInfo,icon:Icon,locale:Locale,kinds:ProductionKind});
   function indexResourceTypes() {
     const yieldTagTypes = /* @__PURE__ */ new Map([
       ["FOOD", "YIELD_FOOD"],
@@ -160,7 +169,11 @@ function createCommerceScreenModel() {
   const wasSlottedLast = createSelector(lastSlottedResourceValues, (resourceValue, list) => {
     return list.includes(resourceValue);
   });
+  const deferredReminder=resourceDeferral();
+  const reminderScope=deferredReminder.scope();
   onCleanup(() => {
+    if(deferredReminder.scope()!==reminderScope)return;
+    if(deferredReminder.mode()!=='closed')deferredReminder.defer();
     sendConsideredAssigningResources();
   });
   onMount(() => {
@@ -179,7 +192,7 @@ function createCommerceScreenModel() {
           }
           for (const city of playerCities) {
             if (city.Resources && city.Resources?.getAssignedResources().find((resource) => {
-              return resource.value == resourceValue;
+              return resource.value == resourceValue && !!resource.isOffMap === (data.offMapId !== INVALID_OFF_MAP_ID);
             })) {
               return;
             }
@@ -215,7 +228,7 @@ function createCommerceScreenModel() {
           }
           const yieldTypes = getYieldTypes(resourceDef.ResourceType);
           const uniqueResource = localPlayerResources2?.getResources().find((uniqueResourceValue) => {
-            return uniqueResourceValue.value == resourceValue;
+            return uniqueResourceValue.value == resourceValue && !!uniqueResourceValue.isOffMap === (data.offMapId !== INVALID_OFF_MAP_ID);
           });
           if (!uniqueResource) {
             console.error(
@@ -228,6 +241,7 @@ function createCommerceScreenModel() {
             console.error("commerce-screen-model: failed to get resource props object for uniqueResource");
             return;
           }
+          if (resourceProps.isDamaged) return;
           const canSwapWithSelectedResource = createMemo(() => {
             return canSwapResources(resourceValue, selectedResource().resourceValue);
           });
@@ -246,7 +260,7 @@ function createCommerceScreenModel() {
           });
           if (subSection) {
             const data = subSection.resourceSlotData;
-            if (!data.find(r => r.resourceValue == resourceSlotData.resourceValue)) {
+            if (!data.find(r => r.resourceValue == resourceSlotData.resourceValue && !!r.isOffMap === !!resourceSlotData.isOffMap)) {
               data.push(resourceSlotData);
             }
           }
@@ -304,7 +318,7 @@ function createCommerceScreenModel() {
           return;
         }
         if (cityResources[subSectionIndex].slottedResources.findIndex(
-          (r) => r.resourceValue == resourceValue
+          (r) => r.resourceValue == resourceValue && !!r.isOffMap === isOffMap
         ) == -1) {
           const yieldTypes = getYieldTypes(resourceDef.ResourceType);
           let uniqueResource;
@@ -318,7 +332,7 @@ function createCommerceScreenModel() {
             }
             cityResources[subSectionIndex].availableSlots = availableSlots;
             for (const assignedResource of assignedResources) {
-              if (assignedResource.value === resourceValue) {
+              if (assignedResource.value === resourceValue && !!assignedResource.isOffMap === isOffMap) {
                 uniqueResource = assignedResource;
                 break;
               }
@@ -379,7 +393,7 @@ function createCommerceScreenModel() {
           return subSection.type == resourceDef.ResourceClassType;
         });
         const resourceIndex = model.data.resourceTabData.availableResourceSectionData[unassignedSectionIndex].subSections[unassignedSubSectionIndex].resourceSlotData.findIndex((availableResource) => {
-          return availableResource.resourceValue == resourceValue;
+          return availableResource.resourceValue == resourceValue && !!availableResource.isOffMap === isOffMap;
         });
         if (resourceIndex != -1) {
           model.data.resourceTabData.availableResourceSectionData[unassignedSectionIndex].subSections[unassignedSubSectionIndex].resourceSlotData.splice(resourceIndex, 1);
@@ -422,7 +436,7 @@ function createCommerceScreenModel() {
         }
         const slottedResources = model.data.resourceTabData.slottedResourceSectionData[sectionIndex].cityResources[cityIndex].slottedResources;
         const resourceIndex = slottedResources.findIndex((resource) => {
-          return resource.resourceValue == resourceValue;
+          return resource.resourceValue == resourceValue && !!resource.isOffMap === isOffMap;
         });
         if (resourceIndex != -1) {
           slottedResources.splice(resourceIndex, 1);
@@ -652,7 +666,9 @@ function createCommerceScreenModel() {
         if (cityId) {
           return;
         }
-        if (subSection.canAssignSelectedResourceToSettlement()) {
+        if (subSection.canAssignSelectedResourceToSettlement() ||
+          (model.selectedResource().resourceValue!==INVALID_RESOURCE_VALUE && subSection.slottedResources.some(r=>!r.resourceProps?.isDamaged) &&
+           !ComponentID.isMatch(subSection.cityID,model.selectedResource().cityID??null))) {
           cityId = subSection.cityID;
         }
       });
@@ -682,13 +698,48 @@ function createCommerceScreenModel() {
     (a, b) => ComponentID.isMatch(a ?? null, b ?? null)
   );
   const [resourceSwapTarget, setResourceSwapTarget] = createSignal(-1);
-  const [isInSortAndFilterMode, setIsInSortAndFilterMode] = createSignal(false);
+  const [resourceZone,setResourceZone] = createSignal(null);
+  const [resourceZoneCandidate,setResourceZoneCandidate] = createSignal('actions');
+  const resourceZones=['actions','tools','preferences','resources'];
+  function focusResourceZone(zone) {
+    if(resourceZone()===null&&resourceZones.includes(zone))setResourceZoneCandidate(zone);
+  }
+  function cycleResourceZone(direction) {
+    if(model.selectedResource().resourceValue!==INVALID_RESOURCE_VALUE||model.resourceActionBusy())return;
+    const current=resourceZone()??resourceZoneCandidate();
+    const next=resourceZones[(resourceZones.indexOf(current)+direction+resourceZones.length)%resourceZones.length];
+    if(resourceZone()===null)setResourceZoneCandidate(next);else enterResourceZone(next);
+  }
+  const isInSortAndFilterMode=()=>resourceZone()==='tools';
+  const setIsInSortAndFilterMode=active=>setResourceZone(active?'tools':null);
+  function enterResourceZone(zone) {
+    if(model.selectedResource().resourceValue!==INVALID_RESOURCE_VALUE || model.resourceActionBusy())return;
+    if(!['actions','preferences','resources','tools',null].includes(zone))return;
+    batch(()=>{
+      setSelectedSettlementId();
+      if(zone==='resources') {
+        const data=model.data.resourceTabData;
+        const available=data.availableResourceSectionData.flatMap(s=>s.subSections.flatMap(s=>s.resourceSlotData));
+        const cities=data.slottedResourceSectionData.flatMap(s=>s.cityResources);
+        const all=[...available,...cities.flatMap(c=>c.slottedResources.filter(r=>!r.resourceProps?.isDamaged))];
+        const prior=focusedResource();
+        const found=all.find(r=>r.resourceValue===prior.resourceValue&&!!r.isOffMap===!!prior.isOffMap&&
+          ((!r.cityID&&!prior.cityID)||ComponentID.isMatch(r.cityID??null,prior.cityID??null)));
+        const entry=found??available[0];
+        if(entry){
+          setFocusedResource({resourceValue:entry.resourceValue,isOffMap:entry.isOffMap,cityID:entry.cityID});
+          if(entry.cityID)setSelectedSettlementId(entry.cityID);
+        }else setFocusedResource({resourceValue:INVALID_RESOURCE_VALUE});
+      }
+      if(zone!==null)setResourceZoneCandidate(zone);
+      setResourceZone(zone);
+    });
+  }
   const [tabName, setTabName] = createSignal("");
-  createEffect(() => {
-    if (isInSortAndFilterMode()) {
-      resetResourceTab(false);
-    }
-  });
+  function toggleResourceTools() {
+    if (model.selectedResource().resourceValue !== INVALID_RESOURCE_VALUE || model.resourceActionBusy()) return;
+    enterResourceZone(isInSortAndFilterMode()?null:'tools');
+  }
   function resetResourceTab(includeSortAndFilterMode = true) {
     setSelectedSettlementId();
     setPrevSelectedSettlementId();
@@ -697,7 +748,7 @@ function createCommerceScreenModel() {
     setPrevSelectedResource({ resourceValue: INVALID_RESOURCE_VALUE });
     setFocusedResource({ resourceValue: INVALID_RESOURCE_VALUE });
     if (includeSortAndFilterMode) {
-      setIsInSortAndFilterMode(false);
+      setResourceZone(null);setResourceZoneCandidate('actions');
     }
   }
   function resetTradeTab() {
@@ -801,7 +852,8 @@ function createCommerceScreenModel() {
       model.selectedResource().cityID ?? null,
       cityData.cityID
     );
-    const isSettlementSelectable = anyResourceSelected && (cityData.canAssignResourceToSettlement() || selectedResourceBelongsToThisSettlement);
+    const isSettlementSelectable = anyResourceSelected && (cityData.canAssignResourceToSettlement() || selectedResourceBelongsToThisSettlement ||
+      (IsControllerActive() && settlementHasSlottedResources(cityData.cityID)));
     if (anyResourceSelected) {
       if (isSettlementSelectable || selectedResourceBelongsToThisSettlement) {
         return 1 /* CanSelect */;
@@ -812,7 +864,7 @@ function createCommerceScreenModel() {
   }
   function canSelectResource(resourceSlot) {
     const isAnyResourceSelected = selectedResource().resourceValue !== INVALID_RESOURCE_VALUE;
-    const amISelected = selectedResource().resourceValue === resourceSlot.resourceValue;
+    const amISelected = selectedResource().resourceValue === resourceSlot.resourceValue && !!selectedResource().isOffMap === !!resourceSlot.isOffMap;
     const selectedResourceIsInSameContainer = ComponentID.isMatch(
       selectedResource().cityID ?? null,
       resourceSlot.cityID ?? null
@@ -831,22 +883,26 @@ function createCommerceScreenModel() {
     if (selectedResourceIsInSameContainer) {
       return false;
     }
+    // Occupied slots remain selectable for replacement, including when only
+    // the reverse leg of a two-way exchange is forbidden by the engine.
+    if(resourceSlot.cityID) return model.isSlottingAvailable && !resourceActionBusy();
     if (tradeNetworkConnectionMatches) {
       return resourceSlot.canSwapWithSelectedResource();
     }
     return false;
   }
-  function canDropResourceOnTarget(resourceSlot, targetCityID, targetResourceValue) {
+  function canDropResourceOnTarget(resourceSlot, targetCityID, targetResourceValue, targetOffMap = false) {
     if (!model.isSlottingAvailable || resourceSlot.resourceValue === INVALID_RESOURCE_VALUE) {
       return false;
     }
     if (targetResourceValue !== void 0) {
-      if (resourceSlot.resourceValue === targetResourceValue) {
+      if (resourceSlot.resourceValue === targetResourceValue && !!resourceSlot.isOffMap === !!targetOffMap) {
         return false;
       }
       if (targetCityID && resourceSlot.cityID && ComponentID.isMatch(resourceSlot.cityID, targetCityID)) {
         return false;
       }
+      if(targetCityID) return !resourceActionBusy();
       return canSwapResources(
         resourceSlot.resourceValue,
         targetResourceValue,
@@ -887,7 +943,7 @@ function createCommerceScreenModel() {
     const args = {
       Location: location1,
       Location2: location2,
-      ID: resource1OffMap ? resourceValue1 : INVALID_OFF_MAP_ID,
+      ID1: resource1OffMap ? resourceValue1 : INVALID_OFF_MAP_ID,
       ID2: resource2OffMap ? resourceValue2 : INVALID_OFF_MAP_ID
     };
     return canStartPlayerOperation(PlayerOperationTypes.SWAP_RESOURCES, args);
@@ -937,19 +993,10 @@ function createCommerceScreenModel() {
       console.error("commerce-screen-model.tsx::getResourceProps: couldn't find resource definition");
       return;
     }
-    let resourcePlotIsDamaged = false;
-    const plot = GameplayMap.getLocationFromIndex(uniqueResourceValue.value);
-    const plotConstructibles = MapConstructibles.getHiddenFilteredConstructibles(plot.x, plot.y);
-    plotConstructibles.forEach((constructible) => {
-      const instance = Constructibles.getByComponentID(constructible);
-      if (instance?.damaged) {
-        resourcePlotIsDamaged = true;
-      }
-    });
     return getResourcePropsFromDefinition(
       resourceDefinition,
       originCityOverride ?? Game.Resources.getOriginCity(uniqueResourceValue.value),
-      resourcePlotIsDamaged
+      isResourceDamaged(uniqueResourceValue)
     );
   }
   function getSelectedResourceProps() {
@@ -991,11 +1038,16 @@ function createCommerceScreenModel() {
       if (!city || !city.Resources) {
         return;
       }
-      const previouslyAssignedResources = city.Resources.getAssignedResources().map(
-        (uniqueResourceValue) => uniqueResourceValue.value
-      ).filter(  // TRIX
-        (plot) => !type || Game.Resources.getResourceOnPlot(plot)?.resource == type
-      );
+      const matching = city.Resources.getAssignedResources().filter(r => !type || r.uniqueResource.resource === type);
+      const usable = matching.filter(r => !isResourceDamaged(r));
+      if (!usable.length) return;
+      // The native Clear operation cannot skip a damaged copy of the same type.
+      if (usable.length !== matching.length) {
+        const removed = usable.filter(r => unassignResource(cityIDInternal, r.value, r.isOffMap));
+        setLastSlottedResourceValues(removed.map(r => r.value));
+        return;
+      }
+      const previouslyAssignedResources = usable.map(r => r.value);
       const args = {
         ResourceType: type ?? ResourceTypes.NO_RESOURCE,  // TRIX
         City: cityIDInternal.id,
@@ -1021,6 +1073,27 @@ function createCommerceScreenModel() {
     if (IsControllerActive() === false) {
       return [];
     }
+    const zoneEntries=selectedResourceData.resourceValue===INVALID_RESOURCE_VALUE?[
+      {name:'Previous-zone',hotkeyAction:'nav-shell-previous',navTrayText:'LOC_RP_ZONE_PREVIOUS',onActivate:()=>cycleResourceZone(-1)},
+      {name:'Next-zone',hotkeyAction:'nav-shell-next',navTrayText:'LOC_RP_ZONE_NEXT',onActivate:()=>cycleResourceZone(1)}
+    ]:[];
+    if (resourceActionBusy()) return [{name:'Resource-action-cancel',hotkeyAction:'cancel',navTrayText:'LOC_RP_STOP_ACTION'}];
+    if(resourceZone()===null)return [{name:'Enter-zone',hotkeyAction:'accept',navTrayText:'LOC_RP_ZONE_ENTER'},...zoneEntries];
+    if(resourceZone()==='actions')return [
+      {name:'Actions-confirm',hotkeyAction:'accept',navTrayText:'LOC_GENERIC_ACCEPT'},
+      {name:'Zone-back',hotkeyAction:'cancel',navTrayText:'LOC_RP_ZONE_BACK'},...zoneEntries
+    ];
+    if(resourceZone()==='preferences')return [
+      {name:'Preferences-confirm',hotkeyAction:'accept',navTrayText:'LOC_RP_CYCLE_PREFERENCE'},
+      {name:'Zone-back',hotkeyAction:'cancel',navTrayText:'LOC_RP_ZONE_BACK'},
+      ...zoneEntries
+    ];
+    if (isInSortAndFilterMode()) return [
+      {name:'Resource-tools-back',hotkeyAction:'cancel',navTrayText:'LOC_RP_TOOLS_BACK'},
+      {name:'Resource-tools-confirm',hotkeyAction:'accept',navTrayText:'LOC_GENERIC_ACCEPT'},
+      ...zoneEntries
+    ];
+    if (resourceActionBusy()) return [{name:'Resource-action-cancel',hotkeyAction:'cancel',navTrayText:'LOC_RP_STOP_ACTION'}];
     let mask = 0;
     if (selectedSettlement !== void 0) {
       mask |= 4 /* SettlementSelected */;
@@ -1095,17 +1168,10 @@ function createCommerceScreenModel() {
     const quickAssign = {
       name: "Quick-Assign",
       hotkeyAction: "shell-action-1",
-      navTrayText: "LOC_COMMERCE_GAMEPAD_QUICK_ASSIGN_HINT",
+      navTrayText: "LOC_RP_MOVE_MATCHING",
       onActivate: () => {
-        handleSlotSelectedResource(focusedSettlement);
-      }
-    };
-    const toggleSortAndFilterMode = {
-      name: "Toggle-Sort-Filter-Mode",
-      hotkeyAction: "shell-action-2",
-      navTrayText: "LOC_UI_FILTER_SORT_FILTERS",
-      onActivate: () => {
-        setIsInSortAndFilterMode((prev) => !prev);
+        if (!model.isSlottingAvailable || !canAssignSelectedResourceToSettlement(focusedSettlement)) return;
+        handleSlotSelectedResource(focusedSettlement, true);
       }
     };
     const unassignResources = (focusedCity) => ({
@@ -1138,17 +1204,28 @@ function createCommerceScreenModel() {
         }
       }
     });
+    const quickResource = {
+      name:'Quick-resource', hotkeyAction:'shell-action-1',
+      navTrayText:focusedResourceData.cityID?'LOC_RP_QUICK_REMOVE':'LOC_RP_QUICK_FILL',
+      onActivate:()=>{if(model.isSlottingAvailable){
+        if(focusedResourceData.cityID)handleMClickSlottedResource(focusedResourceData);
+        else handleMClickAvailableResource(focusedResourceData);
+      }}
+    };
     const trayItems = [];
     if (model.selectedResource().resourceValue === INVALID_RESOURCE_VALUE) {
-      if (!model.selectedSettlementId()) {
-        trayItems.push(toggleSortAndFilterMode);
-      }
+      trayItems.push(...zoneEntries);
+      if(!selectedSettlement)trayItems.push({name:'Zone-back',hotkeyAction:'cancel',navTrayText:'LOC_RP_ZONE_BACK'});
     } else {
       trayItems.push(deselectResource);
+      if(selectedResourceData.cityID&&model.isSlottingAvailable)trayItems.push({
+        name:'Return-selected',hotkeyAction:'shell-action-3',navTrayText:'LOC_RP_RETURN_SELECTED',
+        onActivate:()=>{if(model.isSlottingAvailable)void resourceActions.run({...selectedResource()},selectedResource().cityID,'remove-one');}
+      });
     }
     switch (mask) {
       case 2 /* FocusedResource */: {
-        return model.isSlottingAvailable ? [...trayItems, assignResource2] : trayItems;
+        return model.isSlottingAvailable ? [...trayItems, selectResource, quickResource] : trayItems;
       }
       case 8 /* FocusedSettlement */: {
         const focusedCity = Cities.get(focusedSettlement);
@@ -1156,7 +1233,7 @@ function createCommerceScreenModel() {
           return trayItems;
         }
         const focusedCityResources = focusedCity.Resources;
-        if (!focusedCityResources?.getAssignedResources().length) {
+        if (!focusedCityResources?.getAssignedResources().some(r=>!isResourceDamaged(r))) {
           return trayItems;
         }
         return model.isSlottingAvailable ? [...trayItems, selectSettlement, unassignResources(focusedCity)] : [...trayItems, selectSettlement];
@@ -1165,6 +1242,7 @@ function createCommerceScreenModel() {
         return model.isSlottingAvailable ? [
           ...trayItems,
           selectResource,
+          quickResource,
           unassignResource2({ changeFocusAfterAction: true }),
           deselectSettlement
         ] : [...trayItems, deselectSettlement];
@@ -1173,9 +1251,10 @@ function createCommerceScreenModel() {
         if (ComponentID.isMatch(focusedSettlement, selectedResourceData.cityID ?? null)) {
           return trayItems;
         }
-        if (canAssignSelectedResourceToSettlement(focusedSettlement) === false) {
-          return trayItems;
-        }
+        const canPlace=canAssignSelectedResourceToSettlement(focusedSettlement);
+        const chooseSlot={name:'Choose-swap-slot',hotkeyAction:'shell-action-2',navTrayText:'LOC_RP_CHOOSE_SWAP_SLOT',
+          onActivate:()=>{if(model.isSlottingAvailable&&!resourceActionBusy()&&settlementHasSlottedResources(focusedSettlement))handleSetSelectedSettlementId(focusedSettlement);}};
+        if(!canPlace)return model.isSlottingAvailable&&settlementHasSlottedResources(focusedSettlement)?[...trayItems,{...chooseSlot,hotkeyAction:'accept',onActivate:undefined}]:trayItems;
         const focusedCity = Cities.get(focusedSettlement);
         if (!focusedCity) {
           return trayItems;
@@ -1184,11 +1263,7 @@ function createCommerceScreenModel() {
         if (!focusedCityResources) {
           return trayItems;
         }
-        if (focusedCityResources.getAssignedResources().length === 0) {
-          return [...trayItems, quickAssign];
-        } else {
-          return [...trayItems, selectSettlement, quickAssign];
-        }
+        return model.isSlottingAvailable ? [...trayItems, assignResource2, quickAssign,...(settlementHasSlottedResources(focusedSettlement)?[chooseSlot]:[])] : trayItems;
       }
       case 7 /* SelectedResourceSelectedSettlementFocusedResource */: {
         if (ghostResourceIsFocused) {
@@ -1206,7 +1281,7 @@ function createCommerceScreenModel() {
     if (!city || !city.Resources) {
       return;
     }
-    return city.Resources.getAssignedResources().length > 0;
+    return city.Resources.getAssignedResources().some(r=>!isResourceDamaged(r));
   }
   function updateSlottedResources() {
     const localPlayer = Players.get(GameContext.localPlayerID);
@@ -1289,36 +1364,12 @@ function createCommerceScreenModel() {
     }
     Camera.lookAtPlot(city.location);
   }
-  function handleMClickAvailableResource(resourceData) {  // TRIX
-    // clear previous selection, if any
-    if (model.selectedResource().resourceValue != INVALID_RESOURCE_VALUE) {
+  function handleMClickAvailableResource(resourceData) {
+    if (model.selectedResource().resourceValue !== INVALID_RESOURCE_VALUE) {
       handleDeselectSelectedResource();
       return;
     }
-    // get matching resources and section (connected/disconnected)
-    const { plots, index } = getMatchingResources(resourceData.resourceValue);
-    const section = model.data.resourceTabData.slottedResourceSectionData[index];
-    // slot the resource in the first available space
-    const moved = [];
-    for (const city of section.cityResources) {
-      for (const plot of plots) {
-        addItemSlotIndex(city.cityID, plot);
-        const assignResult = assignResource(city.cityID, plot);
-        if (!assignResult) break;
-        moved.push(plot);
-      }
-      if (moved.length) break;  // only fill one settlement
-    }
-    const audioTrigger = useAudio("CommerceScreen/ResourceSlotting");
-    if (moved.length) {  // at least some resources moved
-      setLastSlottedResourceValues(plots);
-      const resourceType = resourceNameShort(
-        getResourceTypeFromValue(resourceData.resourceValue)
-      );
-      audioTrigger("dropAccept", { resourceType });
-    } else {
-      audioTrigger("dropReject");
-    }
+    void resourceActions.run(resourceData, undefined, 'fill');
   }
   function handleClickAvailableResource(resourceData) {
     if (model.selectedResource().resourceValue !== INVALID_RESOURCE_VALUE && model.selectedResource().cityID !== void 0) {
@@ -1348,14 +1399,12 @@ function createCommerceScreenModel() {
       });
     }
   }
-  function handleMClickSlottedResource(resourceData) {  // TRIX
-    // clear previous selection, if any
-    if (model.selectedResource().resourceValue != INVALID_RESOURCE_VALUE) {
+  function handleMClickSlottedResource(resourceData) {
+    if (model.selectedResource().resourceValue !== INVALID_RESOURCE_VALUE) {
       handleDeselectSelectedResource();
       return;
     }
-    // unslot the resource
-    handleUnslotResource(resourceData);
+    void resourceActions.run(resourceData, resourceData.cityID, 'remove-one');
   }
   const [swapFail, setSwapFail] = createSignal(void 0);
   function handleClickSlottedResource(resourceData) {
@@ -1365,38 +1414,7 @@ function createCommerceScreenModel() {
       return;
     }
     if (model.selectedResource().resourceValue !== INVALID_RESOURCE_VALUE) {
-      if (model.selectedResource().cityID) {
-        handleSlotSelectedResource(resourceData.cityID, resourceData.resourceValue);
-      } else if (resourceData.cityID) {
-        const selected = model.selectedResource();
-        const location = GameplayMap.getLocationFromIndex(resourceData.resourceValue);
-        const location2 = GameplayMap.getLocationFromIndex(selected.resourceValue);
-        const swapResult = swapResources(
-          location,
-          location2,
-          resourceData.resourceValue,
-          selected.resourceValue,
-          resourceData.isOffMap ?? false,
-          selected.isOffMap ?? false
-        );
-        if (swapResult) {
-          swapItemSlotIndices(
-            selected.cityID,
-            selected.resourceValue,
-            resourceData.cityID,
-            resourceData.resourceValue,
-            selected.isOffMap ?? false,
-            resourceData.isOffMap ?? false
-          );
-          setLastSlottedResourceValues([selected.resourceValue, resourceData.resourceValue]);
-          const audioTrigger = useAudio("CommerceScreen/ResourceSlotting");
-          audioTrigger("dropSwap");
-          const resourceType = resourceNameShort(getResourceTypeFromValue(selected.resourceValue));
-          audioTrigger("dropAccept", { resourceType });
-        } else {
-          setSwapFail({ swapFail: true, selectedResourceData: resourceData });
-        }
-      }
+      void resourceActions.replace({...selectedResource2}, {...resourceData});
     } else {
       setSelectedResource(resourceData);
       model.isResourceSelected = true;
@@ -1411,56 +1429,15 @@ function createCommerceScreenModel() {
     }
     if (selected.resourceValue != INVALID_RESOURCE_VALUE) {
       const resourceType = resourceNameShort(
-        getResourceTypeFromValue(selected.resourceValue)
+        getResourceTypeFromValue(selected.resourceValue, selected.isOffMap)
       );
       if (targetResourceValue === true) {
-        // TRIX: move all resources of the same type
-        const { plots } = getMatchingResources(
-          selected.resourceValue,
-          selected.cityID
-        );
-        const moved = [];
-        for (const plot of plots) {
-          addItemSlotIndex(targetCityID, plot);
-          const assignResult = assignResource(targetCityID, plot);
-          if (!assignResult) break;
-          moved.push(plot);
-        }
-        setLastSlottedResourceValues(plots);
-        if (moved.length) {
-          audioTrigger("dropAccept", { resourceType });
-        } else {
-          audioTrigger("dropReject");
-        }
+        void resourceActions.run(selected, targetCityID, 'move');
         return;
-      } else if (targetResourceValue && selected.cityID != void 0) {
-        const location = GameplayMap.getLocationFromIndex(targetResourceValue);
-        const location2 = GameplayMap.getLocationFromIndex(selected.resourceValue);
-        const swapResult = swapResources(
-          location,
-          location2,
-          targetResourceValue,
-          selected.resourceValue,
-          isOffMapResourceValue(targetResourceValue),
-          selected.isOffMap ?? false
-        );
-        if (swapResult) {
-          swapItemSlotIndices(
-            selected.cityID,
-            selected.resourceValue,
-            targetCityID,
-            targetResourceValue,
-            selected.isOffMap ?? false,
-            isOffMapResourceValue(targetResourceValue)
-          );
-          setLastSlottedResourceValues([selected.resourceValue, targetResourceValue]);
-          audioTrigger("dropSwap");
-          audioTrigger("dropAccept", { resourceType });
-          return;
-        } else {
-          setSwapFail({ swapFail: true, selectedResourceData: selected, dropzoneID: targetCityID });
-        }
-        audioTrigger("dropReject");
+      } else if (targetResourceValue !== undefined && targetResourceValue !== null && targetResourceValue !== false) {
+        const target=model.data.resourceTabData.slottedResourceSectionData.flatMap(s=>s.cityResources)
+          .find(c=>ComponentID.isMatch(c.cityID,targetCityID))?.slottedResources.find(r=>r.resourceValue===targetResourceValue);
+        if(target)void resourceActions.replace({...selected},{...target,cityID:targetCityID});
         return;
       }
       addItemSlotIndex(
@@ -1480,39 +1457,6 @@ function createCommerceScreenModel() {
         audioTrigger("dropReject");
       }
     }
-  }
-  function getMatchingResources(plot, cityID) {  // TRIX
-    // get all resources of the same type from the same place
-    // (same settlement or unassigned section)
-    const result = { plots: [plot], index: 0 };
-    const resource = Game.Resources.getResourceOnPlot(plot);
-    const type = resource.resource;
-    const info = GameInfo.Resources.lookup(type);
-    // match additional plots with the same resource type
-    const typeMatch = (pool) => pool.map(r => r.resourceValue)
-      .filter(p => p != plot && Game.Resources.getResourceOnPlot(p)?.resource == type);
-    // get the pool of resources
-    const data = model.data.resourceTabData;
-    if (cityID) {
-      // get slotted resources for city
-      result.index = cityIsConnectedToTradeNetwork(Cities.get(cityID)) ? 0 : 1;
-      const section = data.slottedResourceSectionData[result.index];
-      const city = section.cityResources
-        .find(city => ComponentID.isMatch(city.cityID, cityID));
-      // get matching resources
-      result.plots.push(...typeMatch(city.slottedResources));
-    } else {
-      // get available resources for resource class
-      const loc = GameplayMap.getLocationFromIndex(plot);
-      const cityID = GameplayMap.getOwningCityFromXY(loc.x, loc.y);
-      result.index = cityIsConnectedToTradeNetwork(Cities.get(cityID)) ? 0 : 1;
-      const section = data.availableResourceSectionData[result.index];
-      const rctype = section.subSections
-        .find(sub => sub.type == info.ResourceClassType);
-      // get matching resources
-      result.plots.push(...typeMatch(rctype.resourceSlotData));
-    }
-    return result;
   }
   function swapResources(location1, location2, resourceValue1, resourceValue2, resource1OffMap = false, resource2OffMap = false) {
     const args = {
@@ -1562,11 +1506,8 @@ function createCommerceScreenModel() {
     if (selected.resourceValue == INVALID_RESOURCE_VALUE) {
       return;
     }
-    if (all) {  // TRIX: unslot matching resources
-      const resource = Game.Resources.getResourceOnPlot(selected.resourceValue);
-      clearAllResources(selected.cityID, resource.resource);
-      const audioTrigger = useAudio("CommerceScreen/ReturnResources");
-      audioTrigger("activate");
+    if (all) {
+      void resourceActions.run(selected, selected.cityID, 'remove');
       return;
     }
     handleUnslotResource(selected);
@@ -1712,7 +1653,7 @@ function createCommerceScreenModel() {
     debugPrintSlotIndices();
   }
   function getResourceTypeFromValue(resourceValue, isOffMap = false) {
-    const resourceType = isOffMap ? localPlayerResources?.getOffMapUniqueResourceFromId(resourceValue).uniqueResource : Game.Resources.getResourceOnPlot(resourceValue);
+    const resourceType = isOffMap ? localPlayerResources?.getOffMapUniqueResourceFromId(resourceValue)?.uniqueResource : Game.Resources.getResourceOnPlot(resourceValue);
     const resourceDef = resourceType?.resource && GameInfo.Resources.lookup(resourceType.resource);
     return resourceDef?.ResourceType ?? "RESOURCE_UNKNOWN";
   }
@@ -1851,7 +1792,7 @@ function createCommerceScreenModel() {
       if (slottedResources.find((section) => {
         return section.cityResources.find((cityResources) => {
           return cityResources.slottedResources.find((slottedResource) => {
-            return slottedResource.resourceValue == resource.value;
+            return slottedResource.resourceValue == resource.value && !!slottedResource.isOffMap === !!resource.isOffMap;
           });
         });
       })) {
@@ -1868,10 +1809,9 @@ function createCommerceScreenModel() {
       if (playerResource.ResourceClassType == "RESOURCECLASS_EMPIRE" || playerResource.ResourceClassType == "RESOURCECLASS_TREASURE") {
         return;
       }
-      const _isBeingRazed = originCity?.isBeingRazed ?? false;
       const yieldTypes = getYieldTypes(playerResource.ResourceType);
       const resourceProps = getResourceProps(resource);
-      if (!resourceProps) {
+      if (!resourceProps || resourceProps.isDamaged) {
         return;
       }
       const canSwapWithSelectedResource = createMemo(() => {
@@ -2055,7 +1995,7 @@ function createCommerceScreenModel() {
       if (Game.age == Game.getHash("AGE_MODERN")) {
         localPlayer.Resources?.getResources().forEach((resource) => {
           const playerResource = GameInfo.Resources.lookup(resource.uniqueResource.resource);
-          if (playerResource?.ResourceClassType == "RESOURCECLASS_FACTORY" && !availableFactoryResources.find((factoryResource) => {
+          if (playerResource?.ResourceClassType == "RESOURCECLASS_FACTORY" && !isResourceDamaged(resource) && !availableFactoryResources.find((factoryResource) => {
             return factoryResource.name == playerResource.Name;
           })) {
             availableFactoryResources.push({
@@ -2177,7 +2117,8 @@ function createCommerceScreenModel() {
             hasRail: hasRailStation,
             tradeConnectionCount,
             warehouseCount,
-            waterCount: waterBuildingCount
+            waterCount: waterBuildingCount,
+            production: readProduction(city)
           },
           cityID: city.id,
           isDistantLands: city.isDistantLands,
@@ -2312,7 +2253,7 @@ function createCommerceScreenModel() {
       const goldName = Locale.compose("LOC_YIELD_GOLD_NAME");
       const treasureFleetText = L10n.Stylize({
         text: Locale.stylize(
-          "LOC_COMMERCE_TREASURE_FLEET_SUMMARY",
+          "LOC_RP_TREASURE_SUMMARY",
           city.Resources.getProducedTreasureFleetGold(),
           goldName,
           city.Resources.getProducedTreasureFleetGDP()
@@ -2687,6 +2628,14 @@ function createCommerceScreenModel() {
     audioTrigger("dropSwap");
     handleSortResources();
   }
+  function tidyResources() {
+    if (resourceActionBusy()) return;
+    untrack(() => batch(() => {
+      setLastSlottedResourceValues([]);
+      sortSlottedResources(model.data.resourceTabData.slottedResourceSectionData);
+      sortAvailableResources(model.data.resourceTabData.availableResourceSectionData);
+    }));
+  }
   function handleSortResources() {  // TRIX
     // Do not subscribe a caller's reactive effect to yields, slots, or order.
     untrack(() => batch(() => {
@@ -2715,6 +2664,36 @@ function createCommerceScreenModel() {
       (availableSection) => availableSection.subSections.some((subsection) => subsection.resourceSlotData.length > 0)
     );
   }
+  const [resourceActionBusy,setResourceActionBusy]=createSignal(false);
+  const [resourceActionStatus,setResourceActionStatus]=createSignal('');
+  let actionsAlive=true;
+  const resourceActions=createResourceActions({
+    read:()=>model.data.resourceTabData,
+    swap:(incoming,outgoing)=>swapResources(
+      incoming.isOffMap?undefined:GameplayMap.getLocationFromIndex(incoming.resourceValue),
+      outgoing.isOffMap?undefined:GameplayMap.getLocationFromIndex(outgoing.resourceValue),
+      incoming.resourceValue,outgoing.resourceValue,!!incoming.isOffMap,!!outgoing.isOffMap),
+    onSwapConfirmed:(incoming,outgoing)=>{
+      swapItemSlotIndices(incoming.cityID,incoming.resourceValue,outgoing.cityID,outgoing.resourceValue,!!incoming.isOffMap,!!outgoing.isOffMap);
+      setLastSlottedResourceValues([incoming.resourceValue,outgoing.resourceValue]);
+    },
+    context:()=>`${GameContext.localPlayerID}/${Game.turn}/${Game.age}/${tabName()}`,
+    allowed:()=>actionsAlive&&model.isSlottingAvailable&&
+      ContextManager.getCurrentTarget()?.tagName?.toLowerCase()==='screen-resource-allocation'&&
+      !document.querySelector('.c7r-overlay'),
+    request:(resource,cityID,remove)=>{
+      if(remove)return handleUnslotResource({...resource,cityID}).success;
+      const accepted=assignResource(cityID,resource.resourceValue,resource.isOffMap);
+      if(accepted)addItemSlotIndex(cityID,resource.resourceValue,resource.isOffMap);
+      return accepted;
+    },
+    onState:(busy,key,count)=>{
+      setResourceActionBusy(busy);
+      setResourceActionStatus(t(key,count));
+      if(!busy&&actionsAlive)handleDeselectSelectedResource();
+    }
+  });
+  onCleanup(()=>{actionsAlive=false;resourceActions.cancel();});
   const model = createMutable({
     data: populateData(),
     isResourceSelected: false,
@@ -2752,6 +2731,7 @@ function createCommerceScreenModel() {
     selectedResourceFilter,
     setSelectedResourceFilter,
     resourceSettlementSortItems,
+    resourceHighlightYields: [...new Set([...resourceCatalog().values()].flatMap(effects=>effects.map(effect=>effect.yield)))],
     selectedSettlementSortType,
     setSelectedSettlementSortType,
     selectedSettlementSortIndex,  // TRIX
@@ -2777,8 +2757,19 @@ function createCommerceScreenModel() {
     setLastSlottedResourceValues,
     resourceSwapTarget,
     setResourceSwapTarget,
+    resourceZone,
+    resourceZoneCandidate,
+    focusResourceZone,
+    cycleResourceZone,
+    enterResourceZone,
     isInSortAndFilterMode,
     setIsInSortAndFilterMode,
+    toggleResourceTools,
+    tidyResources,
+    resourceActionBusy,
+    resourceActionStatus,
+    clearResourceActionStatus:()=>setResourceActionStatus(''),
+    cancelResourceActions:()=>resourceActions.cancel(),
     settlementHasSlottedResources,
     onTabChanged: handleChangeTabs,
     hasUnassignedResources,
@@ -2786,6 +2777,20 @@ function createCommerceScreenModel() {
     swapFail,
     setSwapFail,
     getResourceTypeFromValue
+  });
+  // Production changes can alter salt eligibility and the unit shown in a
+  // settlement title. Update only that display field; never re-sort or rebuild
+  // resource sections here.
+  const refreshProduction=()=>{
+    const rows=model.data?.resourceTabData?.slottedResourceSectionData?.flatMap(section=>section.cityResources)??[];
+    updateProduction(rows,cityID=>Cities.get(cityID),readProduction);
+  };
+  const cityProductionChanged=createEngineEvent("CityProductionChanged");
+  const cityProductionQueueChanged=createEngineEvent("CityProductionQueueChanged");
+  createEffect(()=>{
+    cityProductionChanged();
+    cityProductionQueueChanged();
+    untrack(refreshProduction);
   });
   return model;
 }
@@ -2803,8 +2808,8 @@ function getResourceName(resource) {
     return resource ? "None" : "Undefined";
   }
   const name = getCityName(resource.cityID, "resource") + ": ";
-  const resourceData = Game.Resources.getResourceOnPlot(resource.resourceValue);
-  const resourceDef = GameInfo.Resources.lookup(resourceData.resource);
+  const resourceData = resource.isOffMap ? Players.get(GameContext.localPlayerID)?.Resources?.getOffMapUniqueResourceFromId(resource.resourceValue)?.uniqueResource : Game.Resources.getResourceOnPlot(resource.resourceValue);
+  const resourceDef = resourceData && GameInfo.Resources.lookup(resourceData.resource);
   if (resourceDef) {
     return name + Locale.compose(resourceDef.Name) + `(${resource.resourceValue})`;
   } else {

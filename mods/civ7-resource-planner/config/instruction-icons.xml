@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Database>
+  <IconDefinitions>
+    <Row ID="RP_AO_SKIP" Context="FONTICON" IconSize="64" Path="blp:Action_Skip.png" />
+  </IconDefinitions>
+</Database>
