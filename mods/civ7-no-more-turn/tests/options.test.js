@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { RestSession } from '../ui/rest-session.js';
 import { installRestOptions, openRestOptions } from '../ui/rest-options.js';
 import { RestStore } from '../ui/rest-store.js';
 import { normalizeConfig } from '../ui/rest-model.js';
@@ -33,7 +34,7 @@ function harness(config = {}, extra = {}) {
 test('all settings share the Add-ons category and preserve other mods', () => {
   const h = harness();
   assert.equal(h.categories.mods, h.existingCategory);
-  assert.equal(h.options.data.size, 16);
+  assert.equal(h.options.data.size, 14);
   assert.equal(h.entry('interval-4').category, 'mods');
   assert.equal(h.entry('interval-4').group, 'rest_guard');
   assert.equal(h.entry('rest-minutes').dropdownItems[h.entry('rest-minutes').selectedItemIndex].label, '5');
@@ -54,7 +55,7 @@ test('cancel and reopening restore saved values without writes or timer resets',
   assert.equal(h.entry('time-enabled').currentValue, true);
   assert.equal(h.entry('play-minutes').dropdownItems[h.entry('play-minutes').selectedItemIndex].label, '25');
   h.options.init();
-  assert.equal(h.options.data.size, 16);
+  assert.equal(h.options.data.size, 14);
   assert.equal(h.calls.writes, 0); assert.equal(h.calls.applies, 0);
 });
 
@@ -91,18 +92,10 @@ test('save failure keeps the applied config and blocks native confirm closing', 
   assert.equal(h.calls.commits, 0); assert.equal(h.calls.applies, 0); assert.equal(h.calls.errors, 1);
 });
 
-test('pending rest cannot be bypassed by native settings or reset', () => {
-  const h = harness({ restMinutes: 2 }, { canCommit: () => false });
-  h.change('time-enabled', false);
-  assert.throws(() => h.options.commitOptions(), /finish the current rest/);
-  assert.throws(() => h.options.resetOptionsToDefault(), /finish the current rest/);
-  assert.equal(h.calls.writes, 0);
-});
-
 test('reinitialization and disposal preserve subsequent native option wrappers', () => {
   const h = harness();
   h.options.data.clear(); h.options.init();
-  assert.equal(h.options.data.size, 15);
+  assert.equal(h.options.data.size, 13);
   const previous = h.options.commitOptions;
   const outer = function (...args) { return previous.apply(this, args); };
   h.options.commitOptions = outer;
@@ -141,20 +134,20 @@ test('HUD shortcut selects Add-ons by category, focuses its section and reuses o
   }
 });
 
-test('retention and night controls save/cancel independently with readable time choices', () => {
+test('night controls save/cancel independently with readable time choices', () => {
   const h = harness();
   assert.equal(h.entry('night-enabled').currentValue, true);
-  for (const [name, expected] of [['night-start', '22:00'], ['night-end', '07:00'], ['save-keep-count', '10']]) {
+  for (const [name, expected] of [['night-start', '22:00'], ['night-end', '07:00']]) {
     const entry = h.entry(name);
     assert.equal(entry.dropdownItems[entry.selectedItemIndex].label, expected);
   }
-  h.change('save-keep-count', 20); h.change('night-start', '23:15'); h.change('night-end', '06:45');
+  h.change('night-start', '23:15'); h.change('night-end', '06:45');
   h.change('night-enabled', false); h.options.restore();
-  assert.equal(h.store.data.config.saveKeepCount, 10); assert.equal(h.store.data.config.nightEnabled, true);
-  h.change('save-keep-count', 5); h.change('night-start', '23:15'); h.change('night-end', '06:45');
+  assert.equal(h.store.data.config.nightEnabled, true);
+  h.change('night-start', '23:15'); h.change('night-end', '06:45');
   h.change('night-enabled', false); h.options.commitOptions();
   const config = h.saved()['civ7-rest-guard'].config;
-  assert.equal(config.saveKeepCount, 5); assert.equal(config.nightStart, 1395); assert.equal(config.nightEnd, 405);
+  assert.equal(config.nightStart, 1395); assert.equal(config.nightEnd, 405);
   assert.equal(config.nightEnabled, false); assert.equal(config.turnEnabled, true); assert.equal(config.timeEnabled, true);
 });
 
@@ -171,13 +164,13 @@ test('switch drafts hide only their children, retain values, and cancel restores
     assert.deepEqual(renders, children.map(id => `rest-guard-${id}`));
     for (const child of children) assert.equal(h.entry(child).isHidden, true);
     assert.equal(h.entry(toggle).isHidden, false);
-    for (const shared of ['rest-minutes', 'save-keep-count']) assert.equal(h.entry(shared).isHidden, false);
+    for (const shared of ['rest-minutes']) assert.equal(h.entry(shared).isHidden, false);
   }
   assert.equal(h.calls.writes, 0, 'hiding must not commit the draft');
   const previous = h.entry('interval-0').selectedItemIndex;
   h.change('interval-0', 99);
   assert.equal(h.entry('interval-0').selectedItemIndex, previous, 'hidden controls ignore late input');
-  h.change('rest-minutes', 7); h.change('save-keep-count', 20);
+  h.change('rest-minutes', 7); 
   assert.equal(h.entry('rest-minutes').dropdownItems[h.entry('rest-minutes').selectedItemIndex].label, '7');
   h.options.restore();
   for (const children of Object.values(sections)) for (const child of children) assert.equal(h.entry(child).isHidden, false);
@@ -201,15 +194,50 @@ test('saved disabled switches hide on reopen; enabling restores values and reset
   h.options.restore(); assert.equal(h.entry('night-start').isHidden, true);
 });
 
-test('voluntary autosave opt-in supports confirm, cancel and restoring defaults', () => {
-  const h = harness();
-  assert.equal(h.entry('idle-save-enabled').currentValue, false);
-  h.change('idle-save-enabled', true);
-  assert.equal(h.store.data.config.idleSaveEnabled, false);
+test('retired autosave settings are absent even with an old enabled configuration', () => {
+  const h = harness({ idleSaveEnabled: true, saveKeepCount: 10 });
+  assert.equal(h.entry('idle-save-enabled'), undefined);
+  assert.equal(h.entry('save-keep-count'), undefined);
+  assert.equal('idleSaveEnabled' in h.store.data.config, false);
+  assert.equal('saveKeepCount' in h.store.data.config, false);
+});
+
+test('Confirm applies a revised night window during the lock without shortening a pending break', () => {
+  const session = new RestSession();
+  const now = new Date(2026, 10, 3, 1, 0).getTime();
+  const current = { context: 'a', token: 'a:10', turn: 10 };
+  const h = harness({}, {
+    applied: config => session.tick(current, config, now),
+  });
+  session.gate.begin(current.token, current.turn, 'time', h.store.data.config, now);
+  const deadline = session.pending.deadline;
+  session.tick(current, h.store.data.config, now);
+  assert.ok(session.night);
+  h.change('night-end', '10:00');
+  h.options.commitOptions();
+  assert.equal(new Date(session.night.endsAt).getHours(), 10);
+  h.change('night-start', '02:00');
   h.options.restore();
-  assert.equal(h.entry('idle-save-enabled').currentValue, false);
-  h.change('idle-save-enabled', true); h.options.commitOptions(); h.options.init();
-  assert.equal(h.entry('idle-save-enabled').currentValue, true);
-  h.entry('reset').activateListener(); h.options.commitOptions();
-  assert.equal(h.saved()['civ7-rest-guard'].config.idleSaveEnabled, false);
+  assert.ok(session.night);
+  h.change('night-start', '02:00');
+  h.options.commitOptions();
+  h.options.init();
+  assert.equal(h.saved()['civ7-rest-guard'].config.nightStart, 120);
+  assert.equal(h.entry('night-end').dropdownItems[h.entry('night-end').selectedItemIndex].label, '10:00');
+  assert.equal(session.night, null);
+  assert.equal(session.pending.deadline, deadline);
+  h.change('rest-minutes', 1);
+  h.change('time-enabled', false);
+  h.change('interval-0', 8);
+  h.options.commitOptions();
+  h.options.init();
+  assert.equal(h.store.data.config.restMinutes, 1);
+  assert.equal(h.store.data.config.intervals[0], 8);
+  assert.equal(h.store.data.config.timeEnabled, false);
+  assert.equal(session.pending.deadline, deadline);
+  assert.equal(session.requestTurn(current, h.store.data.config, now), false);
+  h.entry('reset').activateListener();
+  h.options.commitOptions();
+  assert.deepEqual(h.store.data.config, normalizeConfig());
+  assert.equal(session.pending.deadline, deadline);
 });

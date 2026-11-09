@@ -13,15 +13,18 @@ export class RestSession {
     this.idleRested = false;
     this.idleBreakStartedAt = null;
     this.loading = false;
+    this.loadingStartedAt = null;
     this.turnCount = 0;
     this.countedToken = null;
-    this.restSave = null;
     this.night = null;
     if (saved?.version === 1 || saved?.version === 2) {
       for (const key of ['startedAt', 'lastInputAt', 'suspendedAt']) {
         if (Number.isFinite(saved[key]) && saved[key] >= 0) this[key] = saved[key];
       }
       for (const key of ['idleRested', 'loading']) this[key] = saved[key] === true;
+      if (this.loading && Number.isFinite(saved.loadingStartedAt) && saved.loadingStartedAt >= 0) {
+        this.loadingStartedAt = saved.loadingStartedAt;
+      }
       if (!this.loading && this.startedAt !== null && this.lastInputAt !== null &&
           Number.isFinite(saved.idleBreakStartedAt) && saved.idleBreakStartedAt >= 0) {
         this.idleBreakStartedAt = saved.idleBreakStartedAt;
@@ -31,18 +34,9 @@ export class RestSession {
         if (typeof saved.countedToken === 'string') this.countedToken = saved.countedToken;
       }
       if (Number.isFinite(saved.night?.startedAt) && Number.isFinite(saved.night?.endsAt)) {
-        this.night = { startedAt: saved.night.startedAt, endsAt: saved.night.endsAt, save: null };
-        if (typeof saved.night.save?.fileName === 'string') this.night.save = {
-          fileName: saved.night.save.fileName, status: saved.night.save.status === 'saved' ? 'saved' : 'unconfirmed',
-        };
+        this.night = { startedAt: saved.night.startedAt, endsAt: saved.night.endsAt };
       }
       if (typeof saved.paidToken === 'string') this.gate.state.paidToken = saved.paidToken;
-      if (typeof saved.restSave?.fileName === 'string') {
-        // A new UI document cannot confirm an interrupted write. Do not create
-        // another save simply because the same break was transferred on load.
-        this.restSave = { fileName: saved.restSave.fileName,
-          status: saved.restSave.status === 'saved' ? 'saved' : 'unconfirmed' };
-      }
       const p = saved.pending;
       if (p && typeof p.token === 'string' && Number.isInteger(p.turn) && p.turn >= 0 &&
           ['time', 'turn'].includes(p.reason) && Number.isFinite(p.deadline) &&
@@ -58,9 +52,9 @@ export class RestSession {
 
   export() {
     return { version: 2, startedAt: this.startedAt, suspendedAt: this.suspendedAt, lastInputAt: this.lastInputAt,
-      idleRested: this.idleRested, loading: this.loading, turnCount: this.turnCount,
+      idleRested: this.idleRested, loading: this.loading, loadingStartedAt: this.loadingStartedAt, turnCount: this.turnCount,
       idleBreakStartedAt: this.idleBreakStartedAt,
-      countedToken: this.countedToken, restSave: this.restSave, night: this.night, ...this.gate.state };
+      countedToken: this.countedToken, night: this.night, ...this.gate.state };
   }
 
   setSuspended(active, now) {
@@ -70,8 +64,8 @@ export class RestSession {
     }
     if (this.suspendedAt === null) return;
     const duration = Math.max(0, now - this.suspendedAt);
-    for (const key of ['startedAt', 'lastInputAt', 'idleBreakStartedAt']) {
-      if (this[key] !== null) this[key] += duration;
+    for (const key of ['startedAt', 'lastInputAt', 'idleBreakStartedAt', 'loadingStartedAt']) {
+      if (this[key] !== null) this[key] = Math.min(now, this[key] + duration);
     }
     if (this.pending) this.pending.deadline += duration;
     if (this.night) this.night.startedAt += duration;
@@ -89,27 +83,39 @@ export class RestSession {
   }
 
   beginLoading(now) {
-    if (this.suspendedAt !== null) { this.loading = true; return; }
-    this.resumeIdle(null, now);
-    this.start(now);
-    if (this.idleRested) this.startedAt = now;
-    this.idleRested = false;
+    // Native loading emits several phase changes, sometimes across JS windows.
+    // Keep the first boundary so repeated notifications cannot charge the wait.
+    if (this.loading) {
+      this.loadingStartedAt ??= now; // Old handoffs have no loading boundary.
+      return;
+    }
+    if (this.suspendedAt === null) {
+      this.resumeIdle(null, now);
+      this.start(now);
+      if (this.idleRested) this.startedAt = now;
+      this.idleRested = false;
+    }
+    this.loadingStartedAt = now;
     this.loading = true;
     this.lastInputAt = now;
   }
 
   finishLoading(now, succeeded = true) {
-    if (this.suspendedAt !== null) { this.loading = false; return; }
-    if (this.loading) {
-      // Time spent loading counts as play time, never as five idle minutes.
-      this.lastInputAt = now;
-      this.loading = false;
-      if (succeeded) {
-        // Loading never adds or clears accumulated turns. A replayed turn is a
-        // new action even if its game/age/turn token equals the previous one.
-        this.countedToken = null;
-        this.gate.state.paidToken = null;
-      }
+    if (!this.loading) return;
+    // Exclude loading, including the curtain's WaitingToStart phase. Overlap
+    // with a recording suspension or night break is already excluded there.
+    const end = Math.min(now, this.suspendedAt ?? now, this.night?.startedAt ?? now);
+    if (this.startedAt !== null && this.loadingStartedAt !== null) {
+      this.startedAt += Math.max(0, end - this.loadingStartedAt);
+    }
+    this.lastInputAt = now;
+    this.loading = false;
+    this.loadingStartedAt = null;
+    if (succeeded) {
+      // Loading preserves the counter. Replaying even the same turn token is
+      // a new action; failed loads must retain the old duplicate protection.
+      this.countedToken = null;
+      this.gate.state.paidToken = null;
     }
   }
 
@@ -124,7 +130,8 @@ export class RestSession {
 
   elapsed(now) {
     return this.startedAt === null || this.idleRested ? 0 :
-      Math.max(0, Math.min(now, this.night?.startedAt ?? this.idleBreakStartedAt ?? now) - this.startedAt);
+      Math.max(0, Math.min(now, this.night?.startedAt ?? now, this.idleBreakStartedAt ?? now,
+        this.loadingStartedAt ?? now, this.suspendedAt ?? now) - this.startedAt);
   }
   idle(now) { return this.lastInputAt === null || this.loading ? 0 : Math.max(0, now - this.lastInputAt); }
 
@@ -135,7 +142,7 @@ export class RestSession {
       if (window.active) {
         if (!this.night) {
           this.resumeIdle(current, now);
-          this.night = { startedAt: now, endsAt: window.endsAt, save: null };
+          this.night = { startedAt: now, endsAt: window.endsAt };
         }
         this.night.endsAt = window.endsAt;
         this.night.startedAt = Math.min(this.night.startedAt, now);
@@ -146,7 +153,6 @@ export class RestSession {
         this.night = null;
         if (duration >= (this.pending?.durationMs ?? config.restMinutes * 60000)) {
           this.gate.state.pending = null;
-          this.restSave = null;
           this.reset(current, now);
         } else this.startedAt += duration;
         this.lastInputAt = now;
@@ -171,12 +177,10 @@ export class RestSession {
     if (detectIdle && current && config.timeEnabled && !this.loading &&
         !this.isIdleBreak && this.idle(now) >= IDLE_HINT_MS) {
       this.idleBreakStartedAt = this.lastInputAt;
-      this.restSave = null;
     }
     if (current && config.timeEnabled && !this.loading && !this.idleRested &&
         !this.isIdleBreak && this.elapsed(now) >= config.playMinutes * 60000) {
       this.gate.begin(current.token, current.turn, 'time', config, now);
-      this.restSave = null;
     }
   }
 
@@ -205,7 +209,6 @@ export class RestSession {
     }
     if (this.turnsRemaining(current, config) > 0) return true;
     this.gate.begin(current.token, current.turn, 'turn', config, now);
-    this.restSave = null;
     return false;
   }
 
@@ -218,7 +221,6 @@ export class RestSession {
     if (this.idleRested) this.startedAt = now;
     else this.startedAt += Math.max(0, now - this.idleBreakStartedAt);
     this.idleBreakStartedAt = null;
-    this.restSave = null;
     this.idleRested = false;
     this.lastInputAt = now;
     return true;
@@ -226,7 +228,6 @@ export class RestSession {
 
   complete(current, now) {
     if (this.night || !this.gate.complete(now)) return false;
-    this.restSave = null;
     this.reset(current, now);
     return true;
   }

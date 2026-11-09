@@ -11,7 +11,7 @@ const source = fs.readFileSync(new URL('../ui/rest-guard.js', import.meta.url), 
   .replace(/^import .*;\r?\n/gm, '');
 
 function harness({ turn = 5, multiplayer = false, readonlyNative = false, storage, savedSession, playedTurns = 0, autoSave = true, idleSaveEnabled = false, nightEnabled = false, startTime = 100000 } = {}) {
-  const calls = { restSaves: [], submits: 0, panelEffects: 0, inputs: 0, navigation: 0, writes: 0, exitPrompts: 0, exits: [] };
+  const calls = { restSaves: [], saveQueries: 0, saveDeletes: 0, menuOpens: 0, queueSuspends: 0, queueResumes: 0, submits: 0, panelEffects: 0, inputs: 0, navigation: 0, writes: 0, exitPrompts: 0, exits: [] };
   const clock = { now: startTime };
   const session = new RestSession(savedSession);
   for (let i = 0; i < playedTurns; i++) {
@@ -42,7 +42,6 @@ function harness({ turn = 5, multiplayer = false, readonlyNative = false, storag
     close() { this.mode = null; }
     setVisible(visible) { this.root.style.display = visible ? '' : 'none'; }
     showRest(pending) { this.mode = 'rest'; this.pending = pending; }
-    updateSaveStatus(state) { this.saveState = state; }
     updateRest(remaining) { this.remaining = remaining; }
     showNight(night) { this.mode = 'night'; this.night = night; }
     showIdleRest() { this.mode = 'idle'; }
@@ -76,6 +75,17 @@ function harness({ turn = 5, multiplayer = false, readonlyNative = false, storag
     session, checkpoint() {}, installLoadingHooks() {},
     FocusManager: { get: () => ({ currentFocus: () => null, setFocus() {} }) },
     InputNavigationAction: { UP: 1, DOWN: 2, LEFT: 3, RIGHT: 4, PREVIOUS: 5, NEXT: 6 },
+    DisplayQueueManager: {
+      suspended: false,
+      isSuspended() { return this.suspended; },
+      suspend() { this.suspended = true; calls.queueSuspends++; },
+      resume() { this.suspended = false; calls.queueResumes++; },
+    },
+    InterfaceMode: {
+      mode: 'INTERFACEMODE_DEFAULT',
+      isInInterfaceMode(name) { return this.mode === name; },
+      switchTo(name) { this.mode = name; calls.menuOpens++; return true; },
+    },
     ContextManager, Cursor: { target: null }, localStorage,
     DialogBoxAction: { Confirm: 1, Cancel: 2 },
     DialogBoxManager: { createDialog_ConfirmCancel(params) {
@@ -91,8 +101,8 @@ function harness({ turn = 5, multiplayer = false, readonlyNative = false, storag
       calls.restSaves.push(params); emitSave('StartSaveRequest');
       if (autoSave) emitSave('SaveComplete', { options: params.LocationCategories, result: 0 });
       return true;
-    } },
-    GameStateStorage: { getGameConfigurationSaveType: () => 1, querySaveGameList: () => 99, closeFileListQuery() {} },
+    }, deleteSaveGame() { calls.saveDeletes++; } },
+    GameStateStorage: { getGameConfigurationSaveType: () => 1, querySaveGameList: () => { calls.saveQueries++; return 99; }, closeFileListQuery() {} },
     SaveLocations: { LOCAL_STORAGE: 1 }, SaveLocationCategories: { NORMAL: 1, AUTOSAVE: 4, QUICKSAVE: 2 },
     SaveFileTypes: { GAME_STATE: 0 }, SerializerResult: { RESULT_OK: 0, RESULT_PENDING: 1 },
     Game: { turn, age: 'age1' }, GameContext: ctx,
@@ -108,13 +118,11 @@ function harness({ turn = 5, multiplayer = false, readonlyNative = false, storag
     setInterval: fn => { timers.push(fn); return timers.length; }, clearInterval() {},
     Date: class extends Date { static now() { return clock.now; } },
   };
-  const saveSource = fs.readFileSync(new URL('../ui/rest-save.js', import.meta.url), 'utf8').replace(/^export /gm, '');
   // Fixed short intervals keep interaction scenarios independent of product defaults.
   sandbox.settingsStore.data.config.intervals = [5, 4, 3, 2, 1];
   sandbox.settingsStore.data.config.nightEnabled = nightEnabled;
   sandbox.settingsStore.data.config.idleSaveEnabled = idleSaveEnabled;
-  const retentionSource = fs.readFileSync(new URL('../ui/rest-retention.js', import.meta.url), 'utf8').replace(/^export /gm, '');
-  vm.runInNewContext(retentionSource + '\n' + saveSource + '\n' + source, sandbox);
+  vm.runInNewContext(source, sandbox);
   timers[0](); // The bootstrap interval observes an already attached panel.
   return { calls, clock, timers, events, sandbox, storage: localStorage, session,
     respondToExit, emitSave,
@@ -161,17 +169,17 @@ test('exit confirmation DOM clicks and Enter are not swallowed by the rest captu
   assert.equal(h.calls.submits, 0);
 });
 
-test('exit button confirms quitting, cancel preserves the break and duplicate requests share one dialog', () => {
+test('exit shortcut shows confirmation and cancel preserves the break', () => {
   const h = harness({ playedTurns: 4 });
   h.panel.sendEndTurn();
   const deadline = h.session.pending.deadline;
-  h.view().callbacks.quit(); h.view().callbacks.quit();
+  h.input('keyboard-escape');
   assert.equal(h.calls.exitPrompts, 1);
   assert.deepEqual(h.calls.exits, []);
   h.input('cancel');
   assert.equal(h.session.pending.deadline, deadline);
   assert.equal(h.view().mode, 'rest');
-  h.view().callbacks.quit();
+  h.input('cancel');
   h.clock.now += 300000;
   h.input('accept');
   assert.deepEqual(h.calls.exits, ['exitToDesktop']);
@@ -233,21 +241,33 @@ test('HUD opens native settings; native input works while auto-end-turn is block
   assert.equal(h.calls.submits, 2);
 });
 
-test('a time break blocks native settings until completed, then returns to that screen', () => {
+test('a time break starting in native options leaves confirm/cancel and controller navigation available', () => {
   const h = harness({ turn: 3 });
   h.view().callbacks.openSettings();
   for (let i = 0; i < 25; i++) { h.clock.now += 60000; h.input('mousebutton-left'); }
-  assert.equal(h.view().mode, 'rest');
-  assert.equal(h.input('keyboard-escape'), false);
-  assert.equal(h.settingsOpen(), true);
-  h.respondToExit(2);
-  h.clock.now += 300000;
-  h.view().callbacks.resume();
-  assert.equal(h.view().mode, null);
-  assert.equal(h.settingsOpen(), true);
-  assert.equal(h.calls.submits, 0);
-  h.input('keyboard-escape');
+  const deadline = h.session.pending.deadline;
+  assert.equal(h.view().root.style.display, 'none');
+  assert.equal(h.input('accept'), true);
+  assert.equal(h.sandbox.ContextManager.handleNavigation({}), true);
+  h.panel.sendEndTurn();
+  assert.equal(h.input('keyboard-escape'), true);
   assert.equal(h.settingsOpen(), false);
+  assert.equal(h.input('force-end-turn'), false);
+  assert.equal(h.session.pending.deadline, deadline);
+  assert.equal(h.calls.submits, 0);
+});
+
+test('a break starting in a player-opened pause menu leaves the native menu interactive', () => {
+  const h = harness({ turn: 3 });
+  h.sandbox.InterfaceMode.mode = 'INTERFACEMODE_PAUSE_MENU';
+  h.showNativeScreen('#screen-pause-menu');
+  for (let i = 0; i < 25; i++) { h.clock.now += 60000; h.input('mousebutton-left'); }
+  assert.ok(h.session.pending);
+  assert.equal(h.view().root.style.display, 'none');
+  assert.equal(h.input('accept'), true);
+  h.hideNativeScreen('#screen-pause-menu'); h.sandbox.InterfaceMode.mode = 'INTERFACEMODE_DEFAULT';
+  assert.equal(h.input('force-end-turn'), false);
+  assert.equal(h.view().root.style.display, '');
 });
 test('native direct submission is guarded when engine allows wrapping', () => {
   const h = harness({ playedTurns: 4 });
@@ -380,18 +400,18 @@ test('time feature off and loading do not open an idle overlay', () => {
   }
 });
 
-test('idle rest over native settings returns to the same screen on continue', () => {
+test('idle rest waits behind native settings and can be dismissed after the options close', () => {
   const h = harness({ turn: 4 });
   h.view().callbacks.openSettings();
   h.clock.now += 60000;
   h.timers[0]();
   assert.equal(h.view().mode, 'idle');
-  h.input('keyboard-escape');
-  assert.equal(h.settingsOpen(), true);
-  h.respondToExit(2);
+  assert.equal(h.view().root.style.display, 'none');
+  assert.equal(h.input('keyboard-escape'), true);
+  assert.equal(h.settingsOpen(), false);
   h.input('mousebutton-left', 'continue');
   assert.equal(h.view().mode, null);
-  assert.equal(h.settingsOpen(), true);
+  assert.equal(h.calls.submits, 0);
 });
 test('age reset changes interval without writing turn or timer data', () => {
   const h = harness({ turn: 80, playedTurns: 1 });
@@ -439,72 +459,93 @@ test('a loaded turn number alone never counts; panel and native hooks count one 
 });
 
 
-test('forced and opted-in voluntary breaks each save once; refresh/input never creates another file', () => {
-  for (const mode of ['turn', 'time', 'idle']) {
-    const h = harness({ playedTurns: mode === 'turn' ? 4 : 0, idleSaveEnabled: mode === 'idle' });
+test('all break triggers, refreshes and legacy save opt-ins never save, query or delete files', () => {
+  for (const mode of ['turn', 'time', 'idle', 'night']) {
+    const h = harness({ playedTurns: mode === 'turn' ? 4 : 0, idleSaveEnabled: true,
+      nightEnabled: mode === 'night', startTime: localTime(mode === 'night' ? 23 : 12) });
     if (mode === 'turn') h.panel.sendEndTurn();
     else if (mode === 'time') {
       for (let i = 0; i < 25; i++) { h.clock.now += 60000; h.input('mousebutton-left'); }
-    } else { h.clock.now += 60000; h.timers[0](); }
+    } else if (mode === 'idle') { h.clock.now += 60000; h.timers[0](); }
     for (let i = 0; i < 10; i++) { h.timers[0](); h.events.get('mousemove')(); }
-    assert.equal(h.calls.restSaves.length, 1);
-    assert.match(h.calls.restSaves[0].FileName, /^RestGuard_(Turn|Time|Idle)_T/);
-    assert.equal(h.calls.restSaves[0].Overwrite, false);
-    assert.equal(h.calls.restSaves[0].LocationCategories, 4);
-    assert.equal(h.view().saveState.status, 'saved');
+    h.emitSave('SaveComplete', { options: 4, result: 0 });
+    assert.equal(h.view().mode, mode === 'turn' || mode === 'time' ? 'rest' : mode);
+    assert.deepEqual(h.calls.restSaves, []);
+    assert.equal(h.calls.saveQueries, 0); assert.equal(h.calls.saveDeletes, 0);
     assert.equal(h.calls.submits, 0);
   }
 });
 
-test('idle continue and exit remain usable during saving; later break gets a different file', () => {
-  const h = harness({ autoSave: false, idleSaveEnabled: true });
-  h.clock.now += 60000; h.timers[0]();
-  assert.equal(h.view().saveState.status, 'saving');
-  h.view().callbacks.quit(); h.input('cancel');
-  h.input('mousebutton-left', 'continue');
-  assert.equal(h.view().mode, null);
-  h.emitSave('SaveComplete', { options: 4, result: 0 });
-  h.clock.now += 60000; h.timers[0]();
-  assert.equal(h.calls.restSaves.length, 2);
-  assert.notEqual(h.calls.restSaves[0].FileName, h.calls.restSaves[1].FileName);
-});
-
-test('rest handoff never saves the same break again', () => {
-  const h = harness({ playedTurns: 4, autoSave: false });
-  h.panel.sendEndTurn();
-  const loaded = harness({ savedSession: h.session.export() });
-  assert.equal(loaded.view().mode, 'rest');
-  assert.equal(loaded.calls.restSaves.length, 0);
-  assert.equal(loaded.view().saveState.status, 'unconfirmed');
-});
-
-
-test('only a matching autosave completion confirms the rest snapshot', () => {
-  const h = harness({ autoSave: false, idleSaveEnabled: true });
-  h.clock.now += 60000; h.timers[0]();
-  for (const result of [{ options: 1 }, { options: 2 }, { options: 0 }, { options: 5 }, { options: 4, fileType: 9 },
-    { options: 4, type: 9 }, { options: 4, fileName: 'AutoSave_00_0001' }]) {
-    h.emitSave('SaveComplete', { ...result, result: 0 });
-    assert.equal(h.session.restSave.status, 'saving');
+test('native menu permits saving and options without dismissing or completing a required break', () => {
+  const h = harness({ playedTurns: 4 }); h.panel.sendEndTurn();
+  const deadline = h.session.pending.deadline;
+  h.input('sys-menu');
+  assert.equal(h.calls.menuOpens, 1);
+  assert.equal(h.view().root.style.display, 'none');
+  assert.equal(h.view().callbacks.hasDialog(), true, 'timer cannot steal menu focus');
+  for (const name of ['screen-save-load', 'screen-options']) {
+    const screen = h.showNativeScreen(name);
+    assert.equal(h.input('mousebutton-left', screen), true);
+    assert.equal(h.input('keyboard-enter'), true);
+    assert.equal(h.sandbox.ContextManager.handleNavigation({}), true);
+    for (const type of ['click', 'keydown', 'keyup', 'pointerdown', 'wheel']) {
+      h.events.get(type)({ type, key: 'x', target: screen,
+        preventDefault() { assert.fail(`native menu ${type} was blocked`); }, stopImmediatePropagation() {} });
+    }
+    h.hideNativeScreen(name);
   }
-  h.emitSave('SaveComplete', { options: 4, type: 1, fileType: 0,
-    fileName: h.calls.restSaves[0].FileName, result: 0 });
-  assert.equal(h.session.restSave.status, 'saved');
+  h.panel.sendEndTurn(); h.sandbox.GameContext.sendTurnComplete();
+  assert.equal(h.panel.sendEndTurn.c7rCanRequestTurn(), false);
+  let blocked = false;
+  h.events.get('hotkey-next-action')({ type: 'hotkey-next-action', preventDefault() { blocked = true; }, stopImmediatePropagation() {} });
+  assert.equal(blocked, true);
+  h.clock.now += 60000; h.timers[0]();
+  assert.equal(h.view().remaining, 240000);
+  assert.equal(h.session.pending.deadline, deadline);
+  h.sandbox.InterfaceMode.mode = 'INTERFACEMODE_DEFAULT';
+  assert.equal(h.input('force-end-turn'), false, 'first world input reactivates the guard');
+  assert.equal(h.view().root.style.display, '');
+  h.view().callbacks.resume(); assert.equal(h.calls.submits, 0);
+  h.view().callbacks.openGameMenu();
+  h.clock.now += 300000; h.timers[0]();
+  h.view().callbacks.resume();
+  assert.equal(h.calls.submits, 0, 'deadline and stale Continue actions must not submit while saving');
+  h.sandbox.InterfaceMode.mode = 'INTERFACEMODE_DEFAULT'; h.timers[0]();
+  h.view().callbacks.resume(); assert.equal(h.calls.submits, 1);
+  assert.deepEqual(h.calls.restSaves, []);
 });
 
-test('rest adapter consumes the save-before recovery snapshot without claiming its completion', () => {
-  const h = harness({ autoSave: false, idleSaveEnabled: true });
-  h.emitSave('StartSaveRequest'); h.emitSave('StartSaveRequest');
-  h.emitSave('SaveComplete', { options: 1, result: 0 });
-  h.sandbox.__civ7BeforeEndTurnV1 = {
-    busy: false,
-    saveTracking: { recovery: { source: 'civ7-before-end-turn', kind: 'turn' }, inFlight: 0 }
-  };
-  h.clock.now += 60000; h.timers[0]();
-  assert.equal(h.calls.restSaves.length, 1);
-  assert.equal(h.session.restSave.status, 'saving');
-  h.emitSave('SaveComplete', { options: 4, fileName: h.calls.restSaves[0].FileName, result: 0 });
-  assert.equal(h.session.restSave.status, 'saved');
+test('night and idle menus remain usable and returning never submits a turn', () => {
+  for (const mode of ['night', 'idle']) {
+    const h = harness({ nightEnabled: mode === 'night', startTime: localTime(23) });
+    if (mode === 'idle') { h.clock.now += 60000; h.timers[0](); }
+    h.view().callbacks.openGameMenu();
+    assert.equal(h.input('quicksave'), true);
+    h.sandbox.InterfaceMode.mode = 'INTERFACEMODE_DEFAULT'; h.timers[0]();
+    assert.equal(h.view().root.style.display, '');
+    assert.equal(h.view().mode, mode);
+    h.view().callbacks.resume();
+    assert.equal(h.view().mode, mode === 'night' ? 'night' : null);
+    assert.equal(h.calls.submits, 0);
+  }
+});
+
+test('menu activation failure restores the rest overlay and input lock', () => {
+  const h = harness({ playedTurns: 4 }); h.panel.sendEndTurn();
+  h.sandbox.InterfaceMode.switchTo = () => { throw new Error('unavailable'); };
+  h.view().callbacks.openGameMenu();
+  assert.equal(h.view().root.style.display, '');
+  assert.equal(h.input('force-end-turn'), false);
+  assert.equal(h.calls.submits, 0);
+});
+
+test('native pause view rejection keeps the overlay even if the mode already changed', () => {
+  const h = harness({ playedTurns: 4 }); h.panel.sendEndTurn();
+  h.sandbox.InterfaceMode.switchTo = name => { h.sandbox.InterfaceMode.mode = name; return false; };
+  h.view().callbacks.openGameMenu();
+  assert.equal(h.view().root.style.display, '');
+  assert.equal(h.input('force-end-turn'), false);
+  assert.equal(h.calls.submits, 0);
 });
 
 const localTime = (h, m = 0, day = 22) => new Date(2026, 9, day, h, m).getTime();
@@ -512,17 +553,16 @@ const localTime = (h, m = 0, day = 22) => new Date(2026, 9, day, h, m).getTime()
 test('night restriction blocks all turn and continue routes but preserves exit confirmation', () => {
   const h = harness({ nightEnabled: true, startTime: localTime(23) });
   assert.equal(h.view().mode, 'night');
-  assert.equal(h.calls.restSaves.length, 1);
-  assert.match(h.calls.restSaves[0].FileName, /^RestGuard_Night_/);
+  assert.equal(h.calls.restSaves.length, 0);
   assert.equal(h.panel.sendEndTurn.c7rCanRequestTurn(), false);
   h.panel.sendEndTurn(); h.sandbox.GameContext.sendTurnComplete();
   for (const input of ['accept', 'keyboard-enter', 'force-end-turn', 'mousebutton-left']) h.input(input, 'continue');
   h.view().callbacks.resume();
   assert.equal(h.calls.submits, 0);
-  assert.equal(h.calls.restSaves.length, 1);
+  assert.equal(h.calls.restSaves.length, 0);
   h.input('keyboard-escape'); assert.equal(h.calls.exitPrompts, 1);
   h.input('cancel'); assert.equal(h.view().mode, 'night');
-  h.view().callbacks.quit(); h.input('accept');
+  h.input('cancel'); h.input('accept');
   assert.deepEqual(h.calls.exits, ['exitToDesktop']);
 });
 
@@ -598,8 +638,6 @@ test('default idle breaks never autosave, and Continue restores native manual-sa
   h.clock.now += 60000;
   for (let i = 0; i < 10; i++) h.timers[0]();
   assert.equal(h.view().mode, 'idle');
-  assert.equal(h.session.restSave, null);
-  assert.equal(h.view().saveState, null);
   assert.equal(h.calls.restSaves.length, 0);
   h.view().callbacks.resume();
   assert.equal(h.view().mode, null);
@@ -608,4 +646,61 @@ test('default idle breaks never autosave, and Continue restores native manual-sa
   assert.equal(h.calls.submits, 0);
   h.clock.now += 60000; h.timers[0]();
   assert.equal(h.calls.restSaves.length, 0, 'later idle breaks also stay unsaved');
+});
+
+
+test('diplomatic breaks use the full native pause menu, even if suspending the queue refreshes the UI', () => {
+  for (const mode of ['INTERFACEMODE_DIPLOMACY_PROJECT_REACTION', 'INTERFACEMODE_PEACE_DEAL',
+    'INTERFACEMODE_DIPLOMACY_DIALOG', 'INTERFACEMODE_DIPLOMACY_HUB']) {
+    const h = harness({ playedTurns: 4 }); h.panel.sendEndTurn();
+    const deadline = h.session.pending.deadline;
+    h.sandbox.InterfaceMode.mode = mode;
+    h.sandbox.DisplayQueueManager.suspend = function () {
+      this.suspended = true; h.timers[0]();
+    };
+    h.view().callbacks.openGameMenu();
+    assert.equal(h.sandbox.InterfaceMode.mode, 'INTERFACEMODE_PAUSE_MENU');
+    assert.equal(h.sandbox.DisplayQueueManager.suspended, true);
+    assert.equal(h.settingsOpen(), false);
+    assert.equal(h.view().root.style.display, 'none');
+    assert.equal(h.input('accept'), true);
+    h.sandbox.DisplayQueueManager.resume(); h.sandbox.InterfaceMode.mode = mode;
+    h.timers[0]();
+    assert.equal(h.input('force-end-turn'), false);
+    assert.equal(h.view().root.style.display, '');
+    assert.equal(h.session.pending.deadline, deadline);
+    assert.equal(h.calls.restSaves.length + h.calls.submits, 0);
+  }
+});
+
+test('failed pause entry restores only the display suspension owned by this action', () => {
+  for (const alreadySuspended of [false, true]) for (const throws of [false, true]) {
+    const h = harness({ playedTurns: 4 }); h.panel.sendEndTurn();
+    h.sandbox.DisplayQueueManager.suspended = alreadySuspended;
+    h.sandbox.InterfaceMode.switchTo = () => { if (throws) throw new Error('view unavailable'); return false; };
+    h.view().callbacks.openGameMenu();
+    assert.equal(h.sandbox.DisplayQueueManager.isSuspended(), alreadySuspended);
+    assert.equal(h.calls.queueResumes, alreadySuspended ? 0 : 1);
+    assert.equal(h.view().root.style.display, '');
+    assert.equal(h.input('force-end-turn'), false);
+  }
+});
+
+test('the native Start Game curtain owns pointer, accept and navigation even with a pending rest', () => {
+  const h = harness({ playedTurns: 4 });
+  h.panel.sendEndTurn();
+  const deadline = h.session.pending.deadline;
+  const curtain = h.showNativeScreen('#loading-curtain');
+  h.timers[0]();
+  assert.equal(h.input('mousebutton-left', curtain), true);
+  assert.equal(h.input('accept'), true);
+  assert.equal(h.sandbox.ContextManager.handleNavigation({preventDefault() {}}), true);
+  h.events.get('click')({ type: 'click', target: curtain, preventDefault() { assert.fail('Start Game click swallowed'); } });
+  assert.equal(h.view().root.style.display, 'none');
+  h.panel.sendEndTurn();
+  assert.equal(h.calls.submits, 0);
+  h.hideNativeScreen('#loading-curtain');
+  h.timers[0]();
+  assert.equal(h.input('accept'), false);
+  assert.equal(h.session.pending.deadline, deadline);
 });

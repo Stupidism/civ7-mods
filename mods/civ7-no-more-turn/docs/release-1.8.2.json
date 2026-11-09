@@ -87,8 +87,8 @@
   },
   "downloadHashesVerified": true,
   "fontRegression": {
-    "before": "Chinese paragraph incorrectly selected BodyFont, sans-serif",
-    "after": "Native font-body stack selected by game locale; browser confirmed actual Noto Sans SC glyph rendering",
+    "before": "中文正文错误地选择了 BodyFont, sans-serif。",
+    "after": "原生 font-body 字体序列随游戏语言选择；浏览器已确认实际使用 Noto Sans SC 渲染中文字形。",
     "test": "tests/font-render.test.js",
     "requiredEnvironment": [
       "CIV7_GAME_DIR",

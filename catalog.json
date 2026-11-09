@@ -43,7 +43,7 @@
     },
     {
       "id": "civ7-rest-guard",
-      "version": "1.8.6",
+      "version": "1.8.8",
       "manifest": "mods/civ7-no-more-turn/rest-guard.modinfo",
       "dependencies": [
         "base-standard"

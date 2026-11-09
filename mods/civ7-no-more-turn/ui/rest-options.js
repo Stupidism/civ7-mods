@@ -6,7 +6,7 @@ export const REST_OPTIONS_FIRST_ID = 'rest-guard-turn-enabled';
 
 // Native Confirm owns persistence. Cancel never writes settings or resets timers.
 export function installRestOptions({ options, optionType, categories, store, applied,
-  canCommit = () => true, reportError = () => {} }) {
+  reportError = () => {} }) {
   let active = true;
   let saved = normalizeConfig(store.data.config);
   let draft = normalizeConfig(saved);
@@ -26,7 +26,6 @@ export function installRestOptions({ options, optionType, categories, store, app
   }
   function persist() {
     if (!differs()) return;
-    if (!canCommit()) throw new Error('Rest Guard: finish the current rest before changing settings.');
     const before = normalizeConfig(store.data.config);
     store.data.config = normalizeConfig(draft);
     if (!store.save()) {
@@ -76,8 +75,8 @@ export function installRestOptions({ options, optionType, categories, store, app
       options.addOption(entry);
       entries.push(entry);
     }
-    // Keep each switch immediately before its own controls. Duration and save
-    // retention are shared by multiple triggers, so they form a final section.
+    // Keep each switch immediately before its own controls. Break duration
+    // is shared by multiple triggers, so it forms a final section.
     add('turn-enabled', 'TURN_ENABLED', 'TURN_DESCRIPTION', c => c.turnEnabled, (c, v) => { c.turnEnabled = v; });
     for (let i = 0; i < 5; i++) {
       add(`interval-${i}`, `STAGE_${i}`, 'TURN_DESCRIPTION', c => c.intervals[i], (c, v) => { c.intervals[i] = v; },
@@ -92,9 +91,6 @@ export function installRestOptions({ options, optionType, categories, store, app
     add('night-end', 'NIGHT_END', 'NIGHT_DESCRIPTION', c => c.nightEnd, (c, v) => { c.nightEnd = v; }, times, clockTime, 'nightEnabled');
     add('rest-minutes', 'REST_MINUTES', 'REST_DESCRIPTION', c => c.restMinutes, (c, v) => { c.restMinutes = v; },
       [0.1, ...Array.from({ length: 240 }, (_, i) => (i + 1) / 2)]);
-    add('save-keep-count', 'SAVE_KEEP_COUNT', 'SAVE_KEEP_DESCRIPTION', c => c.saveKeepCount, (c, v) => { c.saveKeepCount = v; },
-      Array.from({ length: 100 }, (_, i) => i + 1));
-    add('idle-save-enabled', 'IDLE_SAVE_ENABLED', 'IDLE_SAVE_DESCRIPTION', c => c.idleSaveEnabled, (c, v) => { c.idleSaveEnabled = v; });
     const reset = {
       id: 'rest-guard-reset', category: REST_OPTIONS_CATEGORY, group: REST_OPTIONS_GROUP,
       type: optionType.Editor, label: 'LOC_RG_RESET_LABEL', description: 'LOC_RG_RESET_DESCRIPTION',

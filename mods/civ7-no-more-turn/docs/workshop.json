@@ -3,18 +3,18 @@
   "publishedFileId": "3815557333",
   "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3815557333",
   "modId": "civ7-rest-guard",
-  "version": "1.8.6",
+  "version": "1.8.8",
   "visibilitySelected": "public",
   "tags": [
     "Gameplay Tweaks",
     "UI"
   ],
   "title": "No More Turn（不再来一回合）",
-  "publishedAt": "2026-10-24T12:24:28+00:00",
+  "publishedAt": "2026-11-06T19:31:45+08:00",
   "publishResult": 1,
   "downloadHashesVerified": true,
-  "verifiedFileCount": 20,
-  "offlineTestsPassed": 78,
+  "verifiedFileCount": 19,
+  "offlineTestsPassed": 129,
   "liveGameTested": false,
   "languages": [
     "en_US",
@@ -23,5 +23,10 @@
   "previewFile": "docs/workshop-preview.jpg",
   "previewSha256": "ff589f5a5e2ceb2d7ce123f1bb91c2b01e14db4dc4fcaae02e29554f36426aa5",
   "previewHashesVerified": true,
-  "previewUpdatedAt": "2026-10-22T22:35:21.978421+08:00"
+  "previewUpdatedAt": "2026-10-22T22:35:21.978421+08:00",
+  "descriptionSha256": "f21508e7273a8a6f41a8a88d6657101e6580c6222bbc7eb3ae19b3bdcd0e3ee3",
+  "descriptionVerifiedAt": "2026-11-06T19:31:45+08:00",
+  "descriptionReceipt": "docs/release-1.8.8.json",
+  "releaseReceipt": "docs/release-1.8.8.json",
+  "userAcceptedBuild": "1.8.7-dev.1103-2223-9b620247"
 }

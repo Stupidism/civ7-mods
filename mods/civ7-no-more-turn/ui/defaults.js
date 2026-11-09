@@ -2,8 +2,6 @@
 export const DEFAULTS = Object.freeze({
   turnEnabled: true,
   timeEnabled: true,
-  saveKeepCount: 10,
-  idleSaveEnabled: false,
   nightEnabled: true,
   nightStart: 22 * 60,
   nightEnd: 7 * 60,
