@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Mod id="civ7-resource-planner" version="1.5.0" xmlns="ModInfo">
+<Mod id="civ7-resource-planner" version="1.5.1" xmlns="ModInfo">
   <Properties>
-    <Name>LOC_RP_MOD_NAME</Name><Version>1.5.0</Version>
+    <Name>LOC_RP_MOD_NAME</Name><Version>1.5.1</Version>
     <Description>LOC_RP_MOD_DESCRIPTION</Description>
     <Authors>Better Resource UI; Resource Re-sorts UI by beezany</Authors>
     <AffectsSavedGames>0</AffectsSavedGames><EnabledByDefault>1</EnabledByDefault>

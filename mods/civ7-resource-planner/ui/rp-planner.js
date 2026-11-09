@@ -138,17 +138,29 @@ export function utility(values,preferences) {
   }));
 }
 
-export function marginal(city, resource, assigned = []) {
+export function marginalScore(city, resource, assigned = []) {
   const before = cityScoreVector(city, assigned);
   const after = cityScoreVector(city, [...assigned,resource]);
+  return utility(after,city.tendency)-utility(before,city.tendency);
+}
+
+function marginalYields(city, resource, assigned = []) {
   const rawBefore = cityYieldVector(city, assigned),rawAfter = cityYieldVector(city, [...assigned,resource]);
-  return { score: utility(after,city.tendency)-utility(before,city.tendency), yields: rawAfter.map((v,i)=>v-rawBefore[i]) };
+  return rawAfter.map((v,i)=>v-rawBefore[i]);
+}
+
+export function marginal(city, resource, assigned = []) {
+  return { score: marginalScore(city,resource,assigned), yields: marginalYields(city,resource,assigned) };
 }
 
 function permitted(r,c,mode) {
   if (!r.allowed.includes(c.key)) return false;
-  const m=marginal(c,r);
-  if (mode === 'happiness') return cityYieldVector(c,[])[5]<0 && m.yields[5]>EPS;
+  if (mode === 'happiness') {
+    const before=cityYieldVector(c,[]);
+    if (!(before[5] < 0)) return false;
+    const after=cityYieldVector(c,[r]);
+    return after[5]-before[5] > EPS;
+  }
   return mode==='score' || hasPreferences(c.tendency) || r.original === c.key;
 }
 
@@ -165,7 +177,7 @@ function* matching(resources,cities,mode,eligible) {
     add(source,ro+ri,1,0);
     cities.forEach((c,ci)=>{
       if (!eligible(r,c)) return;
-      const value=marginal(c,r).score;
+      const value=marginalScore(c,r);
       if(value>EPS || r.original===c.key) add(ro+ri,co+ci,1,-value-(r.original===c.key?1e-8:0),{ri,ci});
     });
   });
@@ -206,7 +218,7 @@ function* improve(assignment,resources,cities,mode,eligible) {
   };
   for(const r of resources) {
     const key=assignment[r.key],held=resources.filter(x=>assignment[x.key]===key);
-    if(key && r.original!==key && marginal(byCity.get(key),r,held.filter(x=>x.key!==r.key)).score<=EPS)delete assignment[r.key];
+    if(key && r.original!==key && marginalScore(byCity.get(key),r,held.filter(x=>x.key!==r.key))<=EPS)delete assignment[r.key];
   }
   for(let pass=0;pass<resources.length*2+4;pass++) {
     // Build membership once per pass instead of scanning every resource for

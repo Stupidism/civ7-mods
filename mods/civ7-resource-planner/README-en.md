@@ -1,6 +1,6 @@
 # Better Resource UI
 
-[简体中文](README.md) · **1.5.0** · November 9, 2026
+[简体中文](README.md) · **1.5.1** · November 9, 2026
 
 Review settlement yields, mark priorities, fill happiness shortfalls and assign resources in one panel. English and Simplified Chinese follow the game language. The internal ID remains `civ7-resource-planner`, preserving existing preferences.
 
@@ -52,6 +52,6 @@ The Garbage Time integration is retained and requires enabling its resource auto
 
 ## Validation and development
 
-184 offline checks passed with zero skips for this release. Historical Mac live checks cover their respective builds only. The latest production valuation, full physical-controller behavior, Windows, multiplayer and all third-party combinations have not completed live acceptance. Existing Workshop screenshots show1.1.0, not this layout.
+1.5.1 includes reminder, native production percentage and score-path fixes. The preceding fix build passed targeted turn-108 live checks for allocation, Salt/damaged-resource reminders and waste intervals; the final performance change was checked offline for equivalent results, not re-tested in game. Physical controllers, repaired-resource reminder recovery, non-Salt native percentage scenarios, Windows, multiplayer and all third-party combinations remain incompletely verified. Workshop screenshots are from1.1.0. See docs/release-1.5.1-validation.md.
 
 [Historical validation](https://github.com/Stupidism/civ7-mods/blob/main/mods/civ7-resource-planner/VALIDATION.md). Run `node --test tests/*.test.mjs` from this directory with Node.js22+. Tests requiring installed native libraries or a browser explicitly skip when unavailable. Package with `python3 tools/package.py --output <directory-outside-repository>`.

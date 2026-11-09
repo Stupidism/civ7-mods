@@ -1,6 +1,6 @@
 # 更好的资源界面
 
-[English](README-en.md) · 版本 **1.5.0** · 2026-11-09
+[English](README-en.md) · 版本 **1.5.1** · 2026-11-09
 
 在同一资源页面里查看定居点产出、标记倾向、补足幸福度并安排资源。支持简体中文与英文，跟随游戏文字语言。内部 Mod ID 沿用 `civ7-resource-planner`，保留已有偏好。
 
@@ -52,6 +52,6 @@
 
 ## 验证与源码
 
-本次184项离线检查通过，零跳过。过往Mac实机记录仅对应各自构建；本次新增生产估值、完整实体手柄、Windows、多人及全部第三方组合仍未完成实机验收。工坊旧附图为1.1.0，不能代表新版布局。
+1.5.1 包含提醒、原生产能倍率及评分路径优化。108T 实测已验证此前修复的实际分配、只剩盐／损坏资源提醒和浪费区间；最后的性能优化做离线等价回归，未重新进入游戏。完整实体手柄、损坏资源修复后提醒、非盐原生百分比、Windows、多人及全部第三方组合仍未完成实机验收。工坊旧附图为1.1.0。详见 docs/release-1.5.1-validation.md。
 
 [完整历史验证记录](https://github.com/Stupidism/civ7-mods/blob/main/mods/civ7-resource-planner/VALIDATION.md)。源码测试：在本目录运行 `node --test tests/*.test.mjs`（Node.js22+）；需要本机游戏库或浏览器的测试会在依赖缺失时明确跳过。发行打包使用 `python3 tools/package.py --output <仓库外输出目录>`。

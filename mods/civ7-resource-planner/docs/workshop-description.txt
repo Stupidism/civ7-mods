@@ -1,4 +1,8 @@
 [h1]更好的资源界面 · Better Resource UI[/h1]
+[h2]1.5.1 更新 / Update — 2026-11-09[/h2]
+修复只剩盐或损坏资源时的分配提醒；生产评分正确计入原生百分比加成，保留浪费区间与基础溢出规则；减少大帝国包含骆驼分配时的重复计算，分配规则不变。
+Fix resource reminders when only Salt or damaged resources remain; include native production percentages while retaining the waste-interval and base-overflow policy; reduce redundant work in large allocations with Camels without changing allocation rules.
+
 [h2]1.5.0 更新 / Update — 2026-11-09[/h2]
 [list]
 [*]资源规划更名为“更好的资源界面”；独立运行，不再需要另外安装 Resource Re-sorts。
@@ -30,8 +34,8 @@ Native locks, resource classes, trade networks and capacity still apply. Allocat
 [b]No separate Re-sorts dependency. Disable competing commerce-page overrides, including separate Resource Re-sorts.[/b] Restart after Steam updates; avoid duplicate manual/Workshop copies. No separate Action Order mod is needed; disable retired Action Order Adjustments.
 页面派生自 beezany 的 Resource Re-sorts3.0.2，保留原作者与游戏代码归属，未对第三方代码另授许可证。英文和简体中文跟随游戏语言。
 Pages derive from Resource Re-sorts3.0.2 by beezany. Original mod/game rights remain with their owners; no additional third-party license is granted. English and Simplified Chinese follow the game language.
-本次184项离线检查通过，零跳过；历史Mac实机记录只对应各自构建。新版生产估值、完整实体手柄、Windows、多人和全部第三方组合尚未完成实机验收。附图仍为1.1.0实机图，不代表新版布局。
-184 offline checks passed, zero skipped. Historical Mac live results apply to their respective builds. Latest production valuation, full physical-controller behavior, Windows, multiplayer and all third-party combinations remain unverified in live play. Existing screenshots show1.1.0, not the new layout.
+1.5.1 包含提醒、原生产能倍率及评分路径优化。108T 实测已验证此前修复的实际分配、只剩盐／损坏资源提醒和浪费区间；最后的性能优化做离线等价回归，未重新进入游戏。完整实体手柄、损坏资源修复后提醒、非盐原生百分比、Windows、多人及全部第三方组合仍未完成实机验收。工坊旧附图为1.1.0。
+1.5.1 includes reminder, native production percentage and score-path fixes. The preceding fix build passed targeted turn-108 live checks for allocation, Salt/damaged-resource reminders and waste intervals; the final performance change was checked offline for equivalent results, not re-tested in game. Physical controllers, repaired-resource reminder recovery, non-Salt native percentage scenarios, Windows, multiplayer and all third-party combinations remain incompletely verified. Workshop screenshots are from1.1.0.
 
 [h2]历史更新1.1.0 / Previous update — 2026-10-23[/h2]
 增加英文和简体中文；资源调整期间保持顺序，主动排序或关闭重开才重算；修复资源拾取／放置及右键／Esc取消时误关面板。

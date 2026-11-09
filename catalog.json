@@ -35,7 +35,7 @@
     },
     {
       "id": "civ7-resource-planner",
-      "version": "1.5.0",
+      "version": "1.5.1",
       "manifest": "mods/civ7-resource-planner/resource-planner.modinfo",
       "dependencies": [
         "base-standard"

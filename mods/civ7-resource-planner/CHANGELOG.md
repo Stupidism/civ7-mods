@@ -1,3 +1,13 @@
+# 1.5.1 — 2026-11-09
+
+- 修复只剩盐或损坏资源时的分配提醒；生产评分正确计入原生百分比加成，保留浪费区间与基础溢出规则；减少大帝国包含骆驼分配时的重复计算，分配规则不变。
+
+English: Fix resource reminders when only Salt or damaged resources remain; include native production percentages while retaining the waste-interval and base-overflow policy; reduce redundant work in large allocations with Camels without changing allocation rules.
+
+验证范围及性能数据见 docs/release-1.5.1-validation.md；完整实体手柄验收仍未完成。
+
+---
+
 # 1.5.0 — 2026-11-09
 
 - 更名“更好的资源界面”，独立运行，不再要求另装 Re-sorts；保留 beezany 归属。
