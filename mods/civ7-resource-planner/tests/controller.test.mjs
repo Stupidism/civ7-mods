@@ -1,10 +1,11 @@
+import {cyclePreference,hasPreferences,defaultPreferences} from '../ui/rp-planner.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 import {useGameLanguage} from './locale-fixture.mjs';
 import {t,errorMessage} from '../ui/rp-l10n.js';
-import {finishResourceRun} from '../../civ7-garbage-time/ui/resource-model.js';
+import {finishResourceRun} from './fixtures/legacy-compat/civ7-garbage-time/ui/gt-resource-model.js';
 
 const source=readFileSync(new URL('../ui/rp-controller.js',import.meta.url),'utf8')
   .replace(/^import .*;\n/gm,'').replace(/export /g,'');
@@ -12,14 +13,14 @@ function fixture(options={}){
   useGameLanguage(options.language);
   const mounts=[],cleanups=[];
   let sorts=0,assignments=0,sortType=13,direction=-1;
-  let settings={preferences:{sort:13,direction:-1},games:{}};
+  let settings=structuredClone(options.initialSettings??{preferences:{sort:13,direction:-1},games:{}});
   const model={selectedSettlementSortType:()=>sortType,selectedSortDirection:()=>direction,
     setSelectedSettlementSortType:type=>{sortType=type;},
     toggleSelectedSortDirection:value=>{direction=value??-direction;sorts++;},
     onSortResources:()=>{sorts++;},deselectSelectedResource:()=>{}
   };
   const create=vm.runInNewContext(source+';createPlanner',{
-    t,errorMessage,
+    t,errorMessage,cyclePreference,hasPreferences,defaultPreferences,
     createSignal:initial=>{let value=initial;return [()=>value,next=>{value=typeof next==='function'?next(value):next;}];},
     onMount:fn=>mounts.push(fn),onCleanup:fn=>cleanups.push(fn),createEffect:fn=>fn(),untrack:fn=>fn(),
     readSettings:()=>structuredClone(settings),writeSettings:value=>{if(options.settingsError)throw Error('LOC_RP_INVALID_SETTINGS');settings=value;},
@@ -35,7 +36,7 @@ function fixture(options={}){
     },
     setTimeout,console:{log(){},error:message=>{if(!options.error&&!options.settingsError&&!options.restoreError)throw Error(message);}}
   });
-  return {model,get sorts(){return sorts;},get assignments(){return assignments;},
+  return {model,get settings(){return structuredClone(settings);},get sorts(){return sorts;},get assignments(){return assignments;},
     open(){const p=create(model);mounts.splice(0).forEach(fn=>fn());return p;},
     close(){cleanups.splice(0).forEach(fn=>fn());}
   };
@@ -64,7 +65,7 @@ for(const language of ['en_US','zh_Hans_CN','fr_FR'])test(`controller status and
     }else{
       assert.equal(p.status(),t('HINT'));
       p.run();await new Promise(resolve=>setTimeout(resolve,10));
-      const expected=options.locked?t('LOCKED'):options.noPreference?t('CHOOSE_PREFERENCE'):options.noChanges?t('NO_CHANGES'):
+      const expected=options.locked?t('LOCKED'):options.noChanges?t('NO_CHANGES'):
         options.error?t('ROLLED_BACK',Locale.compose(options.error)):t('COMPLETED',1,1);
       assert.equal(p.status(),expected);
     }
@@ -90,7 +91,7 @@ for(const language of ['en_US','zh_Hans_CN','fr_FR'])test(`Garbage Time acknowle
     [{error:'LOC_RP_OPERATION_TIMEOUT'},'ROLLED_BACK',false],
     [{restoreError:true},'RESTORE_INCOMPLETE',false],
     [{locked:true},'LOCKED',false],
-    [{noPreference:true},'CHOOSE_PREFERENCE',false],
+    [{noPreference:true},'COMPLETED',true],
     [{},'COMPLETED',true],
     [{noChanges:true},'NO_CHANGES',true]
   ]){
@@ -103,4 +104,52 @@ for(const language of ['en_US','zh_Hans_CN','fr_FR'])test(`Garbage Time acknowle
     assert.equal(result.error,!success,code);
     assert.equal(p.statusCode(),code);
   }
+});
+
+test('marking multiple preferences persists independently and never starts allocation or sorting',()=>{
+ let stored={preferences:{sort:13,direction:-1},games:{map:{rome:'YIELD_FOOD'},other:{keep:true}},otherPreference:42};
+ let operations=0,sorts=0;
+ const model={selectedSettlementSortType:()=>13,selectedSortDirection:()=>-1};
+ const create=vm.runInNewContext(source+';createPlanner',{
+   cyclePreference,hasPreferences,defaultPreferences,t,errorMessage,
+   createSignal:v=>[()=>v,n=>v=typeof n==='function'?n(v):n],onMount(){},onCleanup(){},createEffect(){},
+   gameScope:()=> 'map',resourceCatalog:()=>new Map(),Cities:{get:()=>({})},preferenceKey:()=> 'rome',
+   readSettings:()=>structuredClone(stored),writeSettings:v=>stored=structuredClone(v),
+   snapshot:()=>operations++,sendOperation:()=>operations++,console:{log(){},error:assert.fail}
+ });
+ const p=create(model);
+ p.choose({},'YIELD_SCIENCE');assert.deepEqual(stored.games.map.rome,{YIELD_FOOD:2,YIELD_SCIENCE:2});
+ p.choose({},'YIELD_FOOD');assert.deepEqual(stored.games.map.rome,{YIELD_FOOD:0,YIELD_SCIENCE:2});
+ p.choose({},'YIELD_FOOD');assert.deepEqual(stored.games.map.rome,{YIELD_SCIENCE:2});
+ p.choose({},'YIELD_SCIENCE');p.choose({},'YIELD_SCIENCE');assert.equal(stored.games.map.rome,undefined);
+ assert.equal(operations,0);assert.equal(sorts,0);assert.deepEqual(stored.games.other,{keep:true});assert.equal(stored.otherPreference,42);
+});
+
+test('happiness settings persist across reopen without operations; invalid and busy changes are ignored',async()=>{
+ const f=fixture(),p=f.open();
+ assert.equal(p.happinessScope(),'cities');assert.equal(p.settlementTarget(),0);assert.equal(p.cityTarget(),0);
+ p.setSettlementTarget(5);p.setCityTarget(20);p.setHappinessScope('towns');
+ p.setSettlementTarget(99);p.setCityTarget(5);p.setHappinessScope('invalid');
+ assert.equal(f.assignments,0);assert.equal(f.sorts,1);
+ f.close();const q=f.open();
+ assert.equal(q.settlementTarget(),5);assert.equal(q.cityTarget(),20);assert.equal(q.happinessScope(),'towns');
+ f.model.resourceActionBusy=()=>true;q.setSettlementTarget(0);assert.equal(q.settlementTarget(),5);
+ f.model.resourceActionBusy=()=>false;q.run();q.setCityTarget(0);assert.equal(q.cityTarget(),20);
+ await new Promise(resolve=>setTimeout(resolve,10));f.close();q.setSettlementTarget(0);assert.equal(q.settlementTarget(),5);
+});
+
+test('allocation options persist both true and false across fresh controllers and preserve unrelated preferences',()=>{
+ const f=fixture({initialSettings:{preferences:{resourceReminders:false,allocation:{future:7}},games:{other:{keep:1}},extra:9}}),p=f.open();
+ assert.equal(p.camels(),false);assert.equal(p.assigned(),false);
+ p.setCamels(true);p.setAssigned(true);p.setSettlementTarget(5);p.setCityTarget(20);p.setHappinessScope('towns');
+ assert.equal(f.assignments,0);assert.equal(f.sorts,1);
+ f.close();const fresh=fixture({initialSettings:JSON.parse(JSON.stringify(f.settings))}),q=fresh.open();
+ assert.equal(q.camels(),true);assert.equal(q.assigned(),true);assert.equal(q.reminderEnabled(),false);
+ assert.equal(q.happinessScope(),'towns');assert.equal(q.settlementTarget(),5);assert.equal(q.cityTarget(),20);
+ fresh.model.resourceActionBusy=()=>true;q.setCamels(false);q.setAssigned(false);assert.equal(q.camels(),true);assert.equal(q.assigned(),true);
+ fresh.model.resourceActionBusy=()=>false;q.setCamels('false');q.setAssigned(0);assert.equal(q.camels(),true);assert.equal(q.assigned(),true);
+ q.setCamels(false);q.setAssigned(false);fresh.close();q.setCamels(true);assert.equal(q.camels(),false);
+ const third=fixture({initialSettings:fresh.settings}),r=third.open();assert.equal(r.camels(),false);assert.equal(r.assigned(),false);
+ assert.equal(third.settings.preferences.allocation.future,7);assert.equal(third.settings.preferences.resourceReminders,false);
+ assert.deepEqual(third.settings.games.other,{keep:1});assert.equal(third.settings.extra,9);third.close();
 });

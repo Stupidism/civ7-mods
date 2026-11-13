@@ -1,6 +1,6 @@
 {
   "name": "civ7-rest-guard",
-  "version": "1.8.6",
+  "version": "1.8.8",
   "private": true,
   "type": "module",
   "description": "Civilization VII single-player mod with turn-based and time-based rest timers.",
@@ -9,6 +9,7 @@
     "url": "https://github.com/Stupidism/civ7-rest-guard.git"
   },
   "homepage": "https://steamcommunity.com/sharedfiles/filedetails/?id=3815557333",
-  "scripts": { "test": "node --test tests/*.test.js" }
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
 }
-

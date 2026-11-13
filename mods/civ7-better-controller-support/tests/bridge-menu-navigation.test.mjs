@@ -6,6 +6,7 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { createMenuNavigation } from '../ui/menu-navigation.js';
 import { createBridge } from '../ui/bridge-runtime.js';
+import { createNativeNavigationTray, menuNavigationAdapterSource } from './helpers/native-navigation-tray.mjs';
 
 const statuses = { START: 1, UPDATE: 2, FINISH: 3, HOLD: 4 };
 const modules = process.env.CIV7_MODULES_DIR || join(homedir(), "Library/Application Support/Steam/steamapps/common/Sid Meier's Civilization VII/CivilizationVII.app/Contents/Resources/Base/modules");
@@ -101,8 +102,8 @@ function fixture(type = 'main') {
       const viewFile = type === 'pause' ? 'view-pause-menu.js' : 'view-diplomacy.js';
       vm.runInContext(nativeCode(`base-standard/ui/views/${viewFile}`).replace(/^export .*;\r?\n/gm, ''), sandbox);
     }
-    vm.runInContext(readFileSync(new URL('../ui/menu-navigation-adapter.js', import.meta.url), 'utf8')
-      .replace(/^import .*;\r?\n/gm, '').replace('export function ', 'function '), sandbox);
+    sandbox.NavTray = createNativeNavigationTray();
+    vm.runInContext(menuNavigationAdapterSource(), sandbox);
     let configListener;
     const dispose = sandbox.installMenuNavigation({load:()=>({enabled:true}),subscribe:fn=>{configListener=fn;return()=>{};}});
     patch = { dispose, setConfig: config => configListener(config) };

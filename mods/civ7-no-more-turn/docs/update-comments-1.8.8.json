@@ -1,0 +1,21 @@
+{
+  "版本": "1.8.8",
+  "日期": "2026-11-06",
+  "记录范围": "原帖更新评论；作者登录状态可见，未独立核验访客可见性",
+  "B站": {
+    "状态": "已提交，作者可见",
+    "链接": "https://www.bilibili.com/opus/1262748079018213378",
+    "证据": "bilibili-after.txt"
+  },
+  "Reddit": {
+    "状态": "已提交，作者可见",
+    "链接": "https://www.reddit.com/r/CivVII/comments/1xe7eyp/comment/19s840n5pkk78/",
+    "证据": "reddit-after.txt"
+  },
+  "CivFanatics": {
+    "状态": "已提交，待版主审核，普通访客不可见",
+    "链接": "https://forums.civfanatics.com/threads/no-more-turn-%E2%80%94-breaks-that-do-not-depend-on-finishing-one-more-turn.705232/post-17006110",
+    "证据": "civfanatics-after.txt"
+  },
+  "证据目录": "/Users/sunmer/Documents/civ7-mods/work/rest-release-1.8.8-20261106"
+}

@@ -1,0 +1,127 @@
+{
+  "版本": "1.8.8",
+  "发布时间": "2026-11-06T19:31:45+08:00",
+  "状态": "已发布并下载核验",
+  "工坊链接": "https://steamcommunity.com/sharedfiles/filedetails/?id=3815557333",
+  "用户验收": "用户于2026-11-06明确表示已测试并授权发布；截图确认主动休息双按钮、手柄提示和焦点高亮",
+  "实测构建": "1.8.7-dev.1103-2223-9b620247",
+  "运行代码": "与用户实测安装构建哈希一致",
+  "本轮离线检查": {
+    "通过": 129,
+    "失败": 0,
+    "跳过": 0
+  },
+  "本轮游戏操作": false,
+  "独立复测限制": "不将用户整体验收替代未逐项复测的外交未决、回合阈值和完整实体手柄操作记录",
+  "下载核验文件数": 19,
+  "发布状态原始回执": {
+    "id": "3815557333",
+    "version": "1.8.8",
+    "phase": "verified",
+    "result": 1,
+    "returnedId": "3815557333",
+    "legalAgreementRequired": false,
+    "verifiedDownloadArchive": "/Users/sunmer/Documents/civ7-mods/work/rest-release-1.8.8-20261106/verified-workshop-download",
+    "localDevelopmentChannelPreserved": true,
+    "metadata": {
+      "title": "No More Turn（不再来一回合）",
+      "visibility": 0,
+      "updated": 1793964705,
+      "bytes": 151285
+    },
+    "download": {
+      "id": "3815557333",
+      "folder": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3815557333",
+      "bytes": 151285,
+      "state": 4
+    },
+    "verifiedFiles": 19,
+    "downloadHashesVerified": true
+  },
+  "文件清单": {
+    "rest-guard.modinfo": {
+      "size": 2014,
+      "sha256": "aece79a039702eb51dd30ba837199f65dbca6f122fe02b5ca030e01d338b3152"
+    },
+    "README-zh-CN.txt": {
+      "size": 10982,
+      "sha256": "9ff483430b2e3a97aa660e555e29d1518746c51e364973de27b75979dafc6899"
+    },
+    "VALIDATION.txt": {
+      "size": 36908,
+      "sha256": "f17e00e13da1fc275aa16b1e9627f71524bf12c08cc2c28da7f4019ac75e56a2"
+    },
+    "README.md": {
+      "size": 13448,
+      "sha256": "0cb7edf23f3d58ec09a1ca805042efcf54650d7b8e9b9848679a55f80d147bba"
+    },
+    "package.json": {
+      "size": 441,
+      "sha256": "5e419c186f3b8ca7e9411823c65f8864d8a6ac0be64cafbab3c8715751067a3f"
+    },
+    "README-en.md": {
+      "size": 6153,
+      "sha256": "a6b7540d2931eb9474746ba9d3e68f1d4719c3590487e5e6c0e7497546878327"
+    },
+    "ui/rest-store.js": {
+      "size": 1476,
+      "sha256": "03877a63057775a663eb98e477517f1b6b51a964c8a10ea988568aedff802281"
+    },
+    "ui/rest-view.js": {
+      "size": 13410,
+      "sha256": "430ccb2fbfa0d0126b627ea6f9ba43299e73c7037abd7d6326f27c16b3db88e4"
+    },
+    "ui/rest-shell.js": {
+      "size": 701,
+      "sha256": "11aefb2e6a35505893fae1eaf034bc8c8f7863703d060795cb655e2fcbb802fd"
+    },
+    "ui/rest-settings.js": {
+      "size": 2115,
+      "sha256": "80a505741730c61ce0b72f76f85c58033b57b91d118cc0289a340d717c21da16"
+    },
+    "ui/rest-model.js": {
+      "size": 3767,
+      "sha256": "beeb6e332f00c4126436fbf3cc7817ab3b020e5f81049115ae35efab82837065"
+    },
+    "ui/rest-options.js": {
+      "size": 9223,
+      "sha256": "5626d825560c9dc2f89d14074ef2cdbc6f061cbc6fc01e97bdad8c1ddb5993b9"
+    },
+    "ui/rest-activity.js": {
+      "size": 729,
+      "sha256": "68af0e413d4511475b84ac81204f6f774c8d2a26b41748a4b76719bc715060ea"
+    },
+    "ui/rest-guard.js": {
+      "size": 16074,
+      "sha256": "452f12f35da032f4bb8bb6d3e78763cf8830f9a0ae1bbc0727a824b8b91715a6"
+    },
+    "ui/rest-guard.css": {
+      "size": 2453,
+      "sha256": "84f4fbee3629a1d104e34170fca6d8d2b83850a51c6959d0eda348a6b432b6c2"
+    },
+    "ui/rest-session.js": {
+      "size": 9654,
+      "sha256": "98dc0e03ec66813d0b426d6bee3a19ec75eb4b87ec152cf089720adb62cb479d"
+    },
+    "ui/rest-runtime.js": {
+      "size": 5965,
+      "sha256": "b6f47db34a2daa54967f8fd469a33879b2c01faeb83488ebb0aeeb107f934250"
+    },
+    "ui/defaults.js": {
+      "size": 331,
+      "sha256": "72072f9501f225f75b128d8fda0d8b04b93109efb0a8cbc1aba21c4805a1a074"
+    },
+    "text/settings.xml": {
+      "size": 15441,
+      "sha256": "d6201af2467e5a50f33af71cb23c1cecc9c80485224af51cc5d0042f24479068"
+    }
+  },
+  "说明SHA256": "f21508e7273a8a6f41a8a88d6657101e6580c6222bbc7eb3ae19b3bdcd0e3ee3",
+  "状态保护": {
+    "unchanged": true,
+    "userGameWasRunning": true,
+    "saveCount": 479,
+    "changedSections": []
+  },
+  "证据目录": "/Users/sunmer/Documents/civ7-mods/work/rest-release-1.8.8-20261106"
+}

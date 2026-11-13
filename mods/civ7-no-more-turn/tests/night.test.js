@@ -8,12 +8,10 @@ const date = (hour, minute = 0, day = 22) => new Date(2026, 9, day, hour, minute
 const at = { context: 'a', token: 'a:10', turn: 10 };
 const c = normalizeConfig();
 
-test('defaults migrate existing settings to 10 saves and independent 22:00–07:00 restriction', () => {
+test('defaults migrate existing settings to independent 22:00–07:00 restriction', () => {
   const config = normalizeConfig({ turnEnabled: false, timeEnabled: false });
-  assert.equal(config.saveKeepCount, 10); assert.equal(config.nightEnabled, true);
+  assert.equal(config.nightEnabled, true);
   assert.equal(clockTime(config.nightStart), '22:00'); assert.equal(clockTime(config.nightEnd), '07:00');
-  assert.equal(normalizeConfig({ saveKeepCount: 0 }).saveKeepCount, 1);
-  assert.equal(normalizeConfig({ saveKeepCount: 1000 }).saveKeepCount, 100);
 });
 
 test('night start is inclusive, end exclusive, with a consistent overnight end time', () => {
@@ -53,7 +51,7 @@ test('night alone blocks turns, pauses play, survives load, and resets after a f
   s.night.save = { status: 'saved', fileName: 'RestGuard_Night_example' };
   s.beginLoading(date(23)); s = new RestSession(s.export()); s.finishLoading(date(23, 1));
   s.tick(at, config, date(23, 1));
-  assert.equal(s.night.save.status, 'saved');
+  assert.equal(s.night.save, undefined, 'legacy save metadata is discarded');
   s.tick(at, config, date(7, 0, 23));
   assert.equal(s.night, null); assert.equal(s.elapsed(date(7, 0, 23)), 0);
   assert.equal(s.pending, null); assert.equal(s.turnCount, 0);

@@ -1,7 +1,9 @@
 import { getRadialMenus, registerRadialMenu, registerRadialMenuItem, NavigationType } from '/core/ui/radial-menu/radial-menu-item-store.js';
 import { PanelAction } from '/base-standard/ui/action/panel-action.js';
+import { DisplayQueueManager } from '/core/ui/context-manager/display-queue-manager.js';
 import { ContextManager } from '/core/ui/context-manager/context-manager.js';
 import { FocusManager } from '/core/ui-next/services/focus-manager.js';
+import { InterfaceMode } from '/core/ui/interface-modes/interface-modes.js';
 import Cursor from '/core/ui/input/cursor.js';
 import { DialogBoxManager } from '/core/ui/dialog-box/manager-dialog-box.js';
 import { DialogBoxAction } from '/core/ui/dialog-box/model-dialog-box.js';
@@ -9,16 +11,14 @@ import { session, checkpoint, installLoadingHooks } from './rest-runtime.js';
 import { settingsStore, subscribeSettings, openSettings, isSettingsOpen } from './rest-settings.js';
 import { nightWindow } from './rest-model.js';
 import { activityActive } from './rest-activity.js';
-import { createRestRetention } from './rest-retention.js';
 import { RestView } from './rest-view.js';
-import { createRestSaver, newRestSave } from './rest-save.js';
 
 const PREFIX = '[Rest Guard]';
 let controller = null;
 globalThis.__civ7RestGuardActivityV1 = {
   isSuspended: () => activityActive(localStorage, Date.now()),
 };
-installLoadingHooks();
+installLoadingHooks('game');
 
 function nativeDialog() { return document.querySelector('screen-dialog-box'); }
 
@@ -43,20 +43,16 @@ class RestController {
     this.store = settingsStore;
     this.view = new RestView({
       openSettings: () => this.openSettings(),
+      openGameMenu: () => this.openGameMenu(),
       resume: () => this.resume(),
-      quit: () => this.requestExit(),
       currentFocus: () => FocusManager.get().currentFocus(),
       setFocus: target => FocusManager.get().setFocus(target),
-      hasDialog: nativeDialog,
+      hasDialog: () => nativeDialog() || this.isGameMenuOpen(),
     });
     this.key = null;
     this.queued = null;
     this.exitRequested = false;
-    this.retention = createRestRetention(() => this.store.data.config.saveKeepCount,
-      () => session.loading || !snapshot() || !!globalThis.__civ7BeforeEndTurnV1?.busy ||
-        !!this.saver?.inFlight || !!document.querySelector('screen-save-load'));
-    this.saver = createRestSaver(() => !session.loading && !!snapshot() && ContextManager.canSaveGame(),
-      state => this.retention.request(state));
+    this.menuAccess = false;
     this.tick = this.tick.bind(this);
     this.unsubscribeSettings = subscribeSettings(this.tick);
     this.timer = setInterval(this.tick, 250);
@@ -64,25 +60,24 @@ class RestController {
     console.warn(`${PREFIX} Ready. Independent turn/time triggers; shared rest reset; single-player only.`);
   }
 
-  sync() {
+  sync(forTurn = false) {
     const suspended = activityActive(localStorage, Date.now());
     session.setSuspended(suspended, Date.now());
     if (suspended) {
       this.queued = null;
-      this.saver.cancel();
-      this.retention.cancel();
+      this.menuAccess = false;
       this.view.close();
       this.view.setVisible(false);
       return null;
     }
     const current = snapshot();
-    if (!current) {
-      this.saver.cancel();
-      this.retention.cancel();
+    if (!current || this.waitingForMap()) {
+      this.menuAccess = false;
       this.view.setVisible(false);
-      return null;
+      // The curtain owns UI input, but a direct turn request still needs the game guard.
+      return forTurn ? current : null;
     }
-    this.view.setVisible(true);
+    this.view.setVisible(!this.isGameMenuOpen());
     if (this.key !== current.key) {
       if (this.view.mode !== 'rest') this.view.close();
       this.queued = null;
@@ -111,24 +106,16 @@ class RestController {
     } else if (this.view.mode === 'idle' || this.view.mode === 'night') {
       this.view.close();
     }
-    if (session.night && !session.loading && !session.night.save) {
-      session.night.save = newRestSave('night', current.turn);
-    } else if (!session.night && (pending || (session.isIdleBreak && this.store.data.config.idleSaveEnabled)) && !session.loading && !session.restSave) {
-      session.restSave = newRestSave(pending?.reason ?? 'idle', current.turn);
-    }
-    const save = session.night ? session.night.save : session.restSave;
-    if (!session.loading) this.saver.poll(save, current);
-    else { this.saver.cancel(); this.retention.cancel(); }
-    this.retention.poll();
-    if (session.night || pending || session.isIdleBreak) this.view.updateSaveStatus(save);
     this.view.updateLauncher(current, this.store.data.config, this.store.error, session, Date.now());
     checkpoint();
   }
 
+  waitingForMap() { return session.loading || !!document.querySelector('#loading-curtain'); }
+
   request(submit) {
-    const current = this.sync();
+    const current = this.sync(true);
     if (!current) return submit();
-    if (GameContext.hasSentTurnComplete()) return;
+    if (this.waitingForMap() || GameContext.hasSentTurnComplete()) return;
     if (isSettingsOpen()) return;
     if (!current.active && !session.night && !nightWindow(this.store.data.config, Date.now()).active && !session.pending && !session.isIdleBreak) return submit();
     const allowed = session.requestTurn(current, this.store.data.config, Date.now());
@@ -141,7 +128,7 @@ class RestController {
   }
 
   resume() {
-    if (nativeDialog()) return;
+    if (nativeDialog() || this.isGameMenuOpen()) return;
     const current = this.sync();
     if (!current) return;
     session.tick(current, this.store.data.config, Date.now(), false);
@@ -164,8 +151,39 @@ class RestController {
 
   openSettings() {
     const current = this.sync();
-    if (!current || session.pending || session.night) return;
-    openSettings();
+    if (current) openSettings();
+  }
+
+  // The pause view owns map input while its native Save/Options screens are open.
+  // Access expires as soon as Resume/Quick Save returns to the world; the break
+  // and queued turn remain intact, including when its deadline passes here.
+  isGameMenuOpen() {
+    if (isSettingsOpen() || (this.menuAccess && ContextManager.hasInstanceOf('screen-save-load'))) return true;
+    if (InterfaceMode.isInInterfaceMode('INTERFACEMODE_PAUSE_MENU') &&
+        (this.menuAccess || document.querySelector('#screen-pause-menu'))) return true;
+    this.menuAccess = false;
+    return false;
+  }
+
+  openGameMenu() {
+    if (!this.isModal() || nativeDialog()) return;
+    this.view.setVisible(false);
+    const wasSuspended = DisplayQueueManager.isSuspended();
+    try {
+      if (!InterfaceMode.isInInterfaceMode('INTERFACEMODE_PAUSE_MENU')) {
+        // Match the native system-bar/root-game route. Peace deals cannot leave
+        // their mode until the display queue has temporarily hidden the deal.
+        DisplayQueueManager.suspend();
+        this.menuAccess = InterfaceMode.switchTo('INTERFACEMODE_PAUSE_MENU');
+      } else this.menuAccess = true;
+    } catch (error) {
+      this.menuAccess = false;
+      console.warn(`${PREFIX} Pause menu unavailable: ${error}`);
+    }
+    // Successful menu closure resumes the queue in the native PauseMenuView.
+    // If entry fails, undo only our own suspension and retain the rest lock.
+    if (!this.menuAccess && !wasSuspended && DisplayQueueManager.isSuspended()) DisplayQueueManager.resume();
+    this.tick();
   }
 
   requestExit() {
@@ -189,7 +207,7 @@ class RestController {
     }
   }
 
-  isModal() { return !!this.sync() && !!this.view.mode; }
+  isModal() { return !!this.sync() && !!this.view.mode && !this.isGameMenuOpen(); }
 
   activity() {
     if (globalThis.__civ7BeforeEndTurnV1?.busy) return;
@@ -202,7 +220,9 @@ class RestController {
   handleInput(event) {
     const d = event.detail;
     if (d?.status === InputActionStatuses.FINISH) {
-      if (['keyboard-escape', 'sys-menu', 'cancel'].includes(d.name)) {
+      if (d.name === 'sys-menu') {
+        this.openGameMenu();
+      } else if (['keyboard-escape', 'cancel'].includes(d.name)) {
         this.requestExit();
       } else if (['mousebutton-left', 'touch-tap'].includes(d.name)) {
         const target = d.isTouch ? document.elementFromPoint(d.x, d.y) : Cursor.target;
@@ -216,7 +236,7 @@ class RestController {
     return false;
   }
 
-  destroy() { clearInterval(this.timer); this.unsubscribeSettings(); this.saver.destroy(); this.retention.destroy(); this.view.destroy(); }
+  destroy() { clearInterval(this.timer); this.unsubscribeSettings(); this.view.destroy(); }
 }
 
 function ensureController() {
@@ -236,8 +256,8 @@ PanelAction.prototype.sendEndTurn = function (...args) {
 // request a break: the actual request runs only after the save succeeds.
 PanelAction.prototype.sendEndTurn.c7rCanRequestTurn = () => {
   const active = ensureController();
-  if (!active || !active.sync()) return true;
-  return !nightWindow(active.store.data.config, Date.now()).active && !session.night && !session.pending && !session.isIdleBreak && !isSettingsOpen() && !GameContext.hasSentTurnComplete();
+  if (!active || !active.sync(true)) return true;
+  return !active.waitingForMap() && !nightWindow(active.store.data.config, Date.now()).active && !session.night && !session.pending && !session.isIdleBreak && !isSettingsOpen() && !GameContext.hasSentTurnComplete();
 };
 
 // Optional second guard for other UI components that call the engine directly.
@@ -286,7 +306,10 @@ const domGuard = event => {
   const dialog = nativeDialog();
   if (dialog && (dialog.contains(event.target) || ['keydown', 'keyup'].includes(event.type))) return;
   ensureController()?.activity();
-  if (!controller?.isModal()) return;
+  // Native menu input is allowed, but directly dispatched next-turn hotkeys
+  // must never bypass the required break while that menu is open.
+  const turnHotkey = ['hotkey-next-action', 'action-next-action'].includes(event.type);
+  if (!controller?.isModal() && !(turnHotkey && controller?.isGameMenuOpen() && controller.view.mode)) return;
   if (event.type === 'keydown') {
     if (event.key === 'Enter' && !event.repeat && controller.view.mode) controller.view.activateFocused();
     else if (event.key === 'Tab') controller.view.navigate(event.shiftKey ? -1 : 1);

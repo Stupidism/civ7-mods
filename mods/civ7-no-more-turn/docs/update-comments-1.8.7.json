@@ -1,0 +1,44 @@
+{
+  "mod": "civ7-rest-guard",
+  "version": "1.8.7",
+  "recordedAt": "2026-10-30T00:23:53.206139+08:00",
+  "authorization": "User requested release-update comments on Bilibili, Reddit and CivFanatics for each update.",
+  "platforms": {
+    "bilibili": {
+      "url": "https://www.bilibili.com/opus/1262748079018213378",
+      "status": "posted_verified_after_reload",
+      "account": "司徒比特",
+      "commentId": null,
+      "note": "New comment visible after reload, total comments 2. Visitor visibility not separately tested.",
+      "text": "1.8.7 更新（2026-10-30）\n\n修复休息存档不出现在“自动保存”列表的问题，保留 AutoSave_ 前缀。名称跟随游戏语言，统一精确到分钟，不再带休息原因、秒数或哈希后缀：\n中文：AutoSave_休息_T26_261029-2250\n英文：AutoSave_Rest_T26_261029-2250\n\n禁止覆盖旧存档；同一分钟重名且保存请求被拒绝时，会显示保存失败。\n\n工坊已更新：https://steamcommunity.com/sharedfiles/filedetails/?id=3815557333",
+      "textSha256": "09e89afe1a23d9b67f104125b403f72213b15c3782b2a669d5cbb91fe0151386",
+      "screenshot": "/Users/sunmer/Documents/civ7-mods/work/rest-guard-1.8.7-comments-20261030/bilibili.jpg"
+    },
+    "reddit": {
+      "url": "https://www.reddit.com/r/CivVII/comments/1xe7eyp/comment/19ru74wq3wy82/",
+      "commentId": "19ru74wq3wy82",
+      "account": "PhysicalPackage4275",
+      "status": "posted_verified",
+      "note": "Comment posted successfully toast and permalink verified. Technical update on existing post; no added promotional link. Visitor visibility not separately tested.",
+      "text": "1.8.7 update — October 30, 2026\n\nFixed break saves missing from the Autosaves tab. New saves keep the AutoSave_ prefix and use a shorter name based on the game text language:\nEnglish: AutoSave_Rest_T26_261029-2250\nSimplified Chinese: AutoSave_休息_T26_261029-2250\n\nAll break reasons share this format. The timestamp is now local YYMMDD-HHMM, without seconds or a hash suffix. Existing saves are never overwritten; if a duplicate name in the same minute is rejected, the panel reports a failed save.",
+      "textSha256": "4372de7bb753021fc0474b45f2d711e56c9cc53f232c9bb3b9c5b64bf0ab437f",
+      "screenshot": "/Users/sunmer/Documents/civ7-mods/work/rest-guard-1.8.7-comments-20261030/reddit.jpg"
+    },
+    "civfanatics": {
+      "url": "https://forums.civfanatics.com/threads/no-more-turn-%E2%80%94-breaks-that-do-not-depend-on-finishing-one-more-turn.705232/#post-17004022",
+      "commentId": "17004022",
+      "account": "Stupidism",
+      "status": "submitted_pending_moderator_approval",
+      "note": "Page explicitly says this message is awaiting moderator approval and invisible to normal visitors.",
+      "text": "1.8.7 update — October 30, 2026\n\nFixed break saves missing from the Autosaves tab. New saves keep the AutoSave_ prefix and use a shorter name based on the game text language:\nEnglish: AutoSave_Rest_T26_261029-2250\nSimplified Chinese: AutoSave_休息_T26_261029-2250\n\nAll break reasons share this format. The timestamp is now local YYMMDD-HHMM, without seconds or a hash suffix. Existing saves are never overwritten; if a duplicate name in the same minute is rejected, the panel reports a failed save.\n\nThe update is available on the existing Workshop item: https://steamcommunity.com/sharedfiles/filedetails/?id=3815557333",
+      "textSha256": "ad5e94ce96a7d8260f27e8207aa322da0763622c2e4a173ca956915d430f1000",
+      "screenshot": "/Users/sunmer/Documents/civ7-mods/work/rest-guard-1.8.7-comments-20261030/civfanatics.jpg"
+    }
+  },
+  "skillsUpdated": [
+    "/Users/sunmer/.codex/skills/civ7-modding/SKILL.md",
+    "/Users/sunmer/.codex/skills/civ7-mod-publishing/SKILL.md"
+  ],
+  "skillValidation": "both passed",
+  "gameInteraction": false
+}

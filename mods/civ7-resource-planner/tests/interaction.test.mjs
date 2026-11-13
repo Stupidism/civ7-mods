@@ -16,11 +16,11 @@ const sameID=(a,b)=>!!a&&!!b&&a.id===b.id&&a.owner===b.owner&&a.type===b.type;
 function selectionModel(initial={resourceValue:-1}) {
   let selected=initial;
   const requests=[];
-  const model={isSlottingAvailable:true, selectedResource:()=>selected, requests,
+  const model={resourceZone:()=>null,selectedSettlementId:()=>undefined,isInSortAndFilterMode:()=>false,resourceActionBusy:()=>false,isSlottingAvailable:true,canAssignSelectedResourceToSettlement:()=>true, selectedResource:()=>selected, requests,
     deselectSelectedResource:()=>{selected={resourceValue:-1};},
   };
   const code=body(modelSource,'  function handleClickAvailableResource(', '  function handleMClickSlottedResource(')+
-    body(modelSource,'  function handleClickSlottedResource(', '  function getMatchingResources(')+
+    body(modelSource,'  function handleClickSlottedResource(', '  function swapResources(')+
     body(modelSource,'  function assignResource(', '  function unassignResource(');
   Object.assign(model,vm.runInNewContext(code+`;({clickAvailableResource:handleClickAvailableResource,
     clickSlottedResource:handleClickSlottedResource,slotSelectedResource:handleSlotSelectedResource})`,{
@@ -62,7 +62,7 @@ test('starting a different drag selects its resource instead of swapping or dese
 function inputGuard(model,busy=false){
   const resets=[];
   const guard=vm.runInNewContext(body(screen,'                  const rpInputGuard =','                  let inputRoot;')+';rpInputGuard',{
-    model,getPlanner:()=>({busy:()=>busy}),InputActionStatuses:{START:1,FINISH:2},
+    model,IsControllerActive:()=>true,getPlanner:()=>({busy:()=>busy}),InputActionStatuses:{START:1,FINISH:2},
     setCancelDrag:value=>resets.push(value),setTimeout:fn=>fn(),_el$46:{contains:target=>target==='resources'}
   });
   return {resets, send(name,status,target='resources'){
@@ -102,7 +102,7 @@ test('clicking city yield icons with a picked resource places it without startin
   let choices=0;
   const TendencyYield=vm.runInNewContext(body(ui,'export function TendencyYield(','export function TendencyLabel(')
     .replace('export ','')+';TendencyYield',{
-    createComponent:(_component,props)=>props,button:()=>{},getPlanner:()=>({choose:()=>choices++}),YIELDS:['YIELD_FOOD']
+    isControllerPlacement:()=>false,createComponent:(_component,props)=>props,button:()=>{},getPlanner:()=>({choose:()=>choices++}),YIELDS:['YIELD_FOOD']
   });
   const buttonProps=TendencyYield({model,cityID:{id:2},index:()=>0});
   buttonProps.onActivate();
@@ -154,4 +154,161 @@ test('controller pickup clears settlement focus and preserves resource identity 
   model.slotSelectedResource({id:2});
   assert.equal(model.requests[0].ID,52);assert.equal(model.requests[0].Flags,true);assert.equal(model.requests[0].City,2);
   model.isSlottingAvailable=false;activate();assert.equal(selections.length,1);
+});
+
+
+test('controller settlement confirmation sends one real off-map assignment request',()=>{
+  const model=selectionModel({resourceValue:52,isOffMap:true});
+  const start=screen.indexOf('const CityResourceContainer =');
+  const city=screen.slice(start,screen.indexOf('const WarningBannerSymbol',start));
+  const callback=vm.runInNewContext('({' + body(city,'    onActivate: () => {','    onFocus: () => onFocus(),') + '}).onActivate',{
+    model,props:{cityID:{id:2}},isDisabled:()=>false,isControllerPlacement:()=>true,IsControllerActive:()=>true
+  });
+  callback();
+  assert.equal(model.requests.length,1);
+  assert.equal(model.requests[0].City,2);
+  assert.equal(model.requests[0].ID,52);
+  assert.equal(model.requests[0].Flags,true);
+});
+
+test('selected-resource controller tray advertises placement instead of editing a city',()=>{
+  const model=selectionModel({resourceValue:52,isOffMap:true});
+  model.selectedSettlementId=()=>undefined;
+  const code=body(modelSource,'  function getGamepadTrayItems() {','  function settlementHasSlottedResources(');
+  const tray=vm.runInNewContext(code+';getGamepadTrayItems',{
+    model,focusedSettlementId:()=>({id:2}),selectedSettlementId:()=>undefined,selectedResource:model.selectedResource,
+    focusedResource:()=>({resourceValue:-1}),ghostResourceFocused:()=>false,IsControllerActive:()=>true,
+    INVALID_RESOURCE_VALUE:-1,canSlot:true,resourceZone:()=> 'resources',enterResourceZone(){},isInSortAndFilterMode:()=>false,resourceActionBusy:()=>false,toggleResourceTools:()=>{},ComponentID:{isMatch:sameID},Locale:{compose:s=>s},
+    Cities:{get:()=>({name:'Rome',Resources:{getAssignedResources:()=>[1]}})},canAssignSelectedResourceToSettlement:()=>true,settlementHasSlottedResources:()=>true
+  });
+  assert.deepEqual(Array.from(tray(),item=>item.name),['Deselect-Resource','Assign-resource','Quick-Assign','Choose-swap-slot']);
+  model.isSlottingAvailable=false;
+  assert.deepEqual(Array.from(tray(),item=>item.name),['Deselect-Resource']);
+});
+
+test('controller cancel exits the top tools before allowing the panel to close',()=>{
+  const model=selectionModel();let tools=true,cancels=0;
+  model.resourceZone=()=>tools?'tools':null;model.enterResourceZone=value=>tools=value!==null;
+  model.cancelResourceActions=()=>cancels++;
+  const input=inputGuard(model);
+  assert.equal(input.send('cancel',1),true);assert.equal(tools,true);
+  assert.equal(input.send('cancel',2),true);assert.equal(tools,false);
+  assert.equal(cancels,0);assert.equal(input.send('cancel',1),false);
+});
+test('one-click tidying uses slot organization without reordering settlements or assigning resources',()=>{
+  const calls=[],data={slottedResourceSectionData:[],availableResourceSectionData:[]};
+  const tidy=vm.runInNewContext(body(modelSource,'  function tidyResources() {','  function handleSortResources() {')+';tidyResources',{
+    resourceActionBusy:()=>false,model:{data:{resourceTabData:data}},untrack:fn=>fn(),batch:fn=>fn(),
+    setLastSlottedResourceValues:()=>{},sortSlottedResources:value=>calls.push(value),sortAvailableResources:value=>calls.push(value)
+  });
+  tidy();assert.deepEqual(calls,[data.slottedResourceSectionData,data.availableResourceSectionData]);
+});
+test('controller quick actions and bulk placement dispatch the same model operations as mouse shortcuts',()=>{
+  const calls=[];let picked={resourceValue:-1},focused={resourceValue:52,isOffMap:true},city,editing;
+  const model={isSlottingAvailable:true,selectedResource:()=>picked,selectedSettlementId:()=>editing};
+  const tray=vm.runInNewContext(body(modelSource,'  function getGamepadTrayItems() {','  function settlementHasSlottedResources(')+';getGamepadTrayItems',{
+    model,focusedSettlementId:()=>city,selectedSettlementId:()=>editing,selectedResource:()=>picked,focusedResource:()=>focused,
+    ghostResourceFocused:()=>false,IsControllerActive:()=>true,INVALID_RESOURCE_VALUE:-1,canSlot:true,
+    resourceZone:()=> 'resources',enterResourceZone(){},isInSortAndFilterMode:()=>false,resourceActionBusy:()=>false,toggleResourceTools:()=>calls.push('tools'),
+    ComponentID:{isMatch:sameID},Locale:{compose:s=>s},Cities:{get:()=>({name:'Rome',Resources:{getAssignedResources:()=>[1]}})},
+    canAssignSelectedResourceToSettlement:()=>true,settlementHasSlottedResources:()=>true,
+    handleMClickAvailableResource:r=>calls.push(['fill',r]),handleMClickSlottedResource:r=>calls.push(['remove',r]),
+    handleSlotSelectedResource:(id,all)=>calls.push(['move',id,all])
+  });
+  tray().find(x=>x.name==='Quick-resource').onActivate();
+  assert.equal(calls[0][0],'fill');assert.equal(calls[0][1].isOffMap,true);
+  editing={id:1};focused={...focused,cityID:editing};
+  tray().find(x=>x.name==='Quick-resource').onActivate();assert.equal(calls[1][0],'remove');
+  editing=undefined;picked=focused;focused={resourceValue:-1};city={id:2};
+  tray().find(x=>x.name==='Quick-Assign').onActivate();assert.deepEqual(calls[2],['move',city,true]);
+});
+
+
+test('leaving tools restores a recreated resource by identity, including off-map and source city',()=>{
+  let callback,focus;
+  const resource={resourceValue:52,isOffMap:true,cityID:{id:1,owner:0,type:1}};
+  let current=resource;
+  vm.runInNewContext(body(screen,'  createEffect(on(model.resourceZone,','  const resourceName ='),{
+    createEffect:()=>{},on:(_read,fn)=>{callback=fn;},model:{resourceZone:()=> 'resources',focusedResource:()=>current},
+    props:{resourceData:resource},IsControllerActive:()=>true,setShouldAutoFocus:v=>focus=v,ComponentID:{isMatch:sameID}
+  });
+  callback('tools','resources');assert.equal(focus,false);
+  callback('resources','tools');assert.equal(focus,true);
+  current={...resource,isOffMap:false};callback('resources','tools');assert.equal(focus,false);
+  current={...resource,cityID:{id:2,owner:0,type:1}};callback('resources','tools');assert.equal(focus,false);
+});
+
+test('controller cancel pops resource, settlement editor, zone, then panel in separate gestures',()=>{
+ let picked=52,editing={id:2},zone='resources';
+ const model={selectedResource:()=>({resourceValue:picked}),selectedSettlementId:()=>editing,resourceZone:()=>zone,
+   resourceActionBusy:()=>false,deselectSelectedResource:()=>picked=-1,setSelectedSettlementId:id=>editing=id,enterResourceZone:z=>zone=z};
+ const input=inputGuard(model);
+ const press=()=>{assert.equal(input.send('cancel',1),true);assert.equal(input.send('cancel',2),true);};
+ press();assert.equal(picked,-1);assert.equal(editing.id,2);assert.equal(zone,'resources');
+ press();assert.equal(editing,undefined);assert.equal(zone,'resources');
+ press();assert.equal(zone,null);
+ assert.equal(input.send('cancel',1),false);assert.equal(input.send('cancel',2),false);
+});
+test('zone transitions preserve full resource identity, reject carrying/busy transitions, and recover a missing focus target',()=>{
+ let picked=-1,busy=false,editing,focused={resourceValue:52,isOffMap:true,cityID:{id:2}};
+ const available={resourceValue:52,isOffMap:false},slotted={...focused};
+ const data={availableResourceSectionData:[{subSections:[{resourceSlotData:[available]}]}],slottedResourceSectionData:[{cityResources:[{slottedResources:[slotted]}]}]};
+ const model={selectedResource:()=>({resourceValue:picked}),resourceActionBusy:()=>busy,data:{resourceTabData:data}};
+ const state=vm.runInNewContext(body(modelSource,'  const [resourceZone,setResourceZone]', '  const [tabName')+';({resourceZone,enterResourceZone})',{
+  model,INVALID_RESOURCE_VALUE:-1,ComponentID:{isMatch:sameID},batch:fn=>fn(),
+  createSignal:v=>[()=>v,n=>v=n],setSelectedSettlementId:id=>editing=id,focusedResource:()=>focused,setFocusedResource:r=>focused=r
+ });
+ assert.equal(state.resourceZone(),null);state.enterResourceZone('resources');
+ assert.equal(editing.id,2);assert.equal(focused.isOffMap,true);
+ picked=52;state.enterResourceZone('tools');assert.equal(state.resourceZone(),'resources');
+ picked=-1;busy=true;state.enterResourceZone('tools');assert.equal(state.resourceZone(),'resources');
+ busy=false;state.enterResourceZone('tools');assert.equal(editing,undefined);
+ data.slottedResourceSectionData[0].cityResources[0].slottedResources=[];
+ state.enterResourceZone('resources');assert.equal(focused.isOffMap,false);assert.equal(editing,undefined);
+});
+
+test('native tray uses triggers for zones and keeps preference actions separate',()=>{
+ let zone='preferences';const model={selectedResource:()=>({resourceValue:-1}),selectedSettlementId:()=>undefined};
+ const tray=vm.runInNewContext(body(modelSource,'  function getGamepadTrayItems() {','  function settlementHasSlottedResources(')+';getGamepadTrayItems',{
+  model,focusedSettlementId:()=>undefined,selectedSettlementId:()=>undefined,selectedResource:model.selectedResource,
+  focusedResource:()=>({resourceValue:52}),ghostResourceFocused:()=>false,IsControllerActive:()=>true,
+  INVALID_RESOURCE_VALUE:-1,cycleResourceZone:d=>zone=d===1?'tools':'resources',
+  resourceZone:()=>zone,enterResourceZone:z=>zone=z,isInSortAndFilterMode:()=>zone==='tools',resourceActionBusy:()=>false
+ });
+ const initial=tray();assert.ok(initial.some(x=>x.name==='Preferences-confirm'));
+ assert.ok(!initial.some(x=>x.name==='Quick-resource'));
+ initial.find(x=>x.name==='Next-zone').onActivate();assert.equal(zone,'tools');
+ assert.ok(tray().some(x=>x.name==='Resource-tools-back'));
+ zone=null;assert.deepEqual(Array.from(tray(),x=>x.hotkeyAction),['accept','nav-shell-previous','nav-shell-next']);
+ tray().find(x=>x.name==='Previous-zone').onActivate();assert.equal(zone,'resources');
+});
+
+test('carrying tray offers single return and explicit slot choice, including a full destination',()=>{
+ const calls=[];let legal=true,locked=false,editing;const source={id:1},target={id:2};
+ const picked={resourceValue:0,isOffMap:true,cityID:source};
+ const model={get isSlottingAvailable(){return !locked;},selectedResource:()=>picked,selectedSettlementId:()=>editing};
+ const tray=vm.runInNewContext(body(modelSource,'  function getGamepadTrayItems() {','  function settlementHasSlottedResources(')+';getGamepadTrayItems',{
+  model,focusedSettlementId:()=>target,selectedSettlementId:()=>editing,selectedResource:()=>picked,focusedResource:()=>({resourceValue:-1}),
+  ghostResourceFocused:()=>false,IsControllerActive:()=>true,INVALID_RESOURCE_VALUE:-1,canSlot:true,resourceZone:()=> 'resources',
+  enterResourceZone(){},isInSortAndFilterMode:()=>false,resourceActionBusy:()=>false,toggleResourceTools(){},
+  ComponentID:{isMatch:sameID},Locale:{compose:s=>s},Cities:{get:()=>({name:'Rome',Resources:{}})},
+  canAssignSelectedResourceToSettlement:()=>legal,settlementHasSlottedResources:()=>true,
+  handleSetSelectedSettlementId:id=>{editing=id;calls.push(['edit',id]);},
+  resourceActions:{run:(...args)=>calls.push(['run',...args])}
+ });
+ let items=tray();const back=items.find(x=>x.name==='Return-selected');
+ assert.equal(back.hotkeyAction,'shell-action-3');assert.equal(back.navTrayText,'LOC_RP_RETURN_SELECTED');back.onActivate();
+ assert.equal(calls[0][1].isOffMap,true);assert.equal(calls[0][1].resourceValue,0);assert.equal(calls[0][3],'remove-one');
+ const choose=items.find(x=>x.name==='Choose-swap-slot');assert.equal(choose.hotkeyAction,'shell-action-2');choose.onActivate();assert.equal(editing,target);
+ editing=undefined;legal=false;items=tray();assert.equal(items.find(x=>x.name==='Choose-swap-slot').hotkeyAction,'accept');assert(!items.some(x=>x.name==='Quick-Assign'));
+ locked=true;assert(!tray().some(x=>x.name==='Return-selected'||x.name==='Choose-swap-slot'));
+});
+
+test('clicking an occupied slot starts the confirmed exchange with both complete identities',()=>{
+ const picked={resourceValue:0,isOffMap:true,cityID:{id:1}},target={resourceValue:0,isOffMap:false,cityID:{id:2}};const calls=[];
+ const click=vm.runInNewContext(body(modelSource,'  function handleClickSlottedResource(', '  function handleSlotSelectedResource(')+';handleClickSlottedResource',{
+  model:{selectedResource:()=>picked},INVALID_RESOURCE_VALUE:-1,ComponentID:{isMatch:sameID},
+  resourceActions:{replace:(...args)=>calls.push(args)},handleDeselectSelectedResource:()=>calls.push('cancel')
+ });
+ click(target);assert.equal(calls.length,1);assert.equal(calls[0][0].isOffMap,true);assert.equal(calls[0][1].isOffMap,false);
 });

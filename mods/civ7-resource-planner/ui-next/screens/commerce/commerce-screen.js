@@ -1,0 +1,131 @@
+import {template,insert} from '../../../../core/vendor/solid-js/web/dist/web.js';
+import {Activatable} from '/core/ui-next/components/activatable.js';
+import {Tooltip} from '/core/ui-next/components/tooltip.js';
+import {IsControllerActive} from '/core/ui-next/services/input.js';
+import {useIsSmallScreen} from '/core/ui-next/utilities/layout-utilities.js';
+import {t} from '/civ7-resource-planner/ui/rp-l10n.js';
+import { createSignal, createMemo, onMount, createComponent, mergeProps, Show } from '../../../../core/vendor/solid-js/dist/solid.js';
+import { defineLegacyComponent } from '../../../../core/ui-next/components/fxs-solid-component.js';
+import { Tab } from '../../../../core/ui-next/components/tab.js';
+import { useAudio } from '../../../../core/ui-next/services/audio-support.js';
+import { ComponentRegistry } from '../../../../core/ui-next/services/component-registry.js';
+import { isMobile } from '../../../../core/ui-next/services/view-experience.js';
+import { useLocalPlayerId } from '../../../../core/ui-next/utilities/game-core-utilities.js';
+import { ScreenFrame } from '../../components/screen-frame.js';
+import { EmpireResourceContainer } from './commerce-screen-empire-tab.js';
+import { createCommerceScreenModel, CommerceScreenContext } from './commerce-screen-model.js';
+import { CommerceResourcesContainer } from './commerce-screen-resources-tab.js';
+import { TradeRoutesContainer } from './commerce-screen-trade-tab.js';
+import { TreasureResourceContainer } from './commerce-screen-treasure-tab.js';
+import style from './commerce-screen.scss.js';
+
+const CommerceScreenComponent = (_props) => {
+  const model = createCommerceScreenModel();
+  const [resourceTab,setResourceTab]=createSignal(true);
+  const small=useIsSmallScreen();
+  const audioTrigger = useAudio("CommerceScreenPopup");
+  const localPlayerId = useLocalPlayerId();
+  const _civName = createMemo(() => {
+    const player = Players.get(localPlayerId());
+    if (!player) {
+      return "";
+    }
+    const civDefinition = GameInfo.Civilizations.lookup(player.civilizationType);
+    if (!civDefinition) {
+      return "";
+    }
+    return Locale.compose(civDefinition.Name);
+  });
+  onMount(() => {
+    audioTrigger("popup-open");
+  });
+  const handleOnClosing = () => {
+    audioTrigger("popup-close");
+  };
+  const title = createMemo(() => {
+    return null;  // Locale.compose("LOC_COMMERCE_SCREEN_TITLE", civName());
+  });
+  function onContextChanged(activatedElement, _deactivatedElement) {
+    if (activatedElement.nodeName.toLocaleLowerCase() === "screen-resource-allocation") {
+      Input.setActiveContext(InputContext.Shell);
+    }
+  }
+  return createComponent(CommerceScreenContext.Provider, {
+    value: model,
+    get children() {
+      return createComponent(ScreenFrame, {
+        name: "Commerce-Screen",
+        panelContext: "screen-resource-allocation",
+        audioContext: "CommerceScreen",
+        get ornatePanelData() {
+          return model.data.ornatePanelData;
+        },
+        get title() {
+          return title();
+        },
+        onClosing: handleOnClosing,
+        get isFullscreen() {
+          return isMobile();
+        },
+        onContextChanged,
+        get children() {
+          return [createComponent(Tab, {
+            "class": "w-full -mt-7 flex flex-col flex-auto pointer-events-auto relative",
+            get onTabChanged() {
+              return value=>{setResourceTab(value?.name==='Resources');model.onTabChanged(value);};
+            },
+            get children() {
+              return [createComponent(Tab.TabList, {
+                get ["class"]() {
+                  return `rp-commerce-tabs bz-tab-list self-center text-base font-base`;
+                  // return `${isMobile() ? Game.age == Database.makeHash("AGE_EXPLORATION") ? "w-3\\/4" : "w-2\\/3" : "w-187"} self-center text-base font-base`;
+                },
+                nextHotkey: "nav-next",
+                previousHotkey: "nav-previous"
+              }), createComponent(Tab.Output, {}), createComponent(Tab.Item, {
+                name: "Resources",
+                title: () => "LOC_UI_RESOURCE_ALLOCATION_TITLE",
+                body: () => createComponent(CommerceResourcesContainer, mergeProps(() => model.data.resourceTabData))
+              }), createComponent(Tab.Item, {
+                name: "Trade",
+                title: () => "LOC_COMMERCE_TRADE_ROUTES_TITLE",
+                body: () => createComponent(TradeRoutesContainer, mergeProps(() => model.data.tradeRouteTabData))
+              }), createComponent(Tab.Item, {
+                name: "Empire",
+                title: () => "LOC_COMMERCE_EMPIRE_RESOURCE_TITLE",
+                body: () => createComponent(EmpireResourceContainer, mergeProps(() => model.data.empireTabData))
+              }), createComponent(Show, {
+                get when() {
+                  return Game.age == Database.makeHash("AGE_EXPLORATION");
+                },
+                get children() {
+                  return createComponent(Tab.Item, {
+                    name: "Treasure",
+                    title: () => "LOC_COMMERCE_TREASURE_RESOURCES_TITLE",
+                    body: () => createComponent(TreasureResourceContainer, mergeProps(() => model.data.treasureTabData))
+                  });
+                }
+              })];
+            }
+          })];
+        }
+      });
+    }
+  });
+};
+const CommerceScreen = ComponentRegistry.register({
+  name: "CommerceScreen",
+  images:["blp:hud_closebutton","blp:hud_closebutton_hover","blp:hud_closebutton_pressed","blp:ntf_discover_resource","blp:hourglasses01"],
+  styles: [style, "fs://game/civ7-resource-planner/ui/rp-style.css"],
+  createInstance: CommerceScreenComponent
+});
+defineLegacyComponent("screen-resource-allocation", {
+  classNames: ["fullscreen"]
+}, () => {
+  Input.setActiveContext(InputContext.Shell);
+  return createComponent(CommerceScreen, {});
+});
+
+export { CommerceScreen };
+//# sourceMappingURL=commerce-screen.js.map
+// vim: sw=2 et

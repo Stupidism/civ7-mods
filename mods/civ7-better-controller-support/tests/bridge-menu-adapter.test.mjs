@@ -8,12 +8,15 @@ import { BridgeSettingsStore } from '../ui/bridge-store.js';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { existsSync } from 'node:fs';
+import {
+  exportedFunctionNames,
+  menuNavigationAdapterSource
+} from './helpers/native-navigation-tray.mjs';
 
 const modules = process.env.CIV7_MODULES_DIR || join(homedir(), "Library/Application Support/Steam/steamapps/common/Sid Meier's Civilization VII/CivilizationVII.app/Contents/Resources/Base/modules");
 const narrativeFile = join(modules, 'base-standard/ui-next/screens/narrative-events/small-narrative-event.js');
 
-const source = readFileSync(new URL('../ui/menu-navigation-adapter.js', import.meta.url), 'utf8')
-  .replace(/^import .*;\r?\n/gm, '').replace('export function ', 'function ');
+const source = menuNavigationAdapterSource();
 function fixture(initial = {}) {
   const state = { shell: true, panel: false, tagName: 'PANEL-RADIAL-MENU', blocked: false, soft: false, viewContext: 1, context: 0 };
   const events = [], logs = [], windowEvents = new Map(), engineEvents = new Map();
@@ -23,6 +26,7 @@ function fixture(initial = {}) {
   const handler = { onEngineInput: original };
   const sandbox = vm.createContext({
     createScrollNavigation: () => undefined, setInstruction: () => {}, createMenuNavigation, ActionHandler: handler,
+    NavTray: null,
     Cursor: { get softCursorEnabled() { return state.soft; } },
     ContextManager: { get isEmpty() { return !state.panel; }, getCurrentTarget: () => state.panel ? { tagName: state.tagName } : null },
     InputContext: { Shell: 0, World: 1, Unit: 2, Dual: 3 },
@@ -35,7 +39,7 @@ function fixture(initial = {}) {
     engine: { on: (n, f) => engineEvents.set(n, f), off: (n, f) => { if (engineEvents.get(n) === f) engineEvents.delete(n); } },
     console: { warn: x => logs.push(x), error: x => logs.push(x) }
   });
-  vm.runInContext(source, sandbox);
+  vm.runInContext(source, sandbox, { filename: menuNavigationAdapterSource.name });
   const install = () => sandbox.installMenuNavigation(store);
   install();
   return { state, handler, original, store, install, events, logs, windowEvents, engineEvents, sandbox };
@@ -56,6 +60,15 @@ test('shell adapter works before a game loads, follows settings, logs only on re
   f.engineEvents.get('BeforeUnload')();
   assert.equal(f.handler.onEngineInput, f.original);
   assert.equal(f.store.listeners.size, 0); assert.equal(f.windowEvents.size, 0); assert.equal(f.engineEvents.size, 0);
+});
+
+test('offline adapter loader handles every exported declaration in the current multi-export source', () => {
+  const names = exportedFunctionNames(readFileSync(new URL('../ui/menu-navigation-adapter.js', import.meta.url), 'utf8'));
+  assert.ok(names.includes('createNavigationTrayAdapter') && names.includes('installMenuNavigation'));
+  assert.doesNotMatch(source, /(^|\n)\s*export\s+/);
+  const sandbox = vm.createContext({ NavTray: null });
+  vm.runInContext(source, sandbox);
+  for (const name of names) assert.equal(typeof sandbox[name], 'function', name);
 });
 
 test('game adapter repairs only panels and respects overlays, soft cursor and repeat installation', () => {

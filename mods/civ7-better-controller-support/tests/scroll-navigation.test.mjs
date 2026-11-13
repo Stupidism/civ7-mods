@@ -2,8 +2,174 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
+import {createScrollNavigation} from '../ui/scroll-navigation.js';
 const source=readFileSync(new URL('../ui/scroll-navigation.js',import.meta.url),'utf8').replace(/^export /gm,'');
 const menu=readFileSync(new URL('../ui/menu-navigation.js',import.meta.url),'utf8').replace(/^export /gm,'');
+
+test('popup ownership cancels scroll and R3 once, stops held frames, and recovers safely', () => {
+  let time = 0;
+  let claimsPopup = false;
+  let throwNextScrollEvent = false;
+  const popupEvents = [];
+  const trayCalls = [];
+  const activations = [];
+  const classList = () => {
+    const classes = new Set();
+    return {
+      add: (...names) => names.forEach(name => classes.add(name)),
+      remove: (...names) => names.forEach(name => classes.delete(name)),
+      contains: name => classes.has(name)
+    };
+  };
+  const element = () => {
+    const el = {
+      isConnected: true,
+      parentElement: null,
+      style: {},
+      classList: classList(),
+      children: [],
+      append(child) { this.children.push(child); child.parentElement = this; },
+      setAttribute() {},
+      remove() {
+        if (!this.parentElement) return;
+        this.parentElement.children = this.parentElement.children.filter(child => child !== this);
+        this.parentElement = null;
+      },
+      closest() { return null; },
+      getBoundingClientRect() { return {left: 0, right: 400, top: 0, bottom: 360, width: 400, height: 360}; }
+    };
+    return el;
+  };
+  const viewport = element();
+  Object.assign(viewport, {
+    scrollHeight: 1200,
+    clientHeight: 120,
+    scrollTop: 0,
+    querySelectorAll: () => [target]
+  });
+  const target = element();
+  target.dispatchEvent = event => {
+    popupEvents.push({name: event.detail.name, status: event.detail.status});
+    if (throwNextScrollEvent && event.detail.name === 'scroll-pan') {
+      throwNextScrollEvent = false;
+      throw new Error('popup listener failed');
+    }
+    if (claimsPopup) event.preventDefault();
+    return true;
+  };
+  const thumb = element();
+  const track = element();
+  track.querySelector = () => thumb;
+  const area = element();
+  area.tagName = 'SECTION';
+  area.firstElementChild = viewport;
+  area.querySelector = selector => selector.includes('track') ? track : viewport;
+  area.contains = candidate => candidate === target;
+  area.component = {setScrollThumbPosition() {}};
+  const root = {querySelectorAll: () => [area]};
+  const documentStub = {
+    head: element(),
+    createElement: () => element()
+  };
+  const focus = {
+    currentFocus: () => target,
+    setFocus: candidate => activations.push(candidate)
+  };
+  const statuses = {START: 1, UPDATE: 2, FINISH: 3, HOLD: 4};
+  const runtime = createScrollNavigation({
+    document: documentStub,
+    window: {getComputedStyle: () => ({display: 'block', visibility: 'visible'})},
+    focus,
+    statuses,
+    root: () => root,
+    navigationTray: {set: entries => trayCalls.push(entries.map(entry => entry.action))},
+    now: () => time
+  });
+
+  claimsPopup = true;
+  assert.equal(runtime.route('scroll-pan', statuses.START, 0, -1, true), true);
+  assert.equal(runtime.route('shell-action-3', statuses.START, 0, 0, true), true);
+  assert.deepEqual(popupEvents.map(event => event.name), ['scroll-pan', 'shell-action-3']);
+  assert.deepEqual(activations, []);
+  assert.equal(viewport.scrollTop, 0);
+
+  claimsPopup = false;
+  runtime.route('scroll-pan', statuses.START, 0, -1, true);
+  time += 20;
+  runtime.sync(true);
+  const heldTop = viewport.scrollTop;
+  assert.ok(heldTop > 0);
+  claimsPopup = true;
+  time += 20;
+  runtime.sync(true);
+  const popupTop = viewport.scrollTop;
+  time += 20;
+  runtime.sync(true);
+  assert.equal(viewport.scrollTop, popupTop);
+  assert.deepEqual(trayCalls.at(-1), []);
+
+  claimsPopup = false;
+  runtime.route('scroll-pan', statuses.START, 0, -1, true);
+  time += 20;
+  runtime.sync(true);
+  assert.ok(viewport.scrollTop > popupTop);
+  assert.ok(trayCalls.at(-1).includes('shell-action-3'));
+  assert.equal(track.classList.contains('mtg-owned-scroll-track'), true);
+  assert.equal(track.classList.contains('mtg-active-scroll'), true);
+  const heldMarker = thumb.children.at(-1);
+  assert.ok(heldMarker);
+
+  throwNextScrollEvent = true;
+  const throwingBaseline = viewport.scrollTop;
+  assert.equal(runtime.route('scroll-pan', statuses.START, 0, -1, true), true);
+  time += 20;
+  runtime.sync(true);
+  assert.ok(viewport.scrollTop > throwingBaseline);
+
+  const eventsBeforeInactive = popupEvents.length;
+  const topBeforeInactive = viewport.scrollTop;
+  assert.equal(runtime.route('scroll-pan', statuses.UPDATE, 0, -1, false), false);
+  assert.equal(popupEvents.length, eventsBeforeInactive);
+  assert.equal(viewport.scrollTop, topBeforeInactive);
+  assert.deepEqual(trayCalls.at(-1), []);
+  assert.equal(track.classList.contains('mtg-owned-scroll-track'), false);
+  assert.equal(track.classList.contains('mtg-active-scroll'), false);
+  assert.equal(thumb.children.includes(heldMarker), false);
+  assert.equal(thumb.children.length, 0);
+  time += 20;
+  runtime.sync(true);
+  assert.equal(viewport.scrollTop, topBeforeInactive);
+
+  runtime.route('scroll-pan', statuses.START, 0, -1, true);
+  time += 20;
+  runtime.sync(true);
+  const probeHeldTop = viewport.scrollTop;
+  assert.ok(probeHeldTop > topBeforeInactive);
+  assert.equal(track.classList.contains('mtg-owned-scroll-track'), true);
+  assert.equal(track.classList.contains('mtg-active-scroll'), true);
+  const probeMarker = thumb.children.at(-1);
+  assert.ok(probeMarker);
+  claimsPopup = true;
+  time += 20;
+  runtime.sync(true);
+  assert.equal(viewport.scrollTop, probeHeldTop);
+  assert.deepEqual(trayCalls.at(-1), []);
+  assert.equal(track.classList.contains('mtg-owned-scroll-track'), false);
+  assert.equal(track.classList.contains('mtg-active-scroll'), false);
+  assert.equal(thumb.children.includes(probeMarker), false);
+  assert.equal(thumb.children.length, 0);
+
+  claimsPopup = false;
+  time += 20;
+  runtime.sync(true);
+  assert.equal(viewport.scrollTop, probeHeldTop);
+  const recoveryBaseline = viewport.scrollTop;
+  runtime.route('scroll-pan', statuses.START, 0, -1, true);
+  time += 20;
+  runtime.sync(true);
+  assert.ok(viewport.scrollTop > recoveryBaseline);
+  runtime.dispose();
+});
 test('scroll ownership, centre focus, calibration, directions, lifecycle and read-only panes', {skip:!process.env.CIV7_PLAYWRIGHT_MODULE}, async()=>{
  const {chromium}=createRequire(import.meta.url)(process.env.CIV7_PLAYWRIGHT_MODULE);
  const browser=await chromium.launch({headless:true});
@@ -18,8 +184,9 @@ test('scroll ownership, centre focus, calibration, directions, lifecycle and rea
  const disabled=v.children[14];disabled.disabled=true;disabled.setAttribute('disabled','true');
  const focus={currentFocus:()=>focused,setFocus:el=>{focused=el;el.focus({preventScroll:true});}};
  focus.setFocus(v.children[0]);v.scrollTop=720;
- const instructions=[];
- const control=window.make({document,window,focus,statuses:S,root:()=>root,now:()=>time,instruction:(e,k,a)=>{e.textContent=k;instructions.push([k,a]);}});
+ const trayCalls=[];
+ const control=window.make({document,window,focus,statuses:S,root:()=>root,now:()=>time,
+   navigationTray:{set:entries=>trayCalls.push(entries.map(({action,locKey})=>[locKey,action]))}});
  const delegated=[];const handler={onEngineInput:(...args)=>delegated.push(args)};
  const snap={menu:true,controller:true,focused:true,swapRoles:true,scope:'menu'};
  const patch=window.menu({actionHandler:handler,statuses:S,snapshot:()=>snap,scrollControls:control});
@@ -38,11 +205,11 @@ test('scroll ownership, centre focus, calibration, directions, lifecycle and rea
  input('nav-move',3);input('nav-move',1,0,-1);time+=20;patch.sync();
  const readOnlyScrolled=panes[1].firstElementChild.scrollTop>0;
  input('shell-action-3',1);input('shell-action-3',3);const readOnlyKept=focused.textContent===centre;
- const iconsMapped=instructions.some(([k,a])=>k.endsWith('SWITCH')&&a==='scroll-pan');
+ const iconsMapped=trayCalls.at(-1).some(([k,a])=>k.endsWith('SWITCH')&&a==='scroll-pan');
  // return left requires neutral; focus remains until explicit R3.
  input('nav-move',3);input('nav-move',1,-1,0);const left=!!panes[0].querySelector('.mtg-active-scroll');
  snap.blocked=true;const before=v.scrollTop;time+=25;patch.sync();input('nav-move',2,0,-1);
- const blocked=v.scrollTop===before&&!document.querySelector('.mtg-scroll-hints');
+ const blocked=v.scrollTop===before&&trayCalls.at(-1).length===0&&!document.querySelector('mtg-scroll-hints,.mtg-scroll-hints');
  snap.blocked=false;patch.setConfig({enabled:false});input('scroll-pan',1,0,-1);time+=20;patch.sync();
  const nativeMode=v.scrollTop>before;
  input('scroll-pan',3);const stopped=v.scrollTop;time+=30;patch.sync();const finishStops=v.scrollTop===stopped;
@@ -50,7 +217,7 @@ test('scroll ownership, centre focus, calibration, directions, lifecycle and rea
  panes[0].remove();patch.sync();const rebuilt=!!panes[1].querySelector('.mtg-active-scroll');
  const oldTop=panes[1].firstElementChild.scrollTop;input('scroll-pan',4,0,-1);time+=20;patch.sync();
  const staleHeldIgnored=panes[1].firstElementChild.scrollTop===oldTop;
- patch.dispose();const cleaned=!document.querySelector('.mtg-scroll-hints,.mtg-active-scroll')&&!document.head.textContent.includes('.mtg-active-scroll{');
+ patch.dispose();const cleaned=!document.querySelector('mtg-scroll-hints,.mtg-scroll-hints,.mtg-active-scroll')&&!document.head.textContent.includes('.mtg-active-scroll{')&&trayCalls.at(-1).length===0;
  return {centre,noActivation,firstScrolled,diagonalStayed,verticalLatch,switched,heldSingle,readOnlyScrolled,readOnlyKept,iconsMapped,left,blocked,nativeMode,finishStops,mouseDelegates,rebuilt,staleHeldIgnored,cleaned};
  });
  assert.match(result.centre,/row 1[356]/); // disabled row 14 is skipped; nearest visible enabled row wins.

@@ -1,9 +1,11 @@
 // Menu-only scroll ownership, after calibrated stick mapping. Never activates a control.
-export function createScrollNavigation({ document, window, focus, statuses: S, root, instruction,
+export function createScrollNavigation({ document, window, focus, statuses: S, root,
+  navigationTray,
   now = () => performance.now() }) {
   const selector = 'fxs-scrollable,[data-name="ScrollArea"]';
-  let selected, scope, horizontal = false, pressed = false, armed = false, speed = 0, last = now(), sample = 0, hints, marked;
-  let marker, verticalSince=null;
+  let selected, scope, horizontal = false, pressed = false, armed = false, speed = 0, last = now(), sample = 0, marked;
+  let verticalSince=null;
+  let marker;
   function stopVertical() { speed=0; verticalSince=null; }
   function setVertical(value) {
     if (!value) { stopVertical(); return; }
@@ -59,6 +61,25 @@ export function createScrollNavigation({ document, window, focus, statuses: S, r
     if (!candidates.length) return false; // Read-only details must not steal focus from the save list.
     stopVertical(); focus.setFocus(candidates[0]); return true;
   }
+  function popupOwnsInput(name, status, x, y) {
+    const target = focus.currentFocus();
+    if (!target || typeof target.dispatchEvent !== 'function' || typeof CustomEvent !== 'function') return false;
+    let event;
+    try {
+      event = new CustomEvent('civ7-controller-scroll', {
+        bubbles: true, cancelable: true, detail: { name, status, x, y }
+      });
+      target.dispatchEvent(event);
+    } catch (_) {
+      return false; // A popup implementation must never break native menu scrolling.
+    }
+    return event.defaultPrevented;
+  }
+  function popupOwnsFrame() {
+    if (!popupOwnsInput('probe', 0, 0, 0)) return false;
+    reset(); // Stop held motion, remove our hints, and clear the active marker.
+    return true;
+  }
   function paint(list, a, scrollAction) {
     const tracks=new Set(list.map(area=>area.el.querySelector('.fxs-scrollbar__track--vertical,.scroll-area_track')).filter(Boolean));
     for (const old of ownedTracks) if (!tracks.has(old)) { old.classList.remove('mtg-owned-scroll-track'); ownedTracks.delete(old); }
@@ -68,8 +89,8 @@ export function createScrollNavigation({ document, window, focus, statuses: S, r
       marked?.classList.remove('mtg-active-scroll'); marked=track;
       marked?.classList.add('mtg-active-scroll');
     }
-    // Do not move Solid-owned DOM or toggle native input flags. Suppress its
-    // static decoration while we own scrolling, and move one native device glyph.
+    // Keep the original selected-scrollbar glyph and suppress the duplicate
+    // native decorations while this mod owns the same physical RS stream.
     const thumb=track?.querySelector('.fxs-scrollbar__thumb--vertical,.scroll-area_thumb');
     if (thumb) {
       if (!marker) {
@@ -81,50 +102,25 @@ export function createScrollNavigation({ document, window, focus, statuses: S, r
       }
       if (marker.parentElement!==thumb) thumb.append(marker);
     } else { marker?.remove(); marker=null; }
-    const tray=[...document.querySelectorAll('nav-tray')].find(visible);
-    const content=tray?.querySelector('.flow-row.relative.w-full');
-    if (!content || !a) { hints?.remove(); hints=null; return; }
-    if (!hints?.isConnected || hints.parentElement!==content) {
-      hints?.remove(); hints=document.createElement('div'); hints.className='mtg-scroll-hints';
-      hints.style.cssText='position:absolute;display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;pointer-events:none;';
-      hints.append(document.createElement('span'),document.createElement('span'));
-      content.append(hints);
-    }
-    instruction(hints.children[0],'LOC_MTG_SCROLL_CENTER','shell-action-3');
-    // Hints describe the calibrated physical right stick, not the faulty raw stream.
-    instruction(hints.children[1],'LOC_MTG_SCROLL_SWITCH','scroll-pan');
-    hints.children[1].style.display=list.length>1?'flex':'none';
-    // Explicit widths avoid Gameface's zero-basis intrinsic flex measurement.
-    // Keep native entries intact; use rows directly above them if space is short.
-    const rem=parseFloat(window.getComputedStyle(document.documentElement).fontSize)||16;
-    const box=content.getBoundingClientRect(), available=Math.max(1,Math.min(box.width,window.innerWidth-box.left-12));
-    const gap=rem*.75;
-    const widths=[Math.min(20*rem,available),Math.min(18*rem,available)];
-    for (let i=0;i<2;i++) {
-      const item=hints.children[i];item.style.width=`${widths[i]}px`;item.style.flex='0 0 auto';item.style.boxSizing='border-box';
-      const label=item.lastElementChild;
-      if (label) { label.style.flex='0 0 auto';label.style.whiteSpace='nowrap';label.style.display='block'; }
-    }
-    const existing=[...content.children].filter(el=>el!==hints&&!el.classList.contains('nav-tray-bg')&&visible(el));
-    const right=Math.max(box.left,...existing.map(el=>el.getBoundingClientRect().right));
-    const used=right-box.left+gap;
-    const total=widths[0]+(list.length>1?gap+widths[1]:0);
-    hints.style.columnGap=`${gap}px`;hints.style.rowGap=`${gap/2}px`;
-    hints.style.width=`${Math.min(total,available)}px`;
-    const inline=used+total<=available;
-    hints.style.left=inline?`${used}px`:'0px';
-    hints.style.top=inline?'0px':'auto';
-    hints.style.bottom=inline?'auto':`calc(100% + ${gap/2}px)`;
+    // The native persistent tray owns the footer presentation. Repeating sync
+    // is safe: the adapter pushes each action at most once and withdraws only
+    // its own entry when the active scope no longer needs it.
+    navigationTray?.set(a ? [
+      { action: 'shell-action-3', locKey: 'LOC_MTG_SCROLL_CENTER' },
+      ...(list.length > 1 ? [{ action: 'scroll-pan', locKey: 'LOC_MTG_SCROLL_SWITCH' }] : [])
+    ] : []);
   }
   function reset() {
     selected=null; scope=null; horizontal=false; pressed=false; armed=false; stopVertical(); last=now();
     marker?.remove();marker=null;
     for (const track of ownedTracks) track.classList.remove('mtg-owned-scroll-track');
     ownedTracks.clear();
-    hints?.remove(); hints=null; marked?.classList.remove('mtg-active-scroll'); marked=null;
+    navigationTray?.set([]);
+    marked?.classList.remove('mtg-active-scroll'); marked=null;
   }
   function sync(active, scrollAction='scroll-pan') {
     if (!active) { reset(); return; }
+    if (popupOwnsFrame()) return;
     const list=areas(), a=choose(list), time=now();
     const dt=Math.min(40,Math.max(0,time-last)); last=time;
     if (a && speed && time-sample<180) {
@@ -138,6 +134,11 @@ export function createScrollNavigation({ document, window, focus, statuses: S, r
     paint(list,a,scrollAction);
   }
   function route(name,status,x,y,active,scrollAction) {
+    if (!active) { sync(false); return false; }
+    if ((name==='scroll-pan' || name==='shell-action-3') &&
+        popupOwnsInput(name,status,x,y)) {
+      reset(); return true;
+    }
     sync(active,scrollAction);
     if (!active) return false;
     const list=areas(), a=choose(list);
@@ -170,7 +171,7 @@ export function createScrollNavigation({ document, window, focus, statuses: S, r
     sample=now(); paint(list,choose(list),scrollAction); return true;
   }
   const style=document.createElement('style');
-  style.textContent='.mtg-owned-scroll-track fxs-nav-help:not(.mtg-scroll-marker),.mtg-owned-scroll-track [data-name=NavHelp]{display:none!important}.mtg-active-scroll{outline:2px solid #d7c58e;outline-offset:3px}.mtg-scroll-hints>span{background:rgba(0,0,0,.4);padding:0 .3rem;font-size:1rem}';
+  style.textContent='.mtg-owned-scroll-track fxs-nav-help:not(.mtg-scroll-marker),.mtg-owned-scroll-track [data-name=NavHelp]{display:none!important}.mtg-active-scroll{outline:2px solid #d7c58e;outline-offset:3px}';
   document.head.append(style);
   return { sync, route, suspend:reset, dispose(){reset();style.remove();} };
 }

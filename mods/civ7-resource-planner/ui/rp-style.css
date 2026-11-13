@@ -1,15 +1,145 @@
-.rp-toolbar { padding: 0.4rem; background-color: rgba(27,35,47,0.82); border: 0.0556rem solid #71644c; }
-.rp-button { position: relative; pointer-events: auto; cursor: pointer; border: 0.0556rem solid rgba(174,151,101,0.35); border-radius: 0.15rem; }
-.rp-button:hover, .rp-button:focus { background-color: rgba(198,168,104,0.17); border-color: #d3bc83; }
-.rp-button.disabled { opacity: 0.45; }
-.rp-auto { min-height: 2.1rem; justify-content: center; background-color: rgba(91,77,42,0.38); color: #eee2bd; }
-.rp-option { min-height: 1.4rem; }
-.rp-caption { margin: 0.15rem 0 0.2rem; }
-.rp-sort { flex: 1; min-height: 2rem; margin-right: 0.15rem; display: flex; align-items: center; justify-content: center; }
+/* Layout B: action rail, center tools/list, full-height resource palette.
+   Use flexbox: Coherent does not implement browser CSS grid consistently. */
+.rp-body-zones { min-width:0; min-height:0; align-items:stretch; }
+.rp-body-zones > .rp-toolbar { flex:0 0 14rem; width:14rem; min-width:0; margin-right:0.65rem; overflow-y:auto; }
+.rp-center { flex:1 1 0%; min-width:0; min-height:0; margin-right:0.65rem; }
+.rp-center > [data-name="slotted-resource-container"] { min-width:0; min-height:0; }
+.rp-body-zones > .rp-unassigned { flex:0 0 15rem; width:15rem; min-width:0; max-width:15rem; }
+.rp-unassigned > [data-name="available-resources-container"] { min-height:0; }
+.rp-pool-heading { align-items:center; min-height:2rem; margin-bottom:0.3rem; border-bottom:0.0556rem solid #71644c; }
+.rp-settlements-title { flex:0 0 auto; padding:0.35rem 0.2rem; margin-bottom:0.3rem; color:#dfcf9d; border-bottom:0.0556rem solid #71644c; }
+.rp-toolbar { padding:0.5rem; background-color:rgba(27,35,47,0.82); border:0.0556rem solid #71644c; }
+.rp-toolbar > * { flex-shrink:0; }
+.rp-settings-spacer { flex:1 0 0px; min-height:0; }
+.rp-toolbar-settings { padding-top:0.75rem; flex-shrink:0; }
+.rp-button { position:relative; display:flex; flex-shrink:0; align-items:center; justify-content:center; min-width:0; min-height:0; pointer-events:auto; cursor:pointer; border:0.0556rem solid transparent; border-radius:0.15rem; }
+.rp-button:focus { outline:none; }
+.rp-button-content { flex:1 1 auto; min-width:0; flex-direction:row; align-items:center; justify-content:center; }
+/* Native textures have raised, bright edges. Keep the flat outline/fill on
+   the control itself so focus never adds a second decorative frame. */
+.rp-button > .rp-button-art { display:none; }
+.rp-button > .rp-button-art > .fxs-button__bg--base,
+.rp-button > .rp-button-art > .fxs-button__bg--disabled { display:none; }
+
+.rp-button.disabled { opacity:0.45; }
+.rp-action { min-height:2.35rem; padding:0.3rem 0.4rem; border-color:transparent; background-color:transparent; color:#eee2bd; justify-content:center; }
+
+.rp-action-icon { width:1.45rem; height:1.45rem; flex:0 0 1.45rem; margin-right:0.3rem; }
+.rp-active { border-color:#e8c87a; background-color:transparent; }
+.rp-action.rp-active { border-color:#e8c87a; background-color:transparent; }
+.rp-utility-actions { flex-direction:column; align-items:stretch; }
+.rp-utility-actions > .rp-button { margin-top:0.4rem; }
+.rp-options { margin-top:0; }
+.rp-option { margin-bottom:0.2rem; border-color:transparent; background-color:transparent; }
+.rp-option:last-child { margin-bottom:0; }
+.rp-utility-actions > .rp-tidy { margin-top:0.65rem; }
+.rp-happiness-scope { margin-top:0.15rem; padding:0.15rem; border:0.0556rem solid #71644c; }
+.rp-scope-option { border-color:transparent; background-color:transparent; min-height:2rem; }
+.rp-scope-option.rp-active { border-color:#e8c87a; }
+.rp-target-group { margin-top:0.45rem; }
+.rp-target-heading { justify-content:center; margin-bottom:0.2rem; color:#c5c2b6; }
+.rp-target-options { border:0.0556rem solid #71644c; padding:0.15rem; }
+.rp-target-option { flex:1 1 0%; min-width:0; min-height:1.8rem; text-align:center; border-color:transparent; background-color:transparent; }
+.rp-target-option.rp-active { border-color:#e8c87a; }
+.rp-happiness { margin-top:0.4rem; }
+.rp-status { margin-top:0.35rem; min-height:0; line-height:1.05rem; }
+.rp-sort-toolbar { flex:0 0 auto; padding:0.2rem 0.25rem 0.35rem; border-bottom:0.0556rem solid #71644c; }
+.rp-sort-icons, .rp-sort-options { flex-wrap:nowrap; justify-content:flex-start; align-items:center; }
+.rp-sort-options { margin-top:0.2rem; }
+.rp-sort-icons > .text-sm, .rp-sort-options > .text-sm { flex:0 0 5.5rem; }
+.rp-sort { flex:0 0 1.9rem; width:1.9rem; height:1.9rem; margin-right:0.15rem; display:flex; align-items:center; justify-content:center; }
 .rp-direction { position:absolute; right:0; bottom:0; font-size:0.55rem; color:#ffe4a5; }
-.rp-active { border-color: #e8c87a; background-color: rgba(168,129,43,0.24); }
-.rp-status { margin-top: 0.3rem; min-height: 1.6rem; line-height: 1.05rem; }
-.rp-happiness { padding:0 0.25rem; margin-top:-0.1rem; margin-bottom:-0.1rem; }
-.rp-yield { border-color: transparent; min-width:1.45rem; padding:0.1rem; }
-.rp-yield.rp-active { border-color:#e8c87a; }
-.rp-tendency-label { padding:0.1rem 0.35rem; color:#e8c87a; }
+.rp-zone { border:0.1rem solid transparent; border-radius:0.2rem; }
+.rp-zone-preferences.rp-zone-active { border-color:#eab879; }
+.rp-zone-resources.rp-zone-active { border-color:#60c2e8; }
+.rp-zone-tools.rp-zone-active { border-color:#e8cd78; }
+.rp-zone-hint { min-height:1.65rem; color:#eee2bd; margin-bottom:0.2rem; }
+/* Preference controls and compact cards are owned by Resource Planner. */
+.rp-settlement-body { min-width:0; width:100%; }
+.rp-body-zones .rp-settlement-body > .rp-zone-preferences { flex:0 1 auto; flex-wrap:nowrap; padding:0.2rem; min-width:0; }
+.rp-settlement-body > .rp-zone-resources { min-width:0; padding:0.2rem; }
+.rp-yield { display:flex; flex-direction:column; align-items:center; justify-content:center; flex:0 1 2rem; width:2rem; min-width:1.5rem; padding:0.1rem; height:3.1rem; border-color:transparent; background-color:rgba(0,0,0,0.25); }
+.rp-settlement-body .rp-yield.ml-3 { margin-left:0.12rem; }
+.rp-yield-icon { width:1.6rem; height:1.6rem; flex:0 0 1.6rem; }
+.rp-yield > .rp-button-content { flex:0 0 auto; width:100%; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+.rp-yield-total { width:100%; text-align:center; font-size:0.75rem; line-height:1rem; white-space:nowrap; }
+/* Zone gating affects input, never the brightness of the yield artwork. */
+.rp-yield.disabled { opacity:1; }
+.rp-tendency-label { margin-left:0.3rem; padding:0.1rem; flex:0 0 auto; width:1.8rem; height:2rem; border:0; background-color:transparent; }
+.rp-tendency-label > .rp-button-art { display:none; }
+.rp-tendency-label > .rp-button-content { opacity:0.7; }
+.rp-tendency-label:hover > .rp-button-content,
+.rp-tendency-label:focus > .rp-button-content,
+.rp-tendency-label.rp-controller-focus > .rp-button-content { opacity:1; transform:scale(1.12); }
+
+/* Resource layout migrated from Better Controller Support. The native ScrollArea
+   keeps its scrollbar; its content stacks three full-width groups plus the footer.
+   Stable in mouse/controller mode, with no global component or input hook. */
+.rp-resource-scroll > .overflow-auto > div { display:flex; flex-direction:column; align-items:stretch; }
+.rp-resource-column { box-sizing:border-box; width:100%; min-width:0; flex:0 0 auto; padding:0 0.3rem; }
+.rp-resource-scroll > .overflow-auto > div > .self-end { width:100%; }
+.rp-resource-scroll .rp-reset-defaults { margin-right:1.5rem; }
+.rp-center [data-name$="-city-resource-activatable"] { width:100%; min-width:0; }
+.rp-center [data-name$="-city-resource-activatable"] .text-lg { font-size:1rem; }
+.rp-center [data-name$="-city-resource-activatable"] .flex-auto { min-width:0; }
+.rp-center .rp-settlement-body { flex-direction:row; align-items:center; }
+.rp-center .rp-settlement-body > .rp-zone-preferences { flex:0 0 18rem; width:18rem; flex-wrap:nowrap; align-items:center; }
+.rp-center .rp-settlement-body > .rp-zone-resources { flex:1 1 0%; width:auto; }
+.rp-center .rp-settlement-body > .rp-card-divider { display:block; align-self:stretch; }
+/* Current production stays on the title line, outside the yield/resource body.
+   Long unit names truncate instead of widening or reflowing those columns. */
+.rp-settlement-title { min-width:0; flex-wrap:nowrap; }
+.rp-settlement-title > div:first-child { flex:0 0 auto; }
+.rp-settlement-title > .text-lg { flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.rp-production { flex:0 1 14rem; min-width:0; max-width:14rem; margin-left:0.5rem; padding-left:0.5rem; border-left:0.0556rem solid #71644c; white-space:nowrap; }
+.rp-production-icon { width:1.15rem; height:1.15rem; flex:0 0 1.15rem; margin-right:0.25rem; background-size:contain; background-position:center; background-repeat:no-repeat; }
+.rp-production-label { flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#c5c2b6; }
+.rp-production-progress { display:flex; flex:0 0 auto; align-items:center; margin-left:0.25rem; }
+.rp-production-yield-icon { width:0.95rem; height:0.95rem; flex:0 0 0.95rem; margin-right:0.15rem; }
+.rp-production-value { flex:0 0 auto; white-space:nowrap; color:#c5c2b6; }
+.rp-production-empty .rp-production-label { color:#8f8c84; }
+screen-resource-allocation .rp-commerce-tabs { width:100%; max-width:100%; flex:0 0 auto; align-self:stretch; }
+
+/* Mouse counterpart of the tray's long Cancel. Native close-frame artwork. */
+.rp-defer-button { cursor:pointer; pointer-events:auto; z-index:2; }
+.rp-defer-large { right:4.5rem; top:1.25rem; }
+.rp-defer-small { right:3.5rem; top:0.25rem; }
+.rp-defer-bg { position:absolute; top:0; right:0; bottom:0; left:0; background-image:url(blp:hud_closebutton); background-size:100% 100%; }
+.rp-defer-button:hover .rp-defer-bg { background-image:url(blp:hud_closebutton_hover); }
+.rp-defer-button:active .rp-defer-bg { background-image:url(blp:hud_closebutton_pressed); }
+.rp-defer-symbol { position:absolute; top:0.55rem; right:0.55rem; bottom:0.55rem; left:0.55rem; background-color:#341e24; }
+.rp-defer-resource { position:absolute; left:0; top:0; width:1.5rem; height:1.5rem; background-image:url(blp:ntf_discover_resource); background-size:contain; background-repeat:no-repeat; }
+.rp-defer-hourglass { position:absolute; right:-0.2rem; bottom:-0.2rem; width:1.15rem; height:1.15rem; background-image:url(blp:hourglasses01); background-size:400% 400%; background-position:0 0; }
+.rp-resource-screen .mtg-card-reminder { display:none; }
+
+/* Focus fills the same thin frame used for selection. Preference colors and
+   direction markers remain visible when a yield has focus. */
+.rp-button:hover,
+.rp-button:focus,
+.rp-button.rp-controller-focus {
+  border-color:#e8c87a; background-color:rgba(232,200,122,0.24);
+}
+.rp-button:active { background-color:rgba(232,200,122,0.36); }
+/* Gameface does not reliably apply chained :not() focus selectors. */
+.rp-button.disabled:hover, .rp-button.disabled:focus,
+.rp-button.disabled.rp-controller-focus { border-color:transparent; background-color:transparent; }
+.rp-button.rp-yield.disabled { background-color:rgba(0,0,0,0.25); }
+.rp-button.rp-active { border-color:#e8c87a; }
+.rp-button.rp-yield.rp-active { border-color:#a9cfa3; }
+.rp-button.rp-yield.rp-avoid { border-color:#e04436; }
+.rp-yield.rp-active::after, .rp-yield.rp-avoid::after {
+  content:""; position:absolute; left:50%; width:0; height:0;
+  margin-left:0; transform:translateX(-50%);
+  border-left:0.2rem solid transparent;
+  border-right:0.2rem solid transparent; pointer-events:none;
+}
+/* Center the triangle with an explicit transform instead of a negative margin.
+   Zero top/bottom keeps the complete marker against the frame's inner edge. */
+.rp-yield.rp-active::after { top:0; border-bottom:0.25rem solid #93c987; }
+.rp-yield.rp-avoid::after { bottom:0; border-top:0.25rem solid #ef3b2d; }
+/* The clear icon stays frameless, including hover and controller focus. */
+.rp-button.rp-tendency-label { border:0; background-color:transparent; }
+.rp-zone-actions.rp-zone-active, .rp-zone-preferences.rp-zone-active, .rp-zone-tools.rp-zone-active,
+.rp-zone-resources.rp-zone-active { border-color:rgba(234,184,121,0.25); }
+.rp-zone.rp-zone-candidate { border-color:#e8c87a; }
+.rp-zone-entry { margin-bottom:0.4rem; min-height:2rem; width:100%; }

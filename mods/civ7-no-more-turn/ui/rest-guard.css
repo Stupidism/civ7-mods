@@ -21,8 +21,8 @@ panel-system-bar .c7r-launcher { position: relative; display: flex; flex-shrink:
 .c7r-tip { font-size: 1.1rem; text-align: center; margin: 0.7rem 0 1.4rem; }
 .c7r-actions { display: flex; align-items: stretch; }
 .c7r-continue { min-height: 2.8rem; flex-grow: 1; }
-.c7r-quit { min-height: 2.8rem; min-width: 8rem; margin-left: 0.65rem; }
+.c7r-menu { min-height: 2.8rem; min-width: 8rem; margin-left: 0.65rem; }
 .c7r-footnote { color: #aaa99f; font-size: 0.85rem; line-height: 1.5; margin: 0.75rem 0 0; }
-.c7r-save-status { color: #d8c394; }
 
-.c7r-button[data-c7r-focused="true"] { outline: 0.12rem solid #ead39b; outline-offset: 0.1rem; }
+.c7r-card .c7r-button[data-c7r-focused="true"] .fxs-button__bg--focus { opacity: 1; }
+.c7r-continue[data-c7r-focused="true"] .fxs-nav-help { display: flex; }

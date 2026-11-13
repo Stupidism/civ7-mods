@@ -1,7 +1,7 @@
 import { settingsStore } from './rest-settings.js';
 import { session, checkpoint, installLoadingHooks } from './rest-runtime.js';
 
-installLoadingHooks();
+installLoadingHooks('shell');
 const activity = () => {
   if (session.startedAt === null) return;
   session.activity(null, settingsStore.data.config, Date.now());

@@ -1,0 +1,122 @@
+{
+  "publishedFileId": "3815557333",
+  "title": "No More Turn（不再来一回合）",
+  "version": "1.8.7",
+  "publishedAt": "2026-10-30T00:10:04+08:00",
+  "descriptionSha256": "5309a8b2c72885d82ec5042e88cab215743f745152b115cfa60d80c4fda134dc",
+  "files": {
+    "README-en.md": {
+      "size": 4769,
+      "sha256": "cd9eedb07d00abb62bac0063b4b571ae10aa07e0d6ed4fcabf9a426b34129acd"
+    },
+    "README-zh-CN.txt": {
+      "size": 11307,
+      "sha256": "342c8d5a35f23997d61728e5d7047fdcc1f2d410454a1a9c72d25de8dcaf6469"
+    },
+    "README.md": {
+      "size": 14328,
+      "sha256": "c5576a6e61a862d635c03d8d7970e8862ac770e3ad7f1d58a044f36bfe025767"
+    },
+    "VALIDATION.txt": {
+      "size": 23114,
+      "sha256": "00977be1655909c0c4506d7136f6a71c85bffa5b767e97623b572781fe7f64cc"
+    },
+    "package.json": {
+      "size": 441,
+      "sha256": "b3035cab83f27351fb7ba308d6f2ba056ca038fde07b74aee4186e862c464eb6"
+    },
+    "rest-guard.modinfo": {
+      "size": 2094,
+      "sha256": "1810976474d5a2939e57ff9a02d808bdfa02ca769c57c4211e1f8cd63fc7b445"
+    },
+    "text/settings.xml": {
+      "size": 17206,
+      "sha256": "ee9b157822757a343292af5362f9e864014dbf2cbdfd2ea14f5a103aed6a3b28"
+    },
+    "ui/defaults.js": {
+      "size": 352,
+      "sha256": "b26cb82ecd9ce04eff95277ce941d021913509989da9bb7724246c89062704bc"
+    },
+    "ui/rest-guard.css": {
+      "size": 2331,
+      "sha256": "c6e571bf612a440b8062e2555fb77a92e46b17f95d0ab5387f2b5f38829c9fba"
+    },
+    "ui/rest-guard.js": {
+      "size": 12713,
+      "sha256": "be39ae6e14dbbbf1890e5fa75460cb383e841703a8db9dda92f15f81a2e3d8ee"
+    },
+    "ui/rest-model.js": {
+      "size": 3860,
+      "sha256": "665711331a367dca47273ea1186702bc3d187f31eb4251d7cc492a860026db37"
+    },
+    "ui/rest-options.js": {
+      "size": 9548,
+      "sha256": "d941f35413b32e21d7ad27d1737da9dd33971655caaa2fdd7c06515b131e885a"
+    },
+    "ui/rest-retention.js": {
+      "size": 6424,
+      "sha256": "570add90b1b95a4d51fa55e010762f0baf09aa7ac4834856d09abadc334f812f"
+    },
+    "ui/rest-runtime.js": {
+      "size": 4740,
+      "sha256": "06320b5d20244a0817740ac70ccad7474ed9d62418df7cb61b415eb17f111aee"
+    },
+    "ui/rest-save.js": {
+      "size": 6649,
+      "sha256": "d64db2400e24cfe25551e4ad6b481c37a88971146b156bc0ca388943cf600243"
+    },
+    "ui/rest-session.js": {
+      "size": 8840,
+      "sha256": "83a84e011828c43998b259b9dd75b0185b9142c713e60572de5890f2f4878a08"
+    },
+    "ui/rest-settings.js": {
+      "size": 2257,
+      "sha256": "332839e0249c97f6b547e7acfdd0d0dcfaf44d495938cc3fd586861a3e72b78b"
+    },
+    "ui/rest-shell.js": {
+      "size": 694,
+      "sha256": "9abe77770e1ca70768e1f8b46d5c0a329d07f851b0a0b45f1156b1e98060a2c4"
+    },
+    "ui/rest-store.js": {
+      "size": 1476,
+      "sha256": "03877a63057775a663eb98e477517f1b6b51a964c8a10ea988568aedff802281"
+    },
+    "ui/rest-view.js": {
+      "size": 12078,
+      "sha256": "39a96dd0f97bef8518e4fe073c0f2087cf59ee47cfad56a9ee4e7005dc37459d"
+    }
+  },
+  "publishState": {
+    "id": "3815557333",
+    "version": "1.8.7",
+    "phase": "verified",
+    "result": 1,
+    "returnedId": "3815557333",
+    "legalAgreementRequired": false,
+    "metadata": {
+      "title": "No More Turn（不再来一回合）",
+      "visibility": 0,
+      "updated": 1793290204,
+      "bytes": 145221
+    },
+    "download": {
+      "id": "3815557333",
+      "folder": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3815557333",
+      "bytes": 145221,
+      "state": 4
+    },
+    "verifiedFiles": 20,
+    "downloadHashesVerified": true
+  },
+  "offlineTestsPassed": 93,
+  "offlineTestsFailed": 0,
+  "offlineTestsSkipped": 0,
+  "liveGameTested": false,
+  "userLiveEvidence": {
+    "path": "/Users/sunmer/Documents/civ7-mods/work/rest-guard-1.8.7/user-prefix-visibility.png",
+    "confirmed": "用户截图确认：使用旧版长时间戳的 AutoSave_休息 名称显示在自动存档标签页。",
+    "notClaimed": "未实机验证精确的短时间戳格式。"
+  },
+  "scope": "1.8.7（2026-10-30）：本地化的短 AutoSave_ 名称及原生 AUTOSAVE 分类的保存／保留逻辑，禁止覆盖，不处理旧版普通分类存档。保存完成恢复有次数边界，须等到分钟改变后才提交新名称。用户截图显示旧版长时间戳的 AutoSave_休息 名称出现在自动存档标签页，只能确认前缀可见，不能视为短时间戳格式的实机验收。本次发布会话未操作游戏。以1.8.6为基础，仅纳入保存／保留逻辑、本地化存档文案、版本与文档；不包含本地活动标记、手柄和主动休息存档开关改动。",
+  "package": "/Users/sunmer/Documents/civ7-mods/work/rest-guard-1.8.7/civ7-rest-guard-1.8.7.zip"
+}

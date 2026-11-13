@@ -110,5 +110,5 @@
   },
   "offlineTestsPassed": 78,
   "liveGameTested": false,
-  "scope": "1.8.5 verified package plus defaults, localized descriptions, version and documentation only; local debug/activity/controller changes excluded."
+  "scope": "以已核验的1.8.5发行包为基础，仅纳入默认值、本地化说明、版本与文档；不包含本地调试、活动标记和手柄改动。"
 }

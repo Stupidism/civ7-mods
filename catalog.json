@@ -35,16 +35,15 @@
     },
     {
       "id": "civ7-resource-planner",
-      "version": "1.1.0",
+      "version": "1.5.1",
       "manifest": "mods/civ7-resource-planner/resource-planner.modinfo",
       "dependencies": [
-        "base-standard",
-        "bz-re-sorts"
+        "base-standard"
       ]
     },
     {
       "id": "civ7-rest-guard",
-      "version": "1.8.6",
+      "version": "1.8.8",
       "manifest": "mods/civ7-no-more-turn/rest-guard.modinfo",
       "dependencies": [
         "base-standard"

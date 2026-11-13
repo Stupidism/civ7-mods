@@ -26,7 +26,7 @@ function viewHarness(language = 'zh_Hans_CN') {
       querySelectorAll() {
         return this.children.flatMap(child => [...(child.getAttribute('data-c7r-action') ? [child] : []), ...child.querySelectorAll()]);
       },
-      setAttribute: (k, v) => attrs.set(k, v), getAttribute: k => attrs.get(k),
+      removeAttribute: k => attrs.delete(k), setAttribute: (k, v) => attrs.set(k, v), getAttribute: k => attrs.get(k),
       addEventListener: (k, fn) => events.set(k, fn),
       fire(name) { events.get(name)?.(); }, closest() { return this; },
     };
@@ -125,22 +125,6 @@ test('switching to a forced break retains the countdown lock and removes idle ac
   delete globalThis.document;
 });
 
-test('exit button remains available before the rest timer finishes', () => {
-  const view = viewHarness();
-  view.root = document.createElement('div');
-  view.launcher = { style: {} };
-  view.mountLauncher = () => {};
-  let quits = 0;
-  view.callbacks = { resume() {}, quit() { quits++; } };
-  view.showRest({ reason: 'turn', turn: 5, durationMs: 300000 });
-  assert.equal(view.continueButton.getAttribute('disabled'), 'true');
-  assert.equal(view.quitButton.getAttribute('caption'), '退出游戏');
-  view.activate(view.quitButton);
-  view.quitButton.fire('action-activate');
-  assert.equal(quits, 1, 'one engine click opens only one confirmation');
-  delete globalThis.document;
-});
-
 test('HUD activation opens settings once and ignores the following DOM click', () => {
   const view = viewHarness();
   view.root.contains = () => false; // HUD is docked outside the modal root.
@@ -176,38 +160,39 @@ test('HUD shows the session turns remaining and keeps that progress after loadin
 });
 
 
-test('save feedback stays separate from the timer and never disables voluntary continue', () => {
+test('Open settings remains enabled in every break without completing it', () => {
   const view = viewHarness();
-  view.root = document.createElement('div');
-  view.launcher = { style: {} }; view.mountLauncher = () => {};
-  view.callbacks = { resume() {}, quit() {} };
-  view.showIdleRest();
-  for (const status of ['waiting', 'saving', 'saved', 'failed', 'unconfirmed', 'unavailable']) {
-    view.updateSaveStatus({ status, fileName: 'RestGuard_Idle_T10_example' });
-    view.updateIdleRest(60000, false);
-    assert.ok(view.saveStatus.textContent.length > 0);
-    assert.equal(view.saveStatus.getAttribute('data-tooltip-content'), 'RestGuard_Idle_T10_example');
-    assert.equal(view.continueButton.getAttribute('disabled'), 'false');
-    assert.equal(view.timer.textContent, '01:00');
+  view.root = document.createElement('div'); view.launcher = { style: {} }; view.mountLauncher = () => {};
+  let menus = 0, resumes = 0;
+  view.callbacks = { openGameMenu() { menus++; }, resume() { resumes++; } };
+  for (const mode of ['rest', 'idle', 'night']) {
+    if (mode === 'rest') view.showRest({ reason: 'turn', turn: 49, durationMs: 300000 });
+    else if (mode === 'idle') view.showIdleRest();
+    else view.showNight({ startedAt: 0, endsAt: 3600000 }, normalizeConfig(), 0);
+    const timer = view.timer.textContent;
+    assert.equal(view.menuButton.getAttribute('caption'), '打开设置');
+    view.activate(view.menuButton); view.menuButton.fire('action-activate');
+    assert.equal(view.timer.textContent, timer);
   }
+  assert.equal(menus, 3); assert.equal(resumes, 0);
   delete globalThis.document;
 });
 
-test('night view disables Continue, displays its configured window, and allows Exit', () => {
+test('night view disables Continue, displays its configured window, and keeps settings available', () => {
   const view = viewHarness();
   view.root = document.createElement('div'); view.launcher = { style: {} }; view.mountLauncher = () => {};
-  let resumes = 0, quits = 0;
-  view.callbacks = { resume() { resumes++; }, quit() { quits++; } };
+  let resumes = 0;
+  view.callbacks = { resume() { resumes++; } };
   view.showNight({ startedAt: 0, endsAt: 3600000 }, normalizeConfig(), 60000);
   assert.equal(view.mode, 'night'); assert.equal(view.timer.textContent, '00:59:00');
   assert.match(view.message.textContent, /22:00–07:00/);
-  view.activate(view.continueButton); view.activate(view.quitButton);
-  assert.equal(resumes, 0); assert.equal(quits, 1);
+  view.activate(view.continueButton);
+  assert.equal(resumes, 0); assert.deepEqual(view.availableActions(), [view.menuButton]);
   delete globalThis.document;
 });
 
 for (const language of ['en_US', 'zh_Hans_CN', 'fr_FR']) {
-  test(`all break modes, controls, save states and HUD follow game language ${language}`, () => {
+  test(`all break modes, controls and HUD follow game language ${language}`, () => {
     const view = viewHarness(language);
     const english = language !== 'zh_Hans_CN';
     document.body = document.createElement('body'); document.querySelector = () => null;
@@ -225,7 +210,7 @@ for (const language of ['en_US', 'zh_Hans_CN', 'fr_FR']) {
     };
     full.showIdleRest();
     assert.equal(full.continueButton.getAttribute('caption'), english ? 'Continue game' : '继续游戏');
-    assert.equal(full.quitButton.getAttribute('caption'), english ? 'Exit game' : '退出游戏');
+    assert.equal(full.menuButton.getAttribute('caption'), english ? 'Open settings' : '打开设置');
     for (const rested of [false, true]) { full.updateIdleRest(300000, rested); check(); }
     for (const reason of ['turn', 'time']) {
       full.close(); full.showRest({ reason, turn: 42, durationMs: 300000 });
@@ -235,9 +220,6 @@ for (const language of ['en_US', 'zh_Hans_CN', 'fr_FR']) {
     full.showNight({ startedAt: 0, endsAt: 3600000 }, normalizeConfig(), 0);
     assert.equal(full.continueButton.getAttribute('caption'), english ? 'Night-time break in progress' : '夜间休息中');
     assert.match(full.message.textContent, /22:00/); assert.match(full.message.textContent, /07:00/); check();
-    for (const status of ['waiting', 'saving', 'saved', 'failed', 'unavailable', 'unconfirmed', 'unknown']) {
-      full.updateSaveStatus({ status, cleanup: 'failed', fileName: 'RestGuard_Night_T42_example' }); check();
-    }
     full.close();
     const session = new RestSession(); const current = { turn: 42, token: '42' };
     session.start(0);
@@ -263,21 +245,51 @@ test('English and Chinese catalogs cover the same keys and parameters', () => {
 test('controller navigates enabled actions, confirms focused action and restores prior focus', () => {
   const view = viewHarness();
   view.root = document.createElement('div'); view.launcher = {style:{}}; view.mountLauncher = () => {};
-  const prior = {isConnected:true}; let focus = prior, resumes = 0, quits = 0, dialog = false;
+  const prior = {isConnected:true}; let focus = prior, resumes = 0, menus = 0, dialog = false;
   view.callbacks = {currentFocus:()=>focus, setFocus:node=>{focus=node;}, hasDialog:()=>dialog,
-    resume:()=>resumes++, quit:()=>quits++};
+    resume:()=>resumes++, openGameMenu:()=>menus++};
   view.showIdleRest();
   assert.equal(focus, view.continueButton);
-  view.navigate(1); assert.equal(focus, view.quitButton);
-  view.activateFocused(); assert.equal(quits,1); assert.equal(resumes,0);
-  view.navigate(-1); view.activateFocused(); assert.equal(resumes,1);
+  view.navigate(1); assert.equal(focus, view.menuButton);
+  view.activateFocused(); assert.equal(menus, 1);
+  view.navigate(1); assert.equal(focus, view.continueButton);
+  view.activateFocused(); assert.equal(resumes, 1);
   view.close(); assert.equal(focus,prior);
   view.showRest({reason:'turn',turn:10,durationMs:300000});
-  assert.equal(focus,view.quitButton,'locked Continue cannot receive controller focus');
-  view.navigate(1); assert.equal(focus,view.quitButton);
+  assert.equal(focus,view.menuButton,'locked Continue cannot receive controller focus');
+  view.navigate(1); assert.equal(focus,view.menuButton);
   view.updateRest(0,300000); view.navigate(1); assert.equal(focus,view.continueButton);
   view.activateFocused(); assert.equal(resumes,2);
   dialog=true; const nativeDialog={}; focus=nativeDialog;
   view.updateRest(0,300000); assert.equal(focus,nativeDialog,'timer cannot steal native dialog focus');
   delete globalThis.document;
+});
+
+test('controller selection remains visible and actionable when a native panel retains focus', () => {
+  const view = viewHarness();
+  view.root = document.createElement('div');
+  view.launcher = { style: {} };
+  view.mountLauncher = () => {};
+  let menus = 0;
+  view.callbacks = { currentFocus: () => view.continueButton, setFocus() {}, openGameMenu: () => menus++ };
+  view.showIdleRest();
+  view.navigate(1);
+  view.ensureFocus();
+  assert.equal(view.menuButton.getAttribute('data-c7r-focused'), 'true');
+  assert.equal(view.menuButton.getAttribute('action-key'), 'inline-sys-menu');
+  assert.equal(view.continueButton.getAttribute('data-c7r-focused'), undefined);
+  view.activateFocused();
+  assert.equal(menus, 1);
+});
+
+test('each break panel has exactly the continue and settings buttons in one row', () => {
+  const view = viewHarness();
+  view.root = document.createElement('div'); view.launcher = { style: {} }; view.mountLauncher = () => {};
+  view.callbacks = {};
+  for (const show of [() => view.showIdleRest(), () => view.showRest({ reason: 'time', durationMs: 300000 }),
+    () => view.showNight({ startedAt: 0, endsAt: 60000 }, normalizeConfig(), 0)]) {
+    show();
+    assert.deepEqual(view.modal.querySelectorAll('[data-c7r-action]'), [view.continueButton, view.menuButton]);
+    assert.equal(view.menuButton.parentElement, view.continueButton.parentElement);
+  }
 });

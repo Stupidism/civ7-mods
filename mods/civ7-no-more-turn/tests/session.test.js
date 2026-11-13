@@ -107,7 +107,7 @@ test('idle detection is disabled along with the time feature', () => {
   assert.equal(s.turnsRemaining(at(4), config), 5);
 });
 
-test('loading saves retains 24 minutes plus a 6-minute load, without granting idle rest', () => {
+test('loading preserves 24 played minutes and excludes a 6-minute wait without granting idle rest', () => {
   const s = new RestSession();
   play(s, at(4), c, 0, 24);
   s.beginLoading(24 * minute);
@@ -116,16 +116,16 @@ test('loading saves retains 24 minutes plus a 6-minute load, without granting id
   assert.equal(loaded.idleRested, false);
   loaded.finishLoading(30 * minute);
   loaded.tick(at(30, 'other:age'), c, 30 * minute);
-  assert.equal(loaded.pending.reason, 'time');
-  assert.equal(loaded.elapsed(30 * minute), 30 * minute);
+  assert.equal(loaded.pending, null);
+  assert.equal(loaded.elapsed(30 * minute), 24 * minute);
 });
 
-test('first load time counts, while a fresh game process has no previous session', () => {
+test('first load time is excluded and a fresh game process has no previous session', () => {
   const s = new RestSession();
   s.beginLoading(0);
   s.finishLoading(2 * minute);
   s.tick(at(1), c, 2 * minute);
-  assert.equal(s.elapsed(2 * minute), 2 * minute);
+  assert.equal(s.elapsed(2 * minute), 0);
   assert.equal(new RestSession().elapsed(2 * minute), 0);
 });
 
@@ -193,7 +193,7 @@ test('motion and keyboard input keep the idle panel and its rest credit until ex
   assert.equal(s.resumeIdle(at(4), 5 * minute), false);
 });
 
-test('idle rest persists across a UI transfer but loading resumes the play clock', () => {
+test('idle rest survives UI transfer and loading excludes further wait without granting idle credit', () => {
   const s = new RestSession();
   play(s, at(4), c, 0, 10);
   s.tick(at(4), c, 11 * minute);
@@ -206,7 +206,7 @@ test('idle rest persists across a UI transfer but loading resumes the play clock
   restored.finishLoading(18 * minute);
   assert.equal(restored.isIdleBreak, false);
   assert.equal(restored.idleRested, false);
-  assert.equal(restored.elapsed(18 * minute), 16 * minute);
+  assert.equal(restored.elapsed(18 * minute), 10 * minute);
 });
 
 test('forced breaks never become skippable idle breaks', () => {
@@ -313,4 +313,49 @@ test('new defaults trigger only after the full reverse Fibonacci interval in eac
     assert.equal(session.requestTurn(at(start + interval - 1), config, interval), false);
     assert.equal(session.pending.reason, 'turn');
   }
+});
+
+
+test('repeated loading phases and failed loads exclude waiting once while preserving counters', () => {
+  const s = new RestSession();
+  s.start(0); s.turnCount = 3; s.countedToken = 'a:4';
+  s.beginLoading(10000); s.beginLoading(20000); s.beginLoading(30000);
+  assert.equal(s.elapsed(40000), 10000);
+  const transferred = new RestSession(s.export());
+  transferred.beginLoading(50000); transferred.finishLoading(60000, false);
+  transferred.finishLoading(70000, false);
+  assert.equal(transferred.elapsed(70000), 20000);
+  assert.equal(transferred.turnCount, 3);
+  assert.equal(transferred.countedToken, 'a:4');
+});
+
+test('load time does not extend an already running required-break deadline', () => {
+  const s = new RestSession();
+  s.start(0); s.gate.begin('a:4', 4, 'time', c, 10000);
+  const deadline = s.pending.deadline;
+  s.beginLoading(20000); s.finishLoading(400000);
+  assert.equal(s.pending.deadline, deadline);
+  assert.equal(s.remaining(400000), 0);
+  assert.ok(s.pending, 'finishing a load never automatically dismisses a break');
+});
+
+test('overlapping loading and recording pauses subtract their union exactly once', () => {
+  for (const [loadStart, loadEnd, suspendStart, suspendEnd] of [
+    [10, 20, 30, 40], [10, 30, 20, 40], [20, 40, 10, 30], [10, 40, 20, 30], [20, 30, 10, 40],
+  ]) {
+    const s = new RestSession(); s.start(0);
+    const events = [[loadStart, () => s.beginLoading(loadStart)], [loadEnd, () => s.finishLoading(loadEnd)],
+      [suspendStart, () => s.setSuspended(true, suspendStart)], [suspendEnd, () => s.setSuspended(false, suspendEnd)]];
+    events.sort((a,b) => a[0]-b[0]).forEach(([,fn]) => fn());
+    const overlap = Math.max(0, Math.min(loadEnd,suspendEnd)-Math.max(loadStart,suspendStart));
+    assert.equal(s.elapsed(50), 50-(loadEnd-loadStart)-(suspendEnd-suspendStart)+overlap);
+  }
+});
+
+test('a load during an existing night window does not subtract the same break twice', () => {
+  const s = new RestSession(); s.start(0);
+  s.night = { startedAt: 10000, endsAt: 30000 };
+  s.beginLoading(15000); s.finishLoading(40000);
+  s.tick(at(4), c, 40000, false);
+  assert.equal(s.elapsed(50000), 20000);
 });

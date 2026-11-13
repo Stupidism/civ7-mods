@@ -38,7 +38,6 @@ test('rendered break text uses the native language-specific font stack, includin
           if (mode === 'idle') view.showIdleRest();
           if (mode === 'rest') view.showRest({ reason: 'time', durationMs: 300000 });
           if (mode === 'night') view.showNight({ startedAt: 0, endsAt: 3600000 }, { nightStart: 1320, nightEnd: 420 }, 0);
-          view.updateSaveStatus({ status: 'saved' });
           await document.fonts.ready;
           return { expected: getComputedStyle(document.querySelector('#native-reference')).fontFamily,
             nodes: [...document.querySelectorAll('.c7r-subtitle,.c7r-tip,.c7r-footnote')].map(node => ({ text: node.textContent, font: getComputedStyle(node).fontFamily })) };

@@ -63,18 +63,18 @@ test('percentage uses gross income before expenses and respects existing modifie
  const c=city('a',{base:[0,0,100,0,0,0,0],multiplier:[1,1,1.5,1,1,1,1],offset:[0,0,-140,0,0,0,0]});
  assert.equal(marginal(c,res('x',[effect('YIELD_GOLD',10,{kind:'percent'})])).score,10);
 });
-test('zero happiness and an irrelevant preference do not consume resources',()=>{
+test('zero happiness scores nothing; unmarked yields retain their baseline score',()=>{
  const h=res('h',[effect('YIELD_HAPPINESS',6)]);
  assert.deepEqual(planAllocation([h],[city('a',{tendency:'YIELD_HAPPINESS'})]),{});
  const science=res('s',[effect('YIELD_SCIENCE',5)]);
- assert.deepEqual(planAllocation([science],[city('a')]),{});
+ assert.deepEqual(planAllocation([science],[city('a')]),{s:'a'});
 });
 test('unit production bonuses require a matching live build queue',()=>{
  const r=res('salt',[effect('YIELD_PRODUCTION',20,{kind:'construction',queue:{kind:'unit'}})]);
  const a=city('a',{tendency:'YIELD_PRODUCTION',base:[0,100,0,0,0,0,0],queue:{kind:'unit',tags:[]}});
  const b=city('b',{tendency:'YIELD_PRODUCTION',base:[0,200,0,0,0,0,0],queue:{kind:'building',tags:[]}});
  assert.equal(planAllocation([r],[a,b]).salt,'a');
- assert.equal(marginal(a,r).score,80);assert.equal(marginal(b,r).score,0);
+ assert.equal(marginal(a,r).score,160);assert.equal(marginal(b,r).score,0);
 });
 test('happiness fill reserves original slots and prioritizes cities',()=>{
  const h=key=>res(key,[effect('YIELD_HAPPINESS',6)]);
@@ -104,3 +104,25 @@ test('camel engine capacity includes its own slot plus the net bonus',()=>{
  assert.equal(Object.values(full).filter(Boolean).length,3);
 });
 
+
+for(const [settlementTarget,cityTarget,cityCount,townCount] of [[0,0,0,0],[5,0,1,1],[0,20,4,0],[5,20,4,1]])test(`happiness targets ${settlementTarget}/${cityTarget} stop at each effective threshold`,()=>{
+ const resources=Array.from({length:9},(_,i)=>res('h'+i,[effect('YIELD_HAPPINESS',6)]));
+ const cities=[city('a',{capacity:9}),city('b',{capacity:9,isTown:true})];
+ const result=planHappiness(resources,cities,false,{settlementTarget,cityTarget});
+ assert.equal(Object.values(result).filter(v=>v==='a').length,cityCount);
+ assert.equal(Object.values(result).filter(v=>v==='b').length,townCount);
+});
+test('raised happiness targets preserve city resources in town-only mode and respect capacity/eligibility',()=>{
+ const held=res('held',[effect('YIELD_HAPPINESS',6)],['a','b'],{original:'a'});
+ const free=res('free',[effect('YIELD_HAPPINESS',6)]);
+ const locked=res('locked',[effect('YIELD_HAPPINESS',30)],['a']);
+ const cities=[city('a',{capacity:3}),city('b',{capacity:1,isTown:true})];
+ const result=planHappiness([held,free,locked],cities,true,{settlementTarget:5,cityTarget:20});
+ assert.deepEqual(result,{held:'a',free:'b'});
+});
+test('raised happiness target counts existing assignments and stops when resources run out',()=>{
+ const held=res('held',[effect('YIELD_HAPPINESS',6)],['a'],{original:'a'});
+ const free=res('free',[effect('YIELD_HAPPINESS',6)],['a']);
+ assert.deepEqual(planHappiness([held,free],[city('a',{capacity:4})],false,{settlementTarget:5}),{held:'a'});
+ assert.deepEqual(planHappiness([held,free],[city('a',{capacity:4})],false,{cityTarget:20}),{held:'a',free:'a'});
+});
