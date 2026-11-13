@@ -6,6 +6,7 @@ export function createScrollNavigation({ document, window, focus, statuses: S, r
   let selected, scope, horizontal = false, pressed = false, armed = false, speed = 0, last = now(), sample = 0, marked;
   let verticalSince=null;
   let marker;
+  const suppressedNativeHelps = new Set();
   function stopVertical() { speed=0; verticalSince=null; }
   function setVertical(value) {
     if (!value) { stopVertical(); return; }
@@ -13,10 +14,20 @@ export function createScrollNavigation({ document, window, focus, statuses: S, r
     speed=Math.max(-1,Math.min(1,value));
   }
   function acceleration(viewport,time) {
-    // Thumb proportion is viewport/content; use the content ratio so the native
-    // minimum visual thumb size cannot make very long lists artificially slow.
-    const ratio=viewport.scrollHeight/Math.max(1,viewport.clientHeight);
-    const limit=1+Math.min(1.5,.4*Math.sqrt(Math.max(0,ratio-1)));
+    // Keep the familiar short-list acceleration, but never let its old 2.5x
+    // cap dominate a long list. Once the 1200 ms ramp is complete, full stick
+    // deflection must be able to cross the complete range in three seconds.
+    const height=Number(viewport.scrollHeight), client=Number(viewport.clientHeight);
+    const dimensions=Number.isFinite(height)&&Number.isFinite(client)&&client>0;
+    const ratio=dimensions?height/client:1;
+    const contentLimit=1+Math.min(1.5,.4*Math.sqrt(Math.max(0,ratio-1)));
+    const range=dimensions?Math.max(0,height-client):0;
+    // Reserve 200 ms for normal frame jitter and the browser's integer-pixel
+    // rounding. The requirement is crossing within three seconds, not using
+    // exactly all three seconds; there is still no pixel multiplier cap.
+    const traversalMs=2800;
+    const fullRangeLimit=Math.max(1,range/traversalMs/.75);
+    const limit=Math.max(contentLimit,fullRangeLimit);
     const ramp=Math.max(0,Math.min(1,((time-(verticalSince??time))-600)/1200));
     return 1+(limit-1)*ramp*ramp*(3-2*ramp);
   }
@@ -80,7 +91,42 @@ export function createScrollNavigation({ document, window, focus, statuses: S, r
     reset(); // Stop held motion, remove our hints, and clear the active marker.
     return true;
   }
-  function paint(list, a, scrollAction) {
+  function activeSaveLoadPage(host) {
+    if (host!==document && host!==document.documentElement && host!==document.body && !host?.isConnected) return null;
+    if (host===document || host===document.documentElement || host===document.body) {
+      // The ContextManager target is normally the page itself. Only use this
+      // fallback when there is exactly one visible save/load page, so a hidden
+      // or unrelated page can never inherit page-specific hint suppression.
+      const focused=focus.currentFocus();
+      const pages=[...document.querySelectorAll('screen-save-load')]
+        .filter(page => visible(page) && page.contains(focused));
+      return pages.length===1 ? pages[0] : null;
+    }
+    const page=host.tagName==='SCREEN-SAVE-LOAD' ? host : host.closest?.('screen-save-load');
+    return page && visible(page) ? page : null;
+  }
+  function saveLoadNativeHelps(host) {
+    const page=activeSaveLoadPage(host);
+    if (!page) return [];
+    const pane=[...page.querySelectorAll('.screen-save__description__scrollable')]
+      .find(el => el.tagName==='FXS-SCROLLABLE' && el.getAttribute('handle-gamepad-pan')==='true' && visible(el));
+    const thumb=pane?.querySelector('.fxs-scrollbar__track--vertical .fxs-scrollbar__thumb--vertical');
+    if (!thumb) return [];
+    // Native appends this help directly to its right details thumb and may
+    // rewrite its inline display on every update. Own only that exact element;
+    // our marker, footer entries, and other actions are never touched.
+    return [...thumb.querySelectorAll('fxs-nav-help[action-key="inline-scroll-pan"],[data-name="NavHelp"][action-key="inline-scroll-pan"]')]
+      .filter(el => el!==marker && !el.classList.contains('mtg-scroll-marker')
+        && el.closest('.fxs-scrollbar__thumb--vertical')===thumb);
+  }
+  function suppressSaveLoadNativeHelps(host) {
+    const wanted=new Set(saveLoadNativeHelps(host));
+    for (const old of suppressedNativeHelps) {
+      if (!wanted.has(old)) { old.classList.remove('mtg-suppressed-native-scroll-help'); suppressedNativeHelps.delete(old); }
+    }
+    for (const help of wanted) { help.classList.add('mtg-suppressed-native-scroll-help'); suppressedNativeHelps.add(help); }
+  }
+  function paint(list, a, scrollAction, host) {
     const tracks=new Set(list.map(area=>area.el.querySelector('.fxs-scrollbar__track--vertical,.scroll-area_track')).filter(Boolean));
     for (const old of ownedTracks) if (!tracks.has(old)) { old.classList.remove('mtg-owned-scroll-track'); ownedTracks.delete(old); }
     for (const track of tracks) { track.classList.add('mtg-owned-scroll-track'); ownedTracks.add(track); }
@@ -102,6 +148,7 @@ export function createScrollNavigation({ document, window, focus, statuses: S, r
       }
       if (marker.parentElement!==thumb) thumb.append(marker);
     } else { marker?.remove(); marker=null; }
+    suppressSaveLoadNativeHelps(host);
     // The native persistent tray owns the footer presentation. Repeating sync
     // is safe: the adapter pushes each action at most once and withdraws only
     // its own entry when the active scope no longer needs it.
@@ -115,14 +162,18 @@ export function createScrollNavigation({ document, window, focus, statuses: S, r
     marker?.remove();marker=null;
     for (const track of ownedTracks) track.classList.remove('mtg-owned-scroll-track');
     ownedTracks.clear();
+    for (const help of suppressedNativeHelps) help.classList.remove('mtg-suppressed-native-scroll-help');
+    suppressedNativeHelps.clear();
     navigationTray?.set([]);
     marked?.classList.remove('mtg-active-scroll'); marked=null;
   }
   function sync(active, scrollAction='scroll-pan') {
     if (!active) { reset(); return; }
     if (popupOwnsFrame()) return;
-    const list=areas(), a=choose(list), time=now();
-    const dt=Math.min(40,Math.max(0,time-last)); last=time;
+    const host=root(), list=areas(), a=choose(list), time=now();
+    // Preserve real elapsed time for normal 16/33/100 ms frames. The stale-input
+    // cutoff below remains the guard against a delayed frame causing a jump.
+    const dt=Math.max(0,time-last); last=time;
     if (a && speed && time-sample<180) {
       const v=a.viewport, top=Math.max(0,Math.min(v.scrollHeight-v.clientHeight,v.scrollTop-speed*dt*.75*acceleration(v,time)));
       if (a.el.tagName==='FXS-SCROLLABLE') {
@@ -131,7 +182,7 @@ export function createScrollNavigation({ document, window, focus, statuses: S, r
       }
       else v.scrollTop=top; // Solid ScrollArea's native scroll event updates its thumb.
     } else stopVertical();
-    paint(list,a,scrollAction);
+    paint(list,a,scrollAction,host);
   }
   function route(name,status,x,y,active,scrollAction) {
     if (!active) { sync(false); return false; }
@@ -168,10 +219,10 @@ export function createScrollNavigation({ document, window, focus, statuses: S, r
       // A vertical gesture cannot roll straight into a horizontal switch.
       if (Math.abs(y)>.25) horizontal=true;
     }
-    sample=now(); paint(list,choose(list),scrollAction); return true;
+    sample=now(); paint(list,choose(list),scrollAction,root()); return true;
   }
   const style=document.createElement('style');
-  style.textContent='.mtg-owned-scroll-track fxs-nav-help:not(.mtg-scroll-marker),.mtg-owned-scroll-track [data-name=NavHelp]{display:none!important}.mtg-active-scroll{outline:2px solid #d7c58e;outline-offset:3px}';
+  style.textContent='.mtg-suppressed-native-scroll-help{display:none!important;opacity:0!important;visibility:hidden!important}.mtg-active-scroll{outline:2px solid #d7c58e;outline-offset:3px}';
   document.head.append(style);
   return { sync, route, suspend:reset, dispose(){reset();style.remove();} };
 }

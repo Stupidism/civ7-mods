@@ -253,7 +253,7 @@ test('original FxsScrollable component scrolls and updates its native thumb with
  }finally{await browser.close();}
 });
 
-test('held vertical scroll accelerates with content length, stays bounded and resets on reversal/release/timeout/suspend', {skip:!process.env.CIV7_PLAYWRIGHT_MODULE}, async()=>{
+test('held vertical scroll becomes range-aware and resets on reversal/release/timeout/suspend', {skip:!process.env.CIV7_PLAYWRIGHT_MODULE}, async()=>{
  const {chromium}=createRequire(import.meta.url)(process.env.CIV7_PLAYWRIGHT_MODULE);const browser=await chromium.launch({headless:true});
  try{
  const page=await browser.newPage();
@@ -278,8 +278,141 @@ test('held vertical scroll accelerates with content length, stays bounded and re
  assert.equal(results.short.early,15);assert.equal(results.long.early,15);
  assert.ok(results.short.late>results.short.early&&results.long.late>results.short.late);
  assert.ok(results.long.middle>15&&results.long.middle<results.long.late);
- assert.ok(results.long.late<=38&&results.extreme.late<=38);
+ const expectedLongFrame=(36000-360)*20/2800;
+ assert.ok(Math.abs(results.long.late-expectedLongFrame)<=1,
+   `long-list late frame should follow range-derived speed: ${results.long.late} ~= ${expectedLongFrame}`);
  assert.equal(results.reverse,-15);
  for(const k of ['released','timeout','suspended','neutral'])assert.equal(results[k],15,k);
  }finally{await browser.close();}
+});
+
+test('real Chromium quantized scrolling crosses representative ranges within three seconds', {skip:!process.env.CIV7_PLAYWRIGHT_MODULE}, async()=>{
+ const {chromium}=createRequire(import.meta.url)(process.env.CIV7_PLAYWRIGHT_MODULE);const browser=await chromium.launch({headless:true});
+ try{
+ const page=await browser.newPage({viewport:{width:1280,height:720}});
+ await page.setContent('<main><section data-name="ScrollArea"><div style="height:360px;width:400px;overflow:auto"><article style="display:block"></article></div></section></main>');
+ await page.evaluate(source+'\nwindow.make=createScrollNavigation;');
+ const results=await page.evaluate(()=>{
+ const area=document.querySelector('section'),v=area.firstElementChild,article=v.firstElementChild;let time=0;
+ const r=window.make({document,window,statuses:{START:1,UPDATE:2,FINISH:3,HOLD:4},root:()=>document.querySelector('main'),focus:{currentFocus:()=>null,setFocus:()=>{}},instruction:()=>{},now:()=>time});
+ const send=(status,y)=>r.route('scroll-pan',status,0,y,true);
+ const warmAtBottom=(range)=>{article.style.height=(range+360)+'px';send(3,0);v.scrollTop=range;send(1,-1);const warmStart=time;while(time-warmStart<=1800){time+=16;send(4,-1);}};
+ const traverse=(range,intervals)=>{
+ warmAtBottom(range);v.scrollTop=0; // Keep the full ramp and hold alive across the teleport to the top.
+ const start=time;let firstMovement=0,reached=false;
+ for(const dt of intervals){
+ const before=v.scrollTop;time+=dt;send(4,-1);
+ firstMovement||=v.scrollTop-before;
+ if(v.scrollTop===range){reached=true;break;}
+ }
+ return {range,firstMovement,elapsed:time-start,top:v.scrollTop,reached};
+ };
+ const repeat=(count,pattern)=>Array.from({length:count},()=>pattern).flat();
+ return [
+ traverse(6000,Array(188).fill(16)),
+ traverse(359640,Array(188).fill(16)),
+ traverse(6000,repeat(25,[16,33,100])),
+ traverse(359640,repeat(25,[16,33,100])),
+ traverse(359640,[...Array(182).fill(16),100])
+ ];
+ });
+ for(const result of results){
+ assert.equal(result.firstMovement>0,true,'first post-warm browser frame should move');
+ assert.equal(result.reached,true,`real browser scroll should reach ${result.range}`);
+ assert.equal(result.top,result.range);
+ assert.ok(result.elapsed<=3000,`range ${result.range} took ${result.elapsed}ms in Chromium`);
+ }
+ }finally{await browser.close();}
+});
+
+test('full deflection crosses short, long and extreme ranges within three seconds in both directions', () => {
+  const classList=()=>{const classes=new Set();return{
+    add:(...names)=>names.forEach(name=>classes.add(name)),
+    remove:(...names)=>names.forEach(name=>classes.delete(name)),
+    contains:name=>classes.has(name)
+  };};
+  const element=()=>{const children=[];const el={
+    isConnected:true,className:'',style:{},children,classList:classList(),
+    contains(){return false;},
+    setAttribute(){},getAttribute(){return null;},append(child){children.push(child);child.parentElement=el;},
+    remove(){if(!el.parentElement)return;el.parentElement.children=el.parentElement.children.filter(child=>child!==el);el.parentElement=null;},
+    closest(){return null;},querySelector(){return null;},querySelectorAll(){return [];},
+    getBoundingClientRect(){return{left:0,right:400,top:0,bottom:360,width:400,height:360};}
+  };return el;};
+  const makeRuntime=({height,client=360})=>{
+    let time=0;const viewport=element();const track=element();const thumb=element();
+    const area=element();area.tagName='SECTION';area.firstElementChild=viewport;
+    area.querySelector=selector=>selector.includes('track')?track:null;
+    track.querySelector=()=>thumb;
+    Object.assign(viewport,{scrollHeight:height,clientHeight:client,scrollTop:0});
+    const root={querySelectorAll:()=>[area]};
+    const runtime=createScrollNavigation({
+      document:{head:{append(){}},createElement:element},
+      window:{getComputedStyle:()=>({display:'block',visibility:'visible'})},
+      focus:{currentFocus:()=>null,setFocus(){}},
+      statuses:{START:1,UPDATE:2,FINISH:3,HOLD:4},
+      root:()=>root,navigationTray:{set(){}},now:()=>time
+    });
+    const advance=(dt=16,y=null)=>{time+=dt;y===null?runtime.sync(true):runtime.route('scroll-pan',4,0,y,true);};
+    return {runtime,viewport,advance,time:()=>time};
+  };
+  const traverse=({height},direction,dt)=>{
+    const range=Math.max(0,height-360);
+    const {runtime,viewport,advance,time}=makeRuntime({height});
+    const boundary=direction>0?0:range,start=direction>0?range:0;
+    viewport.scrollTop=boundary;
+    runtime.route('scroll-pan',1,0,direction,true);
+    const warmStart=time();
+    while(time()-warmStart<1800){advance(dt,direction);assert.equal(viewport.scrollTop,boundary);}
+    viewport.scrollTop=start; // Warm the ramp at the finite bound, then move without releasing hold.
+    const frameBefore=viewport.scrollTop;const firstStart=time();advance(dt,direction);
+    const contentMultiplier=1+Math.min(1.5,.4*Math.sqrt(Math.max(0,height/360-1)));
+    const rangeMultiplier=range/2800/.75;
+    const expectedFrame=.75*Math.max(contentMultiplier,rangeMultiplier)*dt;
+    assert.ok(Math.abs(viewport.scrollTop-frameBefore+direction*expectedFrame)<=1e-9,
+      `first full-speed ${dt}ms frame should move ${expectedFrame}px, got ${viewport.scrollTop-frameBefore}`);
+    while((direction>0?viewport.scrollTop>1e-7:viewport.scrollTop<range-1e-7)&&time()-firstStart<=3000)advance(dt,direction);
+    return {elapsed:time()-firstStart,range,expectedFrame,top:viewport.scrollTop};
+  };
+  const heights=[
+    {name:'short',height:720},
+    {name:'long',height:36000},
+    {name:'extreme',height:360000}
+  ];
+  const frameIntervals=[16,33,100];
+  for(const item of heights)for(const dt of frameIntervals)for(const direction of [1,-1]){
+    const result=traverse(item,direction,dt);
+    assert.ok(Math.abs(result.top-(direction>0?0:result.range))<=1e-7,
+      `${item.name} ${dt}ms direction ${direction} reached the bound`);
+    assert.ok(result.elapsed<=3000,`${item.name} ${dt}ms direction ${direction} took ${result.elapsed}ms`);
+  }
+
+  const dynamic=makeRuntime({height:36000});
+  dynamic.viewport.scrollTop=35640;
+  dynamic.runtime.route('scroll-pan',1,0,-1,true);
+  while(dynamic.time()<1800)dynamic.advance(100,-1);
+  dynamic.viewport.scrollHeight=360000;
+  dynamic.viewport.scrollTop=0;
+  const dynamicFrameBefore=dynamic.viewport.scrollTop;
+  const dynamicStart=dynamic.time();
+  dynamic.advance(100,-1);
+  const firstDynamicMovement=dynamic.viewport.scrollTop-dynamicFrameBefore;
+  assert.ok(firstDynamicMovement>0,'a dynamically grown range moves on its first held update');
+  while(dynamic.viewport.scrollTop<359640-1e-7&&dynamic.time()-dynamicStart<=3000)dynamic.advance(100,-1);
+  assert.ok(Math.abs(dynamic.viewport.scrollTop-359640)<=1e-7);
+  const dynamicElapsed=dynamic.time()-dynamicStart;
+  assert.ok(dynamicElapsed>0);
+  assert.ok(dynamicElapsed<=3000,`a dynamically grown range took ${dynamicElapsed}ms to cross`);
+
+  const stale=makeRuntime({height:720});
+  stale.viewport.scrollTop=360;
+  stale.runtime.route('scroll-pan',1,0,-1,true);
+  while(stale.time()<1800)stale.advance(16,-1);
+  stale.viewport.scrollTop=0;
+  stale.advance(179);
+  const guarded=stale.viewport.scrollTop;
+  const guardedRate=.75*Math.max(1+Math.min(1.5,.4*Math.sqrt(720/360-1)),360/2800/.75);
+  assert.ok(Math.abs(guarded-guardedRate*179)<=1e-7,'a 179 ms frame moves by its guarded rate, not an unbounded jump');
+  stale.advance(180);
+  assert.equal(stale.viewport.scrollTop,guarded,'input at least 180 ms stale stops instead of jumping');
 });

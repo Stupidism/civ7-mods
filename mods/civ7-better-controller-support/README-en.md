@@ -1,6 +1,8 @@
 # Better Controller Support 0.10.2-dev
 
-Source candidate **0.10.2-dev** (integrated 2026-11-13) keeps all three settings-storage fixes—multi-key compatibility, legacy calibration migration, and failed-save recovery—and adds the user-confirmed menu/scroll runtime improvements: scroll hints use the native NavigationTray, and popups can cancel `civ7-controller-scroll` or claim a frame. Workshop remains at **0.10.1**. This candidate has offline checks only; it has not been installed or validated in game. See [storage review fixes](docs/storage-review-fixes.md) and [integration notes](docs/integration-20261113.md).
+Source candidate **0.10.2-dev** keeps all three settings-storage fixes—multi-key compatibility, legacy calibration migration, and failed-save recovery—and the menu/scroll improvements: native NavigationTray hints, popup input ownership, Load Game duplicate RS cleanup, and range-aware scroll acceleration. Workshop remains at **0.10.1**. The integrated build has a development installation receipt; this follow-up has separate installation and verification records and does not inherit older in-game acceptance. See [storage review fixes](docs/storage-review-fixes.md), [integration notes](docs/integration-20261113.md), and [scroll follow-up](docs/scroll-followup-20261114.md).
+
+Load Game keeps the moving RS marker on the selected scroll region and suppresses only that page's duplicate native right-side icon, restoring it on exit. With full stick deflection, acceleration reaches maximum after approximately 1.8 seconds; the complete scroll range then takes at most three seconds. Partial deflection remains slower, and release, reversal or popup takeover resets acceleration. Other pages' native icons are outside this page-specific suppression rule.
 
 ## Current six feature groups
 
