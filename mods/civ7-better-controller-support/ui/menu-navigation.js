@@ -1,15 +1,27 @@
 // Match the user's calibrated stick roles in opted-in menus, then normalize HOLD for
 // native slots/radials. Keep vectors, native routing and all input guards.
-export function createMenuNavigation({ actionHandler, statuses, snapshot, input, contexts, report = () => {}, scrollControls }) {
+export function createMenuNavigation({ actionHandler, statuses, snapshot, input, contexts, report = () => {}, diagnostic = () => {}, scrollControls }) {
   const previous = actionHandler.onEngineInput;
   if (typeof previous !== 'function' || statuses.HOLD === undefined || statuses.UPDATE === undefined) {
     throw new Error('Required menu input interfaces are unavailable');
   }
-  let disposed = false, enabled = true, swapSticks = false, debug = false;
+  let disposed = false, enabled = true, swapSticks = false, invertLeftY = false, invertPanY = false, debug = false;
   let scrolling = false, scrollScope;
   let ownsContext = false, syncingContext = false;
   const seen = new Set();
-  const diagnosticActions = new Set(['nav-move', 'plot-move', 'scroll-pan', 'camera-pan', 'nav-up', 'nav-down']);
+  const diagnosticActions = new Set([
+    'nav-move', 'plot-move', 'scroll-pan', 'camera-pan', 'scroll-controls',
+    'nav-up', 'nav-down', 'nav-left', 'nav-right',
+    'camera-zoom-in', 'camera-zoom-out'
+  ]);
+  const diagnose = sample => {
+    try {
+      if (!diagnosticActions.has(sample.source) && !diagnosticActions.has(sample.target)) return;
+      diagnostic({ stage: 'menu-route', ...sample });
+    } catch {
+      /* Optional diagnostics never affect input. */
+    }
+  };
   function stopScroll() {
     if (!scrolling) return;
     scrolling = false;
@@ -47,6 +59,7 @@ export function createMenuNavigation({ actionHandler, statuses, snapshot, input,
   }
   const hook = function (name, status, x = 0, y = 0) {
     let outputName = name, outputStatus = status;
+    let routeState;
     if (!disposed) {
       try {
         const s = snapshot();
@@ -57,8 +70,18 @@ export function createMenuNavigation({ actionHandler, statuses, snapshot, input,
         if (active && s.nativeMenuContext !== undefined) {
           // A sample decoded just before Shell was acquired can still carry a
           // Dual camera action. A choice popup must not move/zoom the world.
-          if (name === 'camera-zoom-in' || name === 'camera-zoom-out') return;
-          if ((name === 'camera-pan' || name === 'plot-move') && status !== statuses.FINISH) return;
+          if (name === 'camera-zoom-in' || name === 'camera-zoom-out') {
+            diagnose({ kind: 'route', source: name, target: name, status, inputStatus: status,
+              outputStatus: 'none', scope: s.scope, context: s.inputContext, panel: s.panelPresent,
+              blocked: s.blocked, reason: 'suppressed-popup-world-action' });
+            return;
+          }
+          if ((name === 'camera-pan' || name === 'plot-move') && status !== statuses.FINISH) {
+            diagnose({ kind: 'route', source: name, target: name, status, inputStatus: status,
+              outputStatus: 'none', x, y, scope: s.scope, context: s.inputContext, panel: s.panelPresent,
+              blocked: s.blocked, reason: 'suppressed-popup-motion' });
+            return;
+          }
         }
         if (active && finite) {
           // Shell binds these two streams to opposite sticks. Swapping both
@@ -75,6 +98,9 @@ export function createMenuNavigation({ actionHandler, statuses, snapshot, input,
             }
           }
         }
+        routeState = { kind: 'route', source: name, target: outputName, status: outputStatus, inputStatus: status, outputStatus, x, y, scope: s.scope,
+          context: s.inputContext, panel: s.panelPresent, blocked: s.blocked,
+          reason: active ? (outputName === name && outputStatus === status ? 'pass-through-active' : 'mapped') : 'pass-through-inactive' };
         // Opt-in and bounded: enough to distinguish an unexpected action name,
         // status or missing left-stick stream, without a per-frame log flood.
         if (debug && s.menu && diagnosticActions.has(name) && finite &&
@@ -93,8 +119,9 @@ export function createMenuNavigation({ actionHandler, statuses, snapshot, input,
       const s = snapshot();
       if (scrollControls.route(outputName, outputStatus, x, y,
           s.menu && s.controller && s.focused !== false && !s.softCursor && !s.blocked,
-          enabled && swapSticks && s.swapRoles ? 'nav-move' : 'scroll-pan')) return;
+          enabled && swapSticks && s.swapRoles ? 'nav-move' : 'scroll-pan')) { diagnose({ kind: 'route', source: name, target: 'scroll-controls', status: outputStatus, inputStatus: status, outputStatus, x, y, reason: 'consumed' }); return; }
     }
+    if (routeState) diagnose(routeState);
     // Never catch/replay the delegate: it may already have acted before throwing.
     return previous.call(actionHandler, outputName, outputStatus, x, y);
   };
@@ -104,8 +131,15 @@ export function createMenuNavigation({ actionHandler, statuses, snapshot, input,
     setConfig(config) {
       if (!debug && !!config.showDebug) seen.clear();
       if (enabled !== (config.enabled !== false) || swapSticks !== !!config.swapSticks) stopScroll();
-      enabled = config.enabled !== false; swapSticks = !!config.swapSticks; debug = !!config.showDebug;
+      enabled = config.enabled !== false;
+      swapSticks = !!config.swapSticks;
+      invertLeftY = !!config.invertLeftY;
+      invertPanY = !!config.invertPanY;
+      debug = !!config.showDebug;
       sync();
+    },
+    getStatus() {
+      return { enabled, swapSticks, invertLeftY, invertPanY, showDebug: debug };
     },
     sync,
     suspend() { stopScroll(); scrollControls?.suspend(); },

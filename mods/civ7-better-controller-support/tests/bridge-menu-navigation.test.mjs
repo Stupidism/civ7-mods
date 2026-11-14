@@ -243,6 +243,106 @@ test('diagnostics are opt-in, bounded, and cannot replay or block delegated inpu
   assert.equal(calls, 102);
 });
 
+test('menu route diagnostics match final delegate and preserve original source/status', () => {
+  const calls = [], diagnostics = [], state = { menu: true, controller: true, focused: true, scope: 'shell', swapRoles: true };
+  const handler = { onEngineInput: (...args) => calls.push(args) };
+  const patch = createMenuNavigation({ actionHandler: handler, statuses, snapshot: () => state, diagnostic: x => diagnostics.push(x) });
+  patch.setConfig({ enabled: true, swapSticks: true });
+  handler.onEngineInput('scroll-pan', statuses.HOLD, .2, .8);
+  assert.deepEqual(calls.at(-1), ['nav-move', statuses.UPDATE, .2, .8]);
+  assert.deepEqual([diagnostics.at(-1).source, diagnostics.at(-1).target, diagnostics.at(-1).inputStatus, diagnostics.at(-1).outputStatus], ['scroll-pan', 'nav-move', statuses.HOLD, statuses.UPDATE]);
+  const before = diagnostics.length;
+  handler.onEngineInput('accept', statuses.START, 0, 0);
+  assert.equal(diagnostics.length, before, 'unwhitelisted pass-through is not logged');
+  patch.dispose();
+});
+
+test('menu diagnostics cover navigation and zoom but never arbitrary keyboard or chat actions', () => {
+  const diagnostics = [];
+  const handler = { onEngineInput: () => {} };
+  const patch = createMenuNavigation({
+    actionHandler: handler, statuses,
+    snapshot: () => ({ menu: true, controller: true, focused: true, softCursor: false, blocked: false, scope: 'test' }),
+    diagnostic: sample => diagnostics.push(sample)
+  });
+  for (const name of ['keyboard-escape', 'chat-submit', 'accept']) {
+    handler.onEngineInput(name, statuses.START, 0, 0);
+  }
+  assert.equal(diagnostics.length, 0);
+
+  for (const name of ['nav-left', 'nav-right', 'camera-zoom-in', 'camera-zoom-out']) {
+    handler.onEngineInput(name, statuses.START, 0, 0);
+    assert.equal(diagnostics.at(-1).source, name);
+  }
+  patch.dispose();
+});
+
+test('consumed scrolling is traced after transform and before any delegate call', () => {
+  const diagnostics = [], calls = [];
+  const handler = { onEngineInput: (...args) => calls.push(args) };
+  const patch = createMenuNavigation({
+    actionHandler: handler, statuses,
+    snapshot: () => ({ menu: true, controller: true, focused: true, softCursor: false, blocked: false,
+      swapRoles: true, scope: 'pause' }),
+    scrollControls: { route: () => true, dispose: () => {} },
+    diagnostic: sample => diagnostics.push(sample)
+  });
+  patch.setConfig({ enabled: true, swapSticks: true });
+  handler.onEngineInput('nav-move', statuses.HOLD, 0.2, 0.8);
+  assert.deepEqual(calls, []);
+  assert.equal(diagnostics.length, 1);
+  assert.deepEqual({
+    source: diagnostics[0].source,
+    target: diagnostics[0].target,
+    inputStatus: diagnostics[0].inputStatus,
+    outputStatus: diagnostics[0].outputStatus,
+    reason: diagnostics[0].reason
+  }, {
+    source: 'nav-move',
+    target: 'scroll-controls',
+    inputStatus: statuses.HOLD,
+    outputStatus: statuses.HOLD,
+    reason: 'consumed'
+  });
+  patch.dispose();
+});
+
+test('a second menu snapshot failure retains the original propagating input semantics', () => {
+  const calls = [];
+  const handler = { onEngineInput: (...args) => calls.push(args) };
+  let snapshots = 0;
+  const snapshot = () => {
+    snapshots++;
+    if (snapshots === 1) {
+      return { menu: true, controller: true, focused: true, softCursor: false, blocked: false, scope: 'test' };
+    }
+    throw new Error('second snapshot failed');
+  };
+  const patch = createMenuNavigation({ actionHandler: handler, statuses, snapshot,
+    scrollControls: { route: () => false, dispose: () => {} } });
+  assert.throws(() => handler.onEngineInput('nav-move', statuses.START, 0, 1), /second snapshot failed/);
+  assert.deepEqual(calls, []);
+  patch.dispose();
+});
+
+test('menu runtime exposes read-only effective calibration without creating an input wrapper', () => {
+  const handler = { onEngineInput: () => {} };
+  const patch = createMenuNavigation({
+    actionHandler: handler, statuses,
+    snapshot: () => ({ menu: true, controller: true, focused: true, softCursor: false, blocked: false, scope: 'test' })
+  });
+  patch.setConfig({ enabled: true, swapSticks: true, invertLeftY: true, invertPanY: false, showDebug: false });
+  assert.deepEqual(patch.getStatus(), {
+    enabled: true, swapSticks: true, invertLeftY: true, invertPanY: false, showDebug: false
+  });
+  patch.setConfig({ enabled: false, swapSticks: false });
+  assert.deepEqual(patch.getStatus(), {
+    enabled: false, swapSticks: false, invertLeftY: false, invertPanY: false, showDebug: false
+  });
+  assert.equal(patch.sendInput, undefined);
+  patch.dispose();
+});
+
 test('changed calibration, blur, and disposal neutralize only scrolling started by swapped input', () => {
   for (const stop of [p => p.setConfig({ enabled: false, swapSticks: true }),
     p => p.setConfig({ enabled: true, swapSticks: false }), p => p.suspend(), p => p.dispose()]) {
@@ -266,4 +366,16 @@ test('native Diplomacy view with no ContextManager popup routes held stick to it
   assert.equal(f.consumer.index, 1, 'support must move to the next response on a left stick held toward the right');
   assert.equal(f.received.at(-1).status, statuses.UPDATE);
   f.patch.dispose();
+});
+
+test('throwing menu diagnostics leaves mapping and delegation unchanged', () => {
+  const state = { menu: true, controller: true, focused: true, softCursor: false, blocked: false, swapRoles: true, scope: 'pause' };
+  const make = diagnostic => { const calls = [], handler = { onEngineInput: (...args) => calls.push(args) };
+    const patch = createMenuNavigation({ actionHandler: handler, statuses, snapshot: () => state, diagnostic });
+    patch.setConfig({ enabled: true, swapSticks: true }); return { calls, handler, patch }; };
+  const baseline = make(() => {}), guarded = make(() => { throw new Error('diagnostic failed'); });
+  for (const args of [['scroll-pan', statuses.HOLD, 0, 1], ['nav-move', statuses.FINISH, 0, 0], ['accept', statuses.FINISH, 0, 0]]) {
+    baseline.handler.onEngineInput(...args); guarded.handler.onEngineInput(...args);
+  }
+  assert.deepEqual(guarded.calls, baseline.calls); baseline.patch.dispose(); guarded.patch.dispose();
 });

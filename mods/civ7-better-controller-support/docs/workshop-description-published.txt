@@ -29,9 +29,22 @@ Controller navigation for map tools, stacked units, long lists, and turn wrap-up
 Optional page mods: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182]Resource Planner[/url] provides resource layout, allocation preferences, empty-slot reminders, deferral, and skip-this-turn. Better Settlement UI provides four-column layouts, scores, payback, sorting, build deferral, and skip-this-turn. [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3831747669]Better Policy UI[/url] provides compact layouts plus policy/tradition/crisis empty-slot reminders, deferral, and skip-this-turn.
 Replace the complete old folder, keep the internal ID and settings, and avoid duplicate local/Workshop copies or the old Mac fix.
 [h2]验证范围[/h2]
-0.10.1 只整理中英文说明与功能边界；运行行为不变，不声称新修复。0.10.0 已发布基线继续承接；本次无实体手柄、Windows 或游戏内实测。
-0.10.1 is a documentation and feature-boundary refresh only; runtime behavior is unchanged and no new fix is claimed. The published 0.10.0 baseline carries forward. No physical-controller, Windows, or in-game testing was added.
+0.10.2：194 项离线测试通过，0 失败／跳过，包含独立 Chromium。自动诊断已安装到开发版；Gameface 持久化、实体手柄和 Windows 新代码验收尚未完成。
+0.10.2: 194 offline tests passed, zero failures/skips, including isolated Chromium. Diagnostics are installed in the development build; new-code Gameface persistence, physical-controller and Windows acceptance remain pending.
 [h2]更新日志 / Changelog[/h2]
+2026-11-14 · 0.10.2
+[list]
+[*]修复部分环境下设置读取、旧校准升级和保存失败后状态不一致的问题。
+[*]菜单底部操作提示更清晰；加载游戏页的 RS 标记跟随当前滚动区，不再重复显示。弹出窗口时停止后台列表滚动。
+[*]长列表持续滚动会加速；达到最高速度后，满幅推动可在 3 秒内滚完整段列表。
+[*]加入自动本地诊断，方便下次摇杆异常时查看启动、配置与输入记录，不上传数据。诊断在部分存储异常下仅保留本页内存；游戏内持久化仍待验证。
+[/list]
+[list]
+[*]Fixed settings loading, legacy calibration upgrades and inconsistent state after failed saves on affected storage backends.
+[*]Clearer menu hints; Load Game shows one RS marker following the active scroll region. Popups stop background list scrolling.
+[*]Sustained scrolling accelerates with list length. At maximum speed and full stick deflection, a full range takes at most three seconds.
+[*]Added automatic local diagnostics for future stick issues, without uploads. Unverifiable storage uses page memory only; in-game persistence still needs validation.
+[/list]
 2026-11-06 · 0.10.1 — 整理中英文说明与功能边界：六个手柄功能入口、可选页面 Mod 分工；运行行为不变，未新增实机验证。Refreshed bilingual documentation and boundaries: six controller feature entries and optional page-mod responsibilities; no runtime change or new live validation.
 2026-11-01 · 0.10.0 — 输入设置修复与手动校准、多滚动区导航／居中／加速、同格快捷操作与强制结束回合入口；移出政策布局和行动提醒。Input/settings correction, manual calibration, multi-pane scrolling/focus/acceleration, same-plot shortcuts and force-turn entry; layouts/reminders now separate.
 2026-10-24 · 0.3.0 — 地图工具可直接打开对应面板。Map tools open their panels directly.

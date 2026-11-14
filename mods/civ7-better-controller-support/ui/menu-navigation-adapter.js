@@ -117,11 +117,15 @@ export function installMenuNavigation(settingsStore) {
     if (globalThis[KEY]?.dispose === dispose) delete globalThis[KEY];
   };
   try {
+    const diagnostic = sample => {
+      try { window.dispatchEvent(new CustomEvent('civ7-bcs-diagnostic-route', { detail: sample })); } catch { /* Optional. */ }
+    };
     patch = createMenuNavigation({
       scrollControls: createScrollNavigation({ document, window, focus: FocusManager.get(), statuses: InputActionStatuses,
         root: () => ContextManager.getCurrentTarget() || document,
         navigationTray: createNavigationTrayAdapter() }),
       actionHandler: ActionHandler, statuses: InputActionStatuses, input: Input, contexts: InputContext,
+      diagnostic,
       snapshot: () => {
         const target = ContextManager.getCurrentTarget();
         // A settler legend accompanies map selection. Only the map bridge may
@@ -159,7 +163,7 @@ export function installMenuNavigation(settingsStore) {
     engine.on('BeforeUnload', dispose);
     engine.on('BeginFrame', sync);
     engine.on('InputContextChanged', sync);
-    globalThis[KEY] = { dispose };
+    globalThis[KEY] = { dispose, getStatus: () => patch.getStatus() };
   } catch (error) {
     dispose();
     console.error(`[ControllerBridge] Menu input compatibility unavailable: ${error}`);

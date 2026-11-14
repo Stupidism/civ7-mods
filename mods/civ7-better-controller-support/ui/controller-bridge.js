@@ -27,6 +27,9 @@ function install() {
     catch (error) { reportSettingsError(error); }
   };
   const log = (event, data) => console.log(`${PREFIX} ${event} ${JSON.stringify(data)}`);
+  const diagnostic = sample => {
+    try { window.dispatchEvent(new CustomEvent('civ7-bcs-diagnostic-route', { detail: sample })); } catch { /* Optional. */ }
+  };
 
   function snapshot() {
     const focus = FocusManager.get();
@@ -74,7 +77,7 @@ function install() {
   try {
     bridge = createBridge({
       actionHandler: ActionHandler, input: Input, contexts: InputContext,
-      statuses: InputActionStatuses, snapshot, stopMotion, report: log, ...config
+      statuses: InputActionStatuses, snapshot, stopMotion, report: log, diagnostic, ...config
     });
     const listenEngine = (name, fn) => { engine.on(name, fn); engineListeners.push([name, fn]); };
     const listenWindow = (name, fn) => { window.addEventListener(name, fn); windowListeners.push([name, fn]); };

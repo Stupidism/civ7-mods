@@ -4,7 +4,7 @@
     <Name>LOC_MTG_MOD_NAME</Name>
     <Description>LOC_MTG_DESCRIPTION</Description>
     <Authors>Stupidism</Authors>
-    <Version>0.10.2-dev</Version>
+    <Version>0.10.2</Version>
     <Package>Mod</Package>
     <AffectsSavedGames>0</AffectsSavedGames>
     <ShowInBrowser>1</ShowInBrowser>
@@ -32,9 +32,11 @@
           <Item>text/controller-settings.xml</Item>
         </UpdateText>
         <UIScripts>
+          <Item>ui/diagnostics-adapter.js</Item>
           <Item>ui/bridge-settings.js</Item>
         </UIScripts>
         <ImportFiles>
+          <Item>ui/diagnostics-recorder.js</Item>
           <Item>ui/bridge-store.js</Item>
           <Item>ui/bridge-shared-storage.js</Item>
           <Item>ui/instruction-hints.js</Item>
@@ -56,12 +58,14 @@
           <Item>text/controller-settings.xml</Item>
         </UpdateText>
         <UIScripts>
+          <Item>ui/diagnostics-adapter.js</Item>
           <Item>ui/map-tools-gamepad.js</Item>
           <Item>ui/controller-bridge.js</Item>
           <Item>ui/plot-shortcuts.js</Item>
           <Item>ui/force-turn.js</Item>
         </UIScripts>
         <ImportFiles>
+          <Item>ui/diagnostics-recorder.js</Item>
           <Item>ui/bridge-store.js</Item>
           <Item>ui/bridge-shared-storage.js</Item>
           <Item>ui/bridge-options.js</Item>

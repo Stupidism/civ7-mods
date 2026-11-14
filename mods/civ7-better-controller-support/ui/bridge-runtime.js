@@ -3,7 +3,7 @@
 // focus, tutorials, ContextManager and other mods' input guards still run.
 export function createBridge({
   actionHandler, input, contexts, statuses, snapshot, stopMotion,
-  now = Date.now, report = () => {}, enabled = true, invertPanY = true, invertLeftY = false, swapSticks = false
+  now = Date.now, report = () => {}, diagnostic = () => {}, enabled = true, invertPanY = true, invertLeftY = false, swapSticks = false
 }) {
   const previous = actionHandler.onEngineInput;
   if (typeof previous !== 'function' || typeof input.setActiveContext !== 'function' ||
@@ -22,11 +22,30 @@ export function createBridge({
   const moving = new Map();
   const nativeMotion = new Map();
   const seen = new Set();
+  const diagnosticActions = new Set([
+    'nav-move', 'scroll-pan', 'plot-move', 'camera-pan',
+    'nav-up', 'nav-down', 'nav-left', 'nav-right',
+    'camera-zoom-in', 'camera-zoom-out'
+  ]);
   let disposed = false, syncing = false, ownsShell = false;
   let active = false, scope = '', state, fault = null;
   let windowFocused = true;
   const isMapContext = value => value === contexts.World || value === contexts.Unit;
   const delegate = (...args) => previous.call(actionHandler, ...args);
+  const diagnose = sample => {
+    try {
+      if (!diagnosticActions.has(sample.source) && !diagnosticActions.has(sample.target)) return;
+      diagnostic({
+        stage: 'map-route', mode: state?.mode, context: state?.viewContext,
+        panel: state?.panelPresent, blocked: state?.blocked, ...sample
+      });
+    } catch {
+      /* Optional diagnostics never affect input. */
+    }
+  };
+  const tracePassthrough = (source, status, x, y, outputName = source, outputStatus = status, outputY = y, reason = 'pass-through-active') =>
+    diagnose({ kind: 'route', source, target: outputName, status, inputStatus: status,
+      outputStatus, x, y: outputY, reason });
 
   function releaseMotion() {
     // Only neutralize movements initiated by this bridge. Direct native calls
@@ -101,7 +120,7 @@ export function createBridge({
     }
   }
 
-  function send(name, status, x = 0, y = 0) {
+  function send(name, status, x = 0, y = 0, source = 'bridge', inputStatus = status) {
     counts.mapped++;
     const wasMoving = moving.has(name);
     if (name === 'plot-move' || name === 'camera-pan') {
@@ -109,6 +128,7 @@ export function createBridge({
       else moving.set(name, now());
     }
     try {
+      diagnose({ kind: 'route', source, target: name, status, inputStatus, outputStatus: status, x, y, reason: 'mapped' });
       return delegate(name, status, x, y);
     } finally {
       // Even an unrecognized third-party input guard may swallow a release.
@@ -118,21 +138,40 @@ export function createBridge({
   }
 
   function analog(source, target, status, x, y) {
-    if (now() - (nativeMotion.get(target) ?? -Infinity) <= 750) return;
-    if (![statuses.START, statuses.UPDATE, statuses.FINISH, statuses.HOLD].includes(status)) return;
+    if (now() - (nativeMotion.get(target) ?? -Infinity) <= 750) {
+      diagnose({ kind: 'route', source, target, status, inputStatus: status,
+        outputStatus: 'none', x, y, reason: 'suppressed-native-lease' });
+      return;
+    }
+    if (![statuses.START, statuses.UPDATE, statuses.FINISH, statuses.HOLD].includes(status)) {
+      diagnose({ kind: 'route', source, target, status, inputStatus: status,
+        outputStatus: 'none', x, y, reason: 'unsupported-status' });
+      return;
+    }
     if (!Number.isFinite(x) || !Number.isFinite(y)) {
+      diagnose({ kind: 'route', source, target, status, inputStatus: status,
+        outputStatus: 'none', x, y, reason: 'invalid-vector' });
       if (moving.has(target)) { stopMotion(target); moving.delete(target); }
       return;
     }
-    if (target === 'plot-move' && heldDirections.size) return;
+    if (target === 'plot-move' && heldDirections.size) {
+      diagnose({ kind: 'route', source, target, status, inputStatus: status,
+        outputStatus: 'none', x, y, reason: 'suppressed-dpad' });
+      return;
+    }
     // Native PlotCursor divides by vector length; never feed it an UPDATE(0,0).
     if (status === statuses.FINISH || Math.hypot(x, y) <= 0.35) {
-      if (moving.has(target)) send(target, statuses.FINISH, 0, 0);
+      if (moving.has(target)) {
+        send(target, statuses.FINISH, 0, 0, source, status);
+      } else {
+        diagnose({ kind: 'route', source, target, status, inputStatus: status,
+          outputStatus: 'none', x, y, reason: status === statuses.FINISH ? 'finish-no-op' : 'deadzone-no-op' });
+      }
       return;
     }
     counts[source === 'nav-move' ? 'left' : 'right']++;
     return send(target, status === statuses.HOLD ? statuses.UPDATE : status,
-      Math.max(-1, Math.min(1, x)), Math.max(-1, Math.min(1, y)));
+      Math.max(-1, Math.min(1, x)), Math.max(-1, Math.min(1, y)), source, status);
   }
 
   function dpadVector() {
@@ -148,7 +187,11 @@ export function createBridge({
   function onAction(name, status, x = 0, y = 0) {
     if (disposed) return delegate(name, status, x, y);
     sync();
-    if (!active) return delegate(name, status, x, y);
+    if (!active) {
+      tracePassthrough(name, status, x, y, name, status, y,
+        name === 'plot-move' || name === 'camera-pan' ? 'native-passthrough-inactive' : 'pass-through-inactive');
+      return delegate(name, status, x, y);
+    }
     counts.received++;
     if (!seen.has(name)) {
       seen.add(name);
@@ -168,31 +211,46 @@ export function createBridge({
         if(moving.has(target)){stopMotion(target);moving.delete(target);}
         if(target==='plot-move')heldDirections.clear();
         nativeMotion.set(target,now());
-        return send(target,status,x,target==='plot-move'?leftY(y):(invertPanY?-y:y));
+        return send(target,status,x,target==='plot-move'?leftY(y):(invertPanY?-y:y),name);
       }
       if (moving.has(name)) { stopMotion(name); moving.delete(name); }
       if (name === 'plot-move') heldDirections.clear();
       nativeMotion.set(name, now());
-      return delegate(name, status, x, name === 'plot-move' ? leftY(y) : y);
+      const outputY = name === 'plot-move' ? leftY(y) : y;
+      diagnose({ kind: 'route', source: name, target: name, status, inputStatus: status,
+        outputStatus: status, x, y: outputY, reason: 'native-passthrough' });
+      return delegate(name, status, x, outputY);
     }
     // Unit action buttons still need D-pad navigation. Only an unfocused world
     // uses D-pad as an alternative map cursor.
     if (directions[name] && state.viewContext === contexts.World && state.worldFocused) {
-      if (now() - (nativeMotion.get('plot-move') ?? -Infinity) <= 750) return;
+      if (now() - (nativeMotion.get('plot-move') ?? -Infinity) <= 750) {
+        diagnose({ kind: 'route', source: name, target: 'plot-move', status, inputStatus: status,
+          outputStatus: 'none', reason: 'suppressed-native-lease' });
+        return;
+      }
       if (status === statuses.FINISH) heldDirections.delete(name);
       else if (status === statuses.START || heldDirections.has(name)) heldDirections.set(name, now());
       const [dx, dy] = dpadVector();
       if (dx || dy) {
         counts.dpad++;
-        if (status === statuses.START) send('plot-move', statuses.START, dx, dy);
+        if (status === statuses.START) send('plot-move', statuses.START, dx, dy, name, status);
+        else diagnose({ kind: 'route', source: name, target: 'plot-move', status, inputStatus: status,
+          outputStatus: 'none', reason: 'dpad-held' });
       } else if (moving.has('plot-move')) {
-        send('plot-move', statuses.FINISH);
+        send('plot-move', statuses.FINISH, 0, 0, name, status);
+      } else {
+        diagnose({ kind: 'route', source: name, target: 'plot-move', status, inputStatus: status,
+          outputStatus: 'none', reason: 'dpad-no-op' });
       }
       return;
     }
     // The lens owns its ruler/cancel and other buttons. Correct only motion;
     // in particular Shell X must reach the legend instead of starting a move.
-    if (state.mapOverlay) return delegate(name, status, x, y);
+    if (state.mapOverlay) {
+      tracePassthrough(name, status, x, y);
+      return delegate(name, status, x, y);
+    }
     const translations = {
       // Official World RB opens the radial menu; borrowed Shell RB is nav-next.
       // Unit RB must remain native next-button navigation.
@@ -210,10 +268,11 @@ export function createBridge({
         const armed = pressed.get(name) === scope;
         pressed.delete(name);
         // No stray confirmation/zoom when a press began in a different panel.
-        if (armed) return send(target, statuses.FINISH, target.startsWith('camera-zoom-') ? 1 : x, y);
+        if (armed) return send(target, statuses.FINISH, target.startsWith('camera-zoom-') ? 1 : x, y, name);
       }
       return;
     }
+    tracePassthrough(name, status, x, y);
     return delegate(name, status, x, y);
   }
 
@@ -238,7 +297,7 @@ export function createBridge({
       if (time - last > 750) { stopMotion(name); moving.delete(name); }
     }
     const [x, y] = dpadVector();
-    if (x || y) send('plot-move', statuses.UPDATE, x, y);
+    if (x || y) send('plot-move', statuses.UPDATE, x, y, 'dpad-repeat', statuses.UPDATE);
   }
 
   function safeTick() {
