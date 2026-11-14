@@ -1,47 +1,44 @@
-# Better Controller Support
+# Better Controller Support 0.10.2
 
-Source directory: `civ7-better-controller-support`. The Mod ID and manual installation folder remain `civ7-map-tools-gamepad` for compatibility.
+Release **0.10.2** combines three settings-storage fixes—multi-key compatibility, legacy calibration migration, and failed-save recovery—with menu/scroll improvements and automatic local diagnostics. See [storage fixes](docs/storage-review-fixes.md), [integration notes](docs/integration-20261113.md), and [scroll follow-up](docs/scroll-followup-20261114.md).
 
-Version 0.3.0 (88 offline checks passed; new plot shortcuts not live-tested). Controller map tools, stacked-unit cycling and settlement shortcuts on Windows/macOS, including compatibility from Mac Controller Support Fix 0.1.5.
+Load Game keeps the moving RS marker on the selected scroll region and suppresses only that page's duplicate native right-side icon, restoring it on exit. With full stick deflection, acceleration reaches maximum after approximately 1.8 seconds; the complete scroll range then takes at most three seconds. Partial deflection remains slower, and release, reversal or popup takeover resets acceleration. Other pages' native icons are outside this page-specific suppression rule.
 
-## Stacked units and settlements
+## Current six feature groups
 
-On the normal map or with a unit selected, shortcuts target the currently highlighted plot (Xbox layout):
+| Feature | Entry | Behavior |
+| --- | --- | --- |
+| Stick compatibility correction | Options → Add-Ons → this mod's settings | Defaults OFF. Enable manually only when a device needs it; configure stick swap and vertical inversion separately. Existing settings are preserved. |
+| Map tools radial menu | Open the native radial and use LB/RB to select Map Tools | Provides filters, cities, units, wonders, and map tacks with the same icons as the minimap buttons. Press A once to open the selected panel directly; press B to return. Map Trix and Detailed Map Tacks are optional—their entries are hidden when absent. |
+| Map selection centering | With input compatibility enabled, press R3 on the map | Moves the selected plot to the center of the camera for easier inspection and continued input. |
+| Menu scroll navigation | R3 in menus; right stick left/right and up/down | R3 focuses a selectable item near the visible center of the active scroll region. Deliberate right-stick horizontal movement switches regions; sustained vertical scrolling accelerates; hints use the native NavigationTray. A popup can cancel the same routed input or claim the current frame, immediately stopping background scrolling. |
+| Same-plot units and settlement | LB/RB to cycle; X for the settlement | When several of your units occupy one plot, LB/RB cycles through them. Before or after selecting a unit, X opens that plot's settlement. Native legality checks govern whether it can open or act. |
+| Force end turn | Hold View/Back for about 1 second, then release | A short press still opens the social panel. After a one-second hold, release invokes native force-end-turn. Native blockers, save flows, and Rest Guard remain respected—not bypassed. |
 
-- With two or more of your units on that plot, **RB selects the next, LB the previous**, wrapping within that plot. Includes explorers, settlers, merchants, sleeping and exhausted units. Excludes foreign, packed/off-map and remote units. Works before selecting a unit too.
-- **X opens the settlement on that plot**, whether or not a unit is selected. Your cities/towns use native management; foreign and independent settlements retain native diplomacy/contact rules. A remote rural tile owned by a city is not its settlement tile.
-- Without a stack/settlement, the original button action remains. Menu tabs, move/attack targeting, city screens, dialogs and focus locks retain control. RB cycles units over a stack; to open the radial menu, deselect the unit and move the cursor to a plot without stacked units.
+## Boundaries with optional page mods
 
-These shortcuts work independently of the Mac compatibility switch and Map Trix. Validation is offline; physical-controller and Windows live behavior remain unverified.
+The following features are outside this package. All three page mods are optional; without them, the six controller groups above still work.
 
-## Map tools
+| Optional mod | Responsible features |
+| --- | --- |
+| [Resource Planner](../civ7-resource-planner/README-en.md) | Resource layout, allocation preferences, empty-resource-slot reminders, close deferral, and skip-this-turn. |
+| [Better Settlement UI](../civ7-better-settlement-ui/README-en.md) | Four-column settlement layout, scores, payback, sorting, build deferral, and skip-this-turn. |
+| [Better Policy UI](../civ7-better-policy-ui/README-en.md) | Compact policy layout; policy/tradition/crisis empty-slot reminders, close deferral, and skip-this-turn. |
 
-Open the native radial menu with RB; switch to **Map Tools** with LB/RB. Choose a tool with the left stick and press A once to open it directly. D-pad/left stick navigate; A activates and B closes the tool and returns directly to the map. Icons match the actual minimap buttons. Focus has a gold outline, long lists scroll and hidden/disabled entries are skipped.
+## Upgrade and settings
 
-Base lenses retain native controls. Cities, units and wonders require Map Trix; map tacks require Detailed Map Tacks. Missing tools are hidden. No third-party mod files or game assets are redistributed. Tack placement/removal remains the original mod's responsibility; no new delete shortcut.
+Replace this mod's complete directory during updates so removed files cannot linger. The internal mod ID stays unchanged. On reliable keyed storage, legacy calibration is loaded and migrated when settings are confirmed. Legacy records on affected macOS key-blind storage require the explicit [migration procedure](docs/storage-review-fixes.md); do not clear other mods’ settings. Do not enable it together with the old standalone Mac controller fix or keep duplicate local and Workshop copies.
 
-## Integrated controller compatibility
+## Automatic controller diagnostics
 
-Enabled by default on Mac, off on Windows/unknown platforms. Saved preferences take priority. Map tools work independently of this switch.
+> Automatic diagnostics passed offline validation and are installed in the local development build. Gameface persistence and physical-controller behavior for the new code still require separate verification.
 
-With compatibility enabled: left stick moves the plot cursor with camera follow, right stick pans, **R3 moves the selected plot to the center of the camera**, LT/RT zoom one step per press. LB/RB cycle stacked units where available; otherwise RB opens the radial menu on the normal map. D-pad retains unit-action navigation. A/B stay native. X prioritizes a settlement; otherwise it opens the radial menu or unit movement. Y invokes native next action and may end the turn. L3 is unchanged.
+Diagnostics are always on by default, independent of both Show Debug and the compatibility toggle. They record only page startup/build, the five validated persisted switches, effective map/menu switches, device/input context/view/panel/block reason, named engine actions and axis vectors, plus map/menu bridge mapping, pass-through, suppression, and errors. `nav-move` is an engine ACTION stream: the log cannot infer the physical left/right stick or identify a hardware/driver cause. Diagnostics parse the latest shared document only to merge their own namespace safely and never record foreign settings. They do not read UI text, saves, player names, or chat, issue gameplay commands, or upload anything.
 
-Held menu analog navigation is normalized to the status expected by native menus. Focus locks, dialogs, pause screens, Rest Guard, non-controller input and city views retain priority. Motion is released on loss of focus/scope and expires if input stops.
+The recorder retains startup information and initial/latest health summaries outside the rolling events for at most three recent shell/game page sessions, with at most 512 input/change events and 96 KiB of UTF-8 JSON across them. Each input source/stage admits at most four events per second. Manual marks and other state records also have rate and capacity limits; excess samples enter bounded counters. Dirty data normally flushes synchronously no more than once per ten seconds. A write replaces only this page's session and preserves other sessions from the latest stored document. It merges only `civ7-map-tools-gamepad.diagnostics.v1` inside an existing, exactly validated shared `modSettings` document; it neither creates a second key nor creates an empty shared settings document. A clean install without verified BCS calibration records in memory only; those records cannot be recovered after the page closes. Invalid, ambiguous, quota-failed, or failed-readback storage pauses persistence while retaining memory. Unload makes a best-effort synchronous write, but a process crash, power loss, or unverifiable storage can still lose the final batch.
 
-Options → Add-ons → Better Controller Support contains compatibility, separate left/right vertical inversion and an optional debug bar. Confirm saves; Cancel discards. Debug defaults off. Inversion applies only while compatibility is enabled. Turning compatibility off leaves Map Tools available.
+While the page is alive, use `globalThis.__civ7BetterControllerDiagnosticsV1.snapshot()` in the development console for a read-only copy. `flush()` requests one best-effort write and `mark('short label')` adds a manual marker; none sends input or game commands. For offline extraction, quit the game, copy `LocalStorage.sqlite`, then read the exact row from the copy: `sqlite3 backup-LocalStorage.sqlite "SELECT value FROM \"Values\" WHERE id='fs://game' AND key='modSettings';"`; parse the diagnostics namespace above from that JSON. Keep this read-only—do not clear, rewrite, or query the live database in place.
 
-## Upgrade from the standalone Mac fix
+The complete 0.10.2 offline suite passed **194 tests, zero failures/skips**, including isolated Chromium. No new in-game, physical-controller or Windows acceptance is claimed. Installation is not live acceptance. See [validation records](VALIDATION.md).
 
-Disable Mac Controller Support Fix and restart with Better Controller Support enabled. Existing settings are read from the same local storage key without an initialization write. No subscription changes are made automatically.
-
-If both mods remain enabled, this mod supplies Map Tools and plot shortcuts, while the old mod handles compatibility input/options. The shortcut entry loads after the old fix (load order 4000) and this mod's bridge. Disable the old mod and restart to use the integrated compatibility implementation.
-
-## Install and verification
-
-Subscribe through Steam Workshop, wait for download, restart and enable Better Controller Support in Additional Content. For manual installs put the civ7-map-tools-gamepad folder in the game's Mods folder. Keep only one copy of this Mod ID.
-
-0.3.0 adds offline plot-shortcut checks using the native input dispatcher and city handler, including compatibility routing and cancellation when targets change. The existing 76 checks cover map tools and compatibility. During 0.2.0 capture the user confirmed Mac map inputs, R3 and radial stick navigation; that feedback does not validate these new shortcuts. Windows, settings persistence and complete map-tack placement/removal remain unverified. See VALIDATION.md for the current count.
-
-Only controller preferences are saved locally; no game rules or save files are changed by installation. Original tool actions still perform normal gameplay behavior. Other mods changing the same input pipeline may require adaptation. See VALIDATION.md for evidence.
-
-Development: npm test. Full detached-browser tests require CIV7_PLAYWRIGHT_MODULE; CIV7_CHROMIUM_PATH and CIV7_MODULES_DIR are optional overrides. Live tests require the repository AGENTS.md protocol and explicit authorization.
+Development: `npm test`; set `CIV7_PLAYWRIGHT_MODULE` for the isolated browser regression, which does not connect to the game. `python3 tools/package.py` only creates the runtime package.

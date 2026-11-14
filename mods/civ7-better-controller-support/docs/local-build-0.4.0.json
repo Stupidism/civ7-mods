@@ -1,0 +1,29 @@
+{
+  "version": "0.4.0",
+  "date": "2026-10-29",
+  "status": "offline-ready-not-installed-or-published",
+  "scope": "View/Back hold to force end turn; skipped production moves after other actions for this turn; production-tab long Y or Build last button marks and closes",
+  "validation": {
+    "offlineTestsPassed": 108,
+    "offlineTestsFailed": 0,
+    "offlineTestsSkipped": 0,
+    "javascriptSyntaxAndImports": "passed",
+    "manifestReferences": 31,
+    "versionConsistency": "passed",
+    "xml": "passed",
+    "nativeInputPatch": "exactly Back and production Y controller actions matched; EventType All; gestures untouched",
+    "bilingualKeys": "matched with no duplicates"
+  },
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261029T145554082153Z/better-controller-support-0.4.0.zip",
+  "archiveSha256": "85d9a932debb31d4fa255f1d7f67c73ec739ab4306eee2d3eb1d2d7570bcb1a2",
+  "manifest": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261029T145554082153Z/manifest.json",
+  "packagedFilesVerified": 27,
+  "gameInteracted": false,
+  "liveTested": false,
+  "installed": false,
+  "published": false,
+  "savesAccessed": false,
+  "restGuardChanged": false,
+  "note": "108 detached offline cases; current native action refresh/activation and production close/short-Y evaluated in isolated VM, engine effects instrumented. Physical inputs, new panel layout, native city setter timing and end-turn mod coexistence await live verification. No installation/publication/game interaction.",
+  "supersedesLocalArchive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261029T142641646929Z/better-controller-support-0.4.0.zip"
+}

@@ -1,0 +1,16 @@
+{
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261030T083207191706Z/better-controller-support-0.7.0.zip",
+  "manifest": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261030T083207191706Z/manifest.json",
+  "files": 42,
+  "verified": true,
+  "offlineTestsPassed": 137,
+  "installed": false,
+  "published": false,
+  "liveTested": false,
+  "changes": [
+    "shared mouse/controller layouts",
+    "building tooltip payback breakdown",
+    "hide outer advisor badges",
+    "single build-last action row"
+  ]
+}

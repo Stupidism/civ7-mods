@@ -1,0 +1,25 @@
+{
+  "version": "0.5.1",
+  "date": "2026-10-29",
+  "status": "offline-ready-not-installed-or-published",
+  "scope": "Recognize native Shell-context Diplomacy harness outside ContextManager popup stack for HOLD-to-UPDATE menu normalization; includes 0.5.0 card reminders",
+  "validation": {
+    "offlineTestsPassed": 119,
+    "offlineTestsFailed": 0,
+    "offlineTestsSkipped": 0,
+    "nativeDiplomacyRegression": "failed before fix at index 0 != 1; passes with view-context recognition",
+    "syntaxImportsManifestXml": "passed",
+    "installed040Unchanged": true
+  },
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261029T153737053515Z/better-controller-support-0.5.1.zip",
+  "archiveSha256": "f96420dc7fed5078045d7ac9c3fb194df350bbb48720cc456681c4a2048f01b6",
+  "manifest": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261029T153737053515Z/manifest.json",
+  "packagedFilesVerified": 29,
+  "gameInteracted": false,
+  "liveTested": false,
+  "installed": false,
+  "published": false,
+  "savesAccessed": false,
+  "restGuardChanged": false,
+  "note": "Exact affected buttons awaiting user clarification. Offline evidence confirms the analog normalization defect, not live A/B or focus behavior. UI.log read-only provided no matching diagnostics."
+}

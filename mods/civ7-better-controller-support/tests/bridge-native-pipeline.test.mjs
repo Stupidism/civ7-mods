@@ -29,7 +29,7 @@ function pipeline({ nativeCamera = false, nativePlot = false, nativeRadial = fal
   const pans = [];
   const openedPanels = [], windowListeners = new Map();
   let camera, plot, radial;
-  const state = { blocked: false, panel: false, current: contexts.World, viewContext: contexts.World,
+  const state = { blocked: false, panel: false, mapOverlay: false, current: contexts.World, viewContext: contexts.World,
     radialAllowed: true, hasCity: true, tutorialDisabled: false };
   const source = readFileSync(nativePath, 'utf8')
     .replace(/^import .*;\r?\n/gm, '')
@@ -75,7 +75,7 @@ function pipeline({ nativeCamera = false, nativePlot = false, nativeRadial = fal
     Object.assign(sandbox, {
       InputHandlerState: { Active: 0, Handled: 1 },
       Configuration: { getUser: () => ({ cameraPanningSpeed: 1 }) },
-      ViewManager: { get isWorldInputAllowed() { return !state.panel; } },
+      ViewManager: { get isWorldInputAllowed() { return !state.panel || state.mapOverlay; } },
       IsControllerActive: () => true, IsTouchActive: () => false,
       Camera: { panFocus: value => pans.push({ ...value }) }
     });
@@ -130,8 +130,8 @@ function pipeline({ nativeCamera = false, nativePlot = false, nativeRadial = fal
   vm.runInContext(source, sandbox, { filename: nativePath });
   const handler = sandbox.testActionHandler;
   const emit = (...args) => engineListeners.get('InputAction')(...args);
-  const attach = () => createBridge({
-    actionHandler: handler, input, statuses, contexts,
+  const attach = (options = {}) => createBridge({
+    actionHandler: handler, input, statuses, contexts, ...options,
     stopMotion(name) {
       if (name === 'camera-pan') camera?.onGamepadCameraPan(statuses.FINISH, { x: 0, y: 0 });
       if (name === 'plot-move') plot?.onMovePlotCursor(new InputEvent(name, statuses.FINISH, 0, 0));
@@ -139,7 +139,7 @@ function pipeline({ nativeCamera = false, nativePlot = false, nativeRadial = fal
     snapshot: () => ({
       controller: true, viewContext: state.viewContext, mode: 'DEFAULT',
       worldAllowed: true, viewAllowed: true, worldFocused: true,
-      panelPresent: state.panel, blocked: false
+      panelPresent: state.panel, mapOverlay: state.mapOverlay, panelContext: contexts.Unit, blocked: false
     })
   });
   return { state, handler, emit, attach, actions, navigation, globalEvents, camera, plot, pans, radial, openedPanels };
@@ -241,6 +241,49 @@ test('real dispatcher: existing ContextManager blockers stop translated inputs b
   f.state.blocked = false;
   f.emit('scroll-pan', statuses.UPDATE, 0, 1);
   assert.equal(f.actions[0].name, 'camera-pan');
+});
+
+test('settler map overlay keeps native plot motion and stops it on modal entry or disable', { skip: !available }, () => {
+  const f = pipeline({ nativePlot: true });
+  Object.assign(f.state, { panel: true, mapOverlay: true, current: contexts.Unit, viewContext: contexts.Unit });
+  const bridge = f.attach({ swapSticks: true, invertLeftY: false, invertPanY: false });
+  const move = () => {
+    Object.assign(f.plot, { _PlotCursorCoords: { x: 500, y: 500 },
+      controllerCursor: { x: 500, y: 500 }, isMoving: true, nudgeDelay: -1, frameDelta: 0.016 });
+    f.emit('scroll-pan', statuses.HOLD, 0, 1);
+  };
+  move();
+  assert.equal(f.actions.at(-1).name, 'plot-move');
+  assert.ok(f.pans.at(-1).y > 0, 'legend permits the same native upward plot follow as the map');
+  f.state.mapOverlay = false; // A dialog now owns the top panel.
+  bridge.tick();
+  assert.equal(f.plot.isMoving, false);
+  assert.equal(f.state.current, contexts.Shell, 'do not restore Unit over a dialog');
+  f.emit('nav-move', statuses.UPDATE, 1, 0);
+  assert.equal(f.navigation.length, 1, 'dialog receives unmodified menu navigation');
+  f.state.mapOverlay = true;
+  move();
+  bridge.setEnabled(false);
+  assert.equal(f.plot.isMoving, false);
+  assert.equal(f.state.current, contexts.Unit, 'restore legend native context when disabling');
+  bridge.dispose();
+});
+
+test('settler legend transitions cancel old button presses and preserve native ruler input', { skip: !available }, () => {
+  const f = pipeline();
+  f.state.viewContext = contexts.Unit;
+  const bridge = f.attach();
+  f.emit('shell-action-2', statuses.START, 0, 0);
+  Object.assign(f.state, { panel: true, mapOverlay: true, current: contexts.Unit });
+  bridge.tick();
+  f.emit('shell-action-1', statuses.FINISH, 0, 0);
+  assert.equal(f.actions.at(-1).name, 'shell-action-1');
+  assert.equal(f.actions.some(a => a.name === 'unit-move'), false);
+  Object.assign(f.state, { panel: false, mapOverlay: false });
+  bridge.tick();
+  f.emit('shell-action-2', statuses.FINISH, 0, 0);
+  assert.equal(f.actions.some(a => a.name === 'next-action'), false, 'a press from before the legend cannot fire after closing');
+  bridge.dispose();
 });
 
 test('real dispatcher: pause still receives menu navigation and accept exactly once', { skip: !available }, () => {

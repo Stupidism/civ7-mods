@@ -1,0 +1,130 @@
+{
+  "version": "0.4.0",
+  "installedAt": "2026-10-29T14:58:15.349977+00:00",
+  "destination": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3825193325",
+  "installationSource": "local test build replacing existing Workshop directory; no upload",
+  "publishedFileId": "3825193325",
+  "previousVersion": "0.3.0",
+  "backup": "/Users/sunmer/Documents/Civ7-Mod-Backups/better-controller-support-0.4.0-20261029T145815334651Z",
+  "previousFilesVerified": 22,
+  "filesVerified": {
+    "map-tools-gamepad.modinfo": {
+      "size": 2811,
+      "sha256": "13d35abb071e482f1a64a0439693d426b2082a0fcbcb6b246726bfb11d52972e"
+    },
+    "README.md": {
+      "size": 8759,
+      "sha256": "d2c45884c1b539330c8573e0388a86c0f42c718160e79580b412242ffda76a42"
+    },
+    "README-en.md": {
+      "size": 7243,
+      "sha256": "7060366f413a63b0fe0fac9925c0996ce1ee85663ef60ee32598aa00eec97cf9"
+    },
+    "VALIDATION.md": {
+      "size": 15004,
+      "sha256": "1553163602ab95c5d224a9f02d2d4b1485b4db911296c8acac98e2060dff4c21"
+    },
+    "ui/bridge-options.js": {
+      "size": 3188,
+      "sha256": "1fd74c18382cfea77aa866590712eb722d8cd403364acbf691b95d652a74fcd2"
+    },
+    "ui/bridge-runtime.js": {
+      "size": 10783,
+      "sha256": "bfe2e2b2d215630a6de461b14c86b4ee4a965ca0bb9eae8d8bc5ccd4314568de"
+    },
+    "ui/bridge-settings.js": {
+      "size": 1687,
+      "sha256": "7e22234c29f79ff38d449021ffe2ef741fab8f1706e752706f45ba953573a75f"
+    },
+    "ui/bridge-store.js": {
+      "size": 1214,
+      "sha256": "ef70c978f1823b8733e498be4bc1b9b1455ba036e15315fb7b9c58ad7b0b29c8"
+    },
+    "ui/controller-bridge.js": {
+      "size": 7045,
+      "sha256": "8fd15862c5883814228690ca8c68ef1410ec01000d563d2c9381da57ede56c60"
+    },
+    "ui/controller-policy.js": {
+      "size": 1177,
+      "sha256": "7fe378eeedfbe3ec321cb9435b73c24c5473c7ef243c206c9b5827949f543f19"
+    },
+    "ui/force-turn-runtime.js": {
+      "size": 2753,
+      "sha256": "1a0fb84e573da96f859c781d9eabf372d7ee4c2ebf31a478029d722e2ccd3d22"
+    },
+    "ui/force-turn.js": {
+      "size": 4796,
+      "sha256": "9cb0340121bb4177c3ddbf100a30b3b2f8f2a1c967ffc76573562ff6c3e88288"
+    },
+    "ui/map-tools-gamepad.css": {
+      "size": 267,
+      "sha256": "2b502f0e96ba18b99903118f306955165ea79a83917382be4cbfa0ef175bf928"
+    },
+    "ui/map-tools-gamepad.js": {
+      "size": 3175,
+      "sha256": "d2a4ab01502b3dd10ff81abce9c2d89dd2bc69894ab01d48af4b427f567a4390"
+    },
+    "ui/map-tools-runtime.js": {
+      "size": 11206,
+      "sha256": "753a9f2f2f3cf18c6e1151dcf619874395f398cf8f5a4d7ce4b4368e9fe3c0f6"
+    },
+    "ui/menu-navigation-adapter.js": {
+      "size": 2285,
+      "sha256": "c735c0e6328818158239e7bdef61297df1909840fd0efa1b6ea017f6106432f2"
+    },
+    "ui/menu-navigation.js": {
+      "size": 2439,
+      "sha256": "441f12b47eacd2bc2675d9cd627055ab4b8903de6f328366e06469e477c9876c"
+    },
+    "ui/navigation.js": {
+      "size": 2651,
+      "sha256": "9215acde1fb8810f6263108298963753f6a1638011b687af410e9381e23a4295"
+    },
+    "ui/plot-shortcuts-adapter.js": {
+      "size": 4249,
+      "sha256": "ec058817faa9204893a0fa60fe482a74712a6f27d11e1adae20478c70a5bfa1a"
+    },
+    "ui/plot-shortcuts-runtime.js": {
+      "size": 4225,
+      "sha256": "1e5774fc8f6fdf52fac7a5878843d5a97e9e799d876609a45408279accc5785b"
+    },
+    "ui/plot-shortcuts.js": {
+      "size": 3336,
+      "sha256": "a76189199581985ab9d8896547644d70629291c6068e735b79f0c426581ff202"
+    },
+    "ui/production-defer-runtime.js": {
+      "size": 4067,
+      "sha256": "0c7ccfdd4fe7fb75f6103391dde4d80abc3da9b5f981ee86e2841bfe352257c2"
+    },
+    "ui/production-defer.js": {
+      "size": 11800,
+      "sha256": "6d2eb33d1a04f08bd1f0bd16b5d520db6601253ad42867fe82446f53b3cc1baf"
+    },
+    "ui/radial-icons.js": {
+      "size": 1478,
+      "sha256": "7a6de2153f3ae902948bf006a0cc58ff6f3056883001daefb5c816c4767aa69e"
+    },
+    "text/controller-settings.xml": {
+      "size": 6152,
+      "sha256": "ea0223e5c9ad8d82a2de5c6fa991dc1a70e2f7ea247b9afb0303db85dfad2d05"
+    },
+    "text/map-tools.xml": {
+      "size": 3265,
+      "sha256": "72045be0e65dc37f3bba264cc9bbc098962ece304cfcf4d03dce6a23d56953e9"
+    },
+    "config/controller-input.xml": {
+      "size": 379,
+      "sha256": "b0dbfdec71544f313e81beb7ae510ada921c3fe385f7706e157cb2ef73749985"
+    }
+  },
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261029T145554082153Z/better-controller-support-0.4.0.zip",
+  "archiveSha256": "85d9a932debb31d4fa255f1d7f67c73ec739ab4306eee2d3eb1d2d7570bcb1a2",
+  "gameControlled": false,
+  "gameRestarted": false,
+  "liveTested": false,
+  "savesAccessedOrModified": false,
+  "restGuardChanged": false,
+  "savesBackup": "Not required for file-only installation; no game launch, load, save or test performed",
+  "restartRequired": true,
+  "workshopUploaded": false
+}

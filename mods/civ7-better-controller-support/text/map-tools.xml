@@ -1,11 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Database>
   <EnglishText>
+    <Row Tag="LOC_MTG_FORCE_TURN_HOLD">
+      <Text>Hold for 1 second to [icon:NEXT_TURN] force end turn</Text>
+    </Row>
+    <Row Tag="LOC_MTG_FORCE_TURN_RELEASE">
+      <Text>Release to [icon:NEXT_TURN] force end turn</Text>
+    </Row>
     <Row Tag="LOC_MTG_MOD_NAME">
       <Text>Better Controller Support</Text>
     </Row>
     <Row Tag="LOC_MTG_DESCRIPTION">
-      <Text>Controller map tools, LB/RB cycling through stacked units, and X to open the settlement on the highlighted tile. Includes Mac input compatibility. City/unit/wonder lists require Map Trix; map tacks require Detailed Map Tacks.</Text>
+      <Text>Controller map tools, stacked-unit cycling and settlement shortcuts. Optional stick compatibility can be switched on or off in Options → Add-ons → Better Controller Support. City/unit/wonder lists require Map Trix; map tacks require Detailed Map Tacks.</Text>
     </Row>
     <Row Tag="LOC_MTG_TITLE">
       <Text>Map Tools</Text>
@@ -25,13 +31,21 @@
     <Row Tag="LOC_MTG_TACKS">
       <Text>Map Tacks</Text>
     </Row>
+      <Row Tag="LOC_MTG_SCROLL_CENTER"><Text>Press: focus visible centre</Text></Row>
+    <Row Tag="LOC_MTG_SCROLL_SWITCH"><Text>← → Switch scroll area</Text></Row>
   </EnglishText>
   <LocalizedText>
+    <Row Tag="LOC_MTG_FORCE_TURN_HOLD" Language="zh_Hans_CN">
+      <Text>按住满 1 秒，[icon:NEXT_TURN] 强制结束回合</Text>
+    </Row>
+    <Row Tag="LOC_MTG_FORCE_TURN_RELEASE" Language="zh_Hans_CN">
+      <Text>松开，[icon:NEXT_TURN] 强制结束回合</Text>
+    </Row>
     <Row Tag="LOC_MTG_MOD_NAME" Language="zh_Hans_CN">
       <Text>更好的手柄支持 · Better Controller Support</Text>
     </Row>
     <Row Tag="LOC_MTG_DESCRIPTION" Language="zh_Hans_CN">
-      <Text>手柄地图工具导航，LB/RB 切换同格重叠单位，X 打开光标格上的定居点，内置 Mac 输入兼容。城市、单位、奇观列表需 Map Trix，地图钉需 Detailed Map Tacks。</Text>
+      <Text>手柄地图工具、同格单位切换和定居点快捷入口。可在“选项 → 附加内容 → 更好的手柄支持”手动开关摇杆兼容。城市／单位／奇观列表需要 Map Trix；地图钉需要 Detailed Map Tacks。</Text>
     </Row>
     <Row Tag="LOC_MTG_TITLE" Language="zh_Hans_CN">
       <Text>地图工具</Text>
@@ -51,5 +65,7 @@
     <Row Tag="LOC_MTG_TACKS" Language="zh_Hans_CN">
       <Text>地图钉</Text>
     </Row>
+      <Row Tag="LOC_MTG_SCROLL_CENTER" Language="zh_Hans_CN"><Text>按下：焦点移至可见区域中央</Text></Row>
+    <Row Tag="LOC_MTG_SCROLL_SWITCH" Language="zh_Hans_CN"><Text>← → 切换滚动区域</Text></Row>
   </LocalizedText>
 </Database>

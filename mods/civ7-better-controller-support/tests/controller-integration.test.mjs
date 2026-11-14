@@ -2,15 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { readFileSync } from 'node:fs';
-import { platformDefaults, standaloneBridgeEnabled } from '../ui/controller-policy.js';
+import { platformDefaults, standaloneBridgeEnabled, NATIVE_INPUT_ONLY } from '../ui/controller-policy.js';
 import { BridgeSettingsStore, STORE } from '../ui/bridge-store.js';
+import { createSharedControllerStorage } from '../ui/bridge-shared-storage.js';
 import { installBridgeOptions } from '../ui/bridge-options.js';
 
-test('new installs default to native input on Windows/unknown hosts and compatibility on Mac', () => {
+test('new installs default to native input on every platform until manually enabled', () => {
   for (const [build, nav, enabled] of [
     [{ target: 'Windows' }, { platform: 'MacIntel' }, false],
-    [{ target: 'MacOS' }, {}, true], [{ graphics: 'Metal' }, {}, true],
-    [{}, { platform: 'MacIntel' }, true], [{}, {}, false]
+    [{ target: 'MacOS' }, {}, false], [{ graphics: 'Metal' }, {}, false],
+    [{}, { platform: 'MacIntel' }, false], [{}, {}, false]
   ]) {
     const store = new BridgeSettingsStore({ getItem: () => null }, undefined, platformDefaults(build, nav));
     assert.equal(store.load().enabled, enabled);
@@ -25,7 +26,7 @@ test('existing standalone settings survive migration without writes on either pl
       getItem(key) { assert.equal(key, STORE); return JSON.stringify(existing); },
       setItem() { assert.fail('Initialization must not overwrite old settings'); }
     }, undefined, platformDefaults({ target }));
-    assert.deepEqual(store.load(), existing);
+    assert.deepEqual(store.load(), {...existing,swapSticks:false});
   }
 });
 
@@ -60,9 +61,9 @@ test('actual settings entry skips every input and options hook when standalone i
     .replace(/^import .*;\r?\n/gm, '').replace(/^export /gm, '');
   for (const enabled of [false, true]) {
     let options = 0, menu = 0;
-    const sandbox = vm.createContext({ BridgeSettingsStore, platformDefaults, standaloneBridgeEnabled,
+    const sandbox = vm.createContext({ NATIVE_INPUT_ONLY, BridgeSettingsStore, createSharedControllerStorage, platformDefaults, standaloneBridgeEnabled,
       BuildInfo: { target: 'MacOS' }, Modding: { getInstalledMods: () => [{ id: 'civ7-controller-bridge', enabled }] },
-      localStorage: { getItem: () => null }, Options: {}, OptionType: {}, CategoryData: {}, DialogBoxManager: {},
+      UI: { getOption: () => null }, Configuration: {}, localStorage: { length: 0, getItem() { return null; } }, Options: {}, OptionType: {}, CategoryData: {}, DialogBoxManager: {},
       installBridgeOptions() { options++; return { dispose() {} }; }, installMenuNavigation() { menu++; },
       window: { addEventListener() {} }, engine: { whenReady: Promise.resolve() }, console: { log() {}, warn() {} }
     });
@@ -75,7 +76,7 @@ test('actual map entry leaves standalone bridge and its hooks untouched', async 
   const source = readFileSync(new URL('../ui/controller-bridge.js', import.meta.url), 'utf8')
     .replace(/^import .*;\r?\n/gm, '');
   const existing = { dispose() { assert.fail('Must not dispose standalone bridge'); } };
-  const sandbox = vm.createContext({ useStandaloneBridge: true, __civ7ControllerBridge: existing,
+  const sandbox = vm.createContext({ NATIVE_INPUT_ONLY: true, useStandaloneBridge: true, __civ7ControllerBridge: existing,
     UI: { isInShell: () => false }, engine: { whenReady: Promise.resolve() } });
   vm.runInContext(source, sandbox); await Promise.resolve();
   assert.equal(sandbox.__civ7ControllerBridge, existing);

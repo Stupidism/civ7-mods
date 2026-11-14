@@ -204,6 +204,90 @@ test('native map actions are not translated or dispatched twice', () => {
   assert.deepEqual(f.events, [['plot-move', statuses.UPDATE, 0.8, 0.2]]);
 });
 
+test('native motion passthrough and every no-op disclose exact input and output status', () => {
+  const diagnostics = [];
+  const f = fixture({ diagnostic: sample => diagnostics.push(sample) });
+  f.action('plot-move', statuses.UPDATE, 0.8, 0.2);
+  f.action('camera-pan', statuses.HOLD, -0.7, 0.3);
+
+  const traces = diagnostics.filter(sample => sample.reason === 'native-passthrough');
+  assert.deepEqual(traces.map(sample => [sample.source, sample.target, sample.inputStatus, sample.outputStatus]), [
+    ['plot-move', 'plot-move', statuses.UPDATE, statuses.UPDATE],
+    ['camera-pan', 'camera-pan', statuses.HOLD, statuses.HOLD]
+  ]);
+  assert.deepEqual(traces.map(sample => [sample.x, sample.y]), [[0.8, 0.2], [-0.7, 0.3]]);
+  assert.deepEqual(f.events, [
+    ['plot-move', statuses.UPDATE, 0.8, 0.2],
+    ['camera-pan', statuses.HOLD, -0.7, 0.3]
+  ]);
+
+  const idle = fixture({ diagnostic: sample => diagnostics.push(sample) });
+  idle.action('nav-move', statuses.UPDATE, 0.1, 0.1);
+  assert.deepEqual(idle.events, []);
+  assert.deepEqual(diagnostics.at(-1), {
+    stage: 'map-route', mode: 'DEFAULT', context: contexts.World, panel: false, blocked: false,
+    kind: 'route', source: 'nav-move', target: 'plot-move', status: statuses.UPDATE,
+    inputStatus: statuses.UPDATE, outputStatus: 'none', x: 0.1, y: 0.1, reason: 'deadzone-no-op'
+  });
+
+  const releasing = fixture({ diagnostic: sample => diagnostics.push(sample) });
+  releasing.action('nav-move', statuses.START, 1, 0);
+  const before = releasing.events.length;
+  releasing.action('nav-move', statuses.UPDATE, 0.1, 0.1);
+  assert.equal(releasing.events.length, before + 1);
+  assert.deepEqual(releasing.events.at(-1), ['plot-move', statuses.FINISH, 0, 0]);
+  const synthesized = diagnostics.at(-1);
+  assert.equal(synthesized.source, 'nav-move');
+  assert.equal(synthesized.inputStatus, statuses.UPDATE);
+  assert.equal(synthesized.outputStatus, statuses.FINISH);
+});
+
+test('D-pad diagnostics retain the original direction source through generated finish', () => {
+  const diagnostics = [];
+  const f = fixture({ diagnostic: sample => diagnostics.push(sample) });
+  f.action('nav-up', statuses.START);
+  f.action('nav-up', statuses.FINISH);
+  const traces = diagnostics.filter(sample => sample.target === 'plot-move');
+  assert.deepEqual(traces.map(sample => [sample.source, sample.inputStatus, sample.outputStatus]), [
+    ['nav-up', statuses.START, statuses.START],
+    ['nav-up', statuses.FINISH, statuses.FINISH]
+  ]);
+  assert.deepEqual(f.events, [
+    ['plot-move', statuses.START, 0, 1],
+    ['plot-move', statuses.FINISH, 0, 0]
+  ]);
+});
+
+test('suppressed motion traces identify the original status and no final output', () => {
+  const diagnostics = [];
+  const f = fixture({ diagnostic: sample => diagnostics.push(sample) });
+  f.action('plot-move', statuses.UPDATE, 0.8, 0.2);
+  f.action('nav-move', statuses.UPDATE, 0.8, 0.2);
+  const suppressed = diagnostics.at(-1);
+  assert.equal(suppressed.reason, 'suppressed-native-lease');
+  assert.equal(suppressed.source, 'nav-move');
+  assert.equal(suppressed.inputStatus, statuses.UPDATE);
+  assert.equal(suppressed.outputStatus, 'none');
+  assert.equal(f.events.length, 1);
+});
+
+test('routine passthrough diagnostics use a fixed motion, navigation and zoom whitelist', () => {
+  for (const enabled of [true, false]) {
+    const diagnostics = [];
+    const f = fixture({ enabled, diagnostic: sample => diagnostics.push(sample) });
+    f.action('keyboard-escape', statuses.START);
+    f.action('chat-submit', statuses.START);
+    f.action('accept', statuses.START);
+    assert.deepEqual(diagnostics, []);
+
+    f.action('nav-left', statuses.START);
+    assert.ok(diagnostics.some(sample => sample.source === 'nav-left'));
+    diagnostics.length = 0;
+    f.action('camera-zoom-in', statuses.FINISH);
+    assert.ok(diagnostics.some(sample => sample.target === 'camera-zoom-in'));
+  }
+});
+
 test('mixed native and fallback streams prefer the native axis while it is active', () => {
   const f = fixture();
   f.action('plot-move', statuses.UPDATE, 0.8, 0.2);
@@ -325,4 +409,31 @@ test('changing left direction stops only left motion; applying same value is a n
   f.bridge.setInvertLeftY(false);
   f.action('nav-move', statuses.UPDATE, 0, 1);
   assert.deepEqual(f.events.at(-1), ['plot-move', statuses.UPDATE, 0, 1]);
+});
+
+test('manual stick swap routes both streams without vertical inversion and leaves menus alone',()=>{
+ const f=fixture({swapSticks:true,invertPanY:false,invertLeftY:false});
+ f.action('nav-move',statuses.UPDATE,0.6,0.8);f.action('scroll-pan',statuses.UPDATE,-0.6,-0.8);
+ assert.deepEqual(f.events,[['camera-pan',statuses.UPDATE,0.6,0.8],['plot-move',statuses.UPDATE,-0.6,-0.8]]);
+ f.action('nav-move',statuses.FINISH);f.action('scroll-pan',statuses.FINISH);
+ assert.deepEqual(f.events.slice(-2),[['camera-pan',statuses.FINISH,0,0],['plot-move',statuses.FINISH,0,0]]);
+ f.state.panelPresent=true;f.action('nav-move',statuses.UPDATE,0,1);assert.deepEqual(f.events.at(-1),['nav-move',statuses.UPDATE,0,1]);
+});
+test('switching stick roles stops held motion, native duplicates stay suppressed, and inversion follows target role',()=>{
+ const f=fixture({invertPanY:true,invertLeftY:false});
+ f.action('nav-move',statuses.UPDATE,1,0);f.action('scroll-pan',statuses.UPDATE,0,1);
+ f.bridge.setSwapSticks(true);assert.ok(f.stops.includes('plot-move'));assert.ok(f.stops.includes('camera-pan'));
+ f.action('nav-move',statuses.UPDATE,0,1);assert.deepEqual(f.events.at(-1),['camera-pan',statuses.UPDATE,0,-1]);
+ f.action('camera-pan',statuses.UPDATE,0,1);assert.deepEqual(f.events.at(-1),['plot-move',statuses.UPDATE,0,1]);
+ const n=f.events.length;f.action('scroll-pan',statuses.UPDATE,0,1);assert.equal(f.events.length,n);
+ f.bridge.setSwapSticks(false);assert.equal(f.bridge.getStatus().swapSticks,false);
+ f.action('nav-move',statuses.UPDATE,0,1);assert.deepEqual(f.events.at(-1),['plot-move',statuses.UPDATE,0,1]);
+});
+
+test('throwing map diagnostics never changes routing or disables the bridge', () => {
+  const baseline = fixture(), guarded = fixture({ diagnostic: () => { throw new Error('diagnostic failed'); } });
+  for (const args of [['nav-move', statuses.UPDATE, .4, .8], ['scroll-pan', statuses.HOLD, 0, 1], ['accept', statuses.FINISH, 0, 0]]) {
+    baseline.action(...args); guarded.action(...args);
+  }
+  assert.deepEqual(guarded.events, baseline.events); assert.equal(guarded.bridge.getStatus().fault, null);
 });

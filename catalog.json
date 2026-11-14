@@ -3,7 +3,7 @@
   "mods": [
     {
       "id": "civ7-map-tools-gamepad",
-      "version": "0.3.0",
+      "version": "0.10.2",
       "manifest": "mods/civ7-better-controller-support/map-tools-gamepad.modinfo",
       "dependencies": [
         "base-standard"

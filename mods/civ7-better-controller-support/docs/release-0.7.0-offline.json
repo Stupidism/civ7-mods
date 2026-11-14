@@ -1,0 +1,23 @@
+{
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261030T060814726454Z/better-controller-support-0.7.0.zip",
+  "manifest": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261030T060814726454Z/manifest.json",
+  "files": 41,
+  "verified": true,
+  "version": "0.7.0",
+  "offlineTestsPassed": 135,
+  "installed": true,
+  "published": false,
+  "liveTested": "partial; see live-acceptance-2026-10-30-070.md",
+  "physicalStickFix": "User confirmed 0.6.0 native-input build on 2026-10-30; preserved in 0.7.0 source",
+  "sourceChanges": [
+    "one-line settlement summary",
+    "net yield score and building payback",
+    "units by cumulative purchases across upgrade chains",
+    "locally pinned wonders first",
+    "projects fourth column, fewest turns",
+    "per-category binary native/new sort",
+    "single-row cost and turn metrics",
+    "native controller glyphs and keyword icons across existing instructions"
+  ],
+  "instructionAudit": "docs/controller-instructions-audit.md"
+}

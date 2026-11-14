@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-31T02:16:00.972561+00:00",
+  "mod": "civ7-map-tools-gamepad",
+  "path": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3825193325",
+  "backup": "/Users/sunmer/Documents/Civ7-Mod-Backups/controller-list-name-20261031T021600864545Z",
+  "previousFilesVerified": 35,
+  "installedFilesVerified": 36,
+  "changed": [
+    "text/mod-info.xml",
+    "map-tools-gamepad.modinfo"
+  ],
+  "enabledStateChanged": false,
+  "gameInteracted": false,
+  "savesAccessed": false,
+  "restGuardChanged": false,
+  "restarted": false,
+  "published": false,
+  "needsRestart": true
+}

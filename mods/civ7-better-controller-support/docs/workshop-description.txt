@@ -1,63 +1,50 @@
 [h1]更好的手柄支持 · Better Controller Support[/h1]
-用手柄访问地图工具、切换同格重叠单位、打开被单位挡住的定居点。内置 Mac 地图输入与菜单摇杆兼容。
-
-[h2]同格单位与定居点（0.3.0）[/h2]
+让手柄更方便地操作地图工具、重叠单位、长列表和回合收尾。
 [list]
-[*][b]LB / RB 切换同格单位[/b]：光标格内有两个或更多己方单位时，LB 上一个、RB 下一个，循环选择，不跳到其他地块。包含探索者、移民、商人、休眠和已耗尽行动力的单位；不包含敌方或已收纳离开地图的单位。未选中单位时也能直接切入。
-[*][b]X 直接打开定居点[/b]：光标格上有城市或城镇时，无论是否已选中单位，按 X 打开对应界面。自己的定居点打开管理界面，其他文明和独立势力沿用原版外交与接触限制。普通乡村地块不算定居点所在格。
-[*]没有对应目标时，按键保留原功能。菜单内 LB/RB 仍切换分类；移动、攻击选格和弹窗优先。重叠格上的 RB 用于切换单位；需要开轮盘时，可取消单位并把光标移到无重叠单位的格子。
+[*]摇杆兼容修复默认关闭，可在选项 → 附加内容中按设备需要手动启用；摇杆交换与上下翻转分别设置，保留已有设置。
+[*]地图工具轮盘沿用原图标，提供滤镜、城市、单位、奇观和地图钉。选中后按 A 一次直接打开，按 B 返回。Map Trix 与 Detailed Map Tacks 为可选，缺失时隐藏对应入口。
+[*]开启输入兼容后，地图上按 R3，把当前选中格移到镜头中央。
+[*]菜单中按 R3，聚焦当前滚动区可见中心附近的可选项；右摇杆明确左右拨动切换滚动区，上下持续滚动逐渐加速，提示跟随当前区域。
+[*]同一格有多个己方单位时，LB／RB 循环切换；选择单位前后都可用 X 打开该格定居点，合法性沿用原版判断。
+[*]View／Back 长按满 1 秒后松开，调用原生强制结束回合；短按保留社交面板。仍遵守原生必要阻塞、存档流程和休息守卫。
 [/list]
-这些同格快捷操作不需要 Map Trix，也不依赖 Mac 输入兼容开关。按键说明使用 Xbox 布局，其他手柄按游戏显示的对应按键操作。
-
-[h2]地图工具[/h2]
-普通地图 RB 打开原生轮盘，LB/RB 切换到“地图工具”，左摇杆选择工具，按一次 A 直接打开对应界面。方向键或左摇杆导航，A 确认，B 关闭工具并直接回地图，无需经过左下角按钮区。
-
-轮盘图标与左下角工具按钮相同。金色边框标出焦点，长列表自动滚动，跳过隐藏或禁用项。滤镜面板保留原生控件；地图钉选择后交还原模组放置流程。本模组没有新增地图钉删除快捷键。
-
-[h2]兼容与可选模组[/h2]
+[h2]配套与功能边界[/h2]
+以下页面增强均为可选；未安装时，上面的手柄功能仍可使用。
 [list]
-[*]原版滤镜、同格单位切换和定居点快捷打开：无需其他模组。
-[*]城市、单位、奇观[b]列表[/b]：[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507072814]Map Trix[/url]。
-[*]地图钉：[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507297712]Detailed Map Tacks[/url]。
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182]资源规划器 · Resource Planner[/url]：资源布局、分配偏好、资源空槽提醒、关闭延后、本回合跳过。
+[*]更好的定居点界面 · Better Settlement UI：定居点四栏布局、评分、回本、排序、建造延后、本回合跳过。
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3831747669]更好的政策界面 · Better Policy UI[/url]：紧凑政策布局，政策／传统／危机空槽提醒、关闭延后、本回合跳过。
 [/list]
-缺少可选模组时，对应地图工具入口隐藏。不附带或改写第三方模组，不提供系统手柄驱动。适用于 Windows/macOS；其他改写相同输入链的模组可能需要适配。
-
-[h2]Mac 地图输入与设置[/h2]
-Mac Controller Support Fix 0.1.5 的功能已内置。Mac 默认开启输入兼容，Windows 默认沿用原生地图输入；地图工具与同格快捷操作不受此开关影响，旧设置优先于默认值。
-
-兼容开启时：左摇杆选地块，右摇杆移镜头，R3 把选中地块移到镜头正中；LT/RT 每次缩放一级。A/B 沿用原生确认取消。X 优先打开当前格定居点；无定居点时，普通地图打开轮盘，单位已选中时进入移动。Y 是原生下一行动，可能结束回合。菜单摇杆持续输入兼容，左右摇杆上下方向可独立设置，调试栏默认隐藏。
-
-设置入口：选项 → 附加内容 → 更好的手柄支持。确认保存，取消放弃。暂停菜单、对话框、焦点锁和休息限制优先。
-[b]已装旧 Mac 模组：建议停用旧模组后重启。[/b]同时启用时，旧模组负责输入兼容和设置，本模组提供地图工具及同格快捷操作；不会自动取消旧订阅。
-
-[h2]安装与验证[/h2]
-订阅后等待 Steam 下载，重启游戏，在“附加内容”启用。手动版和工坊版只保留一份，内部 ID 为 civ7-map-tools-gamepad。模组不新增游戏规则，使用原工具仍会执行正常游戏操作。
-
-[b]版本 0.3.0：88 项离线检查通过；新增同格快捷操作尚未实机验证。[/b]此前 0.2.0 用户确认过 Mac 地图输入、R3 和轮盘摇杆响应，不代表本版新功能已经验收。设置保存与重启持久化仍有待调查疑点。Windows、全部手柄型号、多人及完整地图钉放置/删除链路尚未验收。
-
-[h1]English[/h1]
-Controller access to map tools, stacked units and settlements, with integrated Mac input compatibility.
-
-[h2]Stacked units and settlements (0.3.0)[/h2]
+更新请替换完整旧目录，保留内部 ID 与已有设置，不需要重置；避免旧 Mac 手柄修复或重复本地／工坊副本。
+[h2]English[/h2]
+Controller navigation for map tools, stacked units, long lists, and turn wrap-up.
 [list]
-[*][b]LB/RB cycle units on the highlighted plot[/b] when two or more of your units share it. LB selects the previous, RB the next, wrapping within that plot. Includes explorers, settlers, merchants, sleeping and exhausted units. Excludes foreign and packed/off-map units. Works before selecting a unit too.
-[*][b]X opens the settlement on that plot[/b], before or after selecting a unit. Your cities/towns open management; foreign and independent settlements retain native diplomacy/contact rules. Remote rural tiles do not count as settlement tiles.
-[*]Without a matching target, original button functions remain. Menu tabs, move/attack targeting and dialogs retain control. RB cycles units over a stack; to open the radial menu, deselect and move the cursor to a plot without stacked units.
+[*]Stick compatibility correction defaults OFF in Options → Add-Ons; enable it manually and configure stick swap and vertical inversion separately. Existing settings are preserved.
+[*]The familiar map-tools radial provides filters, cities, units, wonders, and tacks. Press A once to open directly and B to return. Optional Map Trix and Detailed Map Tacks entries are hidden when absent.
+[*]With input compatibility enabled, press R3 on the map to move the selected plot to the camera center.
+[*]In menus, R3 focuses a selectable item near the visible center of the active scroll region. Deliberate right-stick horizontal movement switches regions; sustained vertical scrolling accelerates with active-region hints.
+[*]LB/RB cycles several of your units on one plot. Before or after selecting a unit, X opens that plot's settlement; native legality checks remain in force.
+[*]Hold View/Back for one second, then release to invoke native force-end-turn. Short press keeps the social panel. Native blockers, save flows, and rest guards remain respected.
 [/list]
-Xbox layout shown. These plot shortcuts work independently of the Mac compatibility switch and need no other mod.
-
-[h2]Map Tools[/h2]
-Open the native radial menu with RB, switch to Map Tools with LB/RB, select with the left stick and press A once to open the tool. D-pad/left stick navigate; A activates and B closes directly to the map. Icons match the minimap buttons. Gold focus outlines, scrolling lists and hidden/disabled-item skipping keep navigation clear.
-
-Base lenses retain native controls. City, unit and wonder [b]lists[/b] require [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507072814]Map Trix[/url]. Map tacks require [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3507297712]Detailed Map Tacks[/url]. Missing tools are hidden. Placement/removal remains the original mod's responsibility; no new tack-deletion shortcut. Third-party files are not bundled or modified.
-
-[h2]Mac compatibility and settings[/h2]
-Includes Mac Controller Support Fix 0.1.5. Compatibility defaults on for Mac and off for Windows; saved preferences take priority. Left stick moves the plot cursor, right stick pans, R3 centers the selected plot on the camera, LT/RT zoom one step. X prioritizes a settlement; otherwise it opens the radial menu or unit movement. Y invokes native next action and may end the turn. Held menu analog input is normalized for native menus.
-
-Options → Add-ons → Better Controller Support offers compatibility, separate vertical inversion for each stick and an optional debug bar. Confirm saves; Cancel discards. Pause screens, dialogs, focus locks and rest restrictions take priority. Disable the old Mac fix and restart to use the integrated implementation. If both are enabled, the old fix handles compatibility/settings and this mod adds map tools and plot shortcuts. No automatic unsubscription or external controller driver.
-
-[h2]Install and verification[/h2]
-Subscribe, wait for Steam to download, restart and enable in Additional Content. Keep one copy of civ7-map-tools-gamepad.
-[b]0.3.0 passes 88 offline checks. New plot shortcuts have not been live-tested.[/b] Earlier 0.2.0 Mac input/R3/radial feedback does not validate this release. Settings persistence needs further investigation; Windows, broad controller coverage, multiplayer and complete map-tack placement/removal remain unverified. Other mods changing the same input pipeline may need adaptation.
-
-Community mod, not affiliated with Firaxis, 2K, Valve, Apple or Microsoft. Cover illustration generated with AI.
+Optional page mods: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3822254182]Resource Planner[/url] provides resource layout, allocation preferences, empty-slot reminders, deferral, and skip-this-turn. Better Settlement UI provides four-column layouts, scores, payback, sorting, build deferral, and skip-this-turn. [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3831747669]Better Policy UI[/url] provides compact layouts plus policy/tradition/crisis empty-slot reminders, deferral, and skip-this-turn.
+Replace the complete old folder, keep the internal ID and settings, and avoid duplicate local/Workshop copies or the old Mac fix.
+[h2]验证范围[/h2]
+0.10.2：194 项离线测试通过，0 失败／跳过，包含独立 Chromium。自动诊断已安装到开发版；Gameface 持久化、实体手柄和 Windows 新代码验收尚未完成。
+0.10.2: 194 offline tests passed, zero failures/skips, including isolated Chromium. Diagnostics are installed in the development build; new-code Gameface persistence, physical-controller and Windows acceptance remain pending.
+[h2]更新日志 / Changelog[/h2]
+2026-11-14 · 0.10.2
+[list]
+[*]修复部分环境下设置读取、旧校准升级和保存失败后状态不一致的问题。
+[*]菜单底部操作提示更清晰；加载游戏页的 RS 标记跟随当前滚动区，不再重复显示。弹出窗口时停止后台列表滚动。
+[*]长列表持续滚动会加速；达到最高速度后，满幅推动可在 3 秒内滚完整段列表。
+[*]加入自动本地诊断，方便下次摇杆异常时查看启动、配置与输入记录，不上传数据。诊断在部分存储异常下仅保留本页内存；游戏内持久化仍待验证。
+[/list]
+[list]
+[*]Fixed settings loading, legacy calibration upgrades and inconsistent state after failed saves on affected storage backends.
+[*]Clearer menu hints; Load Game shows one RS marker following the active scroll region. Popups stop background list scrolling.
+[*]Sustained scrolling accelerates with list length. At maximum speed and full stick deflection, a full range takes at most three seconds.
+[*]Added automatic local diagnostics for future stick issues, without uploads. Unverifiable storage uses page memory only; in-game persistence still needs validation.
+[/list]
+2026-11-06 · 0.10.1 — 整理中英文说明与功能边界：六个手柄功能入口、可选页面 Mod 分工；运行行为不变，未新增实机验证。Refreshed bilingual documentation and boundaries: six controller feature entries and optional page-mod responsibilities; no runtime change or new live validation.
+2026-11-01 · 0.10.0 — 输入设置修复与手动校准、多滚动区导航／居中／加速、同格快捷操作与强制结束回合入口；移出政策布局和行动提醒。Input/settings correction, manual calibration, multi-pane scrolling/focus/acceleration, same-plot shortcuts and force-turn entry; layouts/reminders now separate.
+2026-10-24 · 0.3.0 — 地图工具可直接打开对应面板。Map tools open their panels directly.

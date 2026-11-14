@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-31T02:04:22.232888+00:00",
+  "backup": "/Users/sunmer/Documents/Civ7-Mod-Backups/controller-input-force-20261031T020422002778Z",
+  "gameRunningBefore": [
+    "19924 /Users/sunmer/Library/Application Support/Steam/steamapps/common/Sid Meier's Civilization VII/CivilizationVII.app/Contents/MacOS/CivilizationVII"
+  ],
+  "gameRunningAfter": [
+    "19924 /Users/sunmer/Library/Application Support/Steam/steamapps/common/Sid Meier's Civilization VII/CivilizationVII.app/Contents/MacOS/CivilizationVII"
+  ],
+  "gameInteracted": false,
+  "restarted": false,
+  "savesAccessed": false,
+  "settingsChanged": false,
+  "restGuardChanged": false,
+  "published": false,
+  "requiresNextLaunchOrRestart": true,
+  "resourcePlannerUnchanged": true,
+  "previousResourcePlannerIntegrationPreserved": true,
+  "offlineTests": 188,
+  "mod": "civ7-map-tools-gamepad",
+  "version": "0.8.0",
+  "path": "/Users/sunmer/Library/Application Support/Steam/steamapps/workshop/content/1295660/3825193325",
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261031T020214430542Z/better-controller-support-0.8.0.zip",
+  "filesVerified": 35,
+  "changed": [
+    "README.md",
+    "README-en.md",
+    "VALIDATION.md",
+    "ui/bridge-runtime.js",
+    "ui/controller-bridge.js",
+    "ui/force-turn-runtime.js",
+    "ui/force-turn.js",
+    "ui/menu-navigation-adapter.js",
+    "ui/menu-navigation.js",
+    "ui/turn-order.js",
+    "text/controller-settings.xml"
+  ],
+  "fullReceipt": "/Users/sunmer/Documents/civ7-mods/work/controller-input-force-install-20261031/installation.json"
+}

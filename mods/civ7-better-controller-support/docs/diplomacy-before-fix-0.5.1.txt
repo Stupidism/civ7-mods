@@ -1,0 +1,36 @@
+✔ native main-menu slot navigates from a held analog sample (2.291125ms)
+✔ native radial panel selects the left-stick direction behind a suspended map bridge (1.472583ms)
+✔ menu normalization does not alter map, buttons, right stick, blockers or normal analog phases (0.881042ms)
+✔ diagnostics are opt-in, bounded, and cannot replay or block delegated input (1.2945ms)
+✖ native Diplomacy view with no ContextManager popup routes held stick to its response slot (1.290584ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 48.906666
+
+✖ failing tests:
+
+test at mods/civ7-map-tools-gamepad/tests/bridge-menu-navigation.test.mjs:146:1
+✖ native Diplomacy view with no ContextManager popup routes held stick to its response slot (1.290584ms)
+  AssertionError [ERR_ASSERTION]: support must move to the next response on a held right-stick navigation sample
+
+  0 !== 1
+
+      at TestContext.<anonymous> (file:///Users/sunmer/Documents/civ7-mods/mods/civ7-map-tools-gamepad/tests/bridge-menu-navigation.test.mjs:150:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

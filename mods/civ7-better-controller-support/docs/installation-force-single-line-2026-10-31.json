@@ -1,0 +1,23 @@
+{
+  "channel": "development",
+  "modId": "civ7-map-tools-gamepad",
+  "workshopId": "3825193325",
+  "path": "/Users/sunmer/Library/Application Support/Civilization VII/Mods/civ7-map-tools-gamepad",
+  "receipt": "/Users/sunmer/Documents/Civ7-Mod-Backups/channels/20261031T051005693413Z-civ7-map-tools-gamepad/transaction.json",
+  "at": "2026-10-31T05:10:05.903780+00:00",
+  "baseVersion": "0.8.0",
+  "build": "1031-1246-95f340d1",
+  "sourceHash": "95f340d1fdf8228860ce56b525dd119c47effca0982689bbb662e405e44f87c8",
+  "sourceManifest": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261031T044648630290Z/manifest.json",
+  "names": {
+    "en_US": "[DEV] Better Controller Support · 0.8.0 · 1031-1246-95f340d1",
+    "zh_Hans_CN": "[开发版] 更好的手柄支持 · Better Controller Support · 0.8.0 · 1031-1246-95f340d1"
+  },
+  "files": 38,
+  "verified": true,
+  "protectedModsUnchanged": true,
+  "gameInteraction": false,
+  "savesAccess": false,
+  "restGuardChanged": false,
+  "requiresRestart": true
+}

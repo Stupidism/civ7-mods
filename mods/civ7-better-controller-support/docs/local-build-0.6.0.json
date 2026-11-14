@@ -1,0 +1,12 @@
+{
+  "version": "0.6.0",
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261029T160838701825Z/better-controller-support-0.6.0.zip",
+  "manifest": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261029T160838701825Z/manifest.json",
+  "archiveSha256": "680763bd631befec3488c514ac2124039ff09e38a9828056b34503adbe7232cf",
+  "filesVerified": 32,
+  "offlineTests": 125,
+  "liveTested": false,
+  "installed": false,
+  "workshopUploaded": false,
+  "note": "Compact controller layouts; detached native-shaped markup validation only. Subsequent user report of stick swapping remains under investigation in installed 0.4.0; this package was not installed."
+}

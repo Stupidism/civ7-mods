@@ -1,0 +1,10 @@
+{
+  "archive": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261030T122134167922Z/better-controller-support-0.7.0.zip",
+  "manifest": "/Users/sunmer/Documents/Civ7-Mod-Releases/map-tools-gamepad-20261030T122134167922Z/manifest.json",
+  "files": 42,
+  "verified": true,
+  "installed": false,
+  "liveTested": false,
+  "offlineTestsPassed": 137,
+  "description": "Restore optional controller compatibility; fresh defaults disabled, saved preferences preserved."
+}

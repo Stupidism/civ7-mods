@@ -1,3 +1,4 @@
+import { NATIVE_INPUT_ONLY } from './controller-policy.js';
 import ActionHandler from '/core/ui/input/action-handler.js';
 import { ContextManager } from '/core/ui/context-manager/context-manager.js';
 import ViewManager from '/core/ui/views/view-manager.js';
@@ -16,7 +17,7 @@ const PREFIX = '[ControllerBridge]';
 const t = (key, ...args) => Locale.compose(`LOC_BCS_CB_${key}`, ...args);
 
 function install() {
-  if (UI.isInShell() || useStandaloneBridge) return;
+  if (NATIVE_INPUT_ONLY || UI.isInShell() || useStandaloneBridge) return;
   globalThis[KEY]?.dispose();
   let config = settingsStore.load();
   let bridge, panel, refreshTimer, unsubscribe, removed = false;
@@ -26,11 +27,19 @@ function install() {
     catch (error) { reportSettingsError(error); }
   };
   const log = (event, data) => console.log(`${PREFIX} ${event} ${JSON.stringify(data)}`);
+  const diagnostic = sample => {
+    try { window.dispatchEvent(new CustomEvent('civ7-bcs-diagnostic-route', { detail: sample })); } catch { /* Optional. */ }
+  };
 
   function snapshot() {
     const focus = FocusManager.get();
+    const controller = IsControllerActive();
+    // This native lens legend accompanies map selection; unlike trade/menu
+    // panels it is not a list-navigation owner. Only the top panel may qualify.
+    const mapOverlay = ContextManager.getCurrentTarget?.()?.tagName === 'PANEL-SETTLER-LEGEND';
     return {
-      controller: IsControllerActive(),
+      controller, mapOverlay,
+      panelContext: mapOverlay ? (controller ? InputContext.Unit : InputContext.World) : undefined,
       softCursor: Cursor.softCursorEnabled || Cursor.hybridCursorEnabled,
       viewContext: ViewManager.current.getInputContext(),
       mode: InterfaceMode.getCurrent(),
@@ -68,7 +77,7 @@ function install() {
   try {
     bridge = createBridge({
       actionHandler: ActionHandler, input: Input, contexts: InputContext,
-      statuses: InputActionStatuses, snapshot, stopMotion, report: log, ...config
+      statuses: InputActionStatuses, snapshot, stopMotion, report: log, diagnostic, ...config
     });
     const listenEngine = (name, fn) => { engine.on(name, fn); engineListeners.push([name, fn]); };
     const listenWindow = (name, fn) => { window.addEventListener(name, fn); windowListeners.push([name, fn]); };
@@ -127,6 +136,7 @@ function install() {
     const applyConfig = next => {
       config = next;
       bridge.setEnabled(config.enabled);
+      bridge.setSwapSticks(config.swapSticks);
       bridge.setInvertPanY(config.invertPanY);
       bridge.setInvertLeftY(config.invertLeftY);
       if (config.showDebug) {

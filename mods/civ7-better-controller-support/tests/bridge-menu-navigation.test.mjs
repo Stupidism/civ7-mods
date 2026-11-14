@@ -6,6 +6,7 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { createMenuNavigation } from '../ui/menu-navigation.js';
 import { createBridge } from '../ui/bridge-runtime.js';
+import { createNativeNavigationTray, menuNavigationAdapterSource } from './helpers/native-navigation-tray.mjs';
 
 const statuses = { START: 1, UPDATE: 2, FINISH: 3, HOLD: 4 };
 const modules = process.env.CIV7_MODULES_DIR || join(homedir(), "Library/Application Support/Steam/steamapps/common/Sid Meier's Civilization VII/CivilizationVII.app/Contents/Resources/Base/modules");
@@ -15,11 +16,17 @@ class NavEvent extends Event {
   constructor(name, options) { super(name, options); this.detail = options.detail; }
   getDirection() { return this.detail.navigation; }
 }
+class EngineEvent extends Event {
+  constructor(name, status, x, y) {
+    super('engine-input', { cancelable: true });
+    this.detail = { name, status, x, y };
+  }
+}
 const nativeCode = path => readFileSync(join(modules, path), 'utf8').replace(/^import .*;\r?\n/gm, '');
 
 function fixture(type = 'main') {
-  const state = { menu: true, controller: true, softCursor: false, blocked: false, focused: true, scope: type };
-  const received = [], engineEvents = new Map(), components = new Map(), reports = [];
+  const state = { menu: true, swapRoles: type === 'main' || type === 'pause', controller: true, softCursor: false, blocked: false, focused: true, scope: type };
+  const received = [], actions = [], engineEvents = new Map(), components = new Map(), reports = [];
   const focus = {}, root = { isSameNode: x => x === root, contains: () => true };
   let consumer;
   const sandbox = vm.createContext({
@@ -28,18 +35,37 @@ function fixture(type = 'main') {
     Input: { getActiveDeviceType: () => 2 }, Cursor: { softCursorEnabled: false },
     DebugInput: { sendTunerActionA: () => true, sendTunerActionB: () => true },
     AnalogInput: { deadzoneThreshold: 0.2 }, NavigateInputEvent: NavEvent, NavigateInputEventName: 'navigate-input',
+    InputEngineEvent: EngineEvent, InputEngineEventName: 'engine-input',
     UpdateGate: class { call() {} }, Component: class {}, Panel: class {},
     Controls: { define(name, info) { components.set(name, info.createInstance); } },
     NavigationRule: {}, NavigationHandlers: {}, styles: {}, RibbonYieldType: {}, registerRadialMenu() {},
-    FocusManager: { get: () => ({ setFocus() {} }) },
+    FocusManager: { get: () => ({ setFocus() {}, isFocusLocked: () => false }) },
     Framework: { ContextManager: { handleNavigation(event) {
       received.push(event.detail); if (!state.blocked) consumer.handleNavigation(event);
-    } } },
+    }, handleInput(event) { actions.push(event.detail); return false; } } },
     engine: { on: (name, fn) => engineEvents.set(name, fn), whenReady: { then() {} } },
     window: { dispatchEvent() {} }, UI: { hideCursor() {} }, console
   });
   vm.runInContext(nativeCode('core/ui/input/action-handler.js').replace(/const ActionHandler = ActionHandlerSingleton\.getInstance\(\);[\s\S]*$/, 'globalThis.handler = ActionHandlerSingleton.getInstance();'), sandbox);
-  if (type === 'main') {
+  if (type === 'narrative') {
+    // The screenshot uses the Solid Panel, whose START/UPDATE/FINISH handling
+    // differs from legacy slots. Execute that exact installed handler offline.
+    const source = nativeCode('core/ui-next/components/panel.js');
+    const start = source.indexOf('  function onNavigate(');
+    const end = source.indexOf('  function onEngineInput(', start);
+    assert.ok(start > 0 && end > start);
+    state.clock = 1000;
+    Object.assign(sandbox, { Date: { now: () => state.clock },
+      hotkeyProvider: { onInput: () => false },
+      focusProvider: { index: 1, navigate(direction) {
+        this.index = Math.max(0, Math.min(1, this.index + (direction === navigation.UP ? -1 : 1)));
+        return true;
+      } } });
+    vm.runInContext('const NAV_REPEAT_INITIAL_THRESHOLD = 400, NAV_REPEAT_THRESHOLD = 150;\n' +
+      'let navRepeatThreshold = 0, navRepeatTimestamp = 0;\n' + source.slice(start, end) +
+      '\nglobalThis.nativePanelNavigate = onNavigate;', sandbox);
+    consumer = { get index() { return sandbox.focusProvider.index; }, handleNavigation: sandbox.nativePanelNavigate };
+  } else if (['main', 'pause', 'merchant', 'diplomacy'].includes(type)) {
     vm.runInContext(nativeCode('core/ui/components/fxs-slot.js').replace(/^export .*;\r?\n/gm, ''), sandbox);
     const proto = components.get('fxs-slot').prototype;
     consumer = { Root: root, focusManager: { currentFocus: () => focus }, index: 0,
@@ -54,8 +80,35 @@ function fixture(type = 'main') {
     consumer.currentMenuFocusItemIndex = 0;
   }
   const original = sandbox.handler.onEngineInput;
-  const patch = createMenuNavigation({ actionHandler: sandbox.handler, statuses, snapshot: () => ({ ...state }), report: x => reports.push(x) });
-  return { state, received, consumer, patch, reports, handler: sandbox.handler, original,
+  let patch;
+  if (['diplomacy', 'pause', 'narrative'].includes(type)) {
+    Object.assign(sandbox, { createScrollNavigation: () => undefined, setInstruction: () => {}, createMenuNavigation, ActionHandler: sandbox.handler,
+      InputContext: { Shell: 0, World: 1, Unit: 2, Dual: 3 },
+      ContextManager: { isEmpty: true, getCurrentTarget: () => null },
+      ViewManager: { current: null, addHandler(view) { this.current = view; } },
+      document: { hidden: false, querySelector: () => state.blocked ? {} : null } });
+    state.context = type === 'narrative' ? 3 : 0;
+    sandbox.Input.getActiveContext = () => state.context;
+    sandbox.Input.setActiveContext = value => { state.context = value; };
+    sandbox.UI.isInShell = () => false;
+    sandbox.window.addEventListener = () => {};
+    sandbox.window.removeEventListener = () => {};
+    sandbox.engine.off = () => {};
+    if (type === 'narrative') {
+      sandbox.ContextManager.isEmpty = false;
+      sandbox.ContextManager.getCurrentTarget = () => ({ tagName: 'SMALL-NARRATIVE-EVENT' });
+      sandbox.ViewManager.current = { getInputContext: () => 1, getName: () => 'World' };
+    } else {
+      const viewFile = type === 'pause' ? 'view-pause-menu.js' : 'view-diplomacy.js';
+      vm.runInContext(nativeCode(`base-standard/ui/views/${viewFile}`).replace(/^export .*;\r?\n/gm, ''), sandbox);
+    }
+    sandbox.NavTray = createNativeNavigationTray();
+    vm.runInContext(menuNavigationAdapterSource(), sandbox);
+    let configListener;
+    const dispose = sandbox.installMenuNavigation({load:()=>({enabled:true}),subscribe:fn=>{configListener=fn;return()=>{};}});
+    patch = { dispose, setConfig: config => configListener(config) };
+  } else patch = createMenuNavigation({ actionHandler: sandbox.handler, statuses, snapshot: () => ({ ...state }), report: x => reports.push(x) });
+  return { state, received, actions, consumer, patch, reports, handler: sandbox.handler, original,
     emit: (...args) => engineEvents.get('InputAction')(...args) };
 }
 
@@ -65,6 +118,71 @@ test('native main-menu slot navigates from a held analog sample', { skip: !avail
   f.emit('nav-move', statuses.HOLD, 0, 1);
   assert.equal(f.consumer.index, -1);
   assert.equal(f.received.at(-1).status, statuses.UPDATE);
+});
+
+test('stick-role swap moves native menu focus with the calibrated left stream, not the right', { skip: !available }, () => {
+  for (const type of ['main', 'pause']) {
+    const f = fixture(type);
+    f.patch.setConfig({ enabled: true, swapSticks: true, invertLeftY: true, invertPanY: true });
+    // With the user's reversed device roles, physical left arrives as scroll-pan.
+    f.emit('scroll-pan', statuses.START, 0, 1);
+    f.emit('scroll-pan', statuses.HOLD, 0, 1);
+    assert.equal(f.consumer.index, -1, `${type}: calibrated left must move focus upward`);
+    f.emit('scroll-pan', statuses.FINISH, 0, 0);
+    const count = f.received.length;
+    f.emit('nav-move', statuses.START, 0, -1);
+    f.emit('nav-move', statuses.HOLD, 0, -1);
+    f.emit('nav-move', statuses.FINISH, 0, 0);
+    assert.equal(f.consumer.index, -1, `${type}: physical right must not move focus`);
+    assert.equal(f.received.length, count);
+    assert.equal(f.actions.at(-1).name, 'scroll-pan', 'right keeps native scrolling semantics');
+    f.patch.dispose();
+  }
+});
+
+test('native narrative Panel navigates with calibrated left stick and D-pad without choosing or zooming', { skip: !available }, () => {
+  const f = fixture('narrative');
+  f.patch.setConfig({ enabled: true, swapSticks: true });
+  assert.equal(f.state.context, 0);
+  f.emit('scroll-pan', statuses.START, 0, 1);
+  f.state.clock += 450;
+  f.emit('scroll-pan', statuses.HOLD, 0, 1);
+  assert.equal(f.consumer.index, 0, 'held left stream navigates through actual Solid Panel timing');
+  f.emit('scroll-pan', statuses.FINISH, 0, 0);
+  f.emit('nav-down', statuses.START, 0, 0);
+  f.emit('nav-down', statuses.FINISH, 0, 0);
+  assert.equal(f.consumer.index, 1, 'D-pad down changes the choice focus');
+  f.emit('nav-up', statuses.START, 0, 0);
+  f.emit('nav-up', statuses.FINISH, 0, 0);
+  assert.equal(f.consumer.index, 0, 'D-pad up changes focus back');
+  for (const name of ['camera-zoom-in', 'camera-zoom-out', 'camera-pan', 'plot-move']) {
+    f.emit(name, statuses.START, 1, 1);
+    f.emit(name, statuses.HOLD, 1, 1);
+  }
+  f.emit('camera-zoom-in', statuses.FINISH, 1, 0);
+  f.emit('camera-zoom-out', statuses.FINISH, 1, 0);
+  assert.equal(f.actions.length, 0, 'no world motion or narrative choice action is emitted');
+  const count = f.received.length;
+  f.emit('nav-move', statuses.START, 0, -1);
+  f.emit('nav-move', statuses.HOLD, 0, -1);
+  f.emit('nav-move', statuses.FINISH, 0, 0);
+  assert.equal(f.received.length, count, 'right stream cannot also select an option');
+  assert.equal(f.consumer.index, 0);
+  f.patch.dispose();
+  assert.equal(f.state.context, 3);
+});
+
+test('stick swap preserves merchant and radial navigation that already uses the left stream', { skip: !available }, () => {
+  for (const type of ['merchant', 'radial']) {
+    const f = fixture(type);
+    f.patch.setConfig({ enabled: true, swapSticks: true });
+    f.emit('nav-move', statuses.HOLD, 0, 1);
+    if (type === 'merchant') assert.equal(f.consumer.index, -1);
+    else assert.equal(f.consumer.currentMenuFocusItemIndex, 1);
+    f.emit('scroll-pan', statuses.HOLD, 0, 1);
+    assert.equal(f.received.length, 1, 'scrolling must not also move focus');
+    f.patch.dispose();
+  }
 });
 
 test('native radial panel selects the left-stick direction behind a suspended map bridge', { skip: !available }, () => {
@@ -123,4 +241,141 @@ test('diagnostics are opt-in, bounded, and cannot replay or block delegated inpu
   assert.equal(handler.onEngineInput, outer);
   assert.throws(() => handler.onEngineInput('nav-move', statuses.HOLD, 0, 1));
   assert.equal(calls, 102);
+});
+
+test('menu route diagnostics match final delegate and preserve original source/status', () => {
+  const calls = [], diagnostics = [], state = { menu: true, controller: true, focused: true, scope: 'shell', swapRoles: true };
+  const handler = { onEngineInput: (...args) => calls.push(args) };
+  const patch = createMenuNavigation({ actionHandler: handler, statuses, snapshot: () => state, diagnostic: x => diagnostics.push(x) });
+  patch.setConfig({ enabled: true, swapSticks: true });
+  handler.onEngineInput('scroll-pan', statuses.HOLD, .2, .8);
+  assert.deepEqual(calls.at(-1), ['nav-move', statuses.UPDATE, .2, .8]);
+  assert.deepEqual([diagnostics.at(-1).source, diagnostics.at(-1).target, diagnostics.at(-1).inputStatus, diagnostics.at(-1).outputStatus], ['scroll-pan', 'nav-move', statuses.HOLD, statuses.UPDATE]);
+  const before = diagnostics.length;
+  handler.onEngineInput('accept', statuses.START, 0, 0);
+  assert.equal(diagnostics.length, before, 'unwhitelisted pass-through is not logged');
+  patch.dispose();
+});
+
+test('menu diagnostics cover navigation and zoom but never arbitrary keyboard or chat actions', () => {
+  const diagnostics = [];
+  const handler = { onEngineInput: () => {} };
+  const patch = createMenuNavigation({
+    actionHandler: handler, statuses,
+    snapshot: () => ({ menu: true, controller: true, focused: true, softCursor: false, blocked: false, scope: 'test' }),
+    diagnostic: sample => diagnostics.push(sample)
+  });
+  for (const name of ['keyboard-escape', 'chat-submit', 'accept']) {
+    handler.onEngineInput(name, statuses.START, 0, 0);
+  }
+  assert.equal(diagnostics.length, 0);
+
+  for (const name of ['nav-left', 'nav-right', 'camera-zoom-in', 'camera-zoom-out']) {
+    handler.onEngineInput(name, statuses.START, 0, 0);
+    assert.equal(diagnostics.at(-1).source, name);
+  }
+  patch.dispose();
+});
+
+test('consumed scrolling is traced after transform and before any delegate call', () => {
+  const diagnostics = [], calls = [];
+  const handler = { onEngineInput: (...args) => calls.push(args) };
+  const patch = createMenuNavigation({
+    actionHandler: handler, statuses,
+    snapshot: () => ({ menu: true, controller: true, focused: true, softCursor: false, blocked: false,
+      swapRoles: true, scope: 'pause' }),
+    scrollControls: { route: () => true, dispose: () => {} },
+    diagnostic: sample => diagnostics.push(sample)
+  });
+  patch.setConfig({ enabled: true, swapSticks: true });
+  handler.onEngineInput('nav-move', statuses.HOLD, 0.2, 0.8);
+  assert.deepEqual(calls, []);
+  assert.equal(diagnostics.length, 1);
+  assert.deepEqual({
+    source: diagnostics[0].source,
+    target: diagnostics[0].target,
+    inputStatus: diagnostics[0].inputStatus,
+    outputStatus: diagnostics[0].outputStatus,
+    reason: diagnostics[0].reason
+  }, {
+    source: 'nav-move',
+    target: 'scroll-controls',
+    inputStatus: statuses.HOLD,
+    outputStatus: statuses.HOLD,
+    reason: 'consumed'
+  });
+  patch.dispose();
+});
+
+test('a second menu snapshot failure retains the original propagating input semantics', () => {
+  const calls = [];
+  const handler = { onEngineInput: (...args) => calls.push(args) };
+  let snapshots = 0;
+  const snapshot = () => {
+    snapshots++;
+    if (snapshots === 1) {
+      return { menu: true, controller: true, focused: true, softCursor: false, blocked: false, scope: 'test' };
+    }
+    throw new Error('second snapshot failed');
+  };
+  const patch = createMenuNavigation({ actionHandler: handler, statuses, snapshot,
+    scrollControls: { route: () => false, dispose: () => {} } });
+  assert.throws(() => handler.onEngineInput('nav-move', statuses.START, 0, 1), /second snapshot failed/);
+  assert.deepEqual(calls, []);
+  patch.dispose();
+});
+
+test('menu runtime exposes read-only effective calibration without creating an input wrapper', () => {
+  const handler = { onEngineInput: () => {} };
+  const patch = createMenuNavigation({
+    actionHandler: handler, statuses,
+    snapshot: () => ({ menu: true, controller: true, focused: true, softCursor: false, blocked: false, scope: 'test' })
+  });
+  patch.setConfig({ enabled: true, swapSticks: true, invertLeftY: true, invertPanY: false, showDebug: false });
+  assert.deepEqual(patch.getStatus(), {
+    enabled: true, swapSticks: true, invertLeftY: true, invertPanY: false, showDebug: false
+  });
+  patch.setConfig({ enabled: false, swapSticks: false });
+  assert.deepEqual(patch.getStatus(), {
+    enabled: false, swapSticks: false, invertLeftY: false, invertPanY: false, showDebug: false
+  });
+  assert.equal(patch.sendInput, undefined);
+  patch.dispose();
+});
+
+test('changed calibration, blur, and disposal neutralize only scrolling started by swapped input', () => {
+  for (const stop of [p => p.setConfig({ enabled: false, swapSticks: true }),
+    p => p.setConfig({ enabled: true, swapSticks: false }), p => p.suspend(), p => p.dispose()]) {
+    const calls = [], handler = { onEngineInput: (...args) => calls.push(args) };
+    const patch = createMenuNavigation({ actionHandler: handler, statuses,
+      snapshot: () => ({ menu: true, swapRoles: true, controller: true, scope: 'PauseMenu' }) });
+    patch.setConfig({ enabled: true, swapSticks: true });
+    handler.onEngineInput('nav-move', statuses.START, 0, 1);
+    stop(patch);
+    assert.deepEqual(calls, [['scroll-pan', statuses.START, 0, 1], ['scroll-pan', statuses.FINISH, 0, 0]]);
+    patch.dispose();
+    assert.equal(calls.length, 2, 'cleanup cannot repeat or synthesize a focus step');
+  }
+});
+
+
+test('native Diplomacy view with no ContextManager popup routes held stick to its response slot', { skip: !available }, () => {
+  const f = fixture('diplomacy');
+  f.emit('nav-move', statuses.START, 1, 0);
+  f.emit('nav-move', statuses.HOLD, 1, 0);
+  assert.equal(f.consumer.index, 1, 'support must move to the next response on a left stick held toward the right');
+  assert.equal(f.received.at(-1).status, statuses.UPDATE);
+  f.patch.dispose();
+});
+
+test('throwing menu diagnostics leaves mapping and delegation unchanged', () => {
+  const state = { menu: true, controller: true, focused: true, softCursor: false, blocked: false, swapRoles: true, scope: 'pause' };
+  const make = diagnostic => { const calls = [], handler = { onEngineInput: (...args) => calls.push(args) };
+    const patch = createMenuNavigation({ actionHandler: handler, statuses, snapshot: () => state, diagnostic });
+    patch.setConfig({ enabled: true, swapSticks: true }); return { calls, handler, patch }; };
+  const baseline = make(() => {}), guarded = make(() => { throw new Error('diagnostic failed'); });
+  for (const args of [['scroll-pan', statuses.HOLD, 0, 1], ['nav-move', statuses.FINISH, 0, 0], ['accept', statuses.FINISH, 0, 0]]) {
+    baseline.handler.onEngineInput(...args); guarded.handler.onEngineInput(...args);
+  }
+  assert.deepEqual(guarded.calls, baseline.calls); baseline.patch.dispose(); guarded.patch.dispose();
 });

@@ -8,7 +8,7 @@ import { BridgeSettingsStore } from '../ui/bridge-store.js';
 const source = readFileSync(new URL('../ui/controller-bridge.js', import.meta.url), 'utf8')
   .replace(/^import .*;\r?\n/gm, '');
 
-async function fixture(initial = {}) {
+async function fixture(initial = {}, nativeOnly = false) {
   const engineEvents = new Map(), windowEvents = new Map(), timers = new Set();
   const logs = [], errors = [], children = [];
   const state = { context: 1, blocked: false, rest: false };
@@ -25,10 +25,11 @@ async function fixture(initial = {}) {
     remove() { const index = children.indexOf(this); if (index >= 0) children.splice(index, 1); }
     click() { this.events.get('click')?.({ preventDefault() {}, stopPropagation() {} }); }
   }
-  const originalInput = () => {};
+  const received = [];
+  const originalInput = (...args) => { received.push(args); };
   const actionHandler = { onEngineInput: originalInput };
   const sandbox = vm.createContext({
-    useStandaloneBridge: false, createBridge, settingsStore, reportSettingsError: error => errors.push(error), ActionHandler: actionHandler,
+    NATIVE_INPUT_ONLY: nativeOnly, useStandaloneBridge: false, createBridge, settingsStore, reportSettingsError: error => errors.push(error), ActionHandler: actionHandler,
     Locale: { compose: key => key },
     ContextManager: { isEmpty: true },
     ViewManager: { current: { getInputContext: () => 1 }, isWorldInputAllowed: true, isViewInputAllowed: true },
@@ -61,7 +62,7 @@ async function fixture(initial = {}) {
   });
   async function install() { vm.runInContext(`(() => { ${source}\n })()`, sandbox); await Promise.resolve(); }
   await install();
-  return { sandbox, install, children, engineEvents, windowEvents, timers, state, errors, actionHandler, originalInput, settingsStore,
+  return { sandbox, install, children, engineEvents, windowEvents, timers, state, errors, received, actionHandler, originalInput, settingsStore,
     stored: () => JSON.parse(stored) };
 }
 
@@ -131,4 +132,45 @@ test('settings apply live without enabling debug UI and failed writes leave runt
   f.settingsStore.storage.setItem = () => { throw new Error('write failed'); };
   assert.throws(() => f.settingsStore.save({ enabled: true }), /write failed/);
   assert.equal(f.sandbox.__civ7ControllerBridge.getStatus().enabled, false);
+});
+
+ test("native input release never installs old axis remapping even with enabled saved settings",async()=>{const f=await fixture({enabled:true},true);assert.equal(f.actionHandler.onEngineInput,f.originalInput);assert.equal(f.engineEvents.size,0);assert.equal(f.children.length,0);});
+
+
+test('settler lens keeps corrected analog input while its legend owns a stack entry', async () => {
+  const f = await fixture({enabled:true, swapSticks:true, invertLeftY:false, invertPanY:false});
+  f.sandbox.ViewManager.current.getInputContext = () => 2;
+  f.sandbox.InterfaceMode.getCurrent = () => 'INTERFACEMODE_UNIT_SELECTED';
+  f.sandbox.ContextManager.isEmpty = false;
+  f.sandbox.ContextManager.getCurrentTarget = () => ({tagName:'PANEL-SETTLER-LEGEND'});
+  // Native settler legend explicitly selects Unit when it opens/changes its ruler.
+  f.state.context = 2;
+  f.engineEvents.get('BeginFrame')();
+  assert.equal(f.sandbox.__civ7ControllerBridge.getStatus().active,true,
+    'a map legend must not turn off the known-good map input compatibility');
+  assert.equal(f.state.context,0,'keep the same working Shell mapping as the unit map');
+  f.actionHandler.onEngineInput('scroll-pan',4,0,1);
+  assert.deepEqual(f.received.at(-1),['plot-move',2,0,1],'configured physical left stick selects plots, not native Unit zoom');
+  f.actionHandler.onEngineInput('nav-move',4,0.6,0.8);
+  assert.deepEqual(f.received.at(-1),['camera-pan',2,0.6,0.8]);
+  f.actionHandler.onEngineInput('shell-action-1',1,0,0);
+  f.actionHandler.onEngineInput('shell-action-1',3,0,0);
+  assert.deepEqual(f.received.at(-1),['shell-action-1',3,0,0],'legend ruler shortcut must not become unit-move');
+  f.engineEvents.get('BeforeUnload')();
+  assert.equal(f.state.context,2,'closing compatibility restores the legend Unit context');
+});
+
+test('merchant list and dialogs still keep native navigation above a map legend', async () => {
+  for (const tagName of ['TRADE-ROUTE-CHOOSER','DIALOG-BOX','PANEL-RADIAL-MENU']) {
+    const f = await fixture({enabled:true,swapSticks:true});
+    f.sandbox.ViewManager.current.getInputContext = () => 2;
+    f.sandbox.ContextManager.isEmpty = false;
+    f.sandbox.ContextManager.getCurrentTarget = () => ({tagName});
+    f.state.context=0;
+    f.engineEvents.get('BeginFrame')();
+    assert.equal(f.sandbox.__civ7ControllerBridge.getStatus().active,false,tagName);
+    f.actionHandler.onEngineInput('nav-move',2,0,1);
+    assert.deepEqual(f.received.at(-1),['nav-move',2,0,1]);
+    f.engineEvents.get('BeforeUnload')();
+  }
 });

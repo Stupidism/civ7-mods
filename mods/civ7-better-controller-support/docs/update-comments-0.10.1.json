@@ -1,0 +1,33 @@
+{
+  "version": "0.10.1",
+  "日期": "2026-11-06",
+  "流程技能": "/Users/sunmer/.codex/skills/civ7-mod-publishing/SKILL.md",
+  "平台": [
+    {
+      "平台": "Bilibili",
+      "原帖": "https://www.bilibili.com/opus/1262385145689669638",
+      "状态": "提交成功；当前登录账号可见，未另做游客可见性验证",
+      "评论ID": null,
+      "备注": "页面复制评论链接提示成功，但剪贴板未返回链接，未编造评论ID",
+      "正文": "comment-zh.txt",
+      "截图": "bilibili-comment.png"
+    },
+    {
+      "平台": "Reddit",
+      "原帖": "https://www.reddit.com/r/CivVII/comments/1xdenjj/i_made_a_controller_support_mod_for_civ_vii_map/",
+      "评论链接": "https://www.reddit.com/r/CivVII/comments/1xdenjj/comment/19s8a19o55mxu/",
+      "状态": "页面显示Comment posted successfully，完整正文读回；未另做游客验证",
+      "正文": "comment-en.txt",
+      "截图": "reddit-comment.png"
+    },
+    {
+      "平台": "CivFanatics",
+      "原帖": "https://forums.civfanatics.com/threads/better-controller-support-for-civilization-vii.705221/",
+      "评论ID": "17006126",
+      "评论链接": "https://forums.civfanatics.com/threads/better-controller-support-for-civilization-vii.705221/#post-17006126",
+      "状态": "已提交待版主审核；页面明确提示普通访客不可见",
+      "正文": "comment-en.txt",
+      "截图": "civfanatics-pending.png"
+    }
+  ]
+}
